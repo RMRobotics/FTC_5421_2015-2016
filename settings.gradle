@@ -1,2 +1,3 @@
+include ':rmroboticslibrary'
 // FTC Apps
 include (':FtcRobotController')
