@@ -1,4 +1,4 @@
-package com.rmrobotics.library.control;
+package com.rmrobotics.library;
 
 /**
  * Created by RM Robotics on 11/23/2015.
