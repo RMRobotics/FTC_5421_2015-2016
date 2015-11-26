@@ -1,9 +1,12 @@
 package com.rmrobotics.library;
 
+import com.qualcomm.robotcore.hardware.Servo;
+
 /**
  * Created by RM Robotics on 11/23/2015.
  */
-abstract public class Servo {
+
+public class Servo extends Servo{
 
     private boolean isContinuous;
     private double minValue;
@@ -22,19 +25,18 @@ abstract public class Servo {
     }
 
     public void set(double x) {
+        scaleRange(minValue, maxValue);
         power = x;
         speedCheck();
-        //TODO: create statement to feed power value to servo
+        setPosition(power);
     }
 
-    private int speedCheck(){
+    private void speedCheck(){
         if(power > maxValue){
             power = maxValue;
         } else if(power < minValue){
             power = minValue;
         }
     }
-
-//TODO: create method to scale percentage or RobotC values to current Java values
 
 }
