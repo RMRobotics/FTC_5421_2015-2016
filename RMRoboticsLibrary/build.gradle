@@ -3,4 +3,5 @@ apply plugin: 'java'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/json-simple-1.1.1.jar')
+    compile project(':FtcRobotController')
 }

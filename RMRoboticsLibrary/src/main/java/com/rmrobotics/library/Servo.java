@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by RM Robotics on 11/23/2015.
  */
 
-public class Servo extends Servo{
+public class Servo{
 
     private boolean isContinuous;
     private double minValue;
@@ -25,7 +25,7 @@ public class Servo extends Servo{
     }
 
     public void set(double x) {
-        scaleRange(minValue, maxValue);
+        x = Range.clip(x, minValue, maxValue);
         power = x;
         speedCheck();
         setPosition(power);
