@@ -27,6 +27,9 @@ public abstract class RMOpMode extends OpMode {
         } catch (IOException e) {
             e.printStackTrace();
             DbgLog.error(e.getMessage());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            DbgLog.error(e.getMessage());
         }
     }
 
@@ -43,36 +46,16 @@ public abstract class RMOpMode extends OpMode {
 
     protected abstract void updateHardware();
 
-    protected void configureHardware(String pathName) throws IOException {
-        String configSource;
-            configSource = readFile(pathName, Charset.defaultCharset());
-
-
-        JSONParser jsonParser =  new JSONParser();
-        String s = "";
-        System.out.println(s);
-
-        JSONObject ja = null;
-        try {
-            ja = (JSONObject) jsonParser.parse(s);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println(ja.toJSONString());
-
-        JSONArray ja2 = (JSONArray) ja.get("motors");
-        for(Object o : ja2) {
-            JSONObject jo = (JSONObject) o;
-            System.out.println(jo.get("name"));
-            System.out.println(jo.get("minPower"));
-            System.out.println(jo.get("maxPower"));
-            System.out.println(jo.get("direction"));
-            System.out.println();
-        }
-
-    }
-
     protected abstract String setConfigurationPath();
+
+    protected void configureHardware(String pathName) throws IOException, ParseException {
+        String configSource = readFile(pathName, Charset.defaultCharset());
+        JSONParser jsonParser =  new JSONParser();
+        JSONObject jsonFile = (JSONObject) jsonParser.parse(configSource);
+        JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
+        this.configureMotors(jsonMotors);
+        //Todo add methods for configuring servos and sensors
+    }
 
     private static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
