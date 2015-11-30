@@ -5,9 +5,12 @@ import com.rmrobotics.library.RMOpMode;
 
 public class TestOp extends RMOpMode {
 
+    private final String CONFIGURATION_PATH = "res/robot.json";
+
+    //Used in case addition initialization functions need to be called
     @Override
     public void init() {
-
+        super.init();
     }
 
     @Override
@@ -23,6 +26,11 @@ public class TestOp extends RMOpMode {
     @Override
     public void updateHardware() {
 
+    }
+
+    @Override
+    protected String setConfigurationPath() {
+        return CONFIGURATION_PATH;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.rmrobotics.library;
 
+import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -20,7 +21,17 @@ public abstract class RMOpMode extends OpMode {
     protected Map<String, Motor> motorMap;
 
     @Override
-    public void loop() {
+    public void init() {
+        try {
+            this.configureHardware(this.setConfigurationPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            DbgLog.error(e.getMessage());
+        }
+    }
+
+    @Override
+    public void loop(){
         this.updateInput();
         this.calculate();
         this.updateHardware();
@@ -32,13 +43,9 @@ public abstract class RMOpMode extends OpMode {
 
     protected abstract void updateHardware();
 
-    protected void initializeHardware(String pathName){
+    protected void configureHardware(String pathName) throws IOException {
         String configSource;
-        try {
             configSource = readFile(pathName, Charset.defaultCharset());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
         JSONParser jsonParser =  new JSONParser();
@@ -65,12 +72,14 @@ public abstract class RMOpMode extends OpMode {
 
     }
 
+    protected abstract String setConfigurationPath();
+
     private static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
     }
 
-    private void initializeMotors(JSONArray JSONMotors){
+    private void configureMotors(JSONArray JSONMotors){
         for(Object mObj : JSONMotors){
             JSONObject mJSON = (JSONObject)  mObj;
             String motorName = (String) mJSON.get("name");
