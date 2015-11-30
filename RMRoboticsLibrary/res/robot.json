@@ -1,0 +1,19 @@
+{
+  "motors":[
+    {
+      "name":"left1",
+      "minPower":0.2,
+      "maxPower":0.9,
+      "direction":"forwards"
+    },
+    {
+      "name":"left2",
+      "minPower":0.1,
+      "maxPower":1.0,
+      "direction":"forwards"
+    }
+  ],
+  "servos":[
+
+  ]
+}
