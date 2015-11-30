@@ -15,15 +15,12 @@ public class Motor {
     private double desiredPower;
     private double currentPower;
 
-    //TODO: complete implementation of the MotorState class
-    private MotorState ms;
-
     public Motor (DcMotor dc, DcMotor.Direction d, double min, double max){
         parent = dc;
         defaultDirection = d;
         minPower = min;
         maxPower = max;
-    }
+    } //Todo add string to send in DbgLog confirming motor settings once configured
 
     public void setDesiredPower(double d){
         desiredPower = d;
