@@ -4,6 +4,7 @@ import com.qualcomm.ftccommon.DbgLog; //for DbgLog
 import com.rmrobotics.library.RMOpMode;
 import com.rmrobotics.library.Motor;
 import com.rmrobotics.library.control.Control;
+import com.rmrobotics.library.control.Controller;
 
 public class TestOp extends RMOpMode {
 
@@ -14,20 +15,10 @@ public class TestOp extends RMOpMode {
     public void init() {
         super.init();
     }
-    double hi = 5;
-    Motor c = new Motor("motor1","reverse", 0, 1);
-
-    @Override
-    public void updateInput() {
-
-
-
-
-    }
 
     @Override
     public void calculate() {
-
+        control.button(Contr)
     }
 
     @Override
