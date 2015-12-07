@@ -18,7 +18,7 @@ public class TestOp extends RMOpMode {
 
     @Override
     public void calculate() {
-        control.button(Contr)
+        control.button(Controller.C_ONE)
     }
 
     @Override

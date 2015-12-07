@@ -49,7 +49,9 @@ public abstract class RMOpMode extends OpMode {
 
     protected abstract void calculate();
 
-    protected abstract void updateHardware();
+    protected void updateHardware(){
+
+    }
 
     protected abstract String setConfigurationPath();
 

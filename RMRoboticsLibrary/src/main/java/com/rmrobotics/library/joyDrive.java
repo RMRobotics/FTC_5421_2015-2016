@@ -14,8 +14,20 @@ import com.rmrobotics.library.control.Joystick;
  * Created by JaJaJaJaJa on 12/7/15.
  */
 public class joyDrive {
-    public joyDrive(){
+    private double joyLeft;
+    private double joyRight;
+    private double power;
 
+    public joyDrive(double oneRight, double oneLeft, double desiredPower){
+        joyLeft = oneLeft;
+        joyRight = oneRight;
+        power = desiredPower;
+    }
+
+    public void OnetoOne(){
+
+    }
+    public void Exponential(){
 
     }
 }
