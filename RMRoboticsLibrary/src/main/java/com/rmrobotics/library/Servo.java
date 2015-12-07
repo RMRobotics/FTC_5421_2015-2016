@@ -20,16 +20,11 @@ public class rServo{
     private double currentPower;
     private boolean isContinuous;
 
-    public rServo(Servo s, boolean x){
+    public rServo(Servo s, boolean x, double min, double max){
         parent = s;
         isContinuous = x;
-        if(!isContinuous){
-            maxPower = 0.9;
-            minPower = 0.1;
-        } else {
-            maxPower = 1;
-            minPower = 0;
-        }
+        minPower = min;
+        maxPower = max;
     }
 
     public void set(double x) {
@@ -42,4 +37,5 @@ public class rServo{
         p = Range.clip(minPower, maxPower);
     }
 
+    public void setPosition(double x){}
 }
