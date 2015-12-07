@@ -1,42 +1,34 @@
 package com.rmrobotics.library;
 
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by RM Robotics on 11/23/2015.
  */
 
-public class Servo{
+public class rServo extends Servo {
 
+    private double minPower;
+    private double maxPower;
+    private double desiredPower;
+    private double currentPower;
     private boolean isContinuous;
-    private double minValue;
-    private double maxValue;
-    private double power;
 
-    public Servo(boolean x){
+    public rServo(boolean x) {
         isContinuous = x;
-        if(!isContinuous){
-            maxValue = 0.9;
-            minValue = 0.1;
+        if (!isContinuous) {
+            maxPower = 0.9;
+            minPower = 0.1;
         } else {
-            maxValue = 1;
-            minValue = 0;
+            maxPower = 1;
+            minPower = 0.1;
         }
     }
 
     public void set(double x) {
-        x = Range.clip(x, minValue, maxValue);
-        power = x;
-        speedCheck();
-        setPosition(power);
+        desiredPower = x;
+        currentPower = Range.clip(desiredPower, minPower, maxPower);
+        setPosition(currentPower);
     }
-
-    private void speedCheck(){
-        if(power > maxValue){
-            power = maxValue;
-        } else if(power < minValue){
-            power = minValue;
-        }
-    }
-
 }
