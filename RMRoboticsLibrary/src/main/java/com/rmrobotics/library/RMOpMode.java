@@ -3,6 +3,7 @@ package com.rmrobotics.library;
 import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.rmrobotics.library.control.Control;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,6 +20,7 @@ import java.util.Map;
 public abstract class RMOpMode extends OpMode {
 
     protected Map<String, Motor> motorMap;
+    protected Control control;
 
     @Override
     public void init() {
@@ -31,6 +33,7 @@ public abstract class RMOpMode extends OpMode {
             e.printStackTrace();
             DbgLog.error(e.getMessage());
         }
+        this.control = new Control(gamepad1, gamepad2);
     }
 
     @Override
@@ -40,7 +43,9 @@ public abstract class RMOpMode extends OpMode {
         this.updateHardware();
     }
 
-    protected abstract void updateInput();
+    protected void updateInput(){
+        control.update(gamepad1,gamepad2);
+    }
 
     protected abstract void calculate();
 

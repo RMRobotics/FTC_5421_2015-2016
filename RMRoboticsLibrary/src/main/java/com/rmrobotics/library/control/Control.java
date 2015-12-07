@@ -52,12 +52,12 @@ public class Control {
         }
     }
 
-    public float joystickValue(Controller c, Joystick j, Axis a){
+    public double joystickValue(Controller c, Joystick j, Axis a){
         return currentInput.joystickValue(c, j, a);
     }
 
-    public float triggerValue(Controller c, Trigger t){
-        return currentInput.triggerValue(c, t);
+    public double triggerValue(Controller c, Trigger t){
+        return ((double)currentInput.triggerValue(c, t));
     }
 
 }
@@ -72,7 +72,7 @@ class ControllerInput{
         game2 =  g2;
     }
 
-    public float joystickValue(Controller c, Joystick j, Axis a){
+    public double joystickValue(Controller c, Joystick j, Axis a){
         Gamepad g = getController(c);
         switch(j){
             case J_LEFT:
@@ -93,7 +93,7 @@ class ControllerInput{
         return -1;
     }
 
-    public float triggerValue(Controller c, Trigger t){
+    public double triggerValue(Controller c, Trigger t){
         Gamepad g = getController(c);
         switch (t){
             case T_LEFT:
