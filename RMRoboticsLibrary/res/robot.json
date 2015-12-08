@@ -1,19 +1,45 @@
 {
   "motors":[
     {
-      "name":"left1",
-      "minPower":0.2,
-      "maxPower":0.9,
+      "name":"DriveLeftOne",
+      "minPower":0.1,
+      "maxPower":1.0
+      "direction":"reverse"
+    },
+    {
+      "name":"DriveLeftTwo",
+      "minPower":0.1,
+      "maxPower":1.0,
+      "direction":"reverse"
+    },
+    {
+      "name":"DriveRightOne",
+      "minPower":0.1,
+      "maxPower":1.0,
       "direction":"forwards"
     },
     {
-      "name":"left2",
+      "name":"DriveRightTwo",
       "minPower":0.1,
       "maxPower":1.0,
       "direction":"forwards"
     }
   ],
   "servos":[
+    {
+      "name":"bucketRight",
+      "minPosition":.01,
+      "maxPosition":.06,
+      "direction":"forwards",
+      "isContinuous":"yes"
+    },
+    {
+      "name":"bucketLeft",
+      "minPosition":.01,
+      "maxPosition":1.01,
+      "direction":"forwards",
+      "isContinuous":"no"
+    }
 
   ]
 }
