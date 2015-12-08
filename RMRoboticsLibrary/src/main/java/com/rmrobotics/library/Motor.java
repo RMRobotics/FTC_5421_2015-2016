@@ -34,10 +34,15 @@ public class Motor {
          *
          */
 
-        if(defaultDirection== DcMotor.Direction.REVERSE){
-            desiredPower = -desiredPower;
-            minPower = -minPower;
-            maxPower=-maxPower;
+        if(desiredPower<0){
+            if(defaultDirection = DcMotor.Direction.FORWARDS;){
+                defaultDirection = DcMotor.Direction.REVERSE;
+            }else if (defaultDirection = DcMotor.Direction.REVERSE){
+                defaultDirection = DcMotor.Direction.FORWARDS;
+            }
+            desiredPower = Math.abs(desiredPower);
+            minPower = Math.abs(minPower);
+            maxPower=Math.abs(maxPower);
         }
         desiredPower = Range.clip(desiredPower, minPower, maxPower);
 
