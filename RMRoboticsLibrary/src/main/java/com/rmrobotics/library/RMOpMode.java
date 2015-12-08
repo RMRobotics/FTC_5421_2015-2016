@@ -95,7 +95,8 @@ public abstract class RMOpMode extends OpMode {
             double maxPosition = (Double) sJSON.get("maxPosition");
             Servo sParent = hardwareMap.Servo.get(servoName);
             Servo.Direction d = stringToDirection((String) sJSON.get("direction"));
-            rServo s = new rServo(sParent, d, minPosition, maxPosition);
+            boolean isContinuous = stringToBoolean((String) sJSON.get("isContinuous"));
+            rServo s = new rServo(sParent, d, minPosition, maxPosition, isContinuous);
             servoMap.put(servoName, s);
         }
     }
@@ -107,6 +108,16 @@ public abstract class RMOpMode extends OpMode {
             return DcMotor.Direction.REVERSE;
         }else{
             return DcMotor.Direction.valueOf(stringD);
+        }
+    }
+
+    private boolean stringToBoolean(String stringC){
+        if(stringC == "true"){
+            return true;
+        }else if(stringC == "false"){
+            return false;
+        }else{
+            return Boolean.parseBoolean(null);
         }
     }
 

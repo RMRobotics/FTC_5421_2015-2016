@@ -20,9 +20,10 @@ public class rServo{
     private double currentPosition;
     private boolean isContinuous;
 
-    public rServo(Servo s, Servo.Direction x, double min, double max){
+    public rServo(Servo s, Servo.Direction x, double min, double max, boolean cont){
         parent = s;
-        isContinuous = x;
+        defaultDirection = x
+        isContinuous = cont;
         minPosition = min;
         maxPosition = max;
     }
