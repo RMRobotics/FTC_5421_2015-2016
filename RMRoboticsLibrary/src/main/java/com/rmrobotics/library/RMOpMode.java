@@ -3,6 +3,7 @@ package com.rmrobotics.library;
 import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.rmrobotics.library.control.Control;
 
 import org.json.simple.JSONArray;
@@ -15,11 +16,13 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.Objects;
 
 
 public abstract class RMOpMode extends OpMode {
 
     protected Map<String, Motor> motorMap;
+    protected Map<String, Servo> servoMap;
     protected Control control;
 
     @Override
@@ -44,7 +47,7 @@ public abstract class RMOpMode extends OpMode {
     }
 
     protected void updateInput(){
-        control.update(gamepad1,gamepad2);
+        control.update(gamepad1, gamepad2);
     }
 
     protected abstract void calculate();
@@ -60,7 +63,9 @@ public abstract class RMOpMode extends OpMode {
         JSONParser jsonParser =  new JSONParser();
         JSONObject jsonFile = (JSONObject) jsonParser.parse(configSource);
         JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
+        JSONArray jsonServos = (JSONArray) jsonFile.get("servos")
         this.configureMotors(jsonMotors);
+        this.configureServos(jsonServos);
         //Todo add methods for configuring servos and sensors
     }
 
@@ -79,6 +84,19 @@ public abstract class RMOpMode extends OpMode {
             DcMotor.Direction d = stringToDirection((String) mJSON.get("direction"));
             Motor m = new Motor(dcParent, d, minPower, maxPower);
             motorMap.put(motorName, m);
+        }
+    }
+
+    private void configureServos(JSONArray JSONServos){
+        for(Object sObj : JSONServos){
+            JSONObject sJSON = (JSONObject)  sObj;
+            String servoName = (String) sJSON.get("name");
+            double minPosition = (Double) sJSON.get("minPosition");
+            double maxPosition = (Double) sJSON.get("maxPosition");
+            Servo sParent = hardwareMap.Servo.get(servoName);
+            Servo.Direction d = stringToDirection((String) sJSON.get("direction"));
+            rServo s = new rServo(sParent, d, minPosition, maxPosition);
+            servoMap.put(servoName, s);
         }
     }
 
