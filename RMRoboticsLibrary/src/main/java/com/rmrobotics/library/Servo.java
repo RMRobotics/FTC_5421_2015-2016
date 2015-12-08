@@ -9,32 +9,32 @@ import com.qualcomm.robotcore.util.Range;
 
 public class rServo{
 
-    private static final double MAX_POS = 1.0;
-    private static final double MIN_POS = 0.1;
+    private static final double MAX_POSITION = 1.0;
+    private static final double MIN_POSITION = 0.1;
 
     private Servo parent;
     private Servo.Direction defaultDirection;
-    private double minPos;
-    private double maxPos;
-    private double desiredPos;
-    private double currentPos;
+    private double minPosition;
+    private double maxPosition;
+    private double desiredPosition;
+    private double currentPosition;
     private boolean isContinuous;
 
     public rServo(Servo s, boolean x, double min, double max){
         parent = s;
         isContinuous = x;
-        minPos = min;
-        maxPos = max;
+        minPosition = min;
+        maxPosition = max;
     }
 
-    public void setDesiredPos(double d){
-        desiredPos = d;
+    public void setDesiredPosition(double d){
+        desiredPosition = d;
     }
 
-    public void updateCurrentPos(double x) {
-        desiredPos = Range.clip(desiredPos, minPos, maxPos);
-        currentPos = desiredPos;
+    public void updateCurrentPosition(double x) {
+        desiredPosition = Range.clip(desiredPosition, minPosition, maxPosition);
+        currentPosition = desiredPosition;
     }
 
-    public void setPos(){parent.setPosition(currentPos)}
+    public void setPosition(){parent.setPosition(currentPosition)}
 }
