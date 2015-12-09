@@ -93,7 +93,7 @@ public abstract class RMOpMode extends OpMode {
             String servoName = (String) sJSON.get("name");
             double minPosition = (Double) sJSON.get("minPosition");
             double maxPosition = (Double) sJSON.get("maxPosition");
-            Servo sParent = hardwareMap.Servo.get(servoName);
+            Servo sParent = hardwareMap.servo.get(servoName);
             Servo.Direction d = stringToDirection((String) sJSON.get("direction"));
             boolean isContinuous = stringToBoolean((String) sJSON.get("isContinuous"));
             rServo s = new rServo(sParent, d, minPosition, maxPosition, isContinuous);
