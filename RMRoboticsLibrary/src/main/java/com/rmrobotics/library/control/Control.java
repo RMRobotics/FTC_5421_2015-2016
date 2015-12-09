@@ -25,31 +25,19 @@ public class Control {
     public boolean buttonPressed(Controller c, Button b){
         boolean prev = prevInput.button(c, b);
         boolean curr = currentInput.button(c, b);
-        if(curr && !prev){
-            return true;
-        }else{
-            return false;
-        }
+        return curr && !prev;
     }
 
     public boolean buttonHeld(Controller c, Button b){
         boolean prev = prevInput.button(c, b);
         boolean curr = currentInput.button(c, b);
-        if(curr && prev){
-            return true;
-        }else{
-            return false;
-        }
+        return curr && prev;
     }
 
     public boolean buttonReleased(Controller c, Button b){
         boolean prev = prevInput.button(c, b);
         boolean curr = currentInput.button(c, b);
-        if(!curr && prev){
-            return true;
-        }else{
-            return false;
-        }
+        return !curr && prev;
     }
 
     public double joystickValue(Controller c, Joystick j, Axis a){
@@ -57,7 +45,7 @@ public class Control {
     }
 
     public double triggerValue(Controller c, Trigger t){
-        return ((double)currentInput.triggerValue(c, t));
+        return currentInput.triggerValue(c, t);
     }
 
 }
