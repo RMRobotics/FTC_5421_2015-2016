@@ -22,7 +22,7 @@ public class rServo{
 
     public rServo(Servo s, Servo.Direction x, double min, double max, boolean cont){
         parent = s;
-        defaultDirection = x
+        defaultDirection = x;
         isContinuous = cont;
         minPosition = min;
         maxPosition = max;
@@ -32,10 +32,12 @@ public class rServo{
         desiredPosition = d;
     }
 
-    public void updateCurrentPosition(double x) {
+    public void updateCurrentPosition(){
         desiredPosition = Range.clip(desiredPosition, minPosition, maxPosition);
         currentPosition = desiredPosition;
     }
 
-    public void setPosition(){parent.setPosition(currentPosition)}
+    public void setPosition(){parent.setPosition(currentPosition);}
+
+    public double getPosition(){return parent.position();}
 }
