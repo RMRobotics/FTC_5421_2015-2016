@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * Created by Peter on 12/9/15.
  */
-public class RMAutoMode extends OpMode{
+public abstract class RMAutoMode extends OpMode{
 
     protected Map<String, Motor> motorMap;
     protected Map<String, Servo> servoMap;
