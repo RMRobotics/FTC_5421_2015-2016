@@ -31,9 +31,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.AutoOp;
+import com.qualcomm.ftcrobotcontroller.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
-import com.rmrobotics.library.opmodes.TestOp;
 
 /**
  * Register Op Modes
@@ -71,7 +72,8 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
     manager.register("MR Gyro Test", MRGyroTest.class);
 
-    manager.register("TestOp", TestOp.class);
+    manager.register("TeleOp", TeleOp.class);
+    manager.register("AutoOp", AutoOp.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);

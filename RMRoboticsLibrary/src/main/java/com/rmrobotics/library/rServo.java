@@ -1,42 +1,44 @@
 package com.rmrobotics.library;
 
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by RM Robotics on 11/23/2015.
  */
 
-public class rServo {
+public class rServo{
 
+    private static final double MAX_POSITION = 1.0;
+    private static final double MIN_POSITION = 0.1;
+
+    private Servo parent;
+    private Servo.Direction defaultDirection;
+    private double minPosition;
+    private double maxPosition;
+    private double desiredPosition;
+    private double currentPosition;
     private boolean isContinuous;
-    private double minValue;
-    private double maxValue;
-    private double power;
 
-    public rServo(boolean x){
-        isContinuous = x;
-        if(!isContinuous){
-            maxValue = 0.9;
-            minValue = 0.1;
-        } else {
-            maxValue = 1;
-            minValue = 0;
-        }
+    public rServo(Servo s, Servo.Direction x, double min, double max, boolean cont){
+        parent = s;
+        defaultDirection = x;
+        isContinuous = cont;
+        minPosition = min;
+        maxPosition = max;
     }
 
-    public void set(double x) {
-        x = Range.clip(x, minValue, maxValue);
-        power = x;
-        speedCheck();
-        setPosition(power);
+    public void setDesiredPosition(double d){
+        desiredPosition = d;
     }
 
-    private void speedCheck(){
-        if(power > maxValue){
-            power = maxValue;
-        } else if(power < minValue){
-            power = minValue;
-        }
+    public void updateCurrentPosition(){
+        desiredPosition = Range.clip(desiredPosition, minPosition, maxPosition);
+        currentPosition = desiredPosition;
+    }
+
+    public void setPosition(){
+        parent.setPosition(currentPosition);
     }
 
 }

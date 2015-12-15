@@ -1,4 +1,4 @@
-package com.rmrobotics.library;
+package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
@@ -42,6 +42,12 @@ public class Motor {
                     parent.setDirection(DcMotor.Direction.REVERSE);
                 }else if(defaultDirection == DcMotor.Direction.REVERSE){
                     parent.setDirection(DcMotor.Direction.FORWARD);
+                }
+            }else{
+                if(defaultDirection == DcMotor.Direction.FORWARD){
+                    parent.setDirection(DcMotor.Direction.FORWARD);
+                }else if(defaultDirection == DcMotor.Direction.REVERSE){
+                    parent.setDirection(DcMotor.Direction.REVERSE);
                 }
             }
             desiredPower = absDesPower;

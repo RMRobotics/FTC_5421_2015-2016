@@ -1,4 +1,4 @@
-package com.rmrobotics.library;
+package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 public class rServo{
 
     private static final double MAX_POSITION = 1.0;
-    private static final double MIN_POSITION = 0.1;
+    private static final double MIN_POSITION = 0.01;
 
     private Servo parent;
     private Servo.Direction defaultDirection;
@@ -18,12 +18,10 @@ public class rServo{
     private double maxPosition;
     private double desiredPosition;
     private double currentPosition;
-    private boolean isContinuous;
 
-    public rServo(Servo s, Servo.Direction x, double min, double max, boolean cont){
+    public rServo(Servo s, Servo.Direction x, double min, double max){
         parent = s;
         defaultDirection = x;
-        isContinuous = cont;
         minPosition = min;
         maxPosition = max;
     }
@@ -37,7 +35,8 @@ public class rServo{
         currentPosition = desiredPosition;
     }
 
-    public void setPosition(){parent.setPosition(currentPosition);}
+    public void setPosition(){
+        parent.setPosition(currentPosition);
+    }
 
-    public double getPosition(){return parent.position();}
 }

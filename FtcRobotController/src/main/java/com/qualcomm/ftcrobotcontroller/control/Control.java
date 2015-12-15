@@ -1,4 +1,4 @@
-package com.rmrobotics.library.control;
+package com.qualcomm.ftcrobotcontroller.control;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
