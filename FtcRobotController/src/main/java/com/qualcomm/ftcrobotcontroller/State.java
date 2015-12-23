@@ -37,7 +37,7 @@ class WaitState extends State {
     long waitTime;
 
     public WaitState(long currentTime, long wTime){
-        super(currentTime);
+         super(currentTime);
         waitTime =  wTime;
     }
 
