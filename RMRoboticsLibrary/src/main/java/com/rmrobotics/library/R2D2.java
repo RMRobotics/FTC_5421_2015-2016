@@ -1,10 +1,10 @@
 package com.rmrobotics.library;
 
-import com.qualcomm.ftccommon.DbgLog; //for DbgLog
 import com.rmrobotics.library.RMOpMode;
 import com.rmrobotics.library.Motor;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Control;
+import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.control.Controller;
 import com.rmrobotics.library.RMOpMode;
 import com.rmrobotics.library.control.Axis;
@@ -42,6 +42,25 @@ public class R2D2 extends RMOpMode {
             armPower = 0;
         }
         motorMap.get("Arm").setDesiredPower(armPower);
+        /* Not on reobot yet
+        boolean harvesterForward = control.buttonHeld(Controller.C_ONE, Button.BUTTON_LB);
+        boolean harvesterReverse = control.buttonHeld(Controller.C_ONE, Button.BUTTON_RB);
+        double harvesterPower;
+        if(harvesterForward){
+            harvesterPower = .5;
+        }else if(harvesterReverse){
+            harvesterPower = -.5
+        }else{
+            harvesterPower = 0;
+        }
+        motorMap.get("Harvester").setDesiredPower(harvesterPower);
+
+        //TRIGGER VALUES OR BUTTON????
+        boolean rescueArm = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
+        if(rescueArm > 1){
+
+        }
+        */
 
     }
     @Override
