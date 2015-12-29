@@ -14,6 +14,7 @@ public class Motor {
     private double maxPower;
     private double desiredPower;
     private double currentPower;
+    private double intervals;
 
     public Motor (DcMotor dc, DcMotor.Direction d, double min, double max){
         parent = dc;
@@ -77,6 +78,28 @@ public class Motor {
         parent.setPower(currentPower);
     }
 
+    private void Acceleration() {
+
+        intervals = desiredPower - currentPower; //I made kinda like "steps" for acceleration, so it will always accelerate in 3 steps
+        intervals = intervals/3;
+
+        while (currentPower < desiredPower) {
+            parent.setPower(currentPower);
+            currentPower = currentPower+intervals;
+        }
+
+    }
+
+    private void Deceleration() {
+
+        intervals = currentPower - desiredPower;
+        intervals = intervals/3;
+
+        while (desiredPower < currentPower) {
+            parent.setPower(currentPower);
+            currentPower = currentPower-intervals;
+        }
+    }
 
 
 }

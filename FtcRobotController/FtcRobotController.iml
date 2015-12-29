@@ -26,7 +26,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/intermediates/classes/debug" />
     <output-test url="file://$MODULE_DIR$/build/intermediates/classes/androidTest/debug" />
     <exclude-output />
@@ -78,22 +78,20 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="android-support-v4" level="project" />
+    <orderEntry type="library" exported="" name="RobotCore-release-" level="project" />
     <orderEntry type="library" exported="" name="ModernRobotics-release-" level="project" />
+    <orderEntry type="library" exported="" name="WirelessP2p-release-" level="project" />
     <orderEntry type="library" exported="" name="Analytics-release-" level="project" />
-<<<<<<< HEAD
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="json-simple-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="Hardware-release-" level="project" />
-=======
->>>>>>> 2fb1ee2347a4e67eb0adc11a8f26cf90fce3ce12
     <orderEntry type="library" exported="" name="FtcCommon-release-" level="project" />
-    <orderEntry type="library" exported="" name="WirelessP2p-release-" level="project" />
-    <orderEntry type="library" exported="" name="Hardware-release-" level="project" />
-    <orderEntry type="library" exported="" name="RobotCore-release-" level="project" />
+    <orderEntry type="library" exported="" name="android-Google Inc.:Google APIs:19" level="project" />
+    <orderEntry type="library" exported="" name="usb-Google Inc.:Google APIs:19" level="project" />
+    <orderEntry type="library" exported="" name="effects-Google Inc.:Google APIs:19" level="project" />
+    <orderEntry type="library" exported="" name="maps-Google Inc.:Google APIs:19" level="project" />
   </component>
 </module>
