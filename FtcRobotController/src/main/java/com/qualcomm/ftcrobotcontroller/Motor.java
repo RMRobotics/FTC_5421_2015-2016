@@ -1,7 +1,6 @@
 package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
 
 public class Motor {
 
@@ -78,7 +77,7 @@ public class Motor {
         parent.setPower(currentPower);
     }
 
-    private void Acceleration() {
+    private void motorAccel() {
 
         intervals = desiredPower - currentPower; //I made kinda like "steps" for acceleration, so it will always accelerate in 3 steps
         intervals = intervals/3;
@@ -90,7 +89,7 @@ public class Motor {
 
     }
 
-    private void Deceleration() {
+    private void motorDecel() {
 
         intervals = currentPower - desiredPower;
         intervals = intervals/3;
