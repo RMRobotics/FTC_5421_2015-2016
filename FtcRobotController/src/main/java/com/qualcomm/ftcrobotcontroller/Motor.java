@@ -79,8 +79,8 @@ public class Motor {
 
     private void motorAccel() {
 
-        intervals = desiredPower - currentPower; //I made kinda like "steps" for acceleration, so it will always accelerate in 3 steps
-        intervals = intervals/3;
+        intervals = desiredPower - currentPower; //I made kinda like "steps" for acceleration, so it will always accelerate in 10 steps
+        intervals = intervals/10;
 
         while (currentPower < desiredPower) {
             parent.setPower(currentPower);
@@ -92,7 +92,7 @@ public class Motor {
     private void motorDecel() {
 
         intervals = currentPower - desiredPower;
-        intervals = intervals/3;
+        intervals = intervals/10;
 
         while (desiredPower < currentPower) {
             parent.setPower(currentPower);
