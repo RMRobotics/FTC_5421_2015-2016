@@ -76,11 +76,6 @@ public class Motor {
     }
 
     public void setCurrentPower() {
-        parent.setPower(currentPower);
-    }
-
-    private void motorAccelDecel() {
-
         interval = abs((desiredPower - currentPower) / 3);//I made kinda like "steps" for acceleration, so it will always accelerate in 10 steps
 
         if (desiredPower > currentPower) {
@@ -93,6 +88,8 @@ public class Motor {
                 parent.setPower(currentPower);
                 currentPower = currentPower - interval;
             }
+        } else {
+            parent.setPower(currentPower);
         }
     }
 }
