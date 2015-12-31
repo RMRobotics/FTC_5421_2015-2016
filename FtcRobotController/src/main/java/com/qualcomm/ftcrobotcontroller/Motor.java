@@ -93,7 +93,6 @@ public class Motor {
                 parent.setPower(currentPower);
                 currentPower = currentPower - interval;
             }
-
         }
     }
 }
