@@ -76,7 +76,7 @@ public class Motor {
     }
 
     public void setCurrentPower() {
-        interval = abs((desiredPower - currentPower) / 3);//I made kinda like "steps" for acceleration, so it will always accelerate in 10 steps
+        interval = abs((desiredPower - currentPower)/3);//I made kinda like "steps" for acceleration, so it will always accelerate in 10 steps
 
         if (desiredPower > currentPower) {
             while (currentPower < desiredPower) {
