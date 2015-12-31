@@ -81,12 +81,12 @@ public class Motor {
         if (desiredPower > currentPower) {
             while (currentPower < desiredPower) {
                 parent.setPower(currentPower);
-                currentPower = currentPower + interval;
+                currentPower += interval;
             }
         } else if (desiredPower < currentPower) {
             while (currentPower > desiredPower) {
                 parent.setPower(currentPower);
-                currentPower = currentPower - interval;
+                currentPower -= interval;
             }
         } else {
             parent.setPower(currentPower);
