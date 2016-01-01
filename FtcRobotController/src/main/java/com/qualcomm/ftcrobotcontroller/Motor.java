@@ -16,6 +16,7 @@ public class Motor {
     private double desiredPower;
     private double currentPower;
     private double interval;
+    private double speedInterval = 3.0;
 
     public Motor(DcMotor dc, DcMotor.Direction d, double min, double max) {
         parent = dc;
@@ -76,7 +77,7 @@ public class Motor {
     }
 
     public void setCurrentPower() {
-        interval = abs((desiredPower - currentPower)/3);//I made kinda like "steps" for acceleration, so it will always accelerate in 10 steps
+        interval = abs((desiredPower - currentPower)/speedInterval);//I made kinda like "steps" for acceleration, so it will always accelerate in 3 steps
 
         if (desiredPower > currentPower) {
             while (currentPower < desiredPower) {
