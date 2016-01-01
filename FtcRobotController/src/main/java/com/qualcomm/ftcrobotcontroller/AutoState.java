@@ -30,14 +30,14 @@ public class AutoState extends RMOpMode {
                     motorMap.get("DriveLeftTwo").setDesiredPower(1.0);
                     motorMap.get("DriveRightOne").setDesiredPower(1.0);
                     motorMap.get("DriveRightTwo").setDesiredPower(1.0);
-                    waitStatic(1000);
+                    waitTime(1000);
                     state = "turnLeft45";
                 case "turnLeft45":
                     motorMap.get("DriveLeftOne").setDesiredPower(0.0);
                     motorMap.get("DriveLeftTwo").setDesiredPower(0.0);
                     motorMap.get("DriveRightOne").setDesiredPower(1.0);
                     motorMap.get("DriveRightTwo").setDesiredPower(1.0);
-                    waitStatic(1000);
+                    waitTime(1000);
                     state = "beaconZone";
                 case "beaconZone":
                     
@@ -56,7 +56,7 @@ public class AutoState extends RMOpMode {
         } // end while
     }
 
-    private void waitStatic(long wait) {
+    private void waitTime(long wait) {
         curTime = cal.getTimeInMillis();
         startTime = cal.getTimeInMillis();
         while ((curTime-startTime)<wait){
@@ -64,5 +64,9 @@ public class AutoState extends RMOpMode {
             DbgLog.msg("Waiting");
             curTime = cal.getTimeInMillis();
         }
+    }
+
+    private void waitEncoder(int wait) {
+
     }
 }
