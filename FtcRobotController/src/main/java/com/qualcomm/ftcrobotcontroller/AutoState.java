@@ -7,12 +7,7 @@ import java.util.Calendar;
  */
 
 public class AutoState extends RMOpMode {
-    final int END = 0;
-    final int MOVEFORWARD = 1;
-    final int MOVEBACKWARD = 2;
-    final int TURNLEFT = 3;
-    final int TURNRIGHT = 4;
-    final int WAIT = 5;
+    private String state = "begin"
 
     @Override
     public void init() {
@@ -20,10 +15,11 @@ public class AutoState extends RMOpMode {
     }
 
     public void calculate() {
-        int state = 5;
-        while (state != END) {
+        while (state != "end") {
             switch (state) {
-                case MOVEFORWARD:
+                case "begin":
+                    state = "center";
+                case "center":
                     System.out.println("Moving forward");
                     motorMap.get("DriveLeftOne").setDesiredPower(1.0);
                     motorMap.get("DriveLeftTwo").setDesiredPower(1.0);
