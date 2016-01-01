@@ -1,5 +1,7 @@
 package com.qualcomm.ftcrobotcontroller;
 
+import com.qualcomm.ftccommon.DbgLog;
+
 import java.util.Calendar;
 
 /**
@@ -7,11 +9,15 @@ import java.util.Calendar;
  */
 
 public class AutoState extends RMOpMode {
-    private String state = "begin"
+    private String state = "begin";
+    Calendar cal;
+    protected long curTime;
+    protected long startTime;
 
     @Override
     public void init() {
         super.init();
+        cal = Calendar.getInstance();
     }
 
     public void calculate() {
@@ -20,19 +26,22 @@ public class AutoState extends RMOpMode {
                 case "begin":
                     state = "center";
                 case "center":
-                    System.out.println("Moving forward");
                     motorMap.get("DriveLeftOne").setDesiredPower(1.0);
                     motorMap.get("DriveLeftTwo").setDesiredPower(1.0);
                     motorMap.get("DriveRightOne").setDesiredPower(1.0);
                     motorMap.get("DriveRightTwo").setDesiredPower(1.0);
+                    waitStatic(1000);
+                    state = "turnLeft45";
+                case "turnLeft45":
+                    motorMap.get("DriveLeftOne").setDesiredPower(0.0);
+                    motorMap.get("DriveLeftTwo").setDesiredPower(0.0);
+                    motorMap.get("DriveRightOne").setDesiredPower(1.0);
+                    motorMap.get("DriveRightTwo").setDesiredPower(1.0);
+                    waitStatic(1000);
+                    state = "beaconZone";
+                case "beaconZone":
+                    
 
-                    state = STATE2;
-
-                    if (someQuitCheck == true) state = QUIT;
-
-                    break;
-                case STATE2:
-                    System.out.println("Doing Task 2");
 
    /* Check conditions and possibly modify state */
 
@@ -45,5 +54,15 @@ public class AutoState extends RMOpMode {
             } // end switch
 
         } // end while
+    }
+
+    private void waitStatic(long wait) {
+        curTime = cal.getTimeInMillis();
+        startTime = cal.getTimeInMillis();
+        while ((curTime-startTime)<wait){
+            telemetry.addData("wait","Waiting");
+            DbgLog.msg("Waiting");
+            curTime = cal.getTimeInMillis();
+        }
     }
 }
