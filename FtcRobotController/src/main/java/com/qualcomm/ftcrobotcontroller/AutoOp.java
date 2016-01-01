@@ -2,8 +2,7 @@ package com.qualcomm.ftcrobotcontroller;
 
 import java.util.Calendar;
 
-public class
-        AutoOp extends RMAutoMode {
+public class AutoOp extends RMAutoMode {
 
     Calendar cal;
     int stateIndex = 0;
