@@ -181,7 +181,7 @@ public class FtcRobotControllerActivity extends Activity {
     super.onStart();
 
     // save 4MB of logcat to the SD card
-    RobotLog.writeLogcatToDisk(this, 4 * 1024);
+    RobotLog.writeLogcatToDisk(this, 16 * 1024);
 
     Intent intent = new Intent(this, FtcRobotControllerService.class);
     bindService(intent, connection, Context.BIND_AUTO_CREATE);
