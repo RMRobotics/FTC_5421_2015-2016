@@ -17,6 +17,8 @@ public class Motor {
     private double currentPower;
     private double interval;
     private double speedInterval = 3.0;
+    private int curPos;
+    private int dis;
 
     public Motor(DcMotor dc, DcMotor.Direction d, double min, double max) {
         parent = dc;
@@ -93,4 +95,18 @@ public class Motor {
             parent.setPower(currentPower);
         }
     }
+    public void setEncValue(double rotation){
+        curPos = parent.getCurrentPosition();
+        dis = (int)(1120 * rotation); //Neverrest encoders are from 1120
+        parent.setTargetPosition(curPos+dis);
+    }
+    public void setEncDesiredPower(double power){
+        curPos = parent.getCurrentPosition();
+        if (curPos<(parent.getTargetPosition())){
+            desiredPower = power;
+        }else{
+            desiredPower = 0;
+        }
+    }
+
 }
