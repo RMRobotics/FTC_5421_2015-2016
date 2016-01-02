@@ -2,6 +2,8 @@ package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import static java.lang.Math.abs;
+
 public class Motor {
 
     private static final double MAX_POWER = 1.0;
@@ -13,47 +15,51 @@ public class Motor {
     private double maxPower;
     private double desiredPower;
     private double currentPower;
+    private double interval;
+    private double speedInterval = 3.0;
+    private int curPos;
+    private int dis;
 
-    public Motor (DcMotor dc, DcMotor.Direction d, double min, double max){
+    public Motor(DcMotor dc, DcMotor.Direction d, double min, double max) {
         parent = dc;
         defaultDirection = d;
         minPower = min;
         maxPower = max;
     } //Todo add string to send in DbgLog confirming motor settings once configured
 
-    public void setDesiredPower(double d){
+    public void setDesiredPower(double d) {
         desiredPower = d;
     }
 
-    public void updateCurrentPower(){
+    public void updateCurrentPower() {
         /**
          * let it be zero if it needs to be
          * absolute value and switch direction if needed
          * clip to be within range
          *
          */
-        double absDesPower = Math.abs(desiredPower);
-        if(absDesPower == 0.0 || absDesPower < minPower){
+        double absDesPower = abs(desiredPower);
+        if (absDesPower == 0.0 || absDesPower < minPower) {
             currentPower = desiredPower;
-        }else{
-            if(desiredPower < 0.0){
-                if(defaultDirection == DcMotor.Direction.FORWARD){
+        } else {
+            if (desiredPower < 0.0) {
+                if (defaultDirection == DcMotor.Direction.FORWARD) {
                     parent.setDirection(DcMotor.Direction.REVERSE);
-                }else if(defaultDirection == DcMotor.Direction.REVERSE){
+                } else if (defaultDirection == DcMotor.Direction.REVERSE) {
                     parent.setDirection(DcMotor.Direction.FORWARD);
                 }
-            }else{
-                if(defaultDirection == DcMotor.Direction.FORWARD){
+            } else {
+                if (defaultDirection == DcMotor.Direction.FORWARD) {
                     parent.setDirection(DcMotor.Direction.FORWARD);
-                }else if(defaultDirection == DcMotor.Direction.REVERSE){
+                } else if (defaultDirection == DcMotor.Direction.REVERSE) {
                     parent.setDirection(DcMotor.Direction.REVERSE);
                 }
             }
             desiredPower = absDesPower;
-            if(desiredPower > maxPower){
+            if (desiredPower > maxPower) {
                 desiredPower = maxPower;
             }
-            currentPower =  desiredPower;
+            currentPower = desiredPower;
         }
 
         /*if(desiredPower<0){
@@ -72,10 +78,35 @@ public class Motor {
 
     }
 
-    public void setCurrentPower(){
-        parent.setPower(currentPower);
+    public void setCurrentPower() {
+        interval = abs((desiredPower - currentPower)/speedInterval);//I made kinda like "steps" for acceleration, so it will always accelerate in 3 steps
+
+        if (desiredPower > currentPower) {
+            while (currentPower < desiredPower) {
+                parent.setPower(currentPower);
+                currentPower += interval;
+            }
+        } else if (desiredPower < currentPower) {
+            while (currentPower > desiredPower) {
+                parent.setPower(currentPower);
+                currentPower -= interval;
+            }
+        } else {
+            parent.setPower(currentPower);
+        }
     }
-
-
+    public void setEncValue(double rotation){
+        curPos = parent.getCurrentPosition();
+        dis = (int)(1120 * rotation); //Neverrest encoders are from 1120
+        parent.setTargetPosition(curPos+dis);
+    }
+    public void setEncDesiredPower(double power){
+        curPos = parent.getCurrentPosition();
+        if (curPos<(parent.getTargetPosition())){
+            desiredPower = power;
+        }else{
+            desiredPower = 0;
+        }
+    }
 
 }
