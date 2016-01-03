@@ -49,12 +49,14 @@ public class AutoState extends RMAutoMode {
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
+            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Bucket\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
+            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
