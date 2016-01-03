@@ -8,7 +8,7 @@ import java.util.Calendar;
  * Created by Simon on 12/31/2015.
  */
 
-public class AutoState extends RMOpMode {
+public class AutoState extends RMAutoMode {
     private int state = 1;
     Calendar cal;
     protected long curTime;
@@ -87,7 +87,13 @@ public class AutoState extends RMOpMode {
         return CONFIGURATION_PATH;
     }
 
+    @Override
+    public void setStateList(){
+
+    }
+
     public void calculate() {
+        /*
         while (state != 0) {
             switch (state) {
                 case 1: //begin
@@ -110,12 +116,20 @@ public class AutoState extends RMOpMode {
                     
 
 
-   /* Check conditions and possibly modify state */
+
                 default:
                     break;
             } // end switch
 
-        } // end while
+        } // end while */
+        while (state != 0) {
+            switch (state) {
+                motorMap.get("DriveLeftOne").setRotationDistance(1.0);
+                motorMap.get("DriveLeftTwo").setRotationDistance(1.0);
+                motorMap.get("DriveRightOne").setRotationDistance(1.0);
+                motorMap.get("DriveRightTwo").setRotationDistance(1.0);
+            }
+        }
     }
 
     private void waitTime(long wait) {

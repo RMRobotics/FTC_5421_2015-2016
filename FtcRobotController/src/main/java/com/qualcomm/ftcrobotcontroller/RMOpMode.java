@@ -1,10 +1,10 @@
 package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.ftccommon.DbgLog;
+import com.qualcomm.ftcrobotcontroller.control.Control;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.ftcrobotcontroller.control.Control;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,7 +25,7 @@ public abstract class RMOpMode extends OpMode {
 
     @Override
     public void init() {
-        telemetry.addData("init","init start");
+        telemetry.addData("init", "init start");
         try {
             this.configureHardware(this.setConfigurationPath());
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public abstract class RMOpMode extends OpMode {
     }
 
     protected void updateInput() {
-        telemetry.addData("updateInput","updateInput start");
+        telemetry.addData("updateInput", "updateInput start");
         control.update(gamepad1, gamepad2);
         telemetry.addData("updateInput","updateInput finish");
     }
