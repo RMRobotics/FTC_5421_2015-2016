@@ -120,15 +120,12 @@ public class AutoState extends RMAutoMode {
                     state = 4;
                 case 4: //drive to beacon zone
                     
-
-
-
                 default:
                     break;
             } // end switch
 
         } // end while */
-        
+
         while (state != 0) {
             switch (state) {
                 case 1:
