@@ -60,7 +60,7 @@ public abstract class RMAutoMode extends OpMode{
         JSONParser jsonParser =  new JSONParser();
         JSONObject jsonFile = (JSONObject) jsonParser.parse(configSource);
         JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
-        JSONArray jsonServos = (JSONArray) jsonFile.get("servos")
+        JSONArray jsonServos = (JSONArray) jsonFile.get("servos");
         this.configureMotors(jsonMotors);
         this.configureServos(jsonServos);
         //Todo add methods for configuring servos and sensors
