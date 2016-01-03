@@ -21,24 +21,28 @@ public class AutoState extends RMAutoMode {
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
+            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"DriveLeftTwo\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
+            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"DriveRightOne\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
+            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"DriveRightTwo\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
+            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "     {\\n\" +\n" +
             "            \"     \"name\":\"Harvester\",\n" +
@@ -124,10 +128,13 @@ public class AutoState extends RMAutoMode {
         } // end while */
         while (state != 0) {
             switch (state) {
-                motorMap.get("DriveLeftOne").setRotationDistance(1.0);
-                motorMap.get("DriveLeftTwo").setRotationDistance(1.0);
-                motorMap.get("DriveRightOne").setRotationDistance(1.0);
-                motorMap.get("DriveRightTwo").setRotationDistance(1.0);
+                case 1:
+                    motorMap.get("DriveLeftOne").setRotationDistance(1.0);
+                    motorMap.get("DriveLeftTwo").setRotationDistance(1.0);
+                    motorMap.get("DriveRightOne").setRotationDistance(1.0);
+                    motorMap.get("DriveRightTwo").setRotationDistance(1.0);
+                default:
+                    break;
             }
         }
     }
@@ -142,7 +149,7 @@ public class AutoState extends RMAutoMode {
         }
     }
 
-    private void waitEncoder(int wait) {
+    private void waitEncoder(double wait) {
 
     }
 }
