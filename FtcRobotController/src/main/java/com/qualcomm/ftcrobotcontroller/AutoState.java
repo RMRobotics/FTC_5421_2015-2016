@@ -128,6 +128,7 @@ public class AutoState extends RMAutoMode {
             } // end switch
 
         } // end while */
+        
         while (state != 0) {
             switch (state) {
                 case 1:
