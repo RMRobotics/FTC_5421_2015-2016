@@ -4,6 +4,7 @@ import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.ftcrobotcontroller.control.Control;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.json.simple.JSONArray;
@@ -123,7 +124,6 @@ public abstract class RMOpMode extends OpMode {
     }
 
     private DcMotor.Direction stringToMotorDirection(String stringD) { //ToDo check if valueOf works as expected
-        telemetry.addData("stringToMotorDirection","stmd start");
         if (stringD == "FORWARD") {
             return DcMotor.Direction.FORWARD;
         } else if (stringD == "REVERSE") {
@@ -134,13 +134,24 @@ public abstract class RMOpMode extends OpMode {
     }
 
     private Servo.Direction stringToServoDirection(String stringD) {
-        telemetry.addData("stringToServoDirection","stsd start");
         if (stringD == "FORWARD") {
             return Servo.Direction.FORWARD;
         } else if (stringD == "REVERSE") {
             return Servo.Direction.REVERSE;
         } else {
             return Servo.Direction.valueOf(stringD);
+        }
+    }
+
+    private DcMotorController.RunMode stringToRunMode(String stringR) {
+        if (stringR.equals("RUN_TO_POSITION")) {
+            return DcMotorController.RunMode.RUN_TO_POSITION;
+        } else if (stringR.equals("RUN_WITHOUT_ENCODERS")) {
+            return DcMotorController.RunMode.RUN_WITHOUT_ENCODERS;
+        } else if (stringR.equals("RUN_USING_ENCODERS")) {
+            return DcMotorController.RunMode.RUN_USING_ENCODERS;
+        } else {
+            return DcMotorController.RunMode.RUN_WITHOUT_ENCODERS
         }
     }
 }
