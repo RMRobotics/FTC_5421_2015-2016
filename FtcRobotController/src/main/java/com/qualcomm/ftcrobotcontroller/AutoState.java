@@ -44,8 +44,8 @@ public class AutoState extends RMOpMode {
             "      \"direction\":\"FORWARD\"\n" +
             "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
-            "     {\\n\" +\n" +
-            "            \"     \"name\":\"Harvester\",\n" +
+            "    {\n" +
+            "      \"name\":\"Harvester\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +

@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.AutoOp;
+import com.qualcomm.ftcrobotcontroller.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
@@ -85,6 +86,8 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
         manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
         manager.register("navXZeroYawOp", navXZeroYawOp.class);
+
+        manager.register("EncoderTest", EncoderTest.class);
 
         //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
         //manager.register("ColorSensorDriver", ColorSensorDriver.class);
