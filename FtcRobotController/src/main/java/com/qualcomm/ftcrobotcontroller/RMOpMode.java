@@ -90,7 +90,8 @@ public abstract class RMOpMode extends OpMode {
             double maxPower = (Double) mJSON.get("maxPower");
             DcMotor dcParent = hardwareMap.dcMotor.get(motorName);
             DcMotor.Direction d = stringToMotorDirection((String) mJSON.get("direction"));
-            Motor m = new Motor(dcParent, d, minPower, maxPower);
+            DcMotorController.RunMode r = stringToRunMode((String) mJSON.get("mode"));
+            Motor m = new Motor(dcParent, d, minPower, maxPower, r);
             motorMap.put(motorName, m);
         }
     }

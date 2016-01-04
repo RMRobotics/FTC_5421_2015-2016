@@ -1,6 +1,7 @@
 package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import static java.lang.Math.abs;
 
@@ -13,6 +14,7 @@ public class Motor {
     private DcMotor.Direction defaultDirection;
     private double minPower;
     private double maxPower;
+    private DcMotorController.RunMode motorRunMode;
     private double desiredPower;
     private double currentPower;
     private double interval;
@@ -20,11 +22,13 @@ public class Motor {
     private int curPos;
     private int dis;
 
-    public Motor(DcMotor dc, DcMotor.Direction d, double min, double max) {
+    public Motor(DcMotor dc, DcMotor.Direction d, double min, double max, DcMotorController.RunMode r) {
         parent = dc;
         defaultDirection = d;
         minPower = min;
         maxPower = max;
+        motorRunMode = r;
+
     } //Todo add string to send in DbgLog confirming motor settings once configured
 
     public void setDesiredPower(double d) {

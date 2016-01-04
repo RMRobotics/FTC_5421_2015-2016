@@ -92,11 +92,6 @@ public class AutoState extends RMOpMode {
         return CONFIGURATION_PATH;
     }
 
-    @Override
-    public void setStateList(){
-
-    }
-
     public void calculate() {
         /*
         while (state != 0) {
