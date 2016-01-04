@@ -41,6 +41,8 @@ public class EncoderTest extends RMOpMode {
         }
     }
 
+    public void calculate(){}
+
     private void waitTime(long wait) {
         curTime = cal.getTimeInMillis();
         startTime = cal.getTimeInMillis();
