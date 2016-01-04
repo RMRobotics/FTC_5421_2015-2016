@@ -49,7 +49,7 @@ public class AutoState extends RMOpMode {
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
-            "      \"mode\":\"RUN_TO_POSITION\"\n" +
+            "      \"mode\":\"RUN_WITHOUT_ENCODERS\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Bucket\",\n" +
