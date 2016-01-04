@@ -8,7 +8,7 @@ import java.util.Calendar;
  * Created by Simon on 12/31/2015.
  */
 
-public class AutoState extends RMAutoMode {
+public class AutoState extends RMOpMode {
     private int state = 1;
     Calendar cal;
     protected long curTime;
@@ -21,42 +21,42 @@ public class AutoState extends RMAutoMode {
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
-            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
+            "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"DriveLeftTwo\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
-            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
+            "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"DriveRightOne\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
-            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
+            "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"DriveRightTwo\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
-            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
+            "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "     {\\n\" +\n" +
             "            \"     \"name\":\"Harvester\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
-            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
+            "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Bucket\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
-            //"      \"mode\":\"RUN_TO_POSITION\"\n" +
+            "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
@@ -84,7 +84,6 @@ public class AutoState extends RMAutoMode {
     @Override
     public void init() {
         super.init();
-
         cal = Calendar.getInstance();
     }
 

@@ -26,7 +26,6 @@ public abstract class RMOpMode extends OpMode {
 
     @Override
     public void init() {
-        telemetry.addData("init", "init start");
         try {
             this.configureHardware(this.setConfigurationPath());
         } catch (IOException e) {
@@ -37,28 +36,22 @@ public abstract class RMOpMode extends OpMode {
             DbgLog.error(e.getMessage());
         }
         this.control = new Control(gamepad1, gamepad2);
-        telemetry.addData("init","done");
     }
 
     @Override
     public void loop() {
-        telemetry.addData("loop","loop start");
         this.updateInput();
         this.calculate();
         this.updateHardware();
-        telemetry.addData("loop","loop finish");
     }
 
     protected void updateInput() {
-        telemetry.addData("updateInput", "updateInput start");
         control.update(gamepad1, gamepad2);
-        telemetry.addData("updateInput","updateInput finish");
     }
 
     protected abstract void calculate();
 
     protected void updateHardware() {
-        telemetry.addData("updateHardware","updateHardware start");
         for (Motor m : motorMap.values()) {
             m.updateCurrentPower();
             m.setCurrentPower();
@@ -67,14 +60,11 @@ public abstract class RMOpMode extends OpMode {
             s.updateCurrentPosition();
             s.setPosition();
         }
-        telemetry.addData("updateHardware","updateHardware finish");
     }
 
     protected abstract String setConfigurationPath();
 
     protected void configureHardware(String pathName) throws IOException, ParseException {
-        telemetry.addData("configureHardware",pathName);
-        telemetry.addData("configureHardware","configureHardware start");
         String configSource = readFile(pathName, Charset.defaultCharset());
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonFile = (JSONObject) jsonParser.parse(configSource);
@@ -83,7 +73,6 @@ public abstract class RMOpMode extends OpMode {
         this.configureMotors(jsonMotors);
         this.configureServos(jsonServos);
         //Todo add methods for configuring and sensors
-        telemetry.addData("configureHardware","configureHardware finish");
     }
 
     private static String readFile(String path, Charset encoding) throws IOException {
@@ -94,7 +83,6 @@ public abstract class RMOpMode extends OpMode {
     }
 
     private void configureMotors(JSONArray JSONMotors) {
-        telemetry.addData("configureMotors","configureMotors start");
         for (Object mObj : JSONMotors) {
             JSONObject mJSON = (JSONObject) mObj;
             String motorName = (String) mJSON.get("name");
@@ -105,11 +93,9 @@ public abstract class RMOpMode extends OpMode {
             Motor m = new Motor(dcParent, d, minPower, maxPower);
             motorMap.put(motorName, m);
         }
-        telemetry.addData("configureMotors","configureMotors finish");
     }
 
     private void configureServos(JSONArray JSONServos) {
-        telemetry.addData("configureServos","configureServos start");
         for (Object sObj : JSONServos) {
             JSONObject sJSON = (JSONObject) sObj;
             String servoName = (String) sJSON.get("name");
@@ -120,13 +106,12 @@ public abstract class RMOpMode extends OpMode {
             rServo s = new rServo(sParent, d, minPosition, maxPosition);
             servoMap.put(servoName, s);
         }
-        telemetry.addData("configureServos","configureServos finish");
     }
 
     private DcMotor.Direction stringToMotorDirection(String stringD) { //ToDo check if valueOf works as expected
-        if (stringD == "FORWARD") {
+        if (stringD.equals("FORWARD")) {
             return DcMotor.Direction.FORWARD;
-        } else if (stringD == "REVERSE") {
+        } else if (stringD.equals("REVERSE")) {
             return DcMotor.Direction.REVERSE;
         } else {
             return DcMotor.Direction.valueOf(stringD);
@@ -134,9 +119,9 @@ public abstract class RMOpMode extends OpMode {
     }
 
     private Servo.Direction stringToServoDirection(String stringD) {
-        if (stringD == "FORWARD") {
+        if (stringD.equals("FORWARD")) {
             return Servo.Direction.FORWARD;
-        } else if (stringD == "REVERSE") {
+        } else if (stringD.equals("REVERSE")) {
             return Servo.Direction.REVERSE;
         } else {
             return Servo.Direction.valueOf(stringD);
