@@ -146,12 +146,10 @@ public abstract class RMOpMode extends OpMode {
     private DcMotorController.RunMode stringToRunMode(String stringR) {
         if (stringR.equals("RUN_TO_POSITION")) {
             return DcMotorController.RunMode.RUN_TO_POSITION;
-        } else if (stringR.equals("RUN_WITHOUT_ENCODERS")) {
-            return DcMotorController.RunMode.RUN_WITHOUT_ENCODERS;
         } else if (stringR.equals("RUN_USING_ENCODERS")) {
             return DcMotorController.RunMode.RUN_USING_ENCODERS;
         } else {
-            return DcMotorController.RunMode.RUN_WITHOUT_ENCODERS
+            return DcMotorController.RunMode.RUN_WITHOUT_ENCODERS;
         }
     }
 }
