@@ -26,6 +26,7 @@ public abstract class RMOpMode extends OpMode {
 
     @Override
     public void init() {
+        telemetry.addData("init", "init start");
         try {
             this.configureHardware(this.setConfigurationPath());
         } catch (IOException e) {
@@ -36,6 +37,10 @@ public abstract class RMOpMode extends OpMode {
             DbgLog.error(e.getMessage());
         }
         this.control = new Control(gamepad1, gamepad2);
+        for (Motor m : motorMap.values()) {
+            m.resetEncoder();
+        }
+        telemetry.addData("init", "init start2");
     }
 
     @Override
@@ -90,8 +95,7 @@ public abstract class RMOpMode extends OpMode {
             double maxPower = (Double) mJSON.get("maxPower");
             DcMotor dcParent = hardwareMap.dcMotor.get(motorName);
             DcMotor.Direction d = stringToMotorDirection((String) mJSON.get("direction"));
-            DcMotorController.RunMode r = stringToRunMode((String) mJSON.get("mode"));
-            Motor m = new Motor(dcParent, d, minPower, maxPower, r);
+            Motor m = new Motor(dcParent, d, minPower, maxPower);
             motorMap.put(motorName, m);
         }
     }
@@ -126,16 +130,6 @@ public abstract class RMOpMode extends OpMode {
             return Servo.Direction.REVERSE;
         } else {
             return Servo.Direction.valueOf(stringD);
-        }
-    }
-
-    private DcMotorController.RunMode stringToRunMode(String stringR) {
-        if (stringR.equals("RUN_TO_POSITION")) {
-            return DcMotorController.RunMode.RUN_TO_POSITION;
-        } else if (stringR.equals("RUN_USING_ENCODERS")) {
-            return DcMotorController.RunMode.RUN_USING_ENCODERS;
-        } else {
-            return DcMotorController.RunMode.RUN_WITHOUT_ENCODERS;
         }
     }
 }
