@@ -42,6 +42,12 @@ public class R2D2 extends RMOpMode {
           "      \"maxPower\":1.0,\n" +
           "      \"direction\":\"FORWARD\"\n" +
           "    },\n" +
+          "     {\n" +
+          "      \"name\":\"armAngle\",\n" +
+          "      \"minPower\":0.1,\n" +
+          "      \"maxPower\":1.0,\n" +
+          "      \"direction\":\"FORWARD\"\n" +
+          "    },\n" +
           "  ],\n" +
           "  \"servos\":[\n" +
           "    {\n" +
@@ -79,6 +85,18 @@ public class R2D2 extends RMOpMode {
             armPower = 0;
         }
         motorMap.get("Arm").setDesiredPower(armPower);
+
+        boolean armAngle = control.buttonHeld(Controller.C_TWO, Button.BUTTON_B);
+        boolean armAngleBackward = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
+        double armAnglePower;
+        if(armAngle){
+            armAnglePower = .5;
+        }else if(armAngleBackward){
+            armAnglePower = -.5;
+        }else{
+            armAnglePower = 0;
+        }
+        motorMap.get("armAngle").setDesiredPower(armAnglePower);
         /* Not on reobot yet
         boolean harvesterForward = control.buttonHeld(Controller.C_ONE, Button.BUTTON_LB);
         boolean harvesterReverse = control.buttonHeld(Controller.C_ONE, Button.BUTTON_RB);
