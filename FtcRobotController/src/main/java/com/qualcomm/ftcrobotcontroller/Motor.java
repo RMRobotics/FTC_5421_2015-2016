@@ -98,6 +98,7 @@ public class Motor {
             parent.setPower(currentPower);
         }
     }
+
     public void setRotationDistance(double rotation){
         curPos = parent.getCurrentPosition();
         dis = (int)(1120 * rotation); //Neverrest encoders are from 1120
@@ -118,6 +119,10 @@ public class Motor {
 
     public double getTargetPosition() {
         return parent.getTargetPosition();
+    }
+
+    public DcMotorController.RunMode getMode() {
+        return parent.getMode();
     }
 
     public void resetEncoder() {
