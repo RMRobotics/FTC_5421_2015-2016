@@ -4,7 +4,6 @@ import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.ftcrobotcontroller.control.Control;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.json.simple.JSONArray;
@@ -60,6 +59,7 @@ public abstract class RMOpMode extends OpMode {
         for (Motor m : motorMap.values()) {
             m.updateCurrentPower();
             m.setCurrentPower();
+            m.runUsingEncoder();
         }
         for (rServo s : servoMap.values()) {
             s.updateCurrentPosition();

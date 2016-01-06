@@ -122,6 +122,9 @@ public class Motor {
 
     public void resetEncoder() {
         parent.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+    }
+
+    public void runUsingEncoder() {
         parent.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
