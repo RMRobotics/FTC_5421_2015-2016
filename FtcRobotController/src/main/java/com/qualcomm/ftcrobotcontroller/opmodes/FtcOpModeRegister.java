@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.AutoOp;
 import com.qualcomm.ftcrobotcontroller.EncoderTest;
+import com.qualcomm.ftcrobotcontroller.R2D2;
 import com.qualcomm.ftcrobotcontroller.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
@@ -66,6 +67,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("PushBotAuto", PushBotAuto.class);
     manager.register ("PushBotManual", PushBotManual.class);
 
+
+
       /*
        * Uncomment any of the following lines if you want to register an op mode.
        */
@@ -73,17 +76,18 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("TeleOp", TeleOp.class);
     manager.register("AutoOp", AutoOp.class);
+    manager.register("R2D2", R2D2.class);
 
-    //manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
-    //manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
-    //manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
-    //manager.register("navXMotionDetectionOp", navXMotionDetectionOp.class);
-    //manager.register("navXPerformanceTuningOp", navXPerformanceTuningOp.class);
-    //manager.register("navXProcessedOp", navXProcessedOp.class);
-    //manager.register("navXRawOp", navXRawOp.class);
-    //manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
-    //manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
-    //manager.register("navXZeroYawOp", navXZeroYawOp.class);
+    manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
+    manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
+    manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
+    manager.register("navXMotionDetectionOp", navXMotionDetectionOp.class);
+    manager.register("navXPerformanceTuningOp", navXPerformanceTuningOp.class);
+    manager.register("navXProcessedOp", navXProcessedOp.class);
+    manager.register("navXRawOp", navXRawOp.class);
+    manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
+    manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
+    manager.register("navXZeroYawOp", navXZeroYawOp.class);
 
     manager.register("EncoderTest", EncoderTest.class);
 
