@@ -1,16 +1,21 @@
 package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.ftccommon.DbgLog;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
+import java.util.Timer;
 import java.util.Calendar;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Peter on 1/4/16.
  */
 public class EncoderTest extends RMOpMode {
+    Timer timer = new Timer();
     Calendar cal;
-    protected long curTime;
-    protected long startTime;
+    private long curTime;
+    private long startTime;
 
     private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
@@ -19,8 +24,9 @@ public class EncoderTest extends RMOpMode {
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
-            "      \"mode\":\"RUN_TO_POSITION\"\n" +
             "    },\n" +
+            "  ],\n" +
+            "  \"servos\":[\n" +
             "  ],\n" +
             "}";
 
@@ -32,17 +38,12 @@ public class EncoderTest extends RMOpMode {
         return CONFIGURATION_PATH;
     }
 
-    public void loop() {
-        while (1==1){
-            motorMap.get("motor").setRotationDistance(1.0);
-            waitTime(5);
-            motorMap.get("motor").setRotationDistance(-0.5);
-            waitTime(5);
-        }
+    protected void calculate() {
+        motorMap.get("motor").setRotationDistance(2.0);
+        motorMap.get("motor").setEncoderPosition(0.5);
+        telemetry.addData("calc", "current position at " + motorMap.get("motor").getCurrentPosition() + " and target position at " + motorMap.get("motor").getTargetPosition());
     }
-
-    public void calculate(){}
-
+/*
     private void waitTime(long wait) {
         curTime = cal.getTimeInMillis();
         startTime = cal.getTimeInMillis();
@@ -52,4 +53,6 @@ public class EncoderTest extends RMOpMode {
             curTime = cal.getTimeInMillis();
         }
     }
+}
+*/
 }

@@ -14,20 +14,19 @@ public class Motor {
     private DcMotor.Direction defaultDirection;
     private double minPower;
     private double maxPower;
-    private DcMotorController.RunMode motorRunMode;
     private double desiredPower;
     private double currentPower;
     private double interval;
     private double speedInterval = 3.0;
     private int curPos;
+    private int tarPos;
     private int dis;
 
-    public Motor(DcMotor dc, DcMotor.Direction d, double min, double max, DcMotorController.RunMode r) {
+    public Motor(DcMotor dc, DcMotor.Direction d, double min, double max) {
         parent = dc;
         defaultDirection = d;
         minPower = min;
         maxPower = max;
-        motorRunMode = r;
 
     } //Todo add string to send in DbgLog confirming motor settings once configured
 
@@ -102,7 +101,7 @@ public class Motor {
     public void setRotationDistance(double rotation){
         curPos = parent.getCurrentPosition();
         dis = (int)(1120 * rotation); //Neverrest encoders are from 1120
-        parent.setTargetPosition(curPos+dis);
+        parent.setTargetPosition(dis);
     }
     public void setEncoderPosition(double power){
         curPos = parent.getCurrentPosition();
@@ -111,6 +110,22 @@ public class Motor {
         }else{
             desiredPower = 0;
         }
+    }
+
+    public double getCurrentPosition() {
+        return parent.getCurrentPosition();
+    }
+
+    public double getTargetPosition() {
+        return parent.getTargetPosition();
+    }
+
+    public void resetEncoder() {
+        parent.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+    }
+
+    public void runUsingEncoder() {
+        parent.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
 }
