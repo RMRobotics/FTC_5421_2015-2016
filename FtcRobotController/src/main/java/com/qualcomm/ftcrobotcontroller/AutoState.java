@@ -96,19 +96,15 @@ public class AutoState extends RMOpMode {
                         state = 2;
                     } else {
                         for (Motor m : motorMap.values()) {
-                            m.runUsingEncoder();
+                            m.runToPosition();
                         }
                         state = 2;
                     }
                 case 2: //drive to center
-                    motorMap.get("DriveLeftOne").setRotationDistance(2.0);
-                    motorMap.get("DriveLeftOne").setEncoderPosition(0.5);
-                    motorMap.get("DriveLeftTwo").setRotationDistance(2.0);
-                    motorMap.get("DriveLeftTwo").setEncoderPosition(0.5);
-                    motorMap.get("DriveRightOne").setRotationDistance(2.0);
-                    motorMap.get("DriveRightOne").setEncoderPosition(0.5);
-                    motorMap.get("DriveRightTwo").setRotationDistance(2.0);
-                    motorMap.get("DriveRightTwo").setEncoderPosition(0.5);
+                    motorMap.get("DriveLeftOne").setEncoderMove(motorMap.get("DriveLeftOne").getCurrentPosition(),2.0,0.5);
+                    motorMap.get("DriveLeftTwo").setEncoderMove(motorMap.get("DriveLeftTwo").getCurrentPosition(),2.0,0.5);
+                    motorMap.get("DriveRightOne").setEncoderMove(motorMap.get("DriveRightOne").getCurrentPosition(),2.0,0.5);
+                    motorMap.get("DriveRightTwo").setEncoderMove(motorMap.get("DriveRightTwo").getCurrentPosition(),2.0,0.5);
                     telemetry.addData("L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getTargetPosition() + "-" + motorMap.get("DriveRightOne").getTargetPosition() + "-" + motorMap.get("DriveRightTwo").getTargetPosition());
                     if (motorMap.get("DriveLeftOne").getCurrentPosition() > motorMap.get("DriveLeftOne").getTargetPosition()) {
                         state = 3;

@@ -44,7 +44,7 @@ public class TeleOp extends RMOpMode {
             "      \"name\":\"Bucket\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
+            "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
             "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +

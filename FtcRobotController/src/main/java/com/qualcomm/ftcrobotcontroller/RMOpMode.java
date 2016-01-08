@@ -59,7 +59,7 @@ public abstract class RMOpMode extends OpMode {
         for (Motor m : motorMap.values()) {
             m.updateCurrentPower();
             m.setCurrentPower();
-            m.runUsingEncoder();
+            m.runToPosition();
         }
         for (rServo s : servoMap.values()) {
             s.updateCurrentPosition();
