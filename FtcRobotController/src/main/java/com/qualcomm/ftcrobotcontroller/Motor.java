@@ -41,7 +41,7 @@ public class Motor {
          * clip to be within range
          *
          */
-        if (abs(tarPos - parent.getCurrentPosition()) < 10) {
+        if (abs(tarPos - parent.getCurrentPosition()) < 10 && parent.getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
             desiredPower = 0;
             currentPower = desiredPower;
         }
@@ -130,8 +130,12 @@ public class Motor {
         parent.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
     }
 
+    public void runWithoutEncoders() { parent.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS); }
+
     public double getPower() { return parent.getPower(); }
 
     public double getDesiredPower() { return desiredPower; }
+
+    public void stop() { setDesiredPower(0); }
 
 }

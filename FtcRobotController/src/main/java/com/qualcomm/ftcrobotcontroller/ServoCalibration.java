@@ -5,7 +5,7 @@ import com.qualcomm.ftcrobotcontroller.control.Button;
 import com.qualcomm.ftcrobotcontroller.control.Controller;
 import com.qualcomm.ftcrobotcontroller.control.Joystick;
 
-public class TeleOp extends RMOpMode {
+public class ServoCalibration extends RMOpMode {
 
     //private final String CONFIGURATION_PATH = "res/robot.json";
     private final String CONFIGURATION_PATH = "{\n" +
@@ -76,62 +76,54 @@ public class TeleOp extends RMOpMode {
 
     @Override
     protected void calculate() {
-        opType = 1;
-        double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
-        double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
-        motorMap.get("DriveLeftOne").setDesiredPower(leftPower);
-        //motorMap.get("DriveLeftTwo").setDesiredPower(leftPower);
-        motorMap.get("DriveRightOne").setDesiredPower(rightPower);
-        //motorMap.get("DriveRightTwo").setDesiredPower(rightPower);
-
-        boolean harvestUp = control.button(Controller.C_ONE, Button.BUTTON_LB);
-        boolean harvestDown = control.button(Controller.C_ONE, Button.BUTTON_RB);
-        double harvestPower;
-        if(harvestUp){
-            harvestPower = 1.0;
-        }else if(harvestDown){
-            harvestPower = -1.0;
-        }else{
-            harvestPower = 0.0;
-        }
-        motorMap.get("Harvester").setDesiredPower(harvestPower);
+        motorMap.get("DriveLeftOne").stop();
+        motorMap.get("DriveRightOne").stop();
 
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
         if(bucketRight){
-            motorMap.get("Bucket").setEncoderMove(0, 4.33333333, 1.0);
+            motorMap.get("Bucket").setDesiredPower(1.0);
         }else if(bucketLeft) {
-            motorMap.get("Bucket").setEncoderMove(4853,-4.33333333, 1.0);
+            motorMap.get("Bucket").setDesiredPower(-1.0);
         }
 
-        double leftFlap = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
-        double rightFlap = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
-        double lFlapPos;
-        double rFlapPos;
-        if(leftFlap > 0.1){
-            lFlapPos = 0;
+        boolean leftFlapUp = control.buttonHeld(Controller.C_ONE, Button.BUTTON_A);
+        boolean leftFlapDown = control.button(Controller.C_ONE, Button.BUTTON_B);
+        boolean rightFlapUp = control.buttonHeld(Controller.C_ONE, Button.BUTTON_X);
+        boolean rightFlapDown = control.button(Controller.C_ONE, Button.BUTTON_Y);
+
+        double lFlapPos = servoMap.get("BucketLeft").getPosition();
+        double rFlapPos = servoMap.get("BucketRight").getPosition();
+        if(leftFlapUp){
+            lFlapPos += 0.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
-        }else if(leftFlap < -0.1){
-            lFlapPos = 0.5;
+            telemetry.addData("L-R", lFlapPos + rFlapPos);
+        }else if(leftFlapDown){
+            lFlapPos -= 0.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
+            telemetry.addData("L-R", lFlapPos + rFlapPos);
         }
-        if(rightFlap > -0.1){
-            rFlapPos = 1.0;
+        if(rightFlapUp){
+            rFlapPos += 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
-        }else if(rightFlap < 0.1){
-            rFlapPos = 0.50;
+            telemetry.addData("L-R", lFlapPos + rFlapPos);
+        }else if(rightFlapDown){
+            rFlapPos -= 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
+            telemetry.addData("L-R", lFlapPos + rFlapPos);
         }
 
-        boolean climberThrowUp = control.button(Controller.C_TWO, Button.BUTTON_A);
-        boolean climberThrowDown = control.button(Controller.C_TWO, Button.BUTTON_B);
-        double climberPos;
+        boolean climberThrowUp = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
+        boolean climberThrowDown = control.buttonHeld(Controller.C_TWO, Button.BUTTON_B);
+        double climberPos = servoMap.get("Climbers").getPosition();
         if(climberThrowUp){
-            climberPos = 0.6;
+            climberPos += 0.01;
             servoMap.get("Climbers").setDesiredPosition(climberPos);
+            telemetry.addData("Climbers", climberPos);
         }else if(climberThrowDown){
-            climberPos = 0;
+            climberPos -= 0.01;
             servoMap.get("Climbers").setDesiredPosition(climberPos);
+            telemetry.addData("Climbers", climberPos);
         }
     }
 

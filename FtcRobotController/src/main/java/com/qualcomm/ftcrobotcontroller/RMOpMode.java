@@ -22,6 +22,7 @@ public abstract class RMOpMode extends OpMode {
     protected Map<String, Motor> motorMap = new HashMap<String, Motor>();
     protected Map<String, rServo> servoMap =  new HashMap<String, rServo>();
     protected Control control;
+    public int opType;
 
     @Override
     public void init() {
@@ -38,6 +39,9 @@ public abstract class RMOpMode extends OpMode {
         this.control = new Control(gamepad1, gamepad2);
         for (Motor m : motorMap.values()) {
             m.resetEncoder();
+        }
+        for (rServo r : servoMap.values()) { //testing only
+            r.setDesiredPosition(0.5);
         }
         telemetry.addData("init", "init start2");
     }
@@ -61,7 +65,15 @@ public abstract class RMOpMode extends OpMode {
         for (Motor m : motorMap.values()) {
             m.updateCurrentPower();
             m.setCurrentPower();
-            m.runToPosition();
+            if (opType == 0) {
+                m.runToPosition();
+            } else {
+                if (m == motorMap.get("Bucket")){
+                    m.runToPosition();
+                } else {
+                    m.runWithoutEncoders();
+                }
+            }
         }
         for (rServo s : servoMap.values()) {
             s.updateCurrentPosition();
