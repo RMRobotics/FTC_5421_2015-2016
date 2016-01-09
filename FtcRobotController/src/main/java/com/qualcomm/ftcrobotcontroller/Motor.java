@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.cos;
 
 public class Motor {
 
@@ -70,9 +69,6 @@ public class Motor {
             currentPower = desiredPower;
         }
 
-
-
-
         /*if(desiredPower<0){
             if(defaultDirection == DcMotor.Direction.FORWARD){
                 defaultDirection = DcMotor.Direction.REVERSE;
@@ -114,11 +110,6 @@ public class Motor {
         setDesiredPower(power);
     }
 
-    public void setEncoderPosition(int position, double power) {
-        parent.setTargetPosition(position);
-        setDesiredPower(power);
-    }
-
     public double getCurrentPosition() {
         return parent.getCurrentPosition();
     }
@@ -140,5 +131,7 @@ public class Motor {
     }
 
     public double getPower() { return parent.getPower(); }
+
+    public double getDesiredPower() { return desiredPower; }
 
 }

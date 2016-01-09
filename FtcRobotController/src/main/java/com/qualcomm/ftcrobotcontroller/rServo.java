@@ -39,4 +39,8 @@ public class rServo{
         parent.setPosition(currentPosition);
     }
 
+    public double getPosition() {
+        return parent.getPosition();
+    }
+
 }

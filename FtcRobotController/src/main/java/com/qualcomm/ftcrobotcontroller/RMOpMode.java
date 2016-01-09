@@ -56,6 +56,8 @@ public abstract class RMOpMode extends OpMode {
     protected abstract void calculate();
 
     protected void updateHardware() {
+        motorMap.get("DriveLeftTwo").setDesiredPower(motorMap.get("DriveLeftOne").getDesiredPower());
+        motorMap.get("DriveRightTwo").setDesiredPower(motorMap.get("DriveRightOne").getDesiredPower());
         for (Motor m : motorMap.values()) {
             m.updateCurrentPower();
             m.setCurrentPower();

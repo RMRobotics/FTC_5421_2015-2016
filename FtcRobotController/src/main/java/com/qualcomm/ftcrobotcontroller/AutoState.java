@@ -4,6 +4,7 @@ import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import java.util.Calendar;
+import static java.lang.Math.abs;
 
 /**
  * Created by Simon on 12/31/2015.
@@ -101,43 +102,44 @@ public class AutoState extends RMOpMode {
                         state = 2;
                     }
                 case 2: //drive to center
-                    motorMap.get("DriveLeftOne").setEncoderMove(motorMap.get("DriveLeftOne").getCurrentPosition(),2.0,0.5);
-                    motorMap.get("DriveLeftTwo").setEncoderMove(motorMap.get("DriveLeftTwo").getCurrentPosition(),2.0,0.5);
-                    motorMap.get("DriveRightOne").setEncoderMove(motorMap.get("DriveRightOne").getCurrentPosition(),2.0,0.5);
-                    motorMap.get("DriveRightTwo").setEncoderMove(motorMap.get("DriveRightTwo").getCurrentPosition(),2.0,0.5);
-                    telemetry.addData("L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getTargetPosition() + "-" + motorMap.get("DriveRightOne").getTargetPosition() + "-" + motorMap.get("DriveRightTwo").getTargetPosition());
-                    if (motorMap.get("DriveLeftOne").getCurrentPosition() > motorMap.get("DriveLeftOne").getTargetPosition()) {
+                    motorMap.get("DriveLeftOne").setEncoderMove(0, 2.0, 0.5);
+                    //motorMap.get("DriveLeftTwo").setEncoderMove(0, 2.0, 0.5);
+                    motorMap.get("DriveRightOne").setEncoderMove(0, 2.0, 0.5);
+                    //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
+                    telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                    if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10) { //TODO: set targetPosition to be constant
                         state = 3;
                     }
                 case 3: //turn left 45 degree
-                    telemetry.addData("STATE 3", "TURN LEFT 45");
-                    motorMap.get("DriveLeftOne").setDesiredPower(0.0);
-                    motorMap.get("DriveLeftTwo").setDesiredPower(0.0);
-                    motorMap.get("DriveRightOne").setDesiredPower(1.0);
-                    motorMap.get("DriveRightTwo").setDesiredPower(1.0);
-                    waitTime(1000);
-                    state = 4;
+                    motorMap.get("DriveLeftOne").setEncoderMove(0, 0, 0.5);
+                    //motorMap.get("DriveLeftTwo").setEncoderMove(0, 0, 0.5);
+                    motorMap.get("DriveRightOne").setEncoderMove(0, 2.0, 0.5);
+                    //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
+                    telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                    if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10) { //TODO: set targetPosition to be constant
+                        state = 4;
+                    }
                 case 4: //drive to beacon zone
-                    telemetry.addData("STATE 4", "ALL PREVIOUS STATES SUCCESSFUL");
-                    waitTime(10000);
-                    state = 0;
-                default:
-                    break;
-            } // end switch
-
-        } // end while
-        /*
-        while (state != 0) {
-            switch (state) {
-                case 1:
-                    motorMap.get("DriveLeftOne").setRotationDistance(1.0);
-                    motorMap.get("DriveLeftTwo").setRotationDistance(1.0);
-                    motorMap.get("DriveRightOne").setRotationDistance(1.0);
-                    motorMap.get("DriveRightTwo").setRotationDistance(1.0);
+                    motorMap.get("DriveLeftOne").setEncoderMove(0, 0, 0.5);
+                    //motorMap.get("DriveLeftTwo").setEncoderMove(0, 0, 0.5);
+                    motorMap.get("DriveRightOne").setEncoderMove(0, 2.0, 0.5);
+                    //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
+                    telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                    if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10) { //TODO: set targetPosition to be constant
+                        state = 5;
+                    }
+                case 5: //dump climbers
+                    servoMap.get("Climbers").setDesiredPosition(0); //TODO: set values for servo position
+                    telemetry.addData("State " + state, servoMap.get("Climbers").);
+                    waitTime(2000);
+                    servoMap.get("Climbers").setDesiredPosition(0.9);
+                    waitTime(2000);
+                    state = 6;
+                //TODO: Add more states
                 default:
                     break;
             }
-        } */
+        }
     }
 
     private void waitTime(long wait) {
