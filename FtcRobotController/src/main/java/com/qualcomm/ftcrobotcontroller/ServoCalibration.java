@@ -81,11 +81,23 @@ public class ServoCalibration extends RMOpMode {
 
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
+        double bucketPower;
+        if(bucketLeft){
+            bucketPower = 1.0;
+        }else if(bucketRight){
+            bucketPower = -1.0;
+        }else{
+            bucketPower = 0.0;
+        }
+        motorMap.get("Bucket").setDesiredPower(bucketPower);
+        /*
+        boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
+        boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
         if(bucketRight){
             motorMap.get("Bucket").setDesiredPower(1.0);
         }else if(bucketLeft) {
             motorMap.get("Bucket").setDesiredPower(-1.0);
-        }
+        }*/
 
         boolean leftFlapUp = control.buttonHeld(Controller.C_ONE, Button.BUTTON_A);
         boolean leftFlapDown = control.button(Controller.C_ONE, Button.BUTTON_B);
@@ -97,20 +109,20 @@ public class ServoCalibration extends RMOpMode {
         if(leftFlapUp){
             lFlapPos += 0.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
-            telemetry.addData("L-R", lFlapPos + rFlapPos);
+            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
         }else if(leftFlapDown){
             lFlapPos -= 0.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
-            telemetry.addData("L-R", lFlapPos + rFlapPos);
+            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
         }
         if(rightFlapUp){
             rFlapPos += 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
-            telemetry.addData("L-R", lFlapPos + rFlapPos);
+            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
         }else if(rightFlapDown){
             rFlapPos -= 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
-            telemetry.addData("L-R", lFlapPos + rFlapPos);
+            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
         }
 
         boolean climberThrowUp = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);

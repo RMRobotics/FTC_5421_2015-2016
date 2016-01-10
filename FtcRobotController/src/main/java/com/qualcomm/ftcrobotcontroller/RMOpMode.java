@@ -68,11 +68,7 @@ public abstract class RMOpMode extends OpMode {
             if (opType == 0) {
                 m.runToPosition();
             } else {
-                if (m == motorMap.get("Bucket")){
-                    m.runToPosition();
-                } else {
-                    m.runWithoutEncoders();
-                }
+                m.runWithoutEncoders();
             }
         }
         for (rServo s : servoMap.values()) {
