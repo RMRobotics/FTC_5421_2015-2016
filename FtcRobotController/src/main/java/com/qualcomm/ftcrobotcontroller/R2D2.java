@@ -34,7 +34,7 @@ public class R2D2 extends RMOpMode {
             "      \"name\":\"DriveRightTwo\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD \"\n" +
+            "      \"direction\":\"FORWARD\"\n" +
             "    },\n" +
             "     {\n" +
             "      \"name\":\"Arm\",\n" +

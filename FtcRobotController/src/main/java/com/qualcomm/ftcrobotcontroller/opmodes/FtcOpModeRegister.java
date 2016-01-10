@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.Auto8121;
 import com.qualcomm.ftcrobotcontroller.AutoOp;
 import com.qualcomm.ftcrobotcontroller.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.R2D2;
@@ -62,10 +63,10 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("NullOp", NullOp.class);
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("K9TeleOp", K9TeleOp.class);
-    manager.register("K9Line", K9Line.class);
-    manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register ("PushBotManual", PushBotManual.class);
+   // manager.register("K9TeleOp", K9TeleOp.class);
+   // manager.register("K9Line", K9Line.class);
+   // manager.register ("PushBotAuto", PushBotAuto.class);
+    //manager.register ("PushBotManual", PushBotManual.class);
 
 
 
@@ -77,6 +78,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("TeleOp", TeleOp.class);
     manager.register("AutoOp", AutoOp.class);
     manager.register("R2D2", R2D2.class);
+    manager.register("Auto8121", Auto8121.class);
 
    // manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
    // manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);

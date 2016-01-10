@@ -113,6 +113,13 @@ public class Motor {
         }
     }
 
+    public void setEncoderMove(double currentPosition, double rotation, double power) {
+        curPos = (int)currentPosition;
+        tarPos = curPos + (int)(rotation * 1120);
+        parent.setTargetPosition(tarPos);
+        setDesiredPower(power);
+    }
+
     public double getCurrentPosition() {
         return parent.getCurrentPosition();
     }
