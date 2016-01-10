@@ -78,16 +78,16 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("AutoOp", AutoOp.class);
     manager.register("R2D2", R2D2.class);
 
-    manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
-    manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
-    manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
-    manager.register("navXMotionDetectionOp", navXMotionDetectionOp.class);
-    manager.register("navXPerformanceTuningOp", navXPerformanceTuningOp.class);
-    manager.register("navXProcessedOp", navXProcessedOp.class);
-    manager.register("navXRawOp", navXRawOp.class);
-    manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
-    manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
-    manager.register("navXZeroYawOp", navXZeroYawOp.class);
+   // manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
+   // manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
+   // manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
+   // manager.register("navXMotionDetectionOp", navXMotionDetectionOp.class);
+   // manager.register("navXPerformanceTuningOp", navXPerformanceTuningOp.class);
+   // manager.register("navXProcessedOp", navXProcessedOp.class);
+   // manager.register("navXRawOp", navXRawOp.class);
+   // manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
+   // manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
+   // manager.register("navXZeroYawOp", navXZeroYawOp.class);
 
     manager.register("EncoderTest", EncoderTest.class);
 
