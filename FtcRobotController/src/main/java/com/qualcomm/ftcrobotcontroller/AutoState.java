@@ -44,7 +44,7 @@ public class AutoState extends RMOpMode {
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
             "    },\n" +
-            "    {\n" +
+            "     {\n" +
             "      \"name\":\"Harvester\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
@@ -54,7 +54,7 @@ public class AutoState extends RMOpMode {
             "      \"name\":\"Bucket\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
+            "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
             "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
@@ -63,18 +63,21 @@ public class AutoState extends RMOpMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.45,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"BucketLeft\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.9,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.6,\n" +
             "    }\n" +
             "  ]\n" +
             "}";
