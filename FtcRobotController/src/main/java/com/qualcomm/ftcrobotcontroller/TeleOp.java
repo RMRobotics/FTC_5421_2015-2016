@@ -76,12 +76,13 @@ public class TeleOp extends RMOpMode {
 
     @Override
     protected void calculate() {
+        opType = 1;
         double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
         motorMap.get("DriveLeftOne").setDesiredPower(leftPower);
-        motorMap.get("DriveLeftTwo").setDesiredPower(leftPower);
+        //motorMap.get("DriveLeftTwo").setDesiredPower(leftPower);
         motorMap.get("DriveRightOne").setDesiredPower(rightPower);
-        motorMap.get("DriveRightTwo").setDesiredPower(rightPower);
+        //motorMap.get("DriveRightTwo").setDesiredPower(rightPower);
 
         boolean harvestUp = control.button(Controller.C_ONE, Button.BUTTON_LB);
         boolean harvestDown = control.button(Controller.C_ONE, Button.BUTTON_RB);
@@ -97,27 +98,31 @@ public class TeleOp extends RMOpMode {
 
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
-        if(bucketLeft){
-            motorMap.get("Bucket").setEncoderMove(0, 4.33333333, 1.0);
-        }else if(bucketRight) {
-            motorMap.get("Bucket").setEncoderMove(4853,-4.33333333, 1.0);
+        double bucketPower;
+        if(bucketRight){
+            bucketPower = 1.0;
+        }else if(bucketLeft) {
+            bucketPower = -1.0;
+        }else{
+            bucketPower = 0.0;
         }
+        motorMap.get("Bucket").setDesiredPower(bucketPower);
 
         double leftFlap = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
         double rightFlap = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
         double lFlapPos;
         double rFlapPos;
-        if(leftFlap > 0.1){
-            lFlapPos = 0.80;
+        if(leftFlap > 0.05){
+            lFlapPos = 0.9;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
-        }else if(leftFlap < -0.1){
-            lFlapPos = 0.40;
+        }else if(leftFlap < -0.05){
+            lFlapPos = 0.3;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
         }
-        if(rightFlap > 0.1){
-            rFlapPos = 0.50;
+        if(rightFlap > 0.05){
+            rFlapPos = 0.45;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
-        }else if(rightFlap < -0.1){
+        }else if(rightFlap < -0.05){
             rFlapPos = 1.0;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
         }
