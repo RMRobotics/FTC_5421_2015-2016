@@ -159,6 +159,7 @@ public class AutoState extends RMOpMode {
                     }*/
                 //TODO: Add more states
                 default:
+                    telemetry.addData("breaking", "broken");
                     break;
             }
         }
