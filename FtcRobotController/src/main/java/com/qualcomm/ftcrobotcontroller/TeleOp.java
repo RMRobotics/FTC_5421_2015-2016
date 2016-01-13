@@ -88,9 +88,9 @@ public class TeleOp extends RMOpMode {
         boolean harvestDown = control.button(Controller.C_ONE, Button.BUTTON_RB);
         double harvestPower;
         if(harvestUp){
-            harvestPower = 1.0;
-        }else if(harvestDown){
             harvestPower = -1.0;
+        }else if(harvestDown){
+            harvestPower = 1.0;
         }else{
             harvestPower = 0.0;
         }

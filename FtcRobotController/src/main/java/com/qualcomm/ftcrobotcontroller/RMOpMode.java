@@ -21,6 +21,7 @@ public abstract class RMOpMode extends OpMode {
 
     protected Map<String, Motor> motorMap = new HashMap<String, Motor>();
     protected Map<String, rServo> servoMap =  new HashMap<String, rServo>();
+    protected Map<Motor, Motor> motorSlaveMap =  new HashMap<Motor, Motor>();
     protected Control control;
     public int opType;
 
