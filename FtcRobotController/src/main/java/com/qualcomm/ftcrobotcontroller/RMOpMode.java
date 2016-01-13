@@ -61,15 +61,19 @@ public abstract class RMOpMode extends OpMode {
     protected abstract void calculate();
 
     protected void updateHardware() {
-        motorMap.get("DriveLeftTwo").setDesiredPower(motorMap.get("DriveLeftOne").getDesiredPower());
-        motorMap.get("DriveRightTwo").setDesiredPower(motorMap.get("DriveRightOne").getDesiredPower());
+        //motorMap.get("DriveLeftTwo").setDesiredPower(motorMap.get("DriveLeftOne").getDesiredPower());
+        //motorMap.get("DriveRightTwo").setDesiredPower(motorMap.get("DriveRightOne").getDesiredPower());
         for (Motor m : motorMap.values()) {
             if (opType == 0) {
                 m.runToPosition();
             } else {
                 m.runWithoutEncoders();
             }
-
+            for (Motor sl : motorSlaveMap.keySet()) {
+                if (sl==m) {
+                    sl.setDesiredPower(motorSlaveMap.get(sl).getDesiredPower());
+                }
+            }
             m.updateCurrentPower();
             m.setCurrentPower();
         }
@@ -90,7 +94,7 @@ public abstract class RMOpMode extends OpMode {
         JSONArray jsonSlave = (JSONArray) jsonFile.get("slave");
         this.configureMotors(jsonMotors);
         this.configureServos(jsonServos);
-        this.configureSlave()
+        this.configureSlave(jsonSlave);
         //Todo add methods for configuring and sensors
     }
 
