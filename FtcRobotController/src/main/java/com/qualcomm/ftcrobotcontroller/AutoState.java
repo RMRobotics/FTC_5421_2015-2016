@@ -76,7 +76,17 @@ public class AutoState extends RMOpMode {
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "    }\n" +
-            "  ]\n" +
+            "  ],\n" +
+            "  \"slave\":[\n" +
+            "    {\n" +
+            "      \"name\":\"DriveLeftTwo\",\n" +
+            "      \"slaveTo\":\"DriveLeftOne\",\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"DriveRightTwo\",\n" +
+            "      \"slaveTo\":\"DriveRightOne\",\n" +
+            "    },\n" +
+            "  ],\n" +
             "}";
 
     @Override
