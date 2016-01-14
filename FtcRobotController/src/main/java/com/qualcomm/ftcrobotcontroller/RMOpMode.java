@@ -63,17 +63,20 @@ public abstract class RMOpMode extends OpMode {
     protected void updateHardware() {
         //motorMap.get("DriveLeftTwo").setDesiredPower(motorMap.get("DriveLeftOne").getDesiredPower());
         //motorMap.get("DriveRightTwo").setDesiredPower(motorMap.get("DriveRightOne").getDesiredPower());
+        for (Motor sl : motorSlaveMap.keySet()) {
+            sl.setDesiredPower(motorSlaveMap.get(sl).getDesiredPower());
+        }
         for (Motor m : motorMap.values()) {
             if (opType == 0) {
                 m.runToPosition();
             } else {
                 m.runWithoutEncoders();
             }
-            for (Motor sl : motorSlaveMap.keySet()) {
+            /*for (Motor sl : motorSlaveMap.keySet()) {
                 if (sl==m) {
                     sl.setDesiredPower(motorSlaveMap.get(sl).getDesiredPower());
                 }
-            }
+            }*/
             m.updateCurrentPower();
             m.setCurrentPower();
         }
@@ -168,5 +171,6 @@ public abstract class RMOpMode extends OpMode {
                 return m;
             }
         }
+        return null; //TODO fix bad coding practice of using null as an invalid return value. Create a standard null motor for error detection.
     }
 }
