@@ -42,7 +42,7 @@ public abstract class RMOpMode extends OpMode {
             m.resetEncoder();
         }
         for (rServo r : servoMap.values()) { //testing only
-            r.setDesiredPosition(0.5);
+            r.setInitPos();
         }
         telemetry.addData("init", "init start2");
     }
@@ -129,7 +129,8 @@ public abstract class RMOpMode extends OpMode {
             double maxPosition = (Double) sJSON.get("maxPosition");
             Servo sParent = hardwareMap.servo.get(servoName);
             Servo.Direction d = stringToServoDirection((String) sJSON.get("direction"));
-            rServo s = new rServo(sParent, d, minPosition, maxPosition);
+            double init = (Double) sJSON.get("init");
+            rServo s = new rServo(sParent, d, minPosition, maxPosition, init);
             servoMap.put(servoName, s);
         }
     }
