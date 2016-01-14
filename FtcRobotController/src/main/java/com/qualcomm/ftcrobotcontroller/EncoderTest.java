@@ -8,6 +8,11 @@ import java.util.Calendar;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import com.qualcomm.ftcrobotcontroller.control.Axis;
+import com.qualcomm.ftcrobotcontroller.control.Button;
+import com.qualcomm.ftcrobotcontroller.control.Controller;
+import com.qualcomm.ftcrobotcontroller.control.Joystick;
+
 /**
  * Created by Peter on 1/4/16.
  */
@@ -39,9 +44,14 @@ public class EncoderTest extends RMOpMode {
     }
 
     protected void calculate() {
-        motorMap.get("motor").setRotationDistance(2.0);
-        motorMap.get("motor").setEncoderPosition(0.5);
-        telemetry.addData("calc", "current position at " + motorMap.get("motor").getCurrentPosition() + " and target position at " + motorMap.get("motor").getTargetPosition());
+        boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
+        boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
+        if(bucketLeft){
+            motorMap.get("motor").setEncoderMove(0, 4.33333333, 1.0);
+        }else if(bucketRight) {
+            motorMap.get("motor").setEncoderMove(4853,-4.33333333, 1.0);
+        }
+        telemetry.addData("calc", "current position at " + motorMap.get("motor").getCurrentPosition() + " and target position at " + motorMap.get("motor").getTargetPosition() + " and power at " + motorMap.get("motor").getPower());
     }
 /*
     private void waitTime(long wait) {

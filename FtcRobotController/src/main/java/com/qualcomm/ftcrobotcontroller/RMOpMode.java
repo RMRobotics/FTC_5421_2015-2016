@@ -22,6 +22,7 @@ public abstract class RMOpMode extends OpMode {
     protected Map<String, Motor> motorMap = new HashMap<String, Motor>();
     protected Map<String, rServo> servoMap =  new HashMap<String, rServo>();
     protected Control control;
+    public int opType;
 
     @Override
     public void init() {
@@ -38,6 +39,9 @@ public abstract class RMOpMode extends OpMode {
         this.control = new Control(gamepad1, gamepad2);
         for (Motor m : motorMap.values()) {
             m.resetEncoder();
+        }
+        for (rServo r : servoMap.values()) { //testing only
+            r.setInitPos();
         }
         telemetry.addData("init", "init start2");
     }
@@ -56,10 +60,16 @@ public abstract class RMOpMode extends OpMode {
     protected abstract void calculate();
 
     protected void updateHardware() {
+        motorMap.get("DriveLeftTwo").setDesiredPower(motorMap.get("DriveLeftOne").getDesiredPower());
+        motorMap.get("DriveRightTwo").setDesiredPower(motorMap.get("DriveRightOne").getDesiredPower());
         for (Motor m : motorMap.values()) {
             m.updateCurrentPower();
             m.setCurrentPower();
-            m.runUsingEncoder();
+            if (opType == 0) {
+                m.runToPosition();
+            } else {
+                m.runWithoutEncoders();
+            }
         }
         for (rServo s : servoMap.values()) {
             s.updateCurrentPosition();
@@ -108,7 +118,8 @@ public abstract class RMOpMode extends OpMode {
             double maxPosition = (Double) sJSON.get("maxPosition");
             Servo sParent = hardwareMap.servo.get(servoName);
             Servo.Direction d = stringToServoDirection((String) sJSON.get("direction"));
-            rServo s = new rServo(sParent, d, minPosition, maxPosition);
+            double init = (Double) sJSON.get("init");
+            rServo s = new rServo(sParent, d, minPosition, maxPosition, init);
             servoMap.put(servoName, s);
         }
     }
