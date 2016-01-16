@@ -142,9 +142,9 @@ public class AutoState extends RMOpMode {
                         state = 4;
                     }*/
                 case 4: //drive to beacon zone
-                    motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 2.0, 1.0);
+                    motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 10, 1.0);
                     //motorMap.get("DriveLeftTwo").setEncoderMove(0, 0, 0.5);
-                    motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 2.0, 1.0);
+                    motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 10, 1.0);
                     //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
                     telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
                     if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10 && abs(motorMap.get("DriveRightOne").getCurrentPosition() - motorMap.get("DriveRightOne").getTargetPosition()) < 10) {

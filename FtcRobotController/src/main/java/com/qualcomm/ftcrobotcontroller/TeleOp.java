@@ -126,14 +126,14 @@ public class TeleOp extends RMOpMode {
         double lFlapPos;
         double rFlapPos;
         if(leftFlap > 0.2){
-            lFlapPos = 0.95;
+            lFlapPos = 1.0;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
         }else if(leftFlap < -0.2){
-            lFlapPos = 0.34;
+            lFlapPos = 0.36;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
         }
         if(rightFlap > 0.2){
-            rFlapPos = 0.39;
+            rFlapPos = 0.36;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
         }else if(rightFlap < -0.2){
             rFlapPos = 1.0;
