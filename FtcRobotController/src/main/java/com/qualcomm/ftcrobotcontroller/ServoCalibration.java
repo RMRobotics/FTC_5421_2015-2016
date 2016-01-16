@@ -1,7 +1,9 @@
 package com.qualcomm.ftcrobotcontroller;
 
+import com.qualcomm.ftcrobotcontroller.control.Axis;
 import com.qualcomm.ftcrobotcontroller.control.Button;
 import com.qualcomm.ftcrobotcontroller.control.Controller;
+import com.qualcomm.ftcrobotcontroller.control.Joystick;
 
 public class ServoCalibration extends RMOpMode {
 
@@ -110,32 +112,29 @@ public class ServoCalibration extends RMOpMode {
             motorMap.get("Bucket").setDesiredPower(-1.0);
         }*/
 
-        boolean leftFlapUp = control.buttonHeld(Controller.C_ONE, Button.BUTTON_A);
-        boolean leftFlapDown = control.button(Controller.C_ONE, Button.BUTTON_B);
-        boolean rightFlapUp = control.buttonHeld(Controller.C_ONE, Button.BUTTON_X);
-        boolean rightFlapDown = control.button(Controller.C_ONE, Button.BUTTON_Y);
-
-        double lFlapPos = servoMap.get("BucketLeft").getPosition();
-        double rFlapPos = servoMap.get("BucketRight").getPosition();
-        if(leftFlapUp){
+        double leftFlap = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
+        double rightFlap = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
+        double lFlapPos = 0.5;
+        double rFlapPos = 0.5;
+        if(leftFlap > 0.2){
             lFlapPos += 0.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
-            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
-        }else if(leftFlapDown){
+            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
+        }else if(leftFlap < -0.2){
             lFlapPos -= 0.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
-            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
+            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
-        if(rightFlapUp){
+        if(rightFlap > 0.2){
             rFlapPos += 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
-            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
-        }else if(rightFlapDown){
+            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
+        }else if(rightFlap < -0.2){
             rFlapPos -= 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
-            telemetry.addData("L-R", lFlapPos + " " + rFlapPos);
+            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
-
+        
         boolean climberThrowUp = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
         boolean climberThrowDown = control.buttonHeld(Controller.C_TWO, Button.BUTTON_B);
         double climberPos = servoMap.get("Climbers").getPosition();
