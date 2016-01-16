@@ -69,7 +69,17 @@ public class TeleOp extends RMOpMode {
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":0.6,\n" +
             "    }\n" +
-            "  ]\n" +
+            "  ],\n" +
+            "  \"slave\":[\n" +
+            "    {\n" +
+            "      \"name\":\"DriveLeftTwo\",\n" +
+            "      \"slaveTo\":\"DriveLeftOne\",\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"DriveRightTwo\",\n" +
+            "      \"slaveTo\":\"DriveRightOne\",\n" +
+            "    },\n" +
+            "  ],\n" +
             "}";
 
     @Override
