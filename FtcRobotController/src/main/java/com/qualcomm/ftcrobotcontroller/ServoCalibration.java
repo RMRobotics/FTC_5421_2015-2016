@@ -126,11 +126,11 @@ public class ServoCalibration extends RMOpMode {
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
         if(rightFlap > 0.2){
-            rFlapPos += 0.01;
+            rFlapPos -= 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }else if(rightFlap < -0.2){
-            rFlapPos -= 0.01;
+            rFlapPos += 0.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
