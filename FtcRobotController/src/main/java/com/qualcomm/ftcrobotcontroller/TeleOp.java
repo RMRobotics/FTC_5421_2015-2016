@@ -53,7 +53,7 @@ public class TeleOp extends RMOpMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":1.01,\n" +
+            "      \"init\":1.0,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"BucketLeft\",\n" +
@@ -129,11 +129,11 @@ public class TeleOp extends RMOpMode {
             lFlapPos = 0.34;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
         }else if(leftFlap < -0.1){
-            lFlapPos = 1.01;
+            lFlapPos = 1.0;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
         }
         if(rightFlap > 0.1){
-            rFlapPos = 1.01;
+            rFlapPos = 1.0;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
         }else if(rightFlap < -0.1){
             rFlapPos = 0.39;
