@@ -53,14 +53,14 @@ public class TeleOp extends RMOpMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":1.0,\n" +
+            "      \"init\":1.01,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"BucketLeft\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.3,\n" +
+            "      \"init\":0.34,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
@@ -126,17 +126,17 @@ public class TeleOp extends RMOpMode {
         double lFlapPos;
         double rFlapPos;
         if(leftFlap > 0.1){
-            lFlapPos = 0.8;
+            lFlapPos = 0.34;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
         }else if(leftFlap < -0.1){
-            lFlapPos = 0.3;
+            lFlapPos = 1.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
         }
         if(rightFlap > 0.1){
-            rFlapPos = 0.45;
+            rFlapPos = 1.01;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
         }else if(rightFlap < -0.1){
-            rFlapPos = 1.0;
+            rFlapPos = 0.39;
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
         }
 
