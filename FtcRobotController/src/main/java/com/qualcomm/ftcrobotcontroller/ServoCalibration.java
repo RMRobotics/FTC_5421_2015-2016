@@ -114,8 +114,8 @@ public class ServoCalibration extends RMOpMode {
 
         double leftFlap = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
         double rightFlap = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
-        double lFlapPos = 0.5;
-        double rFlapPos = 0.5;
+        double lFlapPos = servoMap.get("BucketLeft").getPosition();
+        double rFlapPos = servoMap.get("BucketRight").getPosition();
         if(leftFlap > 0.2){
             lFlapPos += 0.01;
             servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
@@ -134,7 +134,7 @@ public class ServoCalibration extends RMOpMode {
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
-        
+
         boolean climberThrowUp = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
         boolean climberThrowDown = control.buttonHeld(Controller.C_TWO, Button.BUTTON_B);
         double climberPos = servoMap.get("Climbers").getPosition();
