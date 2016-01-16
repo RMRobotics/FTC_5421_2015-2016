@@ -1,9 +1,7 @@
 package com.qualcomm.ftcrobotcontroller;
 
-import com.qualcomm.ftcrobotcontroller.control.Axis;
 import com.qualcomm.ftcrobotcontroller.control.Button;
 import com.qualcomm.ftcrobotcontroller.control.Controller;
-import com.qualcomm.ftcrobotcontroller.control.Joystick;
 
 public class ServoCalibration extends RMOpMode {
 
@@ -53,20 +51,33 @@ public class ServoCalibration extends RMOpMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":1.0,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"BucketLeft\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.3,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.6,\n" +
             "    }\n" +
-            "  ]\n" +
+            "  ],\n" +
+            "  \"slave\":[\n" +
+            "    {\n" +
+            "      \"name\":\"DriveLeftTwo\",\n" +
+            "      \"slaveTo\":\"DriveLeftOne\",\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"DriveRightTwo\",\n" +
+            "      \"slaveTo\":\"DriveRightOne\",\n" +
+            "    },\n" +
+            "  ],\n" +
             "}";
 
     @Override
