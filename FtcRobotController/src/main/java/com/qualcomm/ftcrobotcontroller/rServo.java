@@ -26,6 +26,7 @@ public class rServo{
         minPosition = min;
         maxPosition = max;
         initPos = init;
+        desiredPosition = init;
         parent.setDirection(defaultDirection);
     }
 

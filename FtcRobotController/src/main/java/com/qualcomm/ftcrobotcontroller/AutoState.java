@@ -110,14 +110,15 @@ public class AutoState extends RMOpMode {
             case 1: //begin
                 currentPositionLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
                 currentPositionRight = motorMap.get("DriveRightOne").getCurrentPosition();
-                if (motorMap.get("DriveLeftOne").getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
+                state = 4;
+               /* if (motorMap.get("DriveLeftOne").getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
                     state = 2;
                 } else {
                     for (Motor m : motorMap.values()) {
                         m.runToPosition();
                     }
                     state = 4;
-                }
+                }*/
                 /*case 2: //drive to center
                     motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 2.0, 0.5);
                     //motorMap.get("DriveLeftTwo").setEncoderMove(0, 2.0, 0.5);

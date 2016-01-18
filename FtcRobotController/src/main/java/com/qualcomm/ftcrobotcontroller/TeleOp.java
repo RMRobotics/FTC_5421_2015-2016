@@ -2,8 +2,10 @@ package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.ftcrobotcontroller.control.Axis;
 import com.qualcomm.ftcrobotcontroller.control.Button;
+import com.qualcomm.ftcrobotcontroller.control.Control;
 import com.qualcomm.ftcrobotcontroller.control.Controller;
 import com.qualcomm.ftcrobotcontroller.control.Joystick;
+import com.qualcomm.ftcrobotcontroller.control.Trigger;
 
 public class TeleOp extends RMOpMode {
 
@@ -60,7 +62,7 @@ public class TeleOp extends RMOpMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.36,\n" +
+            "      \"init\":0.37,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
@@ -99,11 +101,14 @@ public class TeleOp extends RMOpMode {
 
         boolean harvestUp = control.button(Controller.C_ONE, Button.BUTTON_LB);
         boolean harvestDown = control.button(Controller.C_ONE, Button.BUTTON_RB);
+        double halfHarvestUp = control.triggerValue(Controller.C_ONE, Trigger.T_LEFT);
         double harvestPower;
         if(harvestUp){
             harvestPower = -1.0;
         }else if(harvestDown){
             harvestPower = 1.0;
+        }else if(halfHarvestUp > 0.4){
+            harvestPower = halfHarvestUp;
         }else{
             harvestPower = 0.0;
         }
@@ -111,11 +116,17 @@ public class TeleOp extends RMOpMode {
 
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
+        double triggerLeft = control.triggerValue(Controller.C_TWO, Trigger.T_LEFT);
+        double triggerRight = control.triggerValue(Controller.C_TWO, Trigger.T_RIGHT);
         double bucketPower;
         if(bucketRight){
             bucketPower = 1.0;
         }else if(bucketLeft) {
             bucketPower = -1.0;
+        }else if(triggerLeft > 0.4){
+            bucketPower = -triggerLeft/3;
+        }else if(triggerRight > 0.4){
+            bucketPower = triggerRight/3;
         }else{
             bucketPower = 0.0;
         }
