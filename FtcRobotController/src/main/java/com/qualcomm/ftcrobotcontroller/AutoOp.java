@@ -6,6 +6,8 @@ public class AutoOp extends RMAutoMode {
 
     Calendar cal;
     int stateIndex = 0;
+    private double curPosLeft;
+    private double curPosRight;
 
     //private final String CONFIGURATION_PATH = "res/robot.json";
     private final String CONFIGURATION_PATH = "{\n" +
@@ -34,8 +36,8 @@ public class AutoOp extends RMAutoMode {
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
             "    },\n" +
-            "     {\\n\" +\n" +
-            "            \"     \"name\":\"Harvester\",\n" +
+            "     {\n" +
+            "      \"name\":\"Harvester\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
@@ -44,7 +46,7 @@ public class AutoOp extends RMAutoMode {
             "      \"name\":\"Bucket\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
+            "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
             "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
@@ -53,20 +55,33 @@ public class AutoOp extends RMAutoMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":1.0,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"BucketLeft\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.37,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.6,\n" +
             "    }\n" +
-            "  ]\n" +
+            "  ],\n" +
+            /*"  \"slave\":[\n" +
+            "    {\n" +
+            "      \"name\":\"DriveLeftTwo\",\n" +
+            "      \"slaveTo\":\"DriveLeftOne\",\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"DriveRightTwo\",\n" +
+            "      \"slaveTo\":\"DriveRightOne\",\n" +
+            "    },\n" +
+            "  ],\n" +*/
             "}";
 
     @Override
@@ -81,9 +96,11 @@ public class AutoOp extends RMAutoMode {
     protected void calculate() {
         if(!currentState.isComplete){
             currentState.updateTime(cal.getTimeInMillis());
-            currentState.calculate();
+            currentState.calculate(curPosLeft,curPosRight);
         }else if(currentState.isComplete){
             stateIndex++;
+            curPosLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
+            curPosRight = motorMap.get("DriveRightOne").getCurrentPosition();
             currentState = stateList.get(stateIndex);
         }
     }

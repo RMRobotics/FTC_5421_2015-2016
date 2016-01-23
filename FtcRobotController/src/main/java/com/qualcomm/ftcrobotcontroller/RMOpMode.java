@@ -21,7 +21,7 @@ public abstract class RMOpMode extends OpMode {
 
     protected Map<String, Motor> motorMap = new HashMap<String, Motor>();
     protected Map<String, rServo> servoMap =  new HashMap<String, rServo>();
-    protected Map<Motor, Motor> motorSlaveMap =  new HashMap<Motor, Motor>();
+    //protected Map<Motor, Motor> motorSlaveMap =  new HashMap<Motor, Motor>();
     protected Control control;
     public int opType;
 
@@ -63,9 +63,9 @@ public abstract class RMOpMode extends OpMode {
     protected void updateHardware() {
         //motorMap.get("DriveLeftTwo").setDesiredPower(motorMap.get("DriveLeftOne").getDesiredPower());
         //motorMap.get("DriveRightTwo").setDesiredPower(motorMap.get("DriveRightOne").getDesiredPower());
-        for (Motor sl : motorSlaveMap.keySet()) {
+        /*for (Motor sl : motorSlaveMap.keySet()) {
             sl.setDesiredPower(motorSlaveMap.get(sl).getDesiredPower());
-        }
+        }*/
         for (Motor m : motorMap.values()) {
             if (opType == 0) {
                 m.runToPosition();
@@ -94,10 +94,10 @@ public abstract class RMOpMode extends OpMode {
         JSONObject jsonFile = (JSONObject) jsonParser.parse(configSource);
         JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
         JSONArray jsonServos = (JSONArray) jsonFile.get("servos");
-        JSONArray jsonSlave = (JSONArray) jsonFile.get("slave");
+        //JSONArray jsonSlave = (JSONArray) jsonFile.get("slave");
         this.configureMotors(jsonMotors);
         this.configureServos(jsonServos);
-        this.configureSlave(jsonSlave);
+        //this.configureSlave(jsonSlave);
         //Todo add methods for configuring and sensors
     }
 
@@ -135,7 +135,7 @@ public abstract class RMOpMode extends OpMode {
         }
     }
 
-    private void configureSlave(JSONArray JSONSlave) {
+    /*private void configureSlave(JSONArray JSONSlave) {
         for (Object slObj : JSONSlave) {
             JSONObject slJSON = (JSONObject) slObj;
             String motorName = (String) slJSON.get("name");
@@ -144,7 +144,7 @@ public abstract class RMOpMode extends OpMode {
             Motor m2 = stringToMotorMapObject(slaveToName);
             motorSlaveMap.put(m1, m2);
         }
-    }
+    }*/
 
     private DcMotor.Direction stringToMotorDirection(String stringD) { //ToDo check if valueOf works as expected
         if (stringD.equals("FORWARD")) {
