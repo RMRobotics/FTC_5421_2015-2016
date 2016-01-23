@@ -1,15 +1,23 @@
 package com.qualcomm.ftcrobotcontroller;
 
+import com.qualcomm.ftccommon.DbgLog;
+import com.qualcomm.robotcore.hardware.DcMotorController;
+
 import java.util.Calendar;
+import static java.lang.Math.abs;
 
-public class AutoOp extends RMAutoMode {
+/**
+ * Created by Simon on 12/31/2015.
+ */
 
+public class AutoForward extends RMOpMode {
+    private int state = 1;
     Calendar cal;
-    int stateIndex = 0;
-    private double curPosLeft;
-    private double curPosRight;
+    protected long curTime;
+    protected long startTime;
+    private double currentPositionLeft;
+    private double currentPositionRight;
 
-    //private final String CONFIGURATION_PATH = "res/robot.json";
     private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
             "    {\n" +
@@ -36,7 +44,7 @@ public class AutoOp extends RMAutoMode {
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
             "    },\n" +
-            "     {\n" +
+            "    {\n" +
             "      \"name\":\"Harvester\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
@@ -46,7 +54,7 @@ public class AutoOp extends RMAutoMode {
             "      \"name\":\"Bucket\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
+            "      \"direction\":\"FORWARD\"\n" +
             "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
@@ -55,54 +63,27 @@ public class AutoOp extends RMAutoMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":1.0,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"BucketLeft\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.37,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.6,\n" +
             "    }\n" +
-            "  ],\n" +
-            /*"  \"slave\":[\n" +
-            "    {\n" +
-            "      \"name\":\"DriveLeftTwo\",\n" +
-            "      \"slaveTo\":\"DriveLeftOne\",\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightTwo\",\n" +
-            "      \"slaveTo\":\"DriveRightOne\",\n" +
-            "    },\n" +
-            "  ],\n" +*/
+            "  ]\n" +
             "}";
 
     @Override
-    public void init(){
+    public void init() {
         super.init();
-        setStateList();
-        cal = Calendar.getInstance();
-        currentState =  stateList.get(stateIndex);
-    }
 
-    @Override
-    protected void calculate() {
-        if(!currentState.isComplete){
-            currentState.updateTime(cal.getTimeInMillis());
-            currentState.calculate(curPosLeft,curPosRight);
-        }else if(currentState.isComplete){
-            stateIndex++;
-            curPosLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
-            curPosRight = motorMap.get("DriveRightOne").getCurrentPosition();
-            currentState = stateList.get(stateIndex);
-        }
+        cal = Calendar.getInstance();
     }
 
     @Override
@@ -110,10 +91,8 @@ public class AutoOp extends RMAutoMode {
         return CONFIGURATION_PATH;
     }
 
-    @Override
-    protected void setStateList() {
-        stateList.add(new MotorState(cal.getTimeInMillis(), motorMap.get("Harvester"), 0.50));
-        stateList.add(new WaitState(cal.getTimeInMillis(), 2000));
-        stateList.add(new EndState(cal.getTimeInMillis(), motorMap));
+    public void calculate() {
+
     }
+
 }

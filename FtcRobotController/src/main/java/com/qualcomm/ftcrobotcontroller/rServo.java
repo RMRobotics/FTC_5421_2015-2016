@@ -18,12 +18,16 @@ public class rServo{
     private double maxPosition;
     private double desiredPosition;
     private double currentPosition;
+    private double initPos;
 
-    public rServo(Servo s, Servo.Direction x, double min, double max){
+    public rServo(Servo s, Servo.Direction x, double min, double max, double init){
         parent = s;
         defaultDirection = x;
         minPosition = min;
         maxPosition = max;
+        initPos = init;
+        desiredPosition = init;
+        parent.setDirection(defaultDirection);
     }
 
     public void setDesiredPosition(double d){
@@ -38,5 +42,11 @@ public class rServo{
     public void setPosition(){
         parent.setPosition(currentPosition);
     }
+
+    public double getPosition() {
+        return parent.getPosition();
+    }
+
+    public void setInitPos() {parent.setPosition(initPos);}
 
 }

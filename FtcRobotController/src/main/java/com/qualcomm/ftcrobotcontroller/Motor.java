@@ -41,6 +41,10 @@ public class Motor {
          * clip to be within range
          *
          */
+        if (abs(tarPos - parent.getCurrentPosition()) < 10 && parent.getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
+            desiredPower = 0;
+            currentPower = desiredPower;
+        }
         double absDesPower = abs(desiredPower);
         if (absDesPower == 0.0 || absDesPower < minPower) {
             currentPower = desiredPower;
@@ -98,18 +102,12 @@ public class Motor {
             parent.setPower(currentPower);
         }
     }
-    public void setRotationDistance(double rotation){
-        curPos = parent.getCurrentPosition();
-        dis = (int)(1120 * rotation); //Neverrest encoders are from 1120
-        parent.setTargetPosition(dis);
-    }
-    public void setEncoderPosition(double power){
-        curPos = parent.getCurrentPosition();
-        if (curPos<(parent.getTargetPosition())){
-            desiredPower = power;
-        }else{
-            desiredPower = 0;
-        }
+
+    public void setEncoderMove(double currentPosition, double rotation, double power) {
+        curPos = (int)currentPosition;
+        tarPos = curPos + (int)(rotation * 1120);
+        parent.setTargetPosition(tarPos);
+        setDesiredPower(power);
     }
 
     public double getCurrentPosition() {
@@ -120,12 +118,24 @@ public class Motor {
         return parent.getTargetPosition();
     }
 
+    public DcMotorController.RunMode getMode() {
+        return parent.getMode();
+    }
+
     public void resetEncoder() {
         parent.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
-    public void runUsingEncoder() {
-        parent.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+    public void runToPosition() {
+        parent.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
     }
+
+    public void runWithoutEncoders() { parent.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS); }
+
+    public double getPower() { return parent.getPower(); }
+
+    public double getDesiredPower() { return desiredPower; }
+
+    public void stop() { setDesiredPower(0); }
 
 }

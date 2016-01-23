@@ -4,6 +4,8 @@ import com.qualcomm.ftccommon.DbgLog;
 
 import java.util.Calendar;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by Simon on 12/31/2015.
  */
@@ -13,6 +15,8 @@ public class AutoState extends RMOpMode {
     Calendar cal;
     protected long curTime;
     protected long startTime;
+    private double currentPositionLeft;
+    private double currentPositionRight;
 
     private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
@@ -40,7 +44,7 @@ public class AutoState extends RMOpMode {
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
             "    },\n" +
-            "    {\n" +
+            "     {\n" +
             "      \"name\":\"Harvester\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
@@ -50,7 +54,7 @@ public class AutoState extends RMOpMode {
             "      \"name\":\"Bucket\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
+            "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
             "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
@@ -59,20 +63,33 @@ public class AutoState extends RMOpMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":1.0,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"BucketLeft\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.37,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.6,\n" +
             "    }\n" +
-            "  ]\n" +
+            "  ],\n" +
+            /*"  \"slave\":[\n" +
+            "    {\n" +
+            "      \"name\":\"DriveLeftTwo\",\n" +
+            "      \"slaveTo\":\"DriveLeftOne\",\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"DriveRightTwo\",\n" +
+            "      \"slaveTo\":\"DriveRightOne\",\n" +
+            "    },\n" +
+            "  ],\n" +*/
             "}";
 
     @Override
@@ -88,43 +105,75 @@ public class AutoState extends RMOpMode {
     }
 
     public void calculate() {
-        /*
-        while (state != 0) {
-            switch (state) {
-                case 1: //begin
+        opType = 0;
+        switch (state) {
+            case 1: //begin
+                currentPositionLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
+                currentPositionRight = motorMap.get("DriveRightOne").getCurrentPosition();
+                state = 4;
+               /* if (motorMap.get("DriveLeftOne").getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
                     state = 2;
-                case 2: //drive to center
-                    motorMap.get("DriveLeftOne").setDesiredPower(1.0);
-                    motorMap.get("DriveLeftTwo").setDesiredPower(1.0);
-                    motorMap.get("DriveRightOne").setDesiredPower(1.0);
-                    motorMap.get("DriveRightTwo").setDesiredPower(1.0);
-                    waitTime(1000);
-                    state = 3;
-                case 3: //turn left 45 degree
-                    motorMap.get("DriveLeftOne").setDesiredPower(0.0);
-                    motorMap.get("DriveLeftTwo").setDesiredPower(0.0);
-                    motorMap.get("DriveRightOne").setDesiredPower(1.0);
-                    motorMap.get("DriveRightTwo").setDesiredPower(1.0);
-                    waitTime(1000);
+                } else {
+                    for (Motor m : motorMap.values()) {
+                        m.runToPosition();
+                    }
                     state = 4;
-                case 4: //drive to beacon zone
-                    
-                default:
-                    break;
-            } // end switch
-
-        } // end while */
-
-        while (state != 0) {
-            switch (state) {
-                case 1:
-                    motorMap.get("DriveLeftOne").setRotationDistance(1.0);
-                    motorMap.get("DriveLeftTwo").setRotationDistance(1.0);
-                    motorMap.get("DriveRightOne").setRotationDistance(1.0);
-                    motorMap.get("DriveRightTwo").setRotationDistance(1.0);
-                default:
-                    break;
-            }
+                }*/
+                /*case 2: //drive to center
+                    motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 2.0, 0.5);
+                    //motorMap.get("DriveLeftTwo").setEncoderMove(0, 2.0, 0.5);
+                    motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 2.0, 0.5);
+                    //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
+                    telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                    if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10 && abs(motorMap.get("DriveRightOne").getCurrentPosition() - motorMap.get("DriveRightOne").getTargetPosition()) < 10) {
+                        currentPositionLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
+                        currentPositionRight = motorMap.get("DriveRightOne").getCurrentPosition();
+                        state = 3;
+                    }
+                case 3: //turn left 45 degree
+                    motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 0, 0.5);
+                    //motorMap.get("DriveLeftTwo").setEncoderMove(0, 0, 0.5);
+                    motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 2.0, 0.5);
+                    //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
+                    telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                    if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10 && abs(motorMap.get("DriveRightOne").getCurrentPosition() - motorMap.get("DriveRightOne").getTargetPosition()) < 10) {
+                        currentPositionLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
+                        currentPositionRight = motorMap.get("DriveRightOne").getCurrentPosition();
+                        state = 4;
+                    }*/
+            case 4: //drive to beacon zone
+                motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 10, 1.0);
+                //motorMap.get("DriveLeftTwo").setEncoderMove(0, 0, 0.5);
+                motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 10, 1.0);
+                //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
+                telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10 && abs(motorMap.get("DriveRightOne").getCurrentPosition() - motorMap.get("DriveRightOne").getTargetPosition()) < 10) {
+                    currentPositionLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
+                    currentPositionRight = motorMap.get("DriveRightOne").getCurrentPosition();
+                    state = 0;
+                }
+                /*case 5: //dump climbers
+                    telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                    servoMap.get("Climbers").setDesiredPosition(0); //TODO: set values for servo position
+                    telemetry.addData("State " + state, servoMap.get("Climbers").getPosition());
+                    waitTime(2000);
+                    servoMap.get("Climbers").setDesiredPosition(0.9);
+                    waitTime(2000);
+                    servoMap.get("Climbers").setDesiredPosition(0);
+                    state = 6;
+                case 6:
+                    motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, -2.0, 0.5);
+                    motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, -2.0, 0.5);
+                    telemetry.addData("State " + state + " L1-L2-R1-R2", motorMap.get("DriveLeftOne").getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorMap.get("DriveRightOne").getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition());
+                    if (abs(motorMap.get("DriveLeftOne").getCurrentPosition() - motorMap.get("DriveLeftOne").getTargetPosition()) < 10 && abs(motorMap.get("DriveRightOne").getCurrentPosition() - motorMap.get("DriveRightOne").getTargetPosition()) < 10) {
+                        currentPositionLeft = motorMap.get("DriveLeftOne").getCurrentPosition();
+                        currentPositionRight = motorMap.get("DriveRightOne").getCurrentPosition();
+                        state = 7;
+                    }*/
+                //TODO: Add more states
+            default:
+                telemetry.addData("breaking", "broken");
+                break;
         }
     }
 
@@ -136,9 +185,5 @@ public class AutoState extends RMOpMode {
             DbgLog.msg("Waiting");
             curTime = cal.getTimeInMillis();
         }
-    }
-
-    private void waitEncoder(double wait) {
-
     }
 }
