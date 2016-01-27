@@ -1,9 +1,9 @@
 package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.ftccommon.DbgLog;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import java.util.Calendar;
+
 import static java.lang.Math.abs;
 
 /**
@@ -70,7 +70,7 @@ public class AutoState extends RMOpMode {
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.34,\n" +
+            "      \"init\":0.37,\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"Climbers\",\n" +
@@ -80,7 +80,7 @@ public class AutoState extends RMOpMode {
             "      \"init\":0.6,\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"slave\":[\n" +
+            /*"  \"slave\":[\n" +
             "    {\n" +
             "      \"name\":\"DriveLeftTwo\",\n" +
             "      \"slaveTo\":\"DriveLeftOne\",\n" +
@@ -89,7 +89,7 @@ public class AutoState extends RMOpMode {
             "      \"name\":\"DriveRightTwo\",\n" +
             "      \"slaveTo\":\"DriveRightOne\",\n" +
             "    },\n" +
-            "  ],\n" +
+            "  ],\n" +*/
             "}";
 
     @Override

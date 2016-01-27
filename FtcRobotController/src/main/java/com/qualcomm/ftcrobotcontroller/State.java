@@ -24,7 +24,7 @@ public abstract class State {
         curTime = currentTime;
     }
 
-    protected abstract void calculate();
+    protected void calculate(double curPosLeft, double curPosRight) {}
 
     public boolean isComplete(){
         return isComplete;
@@ -42,7 +42,7 @@ class WaitState extends State {
     }
 
     @Override
-    protected void calculate() {
+    protected void calculate(double curPosLeft, double curPosRight) {
         if(curTime - startTime >= waitTime){
             isComplete =  true;
         }
@@ -62,7 +62,7 @@ class MotorState extends State {
     }
 
     @Override
-    protected void calculate() {
+    protected void calculate(double curPosLeft, double curPosRight) {
         changeMotor.setDesiredPower(desiredPower);
         isComplete = true;
     }
@@ -77,7 +77,7 @@ class EndState extends State {
     }
 
     @Override
-    protected void calculate() {
+    protected void calculate(double curPosLeft, double curPosRight) {
         for(Motor m:motorMap.values()){
             m.setDesiredPower(0.0);
         }

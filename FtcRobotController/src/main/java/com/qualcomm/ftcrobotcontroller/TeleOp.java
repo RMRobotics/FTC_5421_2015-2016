@@ -2,7 +2,6 @@ package com.qualcomm.ftcrobotcontroller;
 
 import com.qualcomm.ftcrobotcontroller.control.Axis;
 import com.qualcomm.ftcrobotcontroller.control.Button;
-import com.qualcomm.ftcrobotcontroller.control.Control;
 import com.qualcomm.ftcrobotcontroller.control.Controller;
 import com.qualcomm.ftcrobotcontroller.control.Joystick;
 import com.qualcomm.ftcrobotcontroller.control.Trigger;
@@ -72,7 +71,7 @@ public class TeleOp extends RMOpMode {
             "      \"init\":0.6,\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"slave\":[\n" +
+            /*"  \"slave\":[\n" +
             "    {\n" +
             "      \"name\":\"DriveLeftTwo\",\n" +
             "      \"slaveTo\":\"DriveLeftOne\",\n" +
@@ -81,7 +80,7 @@ public class TeleOp extends RMOpMode {
             "      \"name\":\"DriveRightTwo\",\n" +
             "      \"slaveTo\":\"DriveRightOne\",\n" +
             "    },\n" +
-            "  ],\n" +
+            "  ],\n" +*/
             "}";
 
     @Override

@@ -21,7 +21,7 @@ public abstract class RMOpMode extends OpMode {
 
     protected Map<String, Motor> motorMap = new HashMap<String, Motor>();
     protected Map<String, rServo> servoMap =  new HashMap<String, rServo>();
-    protected Map<Motor, Motor> motorSlaveMap =  new HashMap<Motor, Motor>();
+    //protected Map<Motor, Motor> motorSlaveMap =  new HashMap<Motor, Motor>();
     protected Control control;
     public int opType;
 
@@ -61,11 +61,12 @@ public abstract class RMOpMode extends OpMode {
     protected abstract void calculate();
 
     protected void updateHardware() {
+        telemetry.addData("updateHardware", "Starting updating hardware");
         //motorMap.get("DriveLeftTwo").setDesiredPower(motorMap.get("DriveLeftOne").getDesiredPower());
         //motorMap.get("DriveRightTwo").setDesiredPower(motorMap.get("DriveRightOne").getDesiredPower());
-        for (Motor sl : motorSlaveMap.keySet()) {
+        /*for (Motor sl : motorSlaveMap.keySet()) {
             sl.setDesiredPower(motorSlaveMap.get(sl).getDesiredPower());
-        }
+        }*/
         for (Motor m : motorMap.values()) {
             if (opType == 0) {
                 m.runToPosition();
@@ -84,21 +85,24 @@ public abstract class RMOpMode extends OpMode {
             s.updateCurrentPosition();
             s.setPosition();
         }
+        telemetry.addData("updateHardware", "Finishing updating hardware");
     }
 
     protected abstract String setConfigurationPath();
 
     protected void configureHardware(String pathName) throws IOException, ParseException {
+        telemetry.addData("configureHardware", "Starting configuring hardware");
         String configSource = readFile(pathName, Charset.defaultCharset());
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonFile = (JSONObject) jsonParser.parse(configSource);
         JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
         JSONArray jsonServos = (JSONArray) jsonFile.get("servos");
-        JSONArray jsonSlave = (JSONArray) jsonFile.get("slave");
+        //JSONArray jsonSlave = (JSONArray) jsonFile.get("slave");
         this.configureMotors(jsonMotors);
         this.configureServos(jsonServos);
-        this.configureSlave(jsonSlave);
+        //this.configureSlave(jsonSlave);
         //Todo add methods for configuring and sensors
+        telemetry.addData("configureHardware", "Finishing updating hardware");
     }
 
     private static String readFile(String path, Charset encoding) throws IOException {
@@ -109,6 +113,7 @@ public abstract class RMOpMode extends OpMode {
     }
 
     private void configureMotors(JSONArray JSONMotors) {
+        telemetry.addData("configureMotors", "Starting updating motors");
         for (Object mObj : JSONMotors) {
             JSONObject mJSON = (JSONObject) mObj;
             String motorName = (String) mJSON.get("name");
@@ -119,9 +124,11 @@ public abstract class RMOpMode extends OpMode {
             Motor m = new Motor(dcParent, d, minPower, maxPower);
             motorMap.put(motorName, m);
         }
+        telemetry.addData("configureMotors", "Finishing updating motors");
     }
 
     private void configureServos(JSONArray JSONServos) {
+        telemetry.addData("configureServos", "Starting updating servos");
         for (Object sObj : JSONServos) {
             JSONObject sJSON = (JSONObject) sObj;
             String servoName = (String) sJSON.get("name");
@@ -133,9 +140,10 @@ public abstract class RMOpMode extends OpMode {
             rServo s = new rServo(sParent, d, minPosition, maxPosition, init);
             servoMap.put(servoName, s);
         }
+        telemetry.addData("configureServos", "Finishing updating servos");
     }
 
-    private void configureSlave(JSONArray JSONSlave) {
+    /*private void configureSlave(JSONArray JSONSlave) {
         for (Object slObj : JSONSlave) {
             JSONObject slJSON = (JSONObject) slObj;
             String motorName = (String) slJSON.get("name");
@@ -144,34 +152,44 @@ public abstract class RMOpMode extends OpMode {
             Motor m2 = stringToMotorMapObject(slaveToName);
             motorSlaveMap.put(m1, m2);
         }
-    }
+    }*/
 
     private DcMotor.Direction stringToMotorDirection(String stringD) { //ToDo check if valueOf works as expected
+        telemetry.addData("stringToMotorDirection", "Setting motor direction");
         if (stringD.equals("FORWARD")) {
+            telemetry.addData("stringToMotorDirection", "Finish setting motor direction forward");
             return DcMotor.Direction.FORWARD;
         } else if (stringD.equals("REVERSE")) {
+            telemetry.addData("stringToMotorDirection", "Finish setting motor direction reverse");
             return DcMotor.Direction.REVERSE;
         } else {
+            telemetry.addData("stringToMotorDirection", "Finish setting motor direction to value");
             return DcMotor.Direction.valueOf(stringD);
         }
     }
 
     private Servo.Direction stringToServoDirection(String stringD) {
+        telemetry.addData("stringToServoDirection", "Setting servo direction");
         if (stringD.equals("FORWARD")) {
+            telemetry.addData("stringToServoDirection", "Finish setting servo direction forward");
             return Servo.Direction.FORWARD;
         } else if (stringD.equals("REVERSE")) {
+            telemetry.addData("stringToServoDirection", "Finish setting servo direction backward");
             return Servo.Direction.REVERSE;
         } else {
+            telemetry.addData("stringToServoDirection", "Finish setting servo direction to value");
             return Servo.Direction.valueOf(stringD);
         }
     }
 
     private Motor stringToMotorMapObject(String motorName){
+        telemetry.addData("stringToMotorMapObject", "Creating motors");
         for (Motor m : motorMap.values()) {
             if (motorMap.get(motorName)==m) {
                 return m;
             }
         }
+        telemetry.addData("stringToMotorMapObject", "Finishing creating motors");
         return null; //TODO fix bad coding practice of using null as an invalid return value. Create a standard null motor for error detection.
     }
 }
