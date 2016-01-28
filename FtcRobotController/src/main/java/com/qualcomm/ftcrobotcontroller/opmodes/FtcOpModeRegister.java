@@ -31,6 +31,7 @@ import com.qualcomm.ftcrobotcontroller.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.R2D2;
 import com.qualcomm.ftcrobotcontroller.ServoCalibration;
 import com.qualcomm.ftcrobotcontroller.TeleOp;
+import com.qualcomm.ftcrobotcontroller.lmao;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
@@ -74,6 +75,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("AutoOp", AutoOp.class);
     manager.register("AutoState", AutoState.class);
     manager.register("R2D2", R2D2.class);
+    manager.register("lmao", lmao.class);
 
     manager.register("ServoCalibration", ServoCalibration.class);
 

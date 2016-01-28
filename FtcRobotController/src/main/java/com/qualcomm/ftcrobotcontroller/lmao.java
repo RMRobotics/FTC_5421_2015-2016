@@ -10,7 +10,7 @@ import static java.lang.Math.abs;
  * Created by Simon on 12/31/2015.
  */
 
-public class AutoState extends RMOpMode {
+public class lmao extends RMOpMode {
     private int state = 1;
     Calendar cal;
     protected long startTime;
@@ -18,81 +18,26 @@ public class AutoState extends RMOpMode {
     private double startPositionRight;
     private Motor motorLeft;
     private Motor motorRight;
-    private Motor harvester = motorMap.get("Harvester");
-    private rServo climbers = servoMap.get("Climbers");
+    //private Motor harvester = motorMap.get("Harvester");
+    //private rServo climbers = servoMap.get("Climbers");
 
     private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
             "    {\n" +
-            "      \"name\":\"DriveLeftOne\",\n" +
+            "      \"name\":\"motor1\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"name\":\"DriveLeftTwo\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightOne\",\n" +
+            "      \"name\":\"motor2\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
             "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightTwo\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "     {\n" +
-            "      \"name\":\"Harvester\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"Bucket\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
-            "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
-            "    {\n" +
-            "      \"name\":\"BucketRight\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":1.0,\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"BucketLeft\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.37,\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"Climbers\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.6,\n" +
-            "    }\n" +
             "  ],\n" +
-            /*"  \"slave\":[\n" +
-            "    {\n" +
-            "      \"name\":\"DriveLeftTwo\",\n" +
-            "      \"slaveTo\":\"DriveLeftOne\",\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightTwo\",\n" +
-            "      \"slaveTo\":\"DriveRightOne\",\n" +
-            "    },\n" +
-            "  ],\n" +*/
             "}";
 
     @Override
@@ -100,8 +45,8 @@ public class AutoState extends RMOpMode {
         super.init();
 
         cal = Calendar.getInstance();
-        motorLeft = motorMap.get("DriveLeftOne");
-        motorRight = motorMap.get("DriveRightOne");
+        motorLeft = motorMap.get("motor1");
+        motorRight = motorMap.get("motor2");
     }
 
     @Override
@@ -113,15 +58,11 @@ public class AutoState extends RMOpMode {
         opType = 0;
         switch (state) {
             case 1: //begin
+                motorLeft.runToPosition();
+                motorRight.runToPosition();
                 startPositionLeft = motorLeft.getCurrentPosition();
                 startPositionRight = motorRight.getCurrentPosition();
-                if (motorLeft.getMode() == DcMotorController.RunMode.RUN_TO_POSITION && motorRight.getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
-                    state = 2;
-                } else {
-                    motorLeft.runToPosition();
-                    motorRight.runToPosition();
-                    state = 2;
-                }
+                state = 2;
                 break;
             case 2: //drive to center
                 encoderStraight(2.0, 1.0);
@@ -132,7 +73,7 @@ public class AutoState extends RMOpMode {
                 addTelemetry();
                 quitCheck();
                 break;
-            case 3: //turn left 45 degree
+            /*case 3: //turn left 45 degree
                 encoderLeft(2.0, 1.0);
                 //motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 0, 0.5);
                 //motorMap.get("DriveLeftTwo").setEncoderMove(0, 0, 0.5);
@@ -172,8 +113,9 @@ public class AutoState extends RMOpMode {
                 quitCheck();
                 break;
             case 10:
-                break;
+                break;*/
             default:
+                kill();
                 telemetry.addData("breaking", "broken");
                 break;
         }
@@ -212,5 +154,10 @@ public class AutoState extends RMOpMode {
             startTime = cal.getTimeInMillis();
             state += 1;
         }
+    }
+
+    private void kill() {
+        motorLeft.setDesiredPower(0);
+        motorRight.setDesiredPower(0);
     }
 }
