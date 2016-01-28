@@ -120,6 +120,7 @@ public class AutoState extends RMOpMode {
                     motorRight.runToPosition();
                     state = 2;
                 }
+                break;
             case 2: //drive to center
                 encoderStraight(2.0, 1.0);
                 //motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 2.0, 0.5);
@@ -127,7 +128,8 @@ public class AutoState extends RMOpMode {
                 //motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 2.0, 0.5);
                 //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
                 addTelemetry();
-                quitCheck(3);
+                quitCheck();
+                break;
             case 3: //turn left 45 degree
                 encoderLeft(2.0, 1.0);
                 //motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 0, 0.5);
@@ -135,31 +137,40 @@ public class AutoState extends RMOpMode {
                 //motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 2.0, 0.5);
                 //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
                 addTelemetry();
-                quitCheck(4);
+                quitCheck();
+                break;
             case 4: //drive to beacon zone
                 encoderStraight(10.0, 1.0);
                 addTelemetry();
-                quitCheck(5);
+                quitCheck();
+                break;
             case 5: //dump climbers
                 climbers.setDesiredPosition(climbers.getMaxPos());
                 addTelemetry();
-                quitCheck(6, 2000);
+                quitCheck(2000);
+                break;
             case 6:
                 climbers.setDesiredPosition(climbers.getMinPos());
                 addTelemetry();
-                quitCheck(7, 2000);
+                quitCheck(2000);
+                break;
             case 7:
                 encoderStraight(-5.0, 1.0);
                 addTelemetry();
-                quitCheck(8);
+                quitCheck();
+                break;
             case 8:
                 encoderRight(4.0, 1.0);
                 addTelemetry();
-                quitCheck(9);
+                quitCheck();
+                break;
             case 9:
                 encoderStraight(-5.0, 1.0);
                 addTelemetry();
-                quitCheck(0);
+                quitCheck();
+                break;
+            case 10:
+                break;
             default:
                 telemetry.addData("breaking", "broken");
                 break;
@@ -183,21 +194,21 @@ public class AutoState extends RMOpMode {
         telemetry.addData("State-L1-L2-R1-R2-H-C", state + "-" + motorLeft.getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorRight.getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition() + "-" + harvester.getCurrentPosition() + "-" + climbers.getPosition());
     }
 
-    private void quitCheck(int s) {
+    private void quitCheck() {
         if (abs(motorLeft.getCurrentPosition() - motorLeft.getTargetPosition()) < 10 && abs(motorRight.getCurrentPosition() - motorRight.getTargetPosition()) < 10) {
             startPositionLeft = motorLeft.getCurrentPosition();
             startPositionRight = motorRight.getCurrentPosition();
             startTime = cal.getTimeInMillis();
-            state = s;
+            state += 1;
         }
     }
 
-    private void quitCheck(int s, long wait) {
+    private void quitCheck(long wait) {
         if ((cal.getTimeInMillis() - startTime) > wait) {
             startPositionLeft = motorLeft.getCurrentPosition();
             startPositionRight = motorRight.getCurrentPosition();
             startTime = cal.getTimeInMillis();
-            state = s;
+            state += 1;
         }
     }
 }
