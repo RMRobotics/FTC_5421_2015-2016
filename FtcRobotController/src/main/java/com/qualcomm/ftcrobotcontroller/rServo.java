@@ -47,6 +47,12 @@ public class rServo{
         return parent.getPosition();
     }
 
-    public void setInitPos() {parent.setPosition(initPos);}
+    public void setInitPos() { parent.setPosition(initPos); }
+
+    public double getInitPos() { return initPos; }
+
+    public double getMinPos() { return minPosition; }
+
+    public double getMaxPos() { return maxPosition; }
 
 }
