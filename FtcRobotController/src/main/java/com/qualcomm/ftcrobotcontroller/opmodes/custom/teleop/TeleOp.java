@@ -9,8 +9,8 @@ import com.rmrobotics.library.core.RMOpMode;
 
 public class TeleOp extends RMOpMode {
 
-    //private final String CONFIGURATION_PATH = "res/robot.json";
-    private final String CONFIGURATION_PATH = "{\n" +
+    private final String CONFIGURATION_PATH = "res/robot.json";
+    /*private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
             "    {\n" +
             "      \"name\":\"DriveLeftOne\",\n" +
@@ -72,17 +72,7 @@ public class TeleOp extends RMOpMode {
             "      \"init\":0.6,\n" +
             "    }\n" +
             "  ],\n" +
-            /*"  \"slave\":[\n" +
-            "    {\n" +
-            "      \"name\":\"DriveLeftTwo\",\n" +
-            "      \"slaveTo\":\"DriveLeftOne\",\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightTwo\",\n" +
-            "      \"slaveTo\":\"DriveRightOne\",\n" +
-            "    },\n" +
-            "  ],\n" +*/
-            "}";
+            "}";*/
 
     @Override
     public void init() {
@@ -91,7 +81,6 @@ public class TeleOp extends RMOpMode {
 
     @Override
     protected void calculate() {
-        opType = 1;
         double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
         motorMap.get("DriveLeftOne").setDesiredPower(leftPower);

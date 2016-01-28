@@ -46,4 +46,5 @@ dependencies {
     compile(name: 'WirelessP2p-release', ext: 'aar')
     compile files('libs/json-simple-1.1.1.jar')
     compile(name: 'navx_ftc-release', ext: 'aar')
+    compile files('libs/commons-io-2.4.jar')
 }
