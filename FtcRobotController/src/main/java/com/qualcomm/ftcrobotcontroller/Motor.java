@@ -17,7 +17,7 @@ public class Motor {
     private double desiredPower;
     private double currentPower;
     private double interval;
-    private double speedInterval = 3.0;
+    private double speedInterval = 500.0;
     private int curPos;
     private int tarPos;
     private int dis;

@@ -9,7 +9,7 @@ import static java.lang.Math.abs;
  */
 
 public class lmao extends RMOpMode {
-    private int state = 1;
+    private int state;
     Calendar cal;
     protected long startTime;
     private double startPositionLeft;
@@ -41,7 +41,7 @@ public class lmao extends RMOpMode {
     @Override
     public void init() {
         super.init();
-
+        state = 1;
         cal = Calendar.getInstance();
         motorLeft = motorMap.get("motor1");
         motorRight = motorMap.get("motor2");
@@ -60,10 +60,10 @@ public class lmao extends RMOpMode {
                 motorRight.runToPosition();
                 startPositionLeft = motorLeft.getCurrentPosition();
                 startPositionRight = motorRight.getCurrentPosition();
-                state = 2;
+                quitCheck(true);
                 break;
             case 2: //drive to center
-                encoderStraight(2.0, 1.0);
+                encoderStraight(10.0, 1.0);
                 //motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 2.0, 0.5);
                 //motorMap.get("DriveLeftTwo").setEncoderMove(0, 2.0, 0.5);
                 //motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 2.0, 0.5);
@@ -71,16 +71,20 @@ public class lmao extends RMOpMode {
                 addTelemetry();
                 quitCheck();
                 break;
+            case 3:
+                addTelemetry();
+                quitCheck(500);
+                break;
             /*case 3: //turn left 45 degree
-                encoderLeft(2.0, 1.0);
+                encoderLeft(5.0, 1.0);
                 //motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 0, 0.5);
                 //motorMap.get("DriveLeftTwo").setEncoderMove(0, 0, 0.5);
                 //motorMap.get("DriveRightOne").setEncoderMove(currentPositionRight, 2.0, 0.5);
                 //motorMap.get("DriveRightTwo").setEncoderMove(0, 2.0, 0.5);
                 addTelemetry();
                 quitCheck();
-                break;
-            case 4: //drive to beacon zone
+                break;*/
+            /*case 4: //drive to beacon zone
                 encoderStraight(10.0, 1.0);
                 addTelemetry();
                 quitCheck();
@@ -114,7 +118,7 @@ public class lmao extends RMOpMode {
                 break;*/
             default:
                 kill();
-                telemetry.addData("breaking", "broken");
+                addTelemetry();
                 break;
         }
     }
@@ -133,25 +137,43 @@ public class lmao extends RMOpMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("State-L1-R1", state + "-" + motorLeft.getCurrentPosition() + "-" + motorRight.getCurrentPosition());
+        telemetry.addData("State-L1-R1-SL1-SR1-ST", state + "-" + motorLeft.getCurrentPosition() + "-" + motorRight.getCurrentPosition() + "-" + startPositionLeft + "-" + startPositionRight + "-" + startTime);
     }
 
     private void quitCheck() {
         if (abs(motorLeft.getCurrentPosition() - motorLeft.getTargetPosition()) < 10 && abs(motorRight.getCurrentPosition() - motorRight.getTargetPosition()) < 10) {
-            startPositionLeft = motorLeft.getCurrentPosition();
-            startPositionRight = motorRight.getCurrentPosition();
-            startTime = cal.getTimeInMillis();
+            update();
             state += 1;
         }
     }
 
     private void quitCheck(long wait) {
         if ((cal.getTimeInMillis() - startTime) > wait) {
+            update();
+            state += 1;
+        }
+    }
+
+    private void quitCheck(boolean end) {
+        if (end) {
+            update();
+            state += 1;
+        }
+    }
+
+    /*private void quitCheck(boolean enc, long wait) {
+        if (((cal.getTimeInMillis() - startTime) > wait) && abs(motorLeft.getCurrentPosition() - motorLeft.getTargetPosition()) < 10 && abs(motorRight.getCurrentPosition() - motorRight.getTargetPosition()) < 10) {
             startPositionLeft = motorLeft.getCurrentPosition();
             startPositionRight = motorRight.getCurrentPosition();
             startTime = cal.getTimeInMillis();
             state += 1;
         }
+    }*/
+
+    private void update() {
+        startPositionLeft = motorLeft.getCurrentPosition();
+        startPositionRight = motorRight.getCurrentPosition();
+        startTime = cal.getTimeInMillis();
     }
 
     private void kill() {
