@@ -1,7 +1,5 @@
 package com.qualcomm.ftcrobotcontroller;
 
-import com.qualcomm.robotcore.hardware.DcMotorController;
-
 import java.util.Calendar;
 
 import static java.lang.Math.abs;
@@ -135,7 +133,7 @@ public class lmao extends RMOpMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("State-L1-L2-R1-R2-H-C", state + "-" + motorLeft.getCurrentPosition() + "-" + motorMap.get("DriveLeftTwo").getCurrentPosition() + "-" + motorRight.getCurrentPosition() + "-" + motorMap.get("DriveRightTwo").getCurrentPosition() + "-" + harvester.getCurrentPosition() + "-" + climbers.getPosition());
+        telemetry.addData("State-L1-R1", state + "-" + motorLeft.getCurrentPosition() + "-" + motorRight.getCurrentPosition());
     }
 
     private void quitCheck() {
