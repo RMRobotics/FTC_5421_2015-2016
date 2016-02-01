@@ -138,4 +138,12 @@ public class Motor {
 
     public void stop() { setDesiredPower(0); }
 
+    public boolean isBusy() {
+        return parent.isBusy();
+    }
+
+    public void setTargetPosition(int tarPos) {
+        parent.setTargetPosition(tarPos);
+    }
+
 }

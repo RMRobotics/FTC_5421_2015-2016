@@ -71,10 +71,10 @@ public class lmao extends RMOpMode {
                 addTelemetry();
                 quitCheck();
                 break;
-            case 3:
+            /*case 3:
                 addTelemetry();
                 quitCheck(500);
-                break;
+                break;*/
             /*case 3: //turn left 45 degree
                 encoderLeft(5.0, 1.0);
                 //motorMap.get("DriveLeftOne").setEncoderMove(currentPositionLeft, 0, 0.5);

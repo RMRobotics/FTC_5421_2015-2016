@@ -72,7 +72,8 @@ public class navXRawOp extends OpMode {
   public void init() {
       navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
               NAVX_DIM_I2C_PORT,
-              AHRS.DeviceDataType.kQuatAndRawData);  }
+              AHRS.DeviceDataType.kQuatAndRawData);
+  }
 
   @Override
   public void stop() {

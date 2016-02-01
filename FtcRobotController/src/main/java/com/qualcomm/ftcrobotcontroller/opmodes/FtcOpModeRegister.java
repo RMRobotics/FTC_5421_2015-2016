@@ -86,7 +86,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("navXMotionDetectionOp", navXMotionDetectionOp.class);
     //manager.register("navXPerformanceTuningOp", navXPerformanceTuningOp.class);
     //manager.register("navXProcessedOp", navXProcessedOp.class);
-    //manager.register("navXRawOp", navXRawOp.class);
+    manager.register("navXRawOp", navXRawOp.class);
     //manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
     //manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
     //manager.register("navXZeroYawOp", navXZeroYawOp.class);
