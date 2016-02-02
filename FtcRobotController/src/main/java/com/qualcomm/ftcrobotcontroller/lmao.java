@@ -1,5 +1,9 @@
 package com.qualcomm.ftcrobotcontroller;
 
+import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import static java.lang.Math.abs;
@@ -16,6 +20,10 @@ public class lmao extends RMOpMode {
     private double startPositionRight;
     private Motor motorLeft;
     private Motor motorRight;
+    private final int NAVX_DIM_I2C_PORT = 0;
+    private String startDate;
+    private ElapsedTime runtime = new ElapsedTime();
+    private AHRS navx_device;
     //private Motor harvester = motorMap.get("Harvester");
     //private rServo climbers = servoMap.get("Climbers");
 
@@ -45,6 +53,9 @@ public class lmao extends RMOpMode {
         cal = Calendar.getInstance();
         motorLeft = motorMap.get("motor1");
         motorRight = motorMap.get("motor2");
+        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
+                NAVX_DIM_I2C_PORT,
+                AHRS.DeviceDataType.kQuatAndRawData);
     }
 
     @Override
@@ -54,6 +65,36 @@ public class lmao extends RMOpMode {
 
     public void calculate() {
         opType = 0;
+        boolean connected = navx_device.isConnected();
+        telemetry.addData("1 navX-Device", connected ? "Connected" : "Disconnected" );
+        String gyrocal, gyro_raw, accel_raw, mag_raw;
+        boolean magnetometer_calibrated;
+        if ( connected ) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            magnetometer_calibrated = navx_device.isMagnetometerCalibrated();
+            gyro_raw = df.format(navx_device.getRawGyroX()) + ", " +
+                    df.format(navx_device.getRawGyroY()) + ", " +
+                    df.format(navx_device.getRawGyroZ());
+            accel_raw = df.format(navx_device.getRawAccelX()) + ", " +
+                    df.format(navx_device.getRawAccelY()) + ", " +
+                    df.format(navx_device.getRawAccelZ());
+            if ( magnetometer_calibrated ) {
+                mag_raw = df.format(navx_device.getRawMagX()) + ", " +
+                        df.format(navx_device.getRawMagY()) + ", " +
+                        df.format(navx_device.getRawMagZ());
+            } else {
+                mag_raw = "Uncalibrated";
+            }
+        } else {
+            gyro_raw =
+                    accel_raw =
+                            mag_raw = "-------";
+        }
+        telemetry.addData("2 Gyros (Degrees/Sec):", gyro_raw);
+        telemetry.addData("3 Accelerometers  (G):", accel_raw );
+        telemetry.addData("4 Magnetometers  (uT):", mag_raw );
+
+
         switch (state) {
             case 1: //begin
                 motorLeft.runToPosition();
