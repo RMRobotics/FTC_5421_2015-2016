@@ -130,6 +130,8 @@ public class Motor {
         parent.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
     }
 
+    public void runUsingEncoders() {parent.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);}
+
     public void runWithoutEncoders() { parent.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS); }
 
     public double getPower() { return parent.getPower(); }
@@ -144,6 +146,10 @@ public class Motor {
 
     public void setTargetPosition(int tarPos) {
         parent.setTargetPosition(tarPos);
+    }
+
+    public void setPower(double power) {
+        parent.setPower(power);
     }
 
 }
