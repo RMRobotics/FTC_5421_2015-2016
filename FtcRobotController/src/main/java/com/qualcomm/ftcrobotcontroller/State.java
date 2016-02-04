@@ -27,12 +27,14 @@ public class State {
         climbers = climb;
         startPositionLeft = (int) motorLeft.getCurrentPosition();
         startPositionRight = (int) motorRight.getCurrentPosition();
+        isComplete = false;
     }
 
     protected void encoderStraight(int position, double power) {
         update();
         setDrivePower(power);
         setEncoder(position);
+        updateEnd(startPositionLeft + position, startPositionRight + position);
         setMode(DcMotorController.RunMode.RUN_TO_POSITION);
     }
 
@@ -79,8 +81,8 @@ public class State {
     }
 
     private void setEncoder(int positionLeft, int positionRight) {
-        motorLeft.setTargetPosition(positionLeft);
-        motorRight.setTargetPosition(positionRight);
+        motorLeft.setTargetPosition(startPositionLeft + positionLeft);
+        motorRight.setTargetPosition(startPositionRight + positionRight);
     }
 
     protected void update() {
@@ -114,14 +116,16 @@ public class State {
         isComplete = false;
         switch (type) {
             case ENCODER_STRAIGHT:
-                isComplete = (!motorLeft.isBusy() && !motorRight.isBusy());
+                isComplete = ((Math.abs(endPositionLeft - motorLeft.getCurrentPosition())) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition())) < 10);
                 break;
             case ENCODER_TURN:
-                isComplete = (!motorLeft.isBusy() && !motorRight.isBusy());
+                isComplete = ((Math.abs(endPositionLeft) - motorLeft.getCurrentPosition()) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition()) < 10));
                 break;
             case WAIT:
                 isComplete = (time.time() >= waitTime);
                 break;
+            default:
+                isComplete = false;
         }
         return isComplete;
     }

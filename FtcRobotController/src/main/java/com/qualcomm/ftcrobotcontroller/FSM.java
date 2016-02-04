@@ -63,8 +63,9 @@ public class FSM extends RMOpMode{
             case 1:
                 s.encoderStraight(position(2), 1.0);
                 stateIndexType = STATE_TYPE.ENCODER_STRAIGHT;
+                s.waitTime(1000);
                 break;
-            case 2:
+            /*case 2:
                 s.encoderTurn(State.DIRECTION.LEFT, position(2), 1);
                 stateIndexType = STATE_TYPE.ENCODER_TURN;
                 break;
@@ -79,13 +80,26 @@ public class FSM extends RMOpMode{
             case 5:
                 s.waitTime(3);
                 stateIndexType = STATE_TYPE.WAIT;
+                break;*/
+            case 5000:
+                stateIndexType = STATE_TYPE.STOP;
+                stop();
                 break;
         }
+        s.isComplete = false;
         while (!s.isComplete) {
+            //addTelemetry();
             s.isComplete(stateIndexType);
+            telemetry.addData("WAITING","");
         }
         s.update();
-        stateIndex++;
+        stateIndex+=1;
+        addTelemetry();
+    }
+
+    @Override
+    public void stop() {
+        addTelemetry();
     }
 
     @Override
@@ -98,8 +112,12 @@ public class FSM extends RMOpMode{
         return CONFIGURATION_PATH;
     }
 
+    protected void addTelemetry() {
+        telemetry.addData("State-StateType-L-R-C-Time-isComplete", stateIndex + "-" + stateIndexType + "-" + motorLeft.getCurrentPosition() + "-" + motorRight.getCurrentPosition() + "-" + climbers.getPosition() + "-" + s.time + "-" + s.isComplete);
+    }
+
     protected int position(double rotation) {
-        return (int) Math.round(rotation*1120);
+        return (int) Math.round(rotation*1680);
     }
 
 }
