@@ -11,3 +11,4 @@ public enum STATE_TYPE {
     WAIT,
     STOP
 }
+

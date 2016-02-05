@@ -18,11 +18,6 @@ public class State {
     int endPositionRight;
     long waitTime;
 
-    protected enum DIRECTION {
-        LEFT,
-        RIGHT
-    }
-
     public State (DcMotor motor1, DcMotor motor2, Servo climb) {
         time.reset();
         motorLeft = motor1;
@@ -42,7 +37,7 @@ public class State {
         setMode(DcMotorController.RunMode.RUN_TO_POSITION);
     }
 
-    protected void encoderTurn(DIRECTION direction, int position, double power) {
+    protected void encoderTurn(STATE_DIRECTION direction, int position, double power) {
         update();
         switch (direction) {
             default:
@@ -95,7 +90,7 @@ public class State {
         startPositionRight = motorRight.getCurrentPosition();
     }
 
-    private void setMode(DcMotorController.RunMode mode) {
+    protected void setMode(DcMotorController.RunMode mode) {
         switch (mode) {
             case RESET_ENCODERS:
                 motorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -121,22 +116,26 @@ public class State {
         setDrivePower(0, 0);
     }
 
+    protected void reset() {
+        setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        startPositionLeft = 0;
+        startPositionRight = 0;
+        endPositionLeft = 0;
+        endPositionRight = 0;
+    }
+
     protected boolean isComplete(STATE_TYPE type) {
         isComplete = false;
         switch (type) {
             case ENCODER_STRAIGHT:
-                isComplete = ((Math.abs(endPositionLeft - motorLeft.getCurrentPosition())) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition())) < 10);
-                break;
+                return (Math.abs(endPositionLeft - motorLeft.getCurrentPosition())) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition()) < 10);
             case ENCODER_TURN:
-                isComplete = ((Math.abs(endPositionLeft) - motorLeft.getCurrentPosition()) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition()) < 10));
-                break;
+                return (Math.abs(endPositionLeft - motorLeft.getCurrentPosition())) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition()) < 10);
             case WAIT:
-                isComplete = true;
-                break;
+                return (true);
             default:
-                isComplete = false;
+                return false;
         }
-        return isComplete;
     }
 
 }
