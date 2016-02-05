@@ -36,24 +36,15 @@ public class FSM extends RMOpMode{
             "  ],\n" +
             "}";
 
-    protected enum STATE_TYPE {
-        INIT,
-        ENCODER_STRAIGHT,
-        ENCODER_TURN,
-        SERVO,
-        WAIT,
-        STOP
-    }
-
     @Override
     public void init() {
         super.init();
         motorLeft = motorMap.get("motor1");
         motorRight = motorMap.get("motor2");
         climbers = servoMap.get("Climbers");
-        s = new State(motorLeft, motorRight, climbers);
+        //s = new State(motorLeft, motorRight, climbers);
         stateIndex = 1;
-        stateIndexType = STATE_TYPE.INIT;
+        stateIndexType = STATE_TYPE.START;
         telemetry.addData("State-Time", stateIndex + "-" + s.time);
     }
 

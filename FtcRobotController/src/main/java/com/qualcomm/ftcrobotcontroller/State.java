@@ -1,14 +1,17 @@
 package com.qualcomm.ftcrobotcontroller;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class State {
     ElapsedTime time = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
     boolean isComplete;
-    Motor motorLeft;
-    Motor motorRight;
-    rServo climbers;
+    boolean stop;
+    DcMotor motorLeft;
+    DcMotor motorRight;
+    Servo climbers;
     int startPositionLeft;
     int startPositionRight;
     int endPositionLeft;
@@ -20,14 +23,15 @@ public class State {
         RIGHT
     }
 
-    public State (Motor motor1, Motor motor2, rServo climb) {
+    public State (DcMotor motor1, DcMotor motor2, Servo climb) {
         time.reset();
         motorLeft = motor1;
         motorRight = motor2;
         climbers = climb;
-        startPositionLeft = (int) motorLeft.getCurrentPosition();
-        startPositionRight = (int) motorRight.getCurrentPosition();
+        startPositionLeft = motorLeft.getCurrentPosition();
+        startPositionRight = motorRight.getCurrentPosition();
         isComplete = false;
+        stop = false;
     }
 
     protected void encoderStraight(int position, double power) {
@@ -87,32 +91,37 @@ public class State {
 
     protected void update() {
         time.reset();
-        startPositionLeft = (int) motorLeft.getCurrentPosition();
-        startPositionRight = (int) motorRight.getCurrentPosition();
+        startPositionLeft = motorLeft.getCurrentPosition();
+        startPositionRight = motorRight.getCurrentPosition();
     }
 
     private void setMode(DcMotorController.RunMode mode) {
         switch (mode) {
             case RESET_ENCODERS:
-                motorLeft.resetEncoder();
-                motorRight.resetEncoder();
+                motorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+                motorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
                 break;
             case RUN_USING_ENCODERS:
-                motorLeft.runUsingEncoders();
-                motorRight.runUsingEncoders();
+                motorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+                motorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
                 break;
             case RUN_WITHOUT_ENCODERS:
-                motorLeft.runWithoutEncoders();
-                motorRight.runWithoutEncoders();
+                motorLeft.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+                motorRight.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
                 break;
             case RUN_TO_POSITION:
-                motorLeft.runToPosition();
-                motorRight.runToPosition();
+                motorLeft.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+                motorRight.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
                 break;
         }
     }
 
-    protected boolean isComplete(FSM.STATE_TYPE type) {
+    protected void kill(){
+        setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        setDrivePower(0, 0);
+    }
+
+    protected boolean isComplete(STATE_TYPE type) {
         isComplete = false;
         switch (type) {
             case ENCODER_STRAIGHT:
@@ -122,7 +131,7 @@ public class State {
                 isComplete = ((Math.abs(endPositionLeft) - motorLeft.getCurrentPosition()) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition()) < 10));
                 break;
             case WAIT:
-                isComplete = (time.time() >= waitTime);
+                isComplete = true;
                 break;
             default:
                 isComplete = false;
@@ -131,82 +140,3 @@ public class State {
     }
 
 }
-
-    /*protected boolean isComplete =  false;
-    protected long startTime;
-    protected long curTime;
-    protected long pastTime;
-
-    public State(long currentTime){
-        startTime = currentTime;
-        curTime = startTime;
-    }
-
-    public State() {
-        //nada
-    }
-
-    protected void updateTime(long currentTime){
-        pastTime = currentTime;
-        curTime = currentTime;
-    }
-
-    protected void calculate(double curPosLeft, double curPosRight) {}
-
-    public boolean isComplete(){
-        return isComplete;
-    }
-
-}
-
-class WaitState extends State {
-
-    long waitTime;
-
-    public WaitState(long currentTime, long wTime){
-         super(currentTime);
-        waitTime =  wTime;
-    }
-
-    @Override
-    protected void calculate(double curPosLeft, double curPosRight) {
-        if(curTime - startTime >= waitTime){
-            isComplete =  true;
-        }
-    }
-
-}
-
-class MotorState extends State {
-
-    Motor changeMotor;
-    double desiredPower;
-
-    public MotorState(long currentTime, Motor m, double power){
-        super(currentTime);
-        changeMotor = m;
-        desiredPower =  power;
-    }
-
-    @Override
-    protected void calculate(double curPosLeft, double curPosRight) {
-        changeMotor.setDesiredPower(desiredPower);
-        isComplete = true;
-    }
-}
-
-class EndState extends State {
-
-    Map<String, Motor> motorMap;
-
-    public EndState(long currentTime, Map<String, Motor> mMap){
-        motorMap =  mMap;
-    }
-
-    @Override
-    protected void calculate(double curPosLeft, double curPosRight) {
-        for(Motor m:motorMap.values()){
-            m.setDesiredPower(0.0);
-        }
-    }
-}*/
