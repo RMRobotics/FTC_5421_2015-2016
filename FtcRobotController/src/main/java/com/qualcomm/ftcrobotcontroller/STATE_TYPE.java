@@ -5,8 +5,7 @@ package com.qualcomm.ftcrobotcontroller;
  */
 public enum STATE_TYPE {
     START,
-    ENCODER_STRAIGHT,
-    ENCODER_TURN,
+    ENCODER,
     SERVO,
     WAIT,
     STOP

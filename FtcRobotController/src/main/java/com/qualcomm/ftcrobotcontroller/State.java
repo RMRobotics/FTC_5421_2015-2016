@@ -16,7 +16,6 @@ public class State {
     int startPositionRight;
     int endPositionLeft;
     int endPositionRight;
-    long waitTime;
 
     public State (DcMotor motor1, DcMotor motor2, Servo climb) {
         time.reset();
@@ -29,39 +28,18 @@ public class State {
         stop = false;
     }
 
-    protected void encoderStraight(int position, double power) {
+    protected void encoder(int positionLeft, int positionRight, double powerLeft, double powerRight) {
         update();
-        setDrivePower(power);
-        setEncoder(position);
-        updateEnd(startPositionLeft + position, startPositionRight + position);
         setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motorLeft.setTargetPosition(startPositionLeft + positionLeft);
+        motorRight.setTargetPosition(startPositionRight + positionRight);
+        setDrivePower(powerLeft, powerRight);
+        updateEnd();
     }
 
-    protected void encoderTurn(STATE_DIRECTION direction, int position, double power) {
-        update();
-        switch (direction) {
-            default:
-            case LEFT:
-                setDrivePower(0, power);
-                updateEnd(startPositionLeft, startPositionRight + position);
-                setEncoder(endPositionLeft, endPositionRight);
-                break;
-            case RIGHT:
-                setDrivePower(power, 0);
-                updateEnd(startPositionLeft + position, startPositionRight);
-                setEncoder(endPositionLeft, endPositionRight);
-                break;
-        }
-    }
-
-    protected void waitTime(long wait) {
-        waitTime = wait;
-        update();
-    }
-
-    private void updateEnd(int endLeft, int endRight) {
-        endPositionLeft = endLeft;
-        endPositionRight = endRight;
+    private void updateEnd() {
+        endPositionLeft = motorLeft.getTargetPosition();
+        endPositionRight = motorRight.getTargetPosition();
     }
 
     private void setDrivePower(double power) {
@@ -72,16 +50,6 @@ public class State {
     private void setDrivePower(double powerLeft, double powerRight) {
         motorLeft.setPower(powerLeft);
         motorRight.setPower(powerRight);
-    }
-
-    private void setEncoder(int position) {
-        motorLeft.setTargetPosition(position);
-        motorRight.setTargetPosition(position);
-    }
-
-    private void setEncoder(int positionLeft, int positionRight) {
-        motorLeft.setTargetPosition(startPositionLeft + positionLeft);
-        motorRight.setTargetPosition(startPositionRight + positionRight);
     }
 
     protected void update() {
@@ -127,10 +95,8 @@ public class State {
     protected boolean isComplete(STATE_TYPE type) {
         isComplete = false;
         switch (type) {
-            case ENCODER_STRAIGHT:
-                return (Math.abs(endPositionLeft - motorLeft.getCurrentPosition())) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition()) < 10);
-            case ENCODER_TURN:
-                return (Math.abs(endPositionLeft - motorLeft.getCurrentPosition())) < 10 && (Math.abs(endPositionRight - motorRight.getCurrentPosition()) < 10);
+            case ENCODER:
+                return (Math.abs(motorLeft.getTargetPosition() - motorLeft.getCurrentPosition())) < 10 && (Math.abs(motorRight.getTargetPosition() - motorRight.getCurrentPosition()) < 10);
             case WAIT:
                 return (true);
             default:
