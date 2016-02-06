@@ -25,7 +25,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.ftcrobotcontroller.AutoOp;
+import com.qualcomm.ftcrobotcontroller.AutoOpBlue;
+import com.qualcomm.ftcrobotcontroller.AutoOpRed;
 import com.qualcomm.ftcrobotcontroller.AutoState;
 import com.qualcomm.ftcrobotcontroller.R2D2;
 import com.qualcomm.ftcrobotcontroller.ServoCalibration;
@@ -75,7 +76,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("AutoState", AutoState.class);
     manager.register("R2D2", R2D2.class);
     manager.register("lmao", lmao.class);
-    manager.register("AutoOp", AutoOp.class);
+    manager.register("AutoOpRed", AutoOpRed.class);
+    manager.register("AutoOpBlue", AutoOpBlue.class);
 
     manager.register("ServoCalibration", ServoCalibration.class);
     manager.register("twoDrive", twoDrive.class);

@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Simon on 2/4/2016.
  */
-public class AutoOp extends LinearOpMode{
+public class AutoOpRed extends LinearOpMode{
 
-    final int MOTOR_PPR = 1120;
-    final double CLIMBERS_INIT = 1.0;
-    final double CLIMBERS_SCORE = 0.0;
+    //final int MOTOR_PPR = 1120;
+    //final double CLIMBERS_INIT = 1.0;
+    //final double CLIMBERS_SCORE = 0.0;
 
     DcMotor motorLeft;
     DcMotor motorRight;
@@ -23,8 +23,8 @@ public class AutoOp extends LinearOpMode{
     //double runTime;
 
     private void runInit() {
-        motorLeft = hardwareMap.dcMotor.get("motor1");
-        motorRight = hardwareMap.dcMotor.get("motor2");
+        motorRight = hardwareMap.dcMotor.get("DriveLeftOne");
+        motorLeft = hardwareMap.dcMotor.get("DriveRightOne");
         motorRight.setDirection(DcMotor.Direction.REVERSE);
         //climbers = hardwareMap.servo.get("Climbers");
         //harvester = hardwareMap.dcMotor.get("Harvester");
@@ -45,13 +45,13 @@ public class AutoOp extends LinearOpMode{
         addTelemetry();
         driveStraight(1.0);
         addTelemetry();
-        sleep(1000);
+        sleep(3000);
         addTelemetry();
         kill();
         addTelemetry();
         sleep(1000);
         addTelemetry();
-        driveRight(1.0);
+        driveLeft(1.0);
         addTelemetry();
         sleep(1000);
         addTelemetry();
