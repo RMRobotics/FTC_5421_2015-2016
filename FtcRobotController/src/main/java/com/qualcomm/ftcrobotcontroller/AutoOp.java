@@ -12,144 +12,85 @@ import java.util.concurrent.TimeUnit;
  */
 public class AutoOp extends LinearOpMode{
 
-    final int MOTOR_PPR = 1680;
+    final int MOTOR_PPR = 1120;
+    final double CLIMBERS_INIT = 1.0;
+    final double CLIMBERS_SCORE = 0.0;
 
-    State s;
     DcMotor motorLeft;
     DcMotor motorRight;
-    Servo climbers;
-    int stateIndex;
-    STATE_TYPE stateIndexType;
-    double runTime;
+    //DcMotor harvester;
+    //Servo climbers;
+    //double runTime;
 
     private void runInit() {
         motorLeft = hardwareMap.dcMotor.get("motor1");
         motorRight = hardwareMap.dcMotor.get("motor2");
-        climbers = hardwareMap.servo.get("climbers");
-        s = new State(motorLeft, motorRight, climbers);
-        stateIndex = 1;
-        stateIndexType = STATE_TYPE.START;
+        motorRight.setDirection(DcMotor.Direction.REVERSE);
+        //climbers = hardwareMap.servo.get("Climbers");
+        //harvester = hardwareMap.dcMotor.get("Harvester");
         resetStartTime();
-        s.reset();
-        runTime = getRuntime();
+        //runTime = getRuntime();
+        motorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        addTelemetry();
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
-        //runInit();
+        runInit();
         //addTelemetry("Waiting for start");
-
-        motorLeft = hardwareMap.dcMotor.get("motor1");
-        motorRight = hardwareMap.dcMotor.get("motor2");
-        motorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        motorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-
         waitForStart();
 
-        motorLeft.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motorRight.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motorLeft.setTargetPosition(motorLeft.getCurrentPosition() + 10000);
-        motorRight.setTargetPosition(motorRight.getCurrentPosition() + 10000);
-        motorLeft.setPower(1.0);
-        motorRight.setPower(1.0);
-
-        sleep(100);
+        //runStart();
         addTelemetry();
-        while (!(Math.abs(motorLeft.getCurrentPosition() - motorLeft.getTargetPosition()) < 10) && !(Math.abs(motorRight.getCurrentPosition() - motorRight.getTargetPosition()) < 10)) {
-            telemetry.addData("KEY", motorLeft.getCurrentPosition() + "-" + motorLeft.getTargetPosition() + "-" + motorRight.getCurrentPosition() + "-" + motorRight.getTargetPosition());
-        }
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
-
+        driveStraight(1.0);
+        addTelemetry();
         sleep(1000);
-
-        motorLeft.setTargetPosition(motorLeft.getCurrentPosition() + 10000);
-        motorRight.setTargetPosition(motorRight.getCurrentPosition() + 10000);
-        motorLeft.setPower(1.0);
-        motorRight.setPower(1.0);
-
-        sleep(100);
         addTelemetry();
-        while (!(Math.abs(motorLeft.getCurrentPosition() - motorLeft.getTargetPosition()) < 10) && !(Math.abs(motorRight.getCurrentPosition() - motorRight.getTargetPosition()) < 10)) {
-            telemetry.addData("KEY", motorLeft.getCurrentPosition() + "-" + motorLeft.getTargetPosition() + "-" + motorRight.getCurrentPosition() + "-" + motorRight.getTargetPosition());
-        }
+        kill();
+        addTelemetry();
+        sleep(1000);
+        addTelemetry();
+        driveRight(1.0);
+        addTelemetry();
+        sleep(1000);
+        addTelemetry();
+        kill();
+        addTelemetry();
+        sleep(1000);
+        addTelemetry();
+        driveStraight(1.0);
+        addTelemetry();
+        sleep(1000);
+        addTelemetry();
 
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
+        kill();
 
         telemetry.addData("DONE", "SWAG");
 
-        /*s.encoder(position(2), position(2), 1.0, 1.0);
-        stateIndexType = STATE_TYPE.ENCODER;
-        check();
-        update();
-
-        stateIndexType = STATE_TYPE.WAIT;
-        sleep(1000);
-
-        s.encoder(0, position(2), 0, 1.0);
-        stateIndexType = STATE_TYPE.ENCODER;
-        check();
-        update();
-
-        stateIndexType = STATE_TYPE.WAIT;
-        sleep(1000);
-
-        s.encoder(position(2), position(2), 1.0, 1.0);
-        stateIndexType = STATE_TYPE.ENCODER;
-        check();
-        update();
-
-        stateIndexType = STATE_TYPE.WAIT;
-        sleep(1000);*/
-
-        /*while (!s.stop) {
-            switch (stateIndex) {
-                case 1:
-                    s.encoderStraight(position(2), 1.0);
-                    stateIndexType = STATE_TYPE.ENCODER_STRAIGHT;
-                    break;
-                case 2:
-                    s.encoderTurn(State.DIRECTION.LEFT, position(2), 1);
-                    stateIndexType = STATE_TYPE.ENCODER_TURN;
-                    break;
-                case 2:
-                    s.encoderStraight(position(2), 1.0);
-                    stateIndexType = STATE_TYPE.ENCODER_STRAIGHT;
-                    break;
-                case 4:
-                    s.encoderTurn(State.DIRECTION.RIGHT, position(2), 1);
-                    stateIndexType = STATE_TYPE.ENCODER_TURN;
-                    break;
-                case 5:
-                    s.waitTime(3);
-                    stateIndexType = STATE_TYPE.WAIT;
-                    sleep(TimeUnit.SECONDS.toMillis(s.waitTime));
-                    break;
-                case 3:
-                    stateIndexType = STATE_TYPE.STOP;
-                    s.stop = true;
-                    break;
-            }
-            while (!s.isComplete(stateIndexType)) {
-                addTelemetry("Waiting");
-                waitOneFullHardwareCycle();
-            }
-            s.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-            s.update();
-            stateIndex+=1;
-            addTelemetry("Done");
-        }*/
-
-//        s.kill();
     }
 
     protected void addTelemetry() {
-        telemetry.addData("KEY", motorLeft.getCurrentPosition() + "-" + motorLeft.getTargetPosition() + "-" + motorRight.getCurrentPosition() + "-" + motorRight.getTargetPosition());
+        telemetry.addData("RunTime-L-R", getRuntime() + "-" + motorLeft.getPower() + "-" + motorRight.getPower());
     }
 
-    protected int position(double rotation) {
-        return (int) Math.round(rotation*MOTOR_PPR);
+    private void kill() {
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
+        //harvester.setPower(0);
+        //climbers.setPosition(CLIMBERS_INIT);
     }
 
+    private void driveStraight(double power) {
+        motorLeft.setPower(power);
+        motorRight.setPower(power);
+    }
+
+    private void driveLeft(double power) {
+        motorRight.setPower(power);
+    }
+
+    private void driveRight(double power) {
+        motorLeft.setPower(power);
+    }
 }
