@@ -164,6 +164,6 @@ public class TeleOp extends RMOpMode {
 
     @Override
     protected String setConfigurationPath() {
-        return CONFIGURATION_PATH;
-    }
+    return CONFIGURATION_PATH;
+}
 }

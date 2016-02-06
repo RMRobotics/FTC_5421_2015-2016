@@ -27,6 +27,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.AutoOp;
 import com.qualcomm.ftcrobotcontroller.AutoState;
+import com.qualcomm.ftcrobotcontroller.ColorSensorTest;
 import com.qualcomm.ftcrobotcontroller.R2D2;
 import com.qualcomm.ftcrobotcontroller.ServoCalibration;
 import com.qualcomm.ftcrobotcontroller.TeleOp;
@@ -65,7 +66,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("PushBotManual", PushBotManual.class);
 
 
-
       /*
        * Uncomment any of the following lines if you want to register an op mode.
        */
@@ -79,7 +79,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("ServoCalibration", ServoCalibration.class);
     manager.register("twoDrive", twoDrive.class);
-
+    manager.register ("ColorSensorTest", ColorSensorTest.class);
     //manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
     //manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
     //manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
