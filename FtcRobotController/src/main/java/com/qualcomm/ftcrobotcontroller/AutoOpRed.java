@@ -3,15 +3,13 @@ package com.qualcomm.ftcrobotcontroller;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Simon on 2/4/2016.
  */
 public class AutoOpRed extends LinearOpMode{
 
+    final double RIGHT_FULLPOWER = 0.5;
     //final int MOTOR_PPR = 1120;
     //final double CLIMBERS_INIT = 1.0;
     //final double CLIMBERS_SCORE = 0.0;
@@ -43,25 +41,25 @@ public class AutoOpRed extends LinearOpMode{
 
         //runStart();
         addTelemetry();
-        driveStraight(1.0);
+        driveStraight(1.0, 0.3);
         addTelemetry();
         sleep(3000);
         addTelemetry();
         kill();
         addTelemetry();
-        sleep(1000);
+        sleep(500);
         addTelemetry();
         driveLeft(1.0);
         addTelemetry();
-        sleep(1000);
+        sleep(1800);
         addTelemetry();
         kill();
         addTelemetry();
         sleep(1000);
         addTelemetry();
-        driveStraight(1.0);
+        driveStraight(1.0, 1.0);
         addTelemetry();
-        sleep(1000);
+        sleep(5000);
         addTelemetry();
 
         kill();
@@ -85,6 +83,12 @@ public class AutoOpRed extends LinearOpMode{
         motorLeft.setPower(power);
         motorRight.setPower(power);
     }
+
+    private void driveStraight(double powerLeft,double powerRight) {
+        motorLeft.setPower(powerLeft);
+        motorRight.setPower(powerRight);
+    }
+
 
     private void driveLeft(double power) {
         motorRight.setPower(power);

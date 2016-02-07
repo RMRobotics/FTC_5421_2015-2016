@@ -51,15 +51,15 @@ public class AutoOpBlue extends LinearOpMode{
         addTelemetry();
         driveRight(1.0);
         addTelemetry();
-        sleep(2000);
+        sleep(1800);
         addTelemetry();
         kill();
         addTelemetry();
         sleep(1000);
         addTelemetry();
-        driveStraight(1.0, 0.7);
+        driveStraight(1.0, 1.0);
         addTelemetry();
-        sleep(1000);
+        sleep(5000);
         addTelemetry();
 
         kill();
