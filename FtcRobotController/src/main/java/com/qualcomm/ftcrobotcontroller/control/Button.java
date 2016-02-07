@@ -11,6 +11,6 @@ public enum Button {
     BUTTON_BACK,
     BUTTON_START,
     BUTTON_JOYL,
-    BUTTON_JOYR
+    BUTTON_JOYR,
 
 }

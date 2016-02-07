@@ -5,68 +5,62 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
-import com.qualcomm.robotcore.hardware.LED;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class ColorSensorTest extends RMOpMode{
 
-    public enum ColorSensorDevice {MODERN_ROBOTICS_I2C}
-
-    public ColorSensorDevice device = ColorSensorDevice.MODERN_ROBOTICS_I2C;
-
     ColorSensor colorSensor;
-    DeviceInterfaceModule cdim;
-    LED led;
-    TouchSensor t;
-
-    private final String CONFIGURATION_PATH = "{\n" +
+    private final String CONFIGURATION_PATH = "  \"motors\":[\n" +
+            "  ],\n" +
+            "  \"servos\":[\n" +
+            "  ],\n" +
             "}";
 
     @Override
     public void init() {
-        hardwareMap.logDevices();
-
-        cdim = hardwareMap.deviceInterfaceModule.get("dim");
-
-        colorSensor = hardwareMap.colorSensor.get("mr");
-
-        led = hardwareMap.led.get("led");
-        t = hardwareMap.touchSensor.get("t");
-
+        colorSensor = hardwareMap.colorSensor.get("cS");
+        colorSensor.enableLed(false);
+        super.init();
+        telemetry.addData("Init","Stuff");
     }
 
     @Override
     protected String setConfigurationPath() {
+        telemetry.addData("Config","Stuff");
         return CONFIGURATION_PATH;
     }
 
     public void calculate() {
-
-        float hsvValues[] = {0, 0, 0};
-        final float values[] = hsvValues;
-        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(R.id.RelativeLayout);
-
-        enableLed(t.isPressed());
-
-        Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
-
         telemetry.addData("Clear", colorSensor.alpha());
         telemetry.addData("Red  ", colorSensor.red());
         telemetry.addData("Green", colorSensor.green());
         telemetry.addData("Blue ", colorSensor.blue());
-        telemetry.addData("Hue", hsvValues[0]);
-
-
-        relativeLayout.post(new Runnable() {
-            public void run() {
-                relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
-            }
-        });
+        determine();
     }
+    public void determine() {
+        Integer myColorNumber = 1;
+        switch (myColorNumber) {
+            case 1:
+                if (colorSensor.blue() > colorSensor.red()+10) {
+                    telemetry.addData("Good ", "Data");
+                }
+                else if (colorSensor.red() > colorSensor.blue()+10) {
+                    telemetry.addData("Bad ", "Data");
+                }
+                else {
+                    telemetry.addData("Null ", "Data");
+                }
+                break;
+            case 2:
+                if (colorSensor.red() > colorSensor.blue()+10) {
+                    telemetry.addData("Good ", "Data");
+                }
+                else if (colorSensor.blue() > colorSensor.red()+10) {
+                    telemetry.addData("Bad ", "Data");
+                }
+                else {
+                    telemetry.addData("Null ", "Data");
+                }
+                break;
 
-    private void enableLed(boolean value) {
 
-                colorSensor.enableLed(value);
-        }
-    }
+    }}}
