@@ -9,24 +9,28 @@ public class Motor {
 
     private static final double MAX_POWER = 1.0;
     private static final double MIN_POWER = 0.1;
+    private static final double MAX_ACCEL = 0.03;
+    private static final double NVRST20_ENC = 560;
+    private static final double NVRST40_ENC = 1120;
+    private static final double NVRST60_ENC = 1680;
 
     private DcMotor parent;
     private DcMotor.Direction defaultDirection;
     private double minPower;
     private double maxPower;
+    private MOTOR_TYPE motorType;
     private double desiredPower;
     private double currentPower;
-    private double interval;
-    private double speedInterval = 3.0;
     private int curPos;
     private int tarPos;
     private int dis;
 
-    public Motor(DcMotor dc, DcMotor.Direction d, double min, double max) {
+    public Motor(DcMotor dc, DcMotor.Direction d, double min, double max, MOTOR_TYPE mType) {
         parent = dc;
         defaultDirection = d;
         minPower = min;
         maxPower = max;
+        motorType = mType;
 
     } //Todo add string to send in DbgLog confirming motor settings once configured
 
@@ -41,12 +45,11 @@ public class Motor {
          * clip to be within range
          *
          */
-        if (abs(tarPos - parent.getCurrentPosition()) < 10 && parent.getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
+        double absDesPower = abs(desiredPower);
+        if (parent.getTargetPosition() == parent.getCurrentPosition() && parent.getMode() == DcMotorController.RunMode.RUN_TO_POSITION) {
             desiredPower = 0;
             currentPower = desiredPower;
-        }
-        double absDesPower = abs(desiredPower);
-        if (absDesPower == 0.0 || absDesPower < minPower) {
+        } else if (absDesPower == 0.0 || absDesPower < minPower) {
             currentPower = desiredPower;
         } else {
             if (desiredPower < 0.0) {
@@ -68,43 +71,30 @@ public class Motor {
             }
             currentPower = desiredPower;
         }
-
-        /*if(desiredPower<0){
-            if(defaultDirection == DcMotor.Direction.FORWARD){
-                defaultDirection = DcMotor.Direction.REVERSE;
-            }else if (defaultDirection == DcMotor.Direction.REVERSE){
-                defaultDirection = DcMotor.Direction.FORWARD;
-            }
-            desiredPower = Math.abs(desiredPower);
-            minPower = Math.abs(minPower);
-            maxPower=Math.abs(maxPower);
-        }
-        desiredPower = Range.clip(desiredPower, minPower, maxPower);
-
-        currentPower =  desiredPower;*/
-
     }
 
     public void setCurrentPower() {
-        interval = abs((desiredPower - currentPower)/speedInterval);//I made kinda like "steps" for acceleration, so it will always accelerate in 3 steps
-
         if (desiredPower > currentPower) {
-            while (currentPower < desiredPower) {
-                parent.setPower(currentPower);
-                currentPower += interval;
+            if (currentPower < 0.2 && Math.abs(currentPower - desiredPower) > 0.2) {
+                currentPower += MAX_ACCEL;
+            } else {
+                currentPower += 0.05*(Math.abs(currentPower - desiredPower));
             }
+            parent.setPower(currentPower);
         } else if (desiredPower < currentPower) {
-            while (currentPower > desiredPower) {
-                parent.setPower(currentPower);
-                currentPower -= interval;
+            if (currentPower > 0.08 && Math.abs(currentPower - desiredPower) > 0.2) {
+                currentPower -= MAX_ACCEL;
+            } else {
+                currentPower -= 0.05*(Math.abs(currentPower - desiredPower));
             }
+            parent.setPower(currentPower);
         } else {
             parent.setPower(currentPower);
         }
     }
 
-    public void setEncoderMove(double currentPosition, double rotation, double power) {
-        curPos = (int)currentPosition;
+    public void setEncoderMove(double rotation, double power) {
+        curPos = parent.getCurrentPosition();
         tarPos = curPos + (int)(rotation * 1120);
         parent.setTargetPosition(tarPos);
         setDesiredPower(power);

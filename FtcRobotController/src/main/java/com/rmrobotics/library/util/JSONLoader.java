@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import com.rmrobotics.library.hardware.MOTOR_TYPE;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
 
@@ -46,7 +47,8 @@ public class JSONLoader {
             double maxPower = (Double) mJSON.get("maxPower");
             DcMotor dcParent = hardwareMap.dcMotor.get(motorName);
             DcMotor.Direction d = stringToMotorDirection((String) mJSON.get("direction"));
-            Motor m = new Motor(dcParent, d, minPower, maxPower);
+            MOTOR_TYPE mT = stringToMotorType((String) mJSON.get("motorType"));
+            Motor m = new Motor(dcParent, d, minPower, maxPower, mT);
             motorImportMap.put(motorName, m);
         }
     }
@@ -82,6 +84,18 @@ public class JSONLoader {
             return Servo.Direction.REVERSE;
         } else {
             return Servo.Direction.valueOf(stringD);
+        }
+    }
+
+    private MOTOR_TYPE stringToMotorType(String stringD) {
+        if (stringD.equals("NVRST_20")) {
+            return MOTOR_TYPE.NVRST_20;
+        } else if (stringD.equals("NVRST_40")) {
+            return MOTOR_TYPE.NVRST_40;
+        } else if (stringD.equals("NVRST_60")) {
+            return MOTOR_TYPE.NVRST_60;
+        } else {
+            return MOTOR_TYPE.TETRIX;
         }
     }
 

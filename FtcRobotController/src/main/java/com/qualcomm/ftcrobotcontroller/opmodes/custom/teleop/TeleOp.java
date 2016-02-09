@@ -9,7 +9,7 @@ import com.rmrobotics.library.core.RMOpMode;
 
 public class TeleOp extends RMOpMode {
 
-    private final String CONFIGURATION_PATH = "res/5421robot.JSON";
+    private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
     /*private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
             "    {\n" +
