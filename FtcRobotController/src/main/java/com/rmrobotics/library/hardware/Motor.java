@@ -126,6 +126,10 @@ public class Motor {
 
     public double getDesiredPower() { return desiredPower; }
 
+    public String getMotorType() {
+        return motorType.toString();
+    }
+
     public void stop() { setDesiredPower(0); }
 
 }

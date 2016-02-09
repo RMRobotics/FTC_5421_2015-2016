@@ -7,7 +7,10 @@ import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.core.RMOpMode;
 
+import java.text.DecimalFormat;
+
 public class TeleOp extends RMOpMode {
+    DecimalFormat df = new DecimalFormat("#.##");
 
     private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
     /*private final String CONFIGURATION_PATH = "{\n" +
@@ -81,6 +84,7 @@ public class TeleOp extends RMOpMode {
 
     @Override
     protected void calculate() {
+        addTelemetry();
         double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
         motorMap.get("DriveLeftOne").setDesiredPower(leftPower);
@@ -150,10 +154,19 @@ public class TeleOp extends RMOpMode {
             climberPos = 0;
             servoMap.get("Climbers").setDesiredPosition(climberPos);
         }
+        addTelemetry();
     }
 
     @Override
     protected String setConfigurationPath() {
         return CONFIGURATION_PATH;
+    }
+
+    private void addTelemetry() {
+        telemetry.addData("L1-L2-R1-R2-H-B-LF-RF-C", df.format(motorMap.get("DriveLeftOne").getPower()) + "-"
+                + df.format(motorMap.get("DriveLeftTwo").getPower()) + "-" + df.format(motorMap.get("DriveRightOne").getPower()) + "-"
+                + df.format(motorMap.get("DriveRightTwo").getPower()) + "-" + df.format(motorMap.get("Harvester").getPower()) + "-"
+                + df.format(motorMap.get("Bucket").getPower()) + "-" + df.format(servoMap.get("BucketLeft").getPosition()) + "-"
+                + df.format(servoMap.get("BucketRight")) + "-" + df.format(servoMap.get("Climbers").getPosition()));
     }
 }
