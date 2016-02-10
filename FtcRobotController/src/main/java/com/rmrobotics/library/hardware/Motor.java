@@ -10,6 +10,7 @@ public class Motor {
     private static final double MAX_POWER = 1.0;
     private static final double MIN_POWER = 0.1;
     private static final double MAX_ACCEL = 0.03;
+    private static final double TETRIX_ENC = 1440;
     private static final double NVRST20_ENC = 560;
     private static final double NVRST40_ENC = 1120;
     private static final double NVRST60_ENC = 1680;
@@ -19,6 +20,7 @@ public class Motor {
     private double minPower;
     private double maxPower;
     private MOTOR_TYPE motorType;
+    private double motorPulse;
     private double desiredPower;
     private double currentPower;
     private int curPos;
@@ -31,6 +33,7 @@ public class Motor {
         minPower = min;
         maxPower = max;
         motorType = mType;
+        motorPulse = motorPulse();
 
     } //Todo add string to send in DbgLog confirming motor settings once configured
 
@@ -68,6 +71,8 @@ public class Motor {
             desiredPower = absDesPower;
             if (desiredPower > maxPower) {
                 desiredPower = maxPower;
+            } else if (desiredPower < minPower) {
+                desiredPower = 0;
             }
             currentPower = desiredPower;
         }
@@ -75,17 +80,15 @@ public class Motor {
 
     public void setCurrentPower() {
         if (desiredPower > currentPower) {
-            if (currentPower < 0.2 && Math.abs(currentPower - desiredPower) > 0.2) {
-                currentPower += MAX_ACCEL;
-            } else {
-                currentPower += 0.05*(Math.abs(currentPower - desiredPower));
+            currentPower += MAX_ACCEL;
+            if (currentPower > maxPower) {
+                currentPower = maxPower;
             }
             parent.setPower(currentPower);
         } else if (desiredPower < currentPower) {
-            if (currentPower > 0.08 && Math.abs(currentPower - desiredPower) > 0.2) {
-                currentPower -= MAX_ACCEL;
-            } else {
-                currentPower -= 0.05*(Math.abs(currentPower - desiredPower));
+            currentPower -= MAX_ACCEL;
+            if (currentPower < minPower) {
+                currentPower = 0;
             }
             parent.setPower(currentPower);
         } else {
@@ -98,6 +101,19 @@ public class Motor {
         tarPos = curPos + (int)(rotation * 1120);
         parent.setTargetPosition(tarPos);
         setDesiredPower(power);
+    }
+
+    private double motorPulse() {
+        switch (motorType) {
+            case NVRST_20:
+                return NVRST20_ENC;
+            case NVRST_40:
+                return NVRST40_ENC;
+            case NVRST_60:
+                return NVRST60_ENC;
+            default:
+                return TETRIX_ENC;
+        }
     }
 
     public double getCurrentPosition() {
