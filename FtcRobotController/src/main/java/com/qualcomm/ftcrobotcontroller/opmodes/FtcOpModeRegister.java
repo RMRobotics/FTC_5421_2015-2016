@@ -55,6 +55,7 @@ public class FtcOpModeRegister implements OpModeRegister {
        * Uncomment any of the following lines if you want to register an op mode.
        */
 
+      manager.register("ServoTest", ServoTest.class);
     manager.register("TeleOp", TeleOp.class);
     manager.register("ServoCalibration", ServoCalibration.class);
 

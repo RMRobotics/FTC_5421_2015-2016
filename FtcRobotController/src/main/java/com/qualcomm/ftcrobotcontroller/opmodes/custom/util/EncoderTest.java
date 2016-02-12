@@ -35,6 +35,7 @@ public class EncoderTest extends RMOpMode {
     }
 
     protected void calculate() {
+        /*
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
         if(bucketLeft){
@@ -43,7 +44,7 @@ public class EncoderTest extends RMOpMode {
             motorMap.get("motor").setEncoderMove(4853,-4.33333333, 1.0);
         }
         telemetry.addData("calc", "current position at " + motorMap.get("motor").getCurrentPosition() + " and target position at " + motorMap.get("motor").getTargetPosition() + " and power at " + motorMap.get("motor").getPower());
-    }
+    }*/
 /*
     private void waitTime(long wait) {
         curTime = cal.getTimeInMillis();
@@ -56,4 +57,5 @@ public class EncoderTest extends RMOpMode {
     }
 }
 */
+    }
 }
