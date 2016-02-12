@@ -6,13 +6,18 @@ import android.view.View;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
 import com.rmrobotics.library.core.RMOpMode;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Timer;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 public class ColorSensorTest extends RMOpMode{
     Calendar cal;
+    List l;
     ColorSensor colorSensor;
     private final String CONFIGURATION_PATH = "  \"motors\":[\n" +
             "  ],\n" +
@@ -24,7 +29,8 @@ public class ColorSensorTest extends RMOpMode{
     public void init() {
         colorSensor = hardwareMap.colorSensor.get("cS");
         colorSensor.enableLed(false);
-        cal = new Calender();
+        l = new ArrayList();
+        cal = new GregorianCalendar();
         super.init();
         telemetry.addData("Init","Stuff");
     }
@@ -50,11 +56,23 @@ public class ColorSensorTest extends RMOpMode{
                     telemetry.addData("Good ", "Data");
                     motorMap.get("LeftMotor").setDesiredPower(0.3);
                     motorMap.get("RightMotor").setDesiredPower(0.3);
-
+                    //Go until reaches desired distance
                 }
                 else if (colorSensor.red() > colorSensor.blue()+10) {
                     telemetry.addData("Bad ", "Data");
 
+                    motorMap.get("LeftMotor").setDesiredPower(-0.3);
+                    motorMap.get("RightMotor").setDesiredPower(0.3);
+                    //Loops this until turned desire angle
+                    motorMap.get("LeftMotor").setDesiredPower(0.3);
+                    motorMap.get("RightMotor").setDesiredPower(0.3);
+                    //Loops this until moved desired distance
+                    motorMap.get("LeftMotor").setDesiredPower(0.3);
+                    motorMap.get("RightMotor").setDesiredPower(-0.3);
+                    //Loops this until turned desired angle
+                    motorMap.get("LeftMotor").setDesiredPower(0.3);
+                    motorMap.get("RightMotor").setDesiredPower(0.3);
+                    //Move until reached desired distance
                 }
                 else {
                     telemetry.addData("Null ", "Data");
@@ -63,9 +81,24 @@ public class ColorSensorTest extends RMOpMode{
             case 2:
                 if (colorSensor.red() > colorSensor.blue()+10) {
                     telemetry.addData("Good ", "Data");
+                    motorMap.get("LeftMotor").setDesiredPower(0.3);
+                    motorMap.get("RightMotor").setDesiredPower(0.3);
+                    //go until reached desired distance
                 }
                 else if (colorSensor.blue() > colorSensor.red()+10) {
                     telemetry.addData("Bad ", "Data");
+                    motorMap.get("LeftMotor").setDesiredPower(0.3);
+                    motorMap.get("RightMotor").setDesiredPower(-0.3);
+                    //Loops this until turned desire angle
+                    motorMap.get("LeftMotor").setDesiredPower(0.3);
+                    motorMap.get("RightMotor").setDesiredPower(0.3);
+                    //Loops this until moved desired distance
+                    motorMap.get("LeftMotor").setDesiredPower(-0.3);
+                    motorMap.get("RightMotor").setDesiredPower(0.3);
+                    //Loops this until turned desired angle
+                    motorMap.get("LeftMotor").setDesiredPower(0.3);
+                    motorMap.get("RightMotor").setDesiredPower(0.3);
+                    //Move until reached desired distance
                 }
                 else {
                     telemetry.addData("Null ", "Data");
