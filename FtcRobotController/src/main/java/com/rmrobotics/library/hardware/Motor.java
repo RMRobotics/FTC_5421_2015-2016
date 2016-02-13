@@ -116,6 +116,10 @@ public class Motor {
         }
     }
 
+    public void runUsingEncoders(){
+        parent.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+    }
+
     public double getCurrentPosition() {
         return parent.getCurrentPosition();
     }
