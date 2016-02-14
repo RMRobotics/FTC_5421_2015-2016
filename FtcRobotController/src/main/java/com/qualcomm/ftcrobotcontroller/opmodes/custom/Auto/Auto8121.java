@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes.custom.Auto;
+package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
 import com.rmrobotics.library.core.RMOpMode;
 
