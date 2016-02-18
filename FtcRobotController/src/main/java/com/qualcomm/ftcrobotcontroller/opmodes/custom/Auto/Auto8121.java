@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
+package com.rmrobotics.library.core;
 
 import com.rmrobotics.library.core.RMOpMode;
 
@@ -53,6 +53,10 @@ public class Auto8121 extends RMOpMode {
                 motorMap.get("MotorR").setDesiredPower(0);
                 waitTimer();
                 break;
+            case 3:
+                motorMap.get("MotorL").setDesiredPower(.7);
+                stateTwo();
+                break;
 
 
         }
@@ -69,8 +73,14 @@ public class Auto8121 extends RMOpMode {
         }
     }
 
+    private void stateTwo(){
+        if(motorMap.get("MotorL").getCurrentPosition()>180){
+            state++;
+        }
+    }
+
     private void waitTimer(){
-        cal.getTimeinMillis()
+        //cal.getTimeinMillis();
     }
 
 }
