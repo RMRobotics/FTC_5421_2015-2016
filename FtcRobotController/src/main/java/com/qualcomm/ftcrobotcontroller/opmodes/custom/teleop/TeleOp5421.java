@@ -9,7 +9,7 @@ import com.rmrobotics.library.core.RMOpMode;
 
 import java.text.DecimalFormat;
 
-public class TeleOp extends RMOpMode {
+public class TeleOp5421 extends RMOpMode {
     DecimalFormat df = new DecimalFormat("#.##");
 
     private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";

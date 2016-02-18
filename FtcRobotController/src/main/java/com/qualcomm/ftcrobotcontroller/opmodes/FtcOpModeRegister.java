@@ -25,7 +25,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.Auto5421;
+import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ServoCalibration;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
@@ -35,13 +36,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
  */
 public class FtcOpModeRegister implements OpModeRegister {
 
-  /**
-   * The Op Mode Manager will call this method when it wants a list of all
-   * available op modes. Add your op mode to the list to enable it.
-   *
-   * @param manager op mode manager
-   */
-  public void register(OpModeManager manager) {
+    /**
+     * The Op Mode Manager will call this method when it wants a list of all
+     * available op modes. Add your op mode to the list to enable it.
+     *
+     * @param manager op mode manager
+     */
+    public void register(OpModeManager manager) {
 
       /*
        * register your op modes here.
@@ -55,20 +56,21 @@ public class FtcOpModeRegister implements OpModeRegister {
        * Uncomment any of the following lines if you want to register an op mode.
        */
 
-      manager.register("ServoTest", ServoTest.class);
-    manager.register("TeleOp", TeleOp.class);
-    manager.register("ServoCalibration", ServoCalibration.class);
+        manager.register("ServoTest", ServoTest.class);
+        manager.register("TeleOp5421", TeleOp5421.class);
+        manager.register("ServoCalibration", ServoCalibration.class);
+        manager.register("Auto5421", Auto5421.class);
 
-    //manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
-    //manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
-    //manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
-    //manager.register("navXMotionDetectionOp", navXMotionDetectionOp.class);
-    //manager.register("navXPerformanceTuningOp", navXPerformanceTuningOp.class);
-    //manager.register("navXProcessedOp", navXProcessedOp.class);
-    //manager.register("navXRawOp", navXRawOp.class);
-    //manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
-    //manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
-    //manager.register("navXZeroYawOp", navXZeroYawOp.class);
+        //manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
+        //manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
+        //manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
+        //manager.register("navXMotionDetectionOp", navXMotionDetectionOp.class);
+        //manager.register("navXPerformanceTuningOp", navXPerformanceTuningOp.class);
+        //manager.register("navXProcessedOp", navXProcessedOp.class);
+        //manager.register("navXRawOp", navXRawOp.class);
+        //manager.register("navXRotateToAnglePIDLinearOp", navXRotateToAnglePIDLinearOp.class);
+        //manager.register("navXRotateToAnglePIDLoopOp", navXRotateToAnglePIDLoopOp.class);
+        //manager.register("navXZeroYawOp", navXZeroYawOp.class);
 
-  }
+    }
 }

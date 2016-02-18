@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * TeleOp Mode
+ * TeleOp5421 Mode
  * <p>
  * Enables control of the robot via the gamepad
  */

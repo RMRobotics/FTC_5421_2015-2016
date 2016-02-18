@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * TeleOp Mode
+ * TeleOp5421 Mode
  * <p>
  * Enables control of the robot via the gamepad
  */
