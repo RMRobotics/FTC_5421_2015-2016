@@ -121,11 +121,27 @@ public class Motor {
     }
 
     public double getCurrentPosition() {
-        return parent.getCurrentPosition();
+        if (parent.getDirection() == DcMotor.Direction.REVERSE) {
+            return -parent.getCurrentPosition();
+        } else {
+            return parent.getCurrentPosition();
+        }
     }
 
-    public double getTargetPosition() {
-        return parent.getTargetPosition();
+    public int getTargetPosition() {
+        if (parent.getDirection() == DcMotor.Direction.REVERSE) {
+            return -parent.getTargetPosition();
+        } else {
+            return parent.getTargetPosition();
+        }
+    }
+
+    public void setTargetPosition(int pos) {
+        if (parent.getDirection() == DcMotor.Direction.REVERSE) {
+            parent.setTargetPosition(-pos);
+        } else {
+            parent.setTargetPosition(pos);
+        }
     }
 
     public DcMotorController.RunMode getMode() {
