@@ -13,14 +13,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public abstract class RMOpMode extends OpMode {
 
     protected Map<String, Motor> motorMap = new HashMap<String, Motor>();
     protected Map<String, rServo> servoMap =  new HashMap<String, rServo>();
     protected Control control;
     private String configPath;
-
+    protected int team;
 
     @Override
     public void init() {
@@ -67,7 +66,11 @@ public abstract class RMOpMode extends OpMode {
     protected void configureHardware(String path){
         JSONLoader jsonLoader = null;
         try {
-            jsonLoader = new JSONLoader(path, hardwareMap);
+            if (team == 5421 || team == 8121) {
+                jsonLoader = new JSONLoader(team, hardwareMap);
+            } else {
+                jsonLoader = new JSONLoader(path, hardwareMap);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             DbgLog.error(e.getMessage());
@@ -79,4 +82,7 @@ public abstract class RMOpMode extends OpMode {
         servoMap =  jsonLoader.getServoMap();
     }
 
+    protected void setTeam(int tnumber) {
+        team = tnumber;
+    }
 }

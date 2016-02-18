@@ -3,7 +3,6 @@ package com.rmrobotics.library.util;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
 import com.rmrobotics.library.hardware.MOTOR_TYPE;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
@@ -26,11 +25,33 @@ public class JSONLoader {
     private Map<String, Motor> motorImportMap = new HashMap<String, Motor>();
     private Map<String, rServo> servoImportMap =  new HashMap<String, rServo>();
     private final HardwareMap hardwareMap;
+    private JSON5421 config5421;
+    private JSON8121 config8121;
 
     public JSONLoader(String path, final HardwareMap hMap) throws IOException, ParseException {
         filePath = path;
         hardwareMap = hMap;
         JSONString = FileUtils.readFileToString(new File(filePath));
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonFile = (JSONObject) jsonParser.parse(JSONString);
+        JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
+        JSONArray jsonServos = (JSONArray) jsonFile.get("servos");
+        configureMotors(jsonMotors);
+        configureServos(jsonServos);
+    }
+
+    public JSONLoader(int team, final HardwareMap hMap) throws IOException, ParseException {
+        hardwareMap = hMap;
+        config5421 = new JSON5421();
+        config8121 = new JSON8121();
+        switch (team) {
+            case 5421:
+                JSONString = config5421.CONFIGURATION();
+                break;
+            case 8121:
+                JSONString = config8121.CONFIGURATION();
+                break;
+        }
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonFile = (JSONObject) jsonParser.parse(JSONString);
         JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");

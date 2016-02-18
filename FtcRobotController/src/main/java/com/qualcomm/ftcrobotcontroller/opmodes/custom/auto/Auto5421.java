@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.core.RMAutoMode;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
@@ -10,6 +11,7 @@ import java.text.DecimalFormat;
 /**
  * Created by Simon on 2/17/2016.
  */
+
 public class Auto5421 extends RMAutoMode {
 
     private final int WAIT = 5421;
@@ -17,12 +19,15 @@ public class Auto5421 extends RMAutoMode {
     int prevState;
     int state = 1;
     StateType prevStateType;
+    double sleepTime;
 
     Motor driveLeft;
     Motor driveRight;
     Motor extendLeft;
     Motor extendRight;
+    Motor harvester;
     rServo climbers;
+    ElapsedTime runTime;
 
     DecimalFormat df = new DecimalFormat("#.##");
 
@@ -30,6 +35,7 @@ public class Auto5421 extends RMAutoMode {
 
     @Override
     public void init() {
+        super.setTeam(5421);
         super.init();
         for (Motor m : motorMap.values()) {
             m.runUsingEncoders();
@@ -38,6 +44,11 @@ public class Auto5421 extends RMAutoMode {
         driveRight = motorMap.get("driveRight");
         extendLeft = motorMap.get("extendLeft");
         extendRight = motorMap.get("extendRight");
+        harvester = motorMap.get("harvester");
+        climbers = servoMap.get("climbers");
+        runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        addTelemetry();
+        runTime.reset();
     }
 
     @Override
@@ -47,8 +58,22 @@ public class Auto5421 extends RMAutoMode {
                 setDriveTarget(1000);
                 setDrivePower(1.0);
                 updateState(StateType.ENCODER_DRIVE);
+                addTelemetry();
                 break;
             case 2:
+                setExtendTarget(1000);
+                setExtendPower(1.0);
+                updateState(StateType.ENCODER_EXTEND);
+                addTelemetry();
+                break;
+            case 3:
+                sleepTime = 10000;
+                runTime.reset();
+                updateState(StateType.SLEEP);
+                addTelemetry();
+                break;
+            case 4:
+                stop();
                 break;
             case WAIT:
                 switch (prevStateType) {
@@ -56,9 +81,20 @@ public class Auto5421 extends RMAutoMode {
                         if (driveDone()) {
                             updateStateWait();
                         }
+                        addTelemetry();
                         break;
                     case ENCODER_EXTEND:
-                        if 
+                        if (extendDone()) {
+                            updateStateWait();
+                        }
+                        addTelemetry();
+                        break;
+                    case SLEEP:
+                        if (timeDone()) {
+                            updateStateWait();
+                        }
+                        addTelemetry();
+                        break;
                 }
         }
     }
@@ -69,11 +105,12 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("L1-L2-R1-R2-H-B-LF-RF-C", df.format(motorMap.get("DriveLeftOne").getPower()) + "-"
-                + df.format(motorMap.get("DriveLeftTwo").getPower()) + "-" + df.format(motorMap.get("DriveRightOne").getPower()) + "-"
-                + df.format(motorMap.get("DriveRightTwo").getPower()) + "-" + df.format(motorMap.get("Harvester").getPower()) + "-"
-                + df.format(motorMap.get("Bucket").getPower()) + "-" + df.format(servoMap.get("BucketLeft").getPosition()) + "-"
-                + df.format(servoMap.get("BucketRight")) + "-" + df.format(servoMap.get("Climbers").getPosition()));
+        telemetry.addData("L1-L2-R1-R2-H-B-LF-RF-C", df.format(driveLeft.getPower()) + "-"
+                + df.format(driveRight.getPower()) + "-"
+                + df.format(extendLeft.getPower()) + "-"
+                + df.format(extendRight.getPower()) + "-"
+                + df.format(harvester.getPower()) + "-"
+                + df.format(climbers.getPosition()));
     }
 
     private void setDriveTarget(int target) {
@@ -86,6 +123,16 @@ public class Auto5421 extends RMAutoMode {
         driveRight.setTargetPosition(targetRight);
     }
 
+    private void setExtendTarget(int target) {
+        extendLeft.setTargetPosition(target);
+        extendRight.setTargetPosition(target);
+    }
+
+    private void setExtendTarget(int targetLeft, int targetRight) {
+        extendLeft.setTargetPosition(targetLeft);
+        extendRight.setTargetPosition(targetRight);
+    }
+
     private void setDrivePower(double power) {
         driveLeft.setDesiredPower(power);
         driveRight.setDesiredPower(power);
@@ -94,6 +141,16 @@ public class Auto5421 extends RMAutoMode {
     private void setDrivePower(double powerLeft, double powerRight) {
         driveLeft.setDesiredPower(powerLeft);
         driveRight.setDesiredPower(powerRight);
+    }
+
+    private void setExtendPower(double power) {
+        extendLeft.setDesiredPower(power);
+        extendRight.setDesiredPower(power);
+    }
+
+    private void setExtendPower(double powerLeft, double powerRight) {
+        extendLeft.setDesiredPower(powerLeft);
+        extendRight.setDesiredPower(powerRight);
     }
 
     private void updateState(StateType type) {
@@ -127,7 +184,41 @@ public class Auto5421 extends RMAutoMode {
                 driveRight.setDesiredPower(-0.3);
             }
         }
-        if (driveLeft.getPower() < 0.1 && driveRight.getPower() < 0.1) {
+        if (driveLeft.getPower() < 0.01 && driveRight.getPower() < 0.01) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean extendDone() {
+        if (Math.abs(extendLeft.getCurrentPosition() - extendLeft.getTargetPosition()) < 100) {
+            if (Math.abs(extendLeft.getCurrentPosition() - extendLeft.getTargetPosition()) < 10) {
+                extendLeft.setDesiredPower(0);
+            } else if (extendLeft.getCurrentPosition() < extendLeft.getTargetPosition()) {
+                extendLeft.setDesiredPower(0.2);
+            } else {
+                extendLeft.setDesiredPower(-0.2);
+            }
+        }
+        if (Math.abs(extendRight.getTargetPosition() - extendRight.getTargetPosition()) < 10) {
+            if (Math.abs(extendRight.getCurrentPosition() - extendRight.getTargetPosition()) < 10) {
+                extendRight.setDesiredPower(0);
+            } else if (extendRight.getCurrentPosition() < extendRight.getTargetPosition()) {
+                extendRight.setDesiredPower(0.3);
+            } else {
+                extendRight.setDesiredPower(-0.3);
+            }
+        }
+        if (extendLeft.getPower() < 0.01 && extendRight.getPower() < 0.01) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean timeDone() {
+        if (runTime.time() >= sleepTime) {
             return true;
         } else {
             return false;

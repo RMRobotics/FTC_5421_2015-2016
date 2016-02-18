@@ -79,6 +79,7 @@ public class TeleOp5421 extends RMOpMode {
 
     @Override
     public void init() {
+        super.setTeam(5421);
         super.init();
     }
 
