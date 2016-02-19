@@ -212,6 +212,8 @@ public class TeleOp5421 extends RMOpMode {
                 + df.format(driveRight.getPower()) + "-"
                 + df.format(extendLeft.getPower()) + "-"
                 + df.format(extendRight.getPower()) + "-"
+                + df.format(winchLeft.getPower()) + "-"
+                + df.format(winchRight.getPower()) + "-"
                 + df.format(harvester.getPower()) + "-"
                 + df.format(climbers.getPosition()) + "-"
                 + df.format(leftFlap.getPosition()) + "-"
