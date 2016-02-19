@@ -20,18 +20,14 @@ import java.util.Map;
 
 public class JSONLoader {
 
-    private String filePath;
     private String JSONString;
     private Map<String, Motor> motorImportMap = new HashMap<String, Motor>();
     private Map<String, rServo> servoImportMap =  new HashMap<String, rServo>();
     private final HardwareMap hardwareMap;
-    private JSON5421 config5421;
-    private JSON8121 config8121;
 
     public JSONLoader(String path, final HardwareMap hMap) throws IOException, ParseException {
-        filePath = path;
         hardwareMap = hMap;
-        JSONString = FileUtils.readFileToString(new File(filePath));
+        JSONString = FileUtils.readFileToString(new File(path));
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonFile = (JSONObject) jsonParser.parse(JSONString);
         JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
@@ -42,13 +38,13 @@ public class JSONLoader {
 
     public JSONLoader(int team, final HardwareMap hMap) throws IOException, ParseException {
         hardwareMap = hMap;
-        config5421 = new JSON5421();
-        config8121 = new JSON8121();
         switch (team) {
             case 5421:
+                JSON5421 config5421 = new JSON5421();
                 JSONString = config5421.CONFIGURATION();
                 break;
             case 8121:
+                JSON8121 config8121 = new JSON8121();
                 JSONString = config8121.CONFIGURATION();
                 break;
         }

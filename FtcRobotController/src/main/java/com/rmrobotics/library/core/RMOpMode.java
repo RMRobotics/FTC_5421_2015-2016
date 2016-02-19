@@ -24,8 +24,12 @@ public abstract class RMOpMode extends OpMode {
 
     @Override
     public void init() {
-        configPath =  setConfigurationPath();
-        configureHardware(configPath);
+        if (team != 5421 && team != 8121) {
+            configPath =  setConfigurationPath();
+            configureHardware(configPath);
+        } else {
+            configureHardware();
+        }
 
         this.control = new Control(gamepad1, gamepad2);
 
@@ -67,11 +71,7 @@ public abstract class RMOpMode extends OpMode {
     protected void configureHardware(String path){
         JSONLoader jsonLoader = null;
         try {
-            if (team == 5421 || team == 8121) {
-                jsonLoader = new JSONLoader(team, hardwareMap);
-            } else {
-                jsonLoader = new JSONLoader(path, hardwareMap);
-            }
+            jsonLoader = new JSONLoader(path, hardwareMap);
         } catch (IOException e) {
             e.printStackTrace();
             DbgLog.error(e.getMessage());
@@ -81,6 +81,21 @@ public abstract class RMOpMode extends OpMode {
         }
         motorMap =  jsonLoader.getMotorMap();
         servoMap =  jsonLoader.getServoMap();
+    }
+
+    protected void configureHardware() {
+        JSONLoader jsonLoader = null;
+        try {
+            jsonLoader = new JSONLoader(team, hardwareMap);
+        } catch (IOException e) {
+            e.printStackTrace();
+            DbgLog.error(e.getMessage());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            DbgLog.error(e.getMessage());
+        }
+        motorMap = jsonLoader.getMotorMap();
+        servoMap = jsonLoader.getServoMap();
     }
 
     protected void setTeam(int tnumber) {

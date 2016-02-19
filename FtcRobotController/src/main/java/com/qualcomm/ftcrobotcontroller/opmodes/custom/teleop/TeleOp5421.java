@@ -1,16 +1,35 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
+import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
-import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.core.RMOpMode;
+import com.rmrobotics.library.hardware.Motor;
+import com.rmrobotics.library.hardware.rServo;
 
 import java.text.DecimalFormat;
 
 public class TeleOp5421 extends RMOpMode {
     DecimalFormat df = new DecimalFormat("#.##");
+    DecimalFormat nf = new DecimalFormat("########");
+
+    Motor driveLeft;
+    Motor driveRight;
+    Motor extendLeft;
+    Motor extendRight;
+    Motor winchLeft;
+    Motor winchRight;
+    Motor harvester;
+    rServo climbers;
+    rServo leftFlap;
+    rServo rightFlap;
+    rServo bucket;
+    rServo leftHook;
+    rServo rightHook;
+    ElapsedTime runTime;
 
     private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
     /*private final String CONFIGURATION_PATH = "{\n" +
@@ -81,51 +100,61 @@ public class TeleOp5421 extends RMOpMode {
     public void init() {
         super.setTeam(5421);
         super.init();
+        driveLeft = motorMap.get("driveLeft");
+        driveRight = motorMap.get("driveRight");
+        extendLeft = motorMap.get("extendLeft");
+        extendRight = motorMap.get("extendRight");
+        winchLeft = motorMap.get("winchLeft");
+        winchRight = motorMap.get("winchRight");
+        harvester = motorMap.get("harvester");
+        climbers = servoMap.get("climbers");
+        leftFlap = servoMap.get("leftFlap");
+        rightFlap = servoMap.get("rightFlap");
+        bucket = servoMap.get("bucket");
+        leftHook = servoMap.get("leftHook");
+        rightHook = servoMap.get("rightHook");
+        runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        addTelemetry();
+        runTime.reset();
     }
 
     @Override
     protected void calculate() {
         addTelemetry();
+
+        //drive
         double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
-        motorMap.get("DriveLeftOne").setDesiredPower(leftPower);
-        //motorMap.get("DriveLeftTwo").setDesiredPower(leftPower);
-        motorMap.get("DriveRightOne").setDesiredPower(rightPower);
-        //motorMap.get("DriveRightTwo").setDesiredPower(rightPower);
+        driveLeft.setDesiredPower(leftPower);
+        driveRight.setDesiredPower(rightPower);
 
+        //harvester
         boolean harvestUp = control.button(Controller.C_ONE, Button.BUTTON_LB);
         boolean harvestDown = control.button(Controller.C_ONE, Button.BUTTON_RB);
-        double halfHarvestUp = control.triggerValue(Controller.C_ONE, Trigger.T_LEFT);
         double harvestPower;
         if(harvestUp){
             harvestPower = -1.0;
         }else if(harvestDown){
             harvestPower = 1.0;
-        }else if(halfHarvestUp > 0.4){
-            harvestPower = halfHarvestUp;
         }else{
             harvestPower = 0.0;
         }
-        motorMap.get("Harvester").setDesiredPower(harvestPower);
+        harvester.setDesiredPower(harvestPower);
 
+        //bucket
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
-        double triggerLeft = control.triggerValue(Controller.C_TWO, Trigger.T_LEFT);
-        double triggerRight = control.triggerValue(Controller.C_TWO, Trigger.T_RIGHT);
-        double bucketPower;
+        double bucketSpeed;
         if(bucketRight){
-            bucketPower = 1.0;
+            bucketSpeed = 1.0;
         }else if(bucketLeft) {
-            bucketPower = -1.0;
-        }else if(triggerLeft > 0.4){
-            bucketPower = -triggerLeft/3;
-        }else if(triggerRight > 0.4){
-            bucketPower = triggerRight/3;
+            bucketSpeed = -1.0;
         }else{
-            bucketPower = 0.0;
+            bucketSpeed = 0.0;
         }
-        motorMap.get("Bucket").setDesiredPower(bucketPower);
+        bucket.setDesiredPosition(bucketSpeed);
 
+        //flaps
         double leftFlap = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
         double rightFlap = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
         double lFlapPos;
@@ -145,6 +174,21 @@ public class TeleOp5421 extends RMOpMode {
             servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
         }
 
+        //extender
+        boolean extend = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
+        boolean retract = control.dpadValue(Controller.C_TWO, Dpad.DPAD_DOWN);
+        if (extend) {
+            extendLeft.setDesiredPower(0.5);
+            extendRight.setDesiredPower(0.5);
+        } else if (retract) {
+            extendLeft.setDesiredPower(-0.5);
+            extendRight.setDesiredPower(-0.5);
+        } else {
+            extendLeft.setPowerFloat();
+            extendRight.setPowerFloat();
+        }
+
+        //climbers
         boolean climberThrowUp = control.button(Controller.C_TWO, Button.BUTTON_A);
         boolean climberThrowDown = control.button(Controller.C_TWO, Button.BUTTON_B);
         double climberPos;
@@ -164,10 +208,17 @@ public class TeleOp5421 extends RMOpMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("L1-L2-R1-R2-H-B-LF-RF-C", df.format(motorMap.get("DriveLeftOne").getPower()) + "-"
-                + df.format(motorMap.get("DriveLeftTwo").getPower()) + "-" + df.format(motorMap.get("DriveRightOne").getPower()) + "-"
-                + df.format(motorMap.get("DriveRightTwo").getPower()) + "-" + df.format(motorMap.get("Harvester").getPower()) + "-"
-                + df.format(motorMap.get("Bucket").getPower()) + "-" + df.format(servoMap.get("BucketLeft").getPosition()) + "-"
-                + df.format(servoMap.get("BucketRight")) + "-" + df.format(servoMap.get("Climbers").getPosition()));
+        telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(driveLeft.getPower()) + "-"
+                + df.format(driveRight.getPower()) + "-"
+                + df.format(extendLeft.getPower()) + "-"
+                + df.format(extendRight.getPower()) + "-"
+                + df.format(harvester.getPower()) + "-"
+                + df.format(climbers.getPosition()) + "-"
+                + df.format(leftFlap.getPosition()) + "-"
+                + df.format(rightFlap.getPosition()) + "-"
+                + df.format(bucket.getPosition()) + "-"
+                + df.format(leftHook.getPosition()) + "-"
+                + df.format(rightHook.getPosition()) + "-"
+                + runTime.time());
     }
 }

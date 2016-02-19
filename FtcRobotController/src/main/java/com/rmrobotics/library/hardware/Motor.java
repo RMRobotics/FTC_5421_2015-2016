@@ -159,4 +159,8 @@ public class Motor {
 
     public void stop() { setDesiredPower(0); }
 
+    public void setPowerFloat() {
+        parent.setPowerFloat();
+    }
+
 }

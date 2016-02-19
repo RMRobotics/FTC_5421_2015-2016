@@ -47,6 +47,10 @@ public class Control {
         return currentInput.triggerValue(c, t);
     }
 
+    public boolean dpadValue(Controller c, Dpad d) {
+        return currentInput.dpad(c, d);
+    }
+
 }
 
 class ControllerInput{
@@ -114,6 +118,21 @@ class ControllerInput{
                 return g.left_stick_button;
             case BUTTON_JOYR:
                 return g.right_stick_button;
+        }
+        return false;
+    }
+
+    public boolean dpad(Controller c, Dpad d) {
+        Gamepad g = getController(c);
+        switch (d) {
+            case DPAD_UP:
+                return g.dpad_up;
+            case DPAD_DOWN:
+                return g.dpad_down;
+            case DPAD_LEFT:
+                return g.dpad_left;
+            case DPAD_RIGHT:
+                return g.dpad_right;
         }
         return false;
     }
