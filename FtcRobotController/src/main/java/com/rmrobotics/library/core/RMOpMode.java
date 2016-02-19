@@ -2,6 +2,7 @@ package com.rmrobotics.library.core;
 
 import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.rmrobotics.library.control.Control;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
@@ -29,7 +30,7 @@ public abstract class RMOpMode extends OpMode {
         this.control = new Control(gamepad1, gamepad2);
 
         for (Motor m : motorMap.values()) {
-            m.resetEncoder();
+            m.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         }
 
         for (rServo r : servoMap.values()) { //testing only

@@ -1,5 +1,5 @@
 
-package com.qualcomm.ftcrobotcontroller;
+package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.rmrobotics.library.core.RMOpMode;
 

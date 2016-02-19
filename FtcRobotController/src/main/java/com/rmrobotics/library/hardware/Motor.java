@@ -25,7 +25,6 @@ public class Motor {
     private double currentPower;
     private int curPos;
     private int tarPos;
-    private int dis;
 
     public Motor(DcMotor dc, DcMotor.Direction d, double min, double max, MOTOR_TYPE mType) {
         parent = dc;
@@ -116,10 +115,6 @@ public class Motor {
         }
     }
 
-    public void runUsingEncoders(){
-        parent.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-    }
-
     public double getCurrentPosition() {
         if (parent.getDirection() == DcMotor.Direction.REVERSE) {
             return -parent.getCurrentPosition();
@@ -148,15 +143,11 @@ public class Motor {
         return parent.getMode();
     }
 
-    public void resetEncoder() {
-        parent.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+    public void setMode(DcMotorController.RunMode mode) {
+        if (parent.getMode() != mode) {
+            parent.setMode(mode);
+        }
     }
-
-    public void runToPosition() {
-        parent.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-    }
-
-    public void runWithoutEncoders() { parent.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS); }
 
     public double getPower() { return parent.getPower(); }
 

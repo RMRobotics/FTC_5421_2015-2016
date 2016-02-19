@@ -1,9 +1,7 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
-import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
-import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.core.RMOpMode;
 
 

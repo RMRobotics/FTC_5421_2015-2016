@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.core.RMAutoMode;
 import com.rmrobotics.library.hardware.Motor;
@@ -38,7 +39,7 @@ public class Auto5421 extends RMAutoMode {
         super.setTeam(5421);
         super.init();
         for (Motor m : motorMap.values()) {
-            m.runUsingEncoders();
+            m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         }
         driveLeft = motorMap.get("driveLeft");
         driveRight = motorMap.get("driveRight");

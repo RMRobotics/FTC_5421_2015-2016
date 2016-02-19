@@ -1,5 +1,6 @@
-package com.rmrobotics.library.core;
+package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.rmrobotics.library.core.RMOpMode;
 
 import java.util.Calendar;
@@ -35,8 +36,8 @@ public class Auto8121 extends RMOpMode {
     @Override
     public void init() {
         super.init();
-        motorMap.get("MotorL").runUsingEncoders();
-        motorMap.get("MotorR").runUsingEncoders();
+        motorMap.get("MotorL").setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motorMap.get("MotorR").setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         cal = Calendar.getInstance();
     }
 
