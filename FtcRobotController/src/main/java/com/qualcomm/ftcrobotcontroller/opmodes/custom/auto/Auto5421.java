@@ -83,21 +83,19 @@ public class Auto5421 extends RMAutoMode {
                         if (driveDone()) {
                             updateStateWait();
                         }
-                        addTelemetry();
                         break;
                     case ENCODER_EXTEND:
                         if (extendDone()) {
                             updateStateWait();
                         }
-                        addTelemetry();
                         break;
                     case SLEEP:
                         if (timeDone()) {
                             updateStateWait();
                         }
-                        addTelemetry();
                         break;
                 }
+                addTelemetry();
         }
     }
 
