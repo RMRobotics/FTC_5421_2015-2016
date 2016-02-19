@@ -31,6 +31,7 @@ public class Auto5421 extends RMAutoMode {
     ElapsedTime runTime;
 
     DecimalFormat df = new DecimalFormat("#.##");
+    DecimalFormat nf = new DecimalFormat("########");
 
     private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
 
@@ -106,12 +107,21 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("L1-L2-R1-R2-H-B-LF-RF-C", df.format(driveLeft.getPower()) + "-"
+        telemetry.addData("L-LT-LP-R-RT-RP-LE-LET-LEP-RE-RET-REP-H-C-T", df.format(driveLeft.getPower()) + "-"
+                + nf.format(driveLeft.getTargetPosition()) + "-"
+                + nf.format(driveLeft.getCurrentPosition()) + "-"
                 + df.format(driveRight.getPower()) + "-"
+                + nf.format(driveRight.getTargetPosition()) + "-"
+                + nf.format(driveRight.getCurrentPosition()) + "-"
                 + df.format(extendLeft.getPower()) + "-"
+                + nf.format(extendLeft.getTargetPosition()) + "-"
+                + nf.format(extendLeft.getCurrentPosition()) + "-"
                 + df.format(extendRight.getPower()) + "-"
+                + nf.format(extendRight.getTargetPosition()) + "-"
+                + nf.format(extendRight.getCurrentPosition()) + "-"
                 + df.format(harvester.getPower()) + "-"
-                + df.format(climbers.getPosition()));
+                + df.format(climbers.getPosition()) + "-"
+                + runTime.time());
     }
 
     private void setDriveTarget(int target) {
