@@ -1,9 +1,13 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
+import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.ftcrobotcontroller.opmodes.sample.ColorSensorDriver;
 import com.rmrobotics.library.core.RMOpMode;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 
 /**
  * Created by School Work on 2/17/2016.
@@ -12,6 +16,11 @@ public class StateAuto8121 extends RMOpMode{
 
     private String state = "INIT_STATE";
     private int sensorWatch = 1;
+
+    ColorSensor colorSensor;
+    public DeviceInterfaceModule cdim;
+    private AHRS navx_device;
+    private final int NAVX_DIM_I2C_PORT = 0;
 
     protected Map<Integer,String> gameLocationX = new HashMap<Integer,String>();
     protected Map<Integer,String> gameLocationY = new HashMap<Integer,String>();
@@ -38,10 +47,16 @@ public class StateAuto8121 extends RMOpMode{
     @Override
     public void init(){
         super.init();
+        colorSensor = hardwareMap.colorSensor.get("cS");
+        colorSensor.enableLed(false);
+        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
+                NAVX_DIM_I2C_PORT,
+                AHRS.DeviceDataType.kQuatAndRawData);
     }
 
     @Override
     public void calculate(){
+        boolean connected = navx_device.isConnected();
         switch(sensorWatch){
             case 1: //check sensors
                 break;
