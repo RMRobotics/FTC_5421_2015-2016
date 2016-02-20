@@ -1,5 +1,6 @@
 package com.rmrobotics.library.control;
 
+import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Control {
@@ -12,7 +13,7 @@ public class Control {
         prevInput = currentInput;
     }
 
-    public void update(Gamepad g1, Gamepad g2){
+    public void update(Gamepad g1, Gamepad g2) {
         prevInput =  currentInput;
         currentInput =  new ControllerInput(g1, g2);
     }

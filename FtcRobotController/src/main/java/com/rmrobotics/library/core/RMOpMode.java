@@ -42,6 +42,10 @@ public abstract class RMOpMode extends OpMode {
         }
     }
 
+    public void init(int n) {
+        this.control = new Control(gamepad1, gamepad2);
+    }
+
     @Override
     public void loop() {
         this.updateInput();
@@ -50,7 +54,12 @@ public abstract class RMOpMode extends OpMode {
     }
 
     protected void updateInput() {
-        control.update(gamepad1, gamepad2); //TODO put in teleOp subclass
+        try {
+            control.update(gamepad1, gamepad2); //TODO put in teleOp subclass
+        } catch (NullPointerException e) {
+            telemetry.addData("Oops","oops twice");
+        }
+
     }
 
     protected abstract void calculate();
