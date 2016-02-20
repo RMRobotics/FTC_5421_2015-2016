@@ -79,7 +79,7 @@ public class StateAuto8121 extends RMOpMode{
             case 314: //do math
                 break;
         }
-        switch(state){
+       /* switch(state){
             case "INIT_STATE": //calibrate and set telemetry for navx, optical sensors and other stuff
                 break;
             case "MOVE_TO_CENTER":
@@ -98,7 +98,7 @@ public class StateAuto8121 extends RMOpMode{
                 break;
             case "UP_THE_MOUNTAIN":
                 break;
-        }
+        }*/
 
     }
 
