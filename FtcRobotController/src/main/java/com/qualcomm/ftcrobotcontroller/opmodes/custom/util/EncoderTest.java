@@ -14,7 +14,7 @@ public class EncoderTest extends RMOpMode {
     private long curTime;
     private long startTime;
 
-    private final String CONFIGURATION_PATH = "{\n" +
+    /*private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
             "    {\n" +
             "      \"name\":\"motor\",\n" +
@@ -25,14 +25,15 @@ public class EncoderTest extends RMOpMode {
             "  ],\n" +
             "  \"servos\":[\n" +
             "  ],\n" +
-            "}";
+            "}";*/
 
     public void init() {
+        super.setTeam(5421);
         super.init();
     }
 
     protected String setConfigurationPath() {
-        return CONFIGURATION_PATH;
+        return null;
     }
 
     protected void calculate() {

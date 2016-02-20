@@ -14,7 +14,6 @@ import java.text.DecimalFormat;
 
 public class TeleOp5421 extends RMOpMode {
     DecimalFormat df = new DecimalFormat("#.##");
-    DecimalFormat nf = new DecimalFormat("########");
 
     Motor driveLeft;
     Motor driveRight;
