@@ -7,13 +7,11 @@ import com.rmrobotics.library.hardware.MOTOR_TYPE;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
 
-import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +25,8 @@ public class JSONLoader {
 
     public JSONLoader(String path, final HardwareMap hMap) throws IOException, ParseException {
         hardwareMap = hMap;
-        JSONString = FileUtils.readFileToString(new File(path));
         JSONParser jsonParser = new JSONParser();
-        JSONObject jsonFile = (JSONObject) jsonParser.parse(JSONString);
+        JSONObject jsonFile = (JSONObject) jsonParser.parse(path);
         JSONArray jsonMotors = (JSONArray) jsonFile.get("motors");
         JSONArray jsonServos = (JSONArray) jsonFile.get("servos");
         configureMotors(jsonMotors);
