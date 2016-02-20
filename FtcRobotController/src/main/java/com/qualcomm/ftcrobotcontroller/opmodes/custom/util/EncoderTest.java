@@ -1,18 +1,22 @@
 
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
+import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.core.RMOpMode;
 
-import java.util.Calendar;
-import java.util.Timer;
-
 public class EncoderTest extends RMOpMode {
-    Timer timer = new Timer();
-    Calendar cal;
-    private long curTime;
-    private long startTime;
+    DcMotor mL;
+    DcMotor mR;
+    DcMotor eL;
+    DcMotor eR;
+    DcMotor h;
+
+    boolean hP = false;
 
     /*private final String CONFIGURATION_PATH = "{\n" +
             "  \"motors\":[\n" +
@@ -28,36 +32,52 @@ public class EncoderTest extends RMOpMode {
             "}";*/
 
     public void init() {
-        super.setTeam(5421);
-        super.init();
-    }
-
-    protected String setConfigurationPath() {
-        return null;
+        mL = hardwareMap.dcMotor.get("motorLeft");
+        mL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        mR = hardwareMap.dcMotor.get("motorRight");
+        mR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        mR.setDirection(DcMotor.Direction.REVERSE);
+        eL = hardwareMap.dcMotor.get("extendLeft");
+        eL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        eR = hardwareMap.dcMotor.get("extendRight");
+        eR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        eR.setDirection(DcMotor.Direction.REVERSE);
+        h = hardwareMap.dcMotor.get("harvester");
     }
 
     protected void calculate() {
-        /*
-        boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
-        boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
-        if(bucketLeft){
-            motorMap.get("motor").setEncoderMove(0, 4.33333333, 1.0);
-        }else if(bucketRight) {
-            motorMap.get("motor").setEncoderMove(4853,-4.33333333, 1.0);
+        boolean hTog = control.button(Controller.C_ONE, Button.BUTTON_A);
+        if (hTog) {
+            hP = !hP;
         }
-        telemetry.addData("calc", "current position at " + motorMap.get("motor").getCurrentPosition() + " and target position at " + motorMap.get("motor").getTargetPosition() + " and power at " + motorMap.get("motor").getPower());
-    }*/
-/*
-    private void waitTime(long wait) {
-        curTime = cal.getTimeInMillis();
-        startTime = cal.getTimeInMillis();
-        while ((curTime-startTime)<wait){
-            telemetry.addData("wait","Waiting");
-            DbgLog.msg("Waiting");
-            curTime = cal.getTimeInMillis();
+        if (hP) {
+            h.setPower(1.0);
+        } else {
+            h.setPower(0);
         }
+
+        double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
+        double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
+        mL.setPower(leftPower);
+        mR.setPower(rightPower);
+
+        boolean extendUp = control.button(Controller.C_TWO, Button.BUTTON_A);
+        boolean extendDown = control.button(Controller.C_TWO, Button.BUTTON_B);
+        if (extendUp) {
+            mL.setPower(0.3);
+            mR.setPower(0.3);
+        } else if (extendDown) {
+            mL.setPower(-0.3);
+            mR.setPower(-0.3);
+        } else {
+            mL.setPower(0);
+            mR.setPower(0);
+        }
+
     }
-}
-*/
+
+    @Override
+    protected String setConfigurationPath() {
+        return null;
     }
 }
