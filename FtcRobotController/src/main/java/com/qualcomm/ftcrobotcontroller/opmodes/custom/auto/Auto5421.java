@@ -38,9 +38,6 @@ public class Auto5421 extends RMAutoMode {
     @Override
     public void init() {
         super.init();
-        for (Motor m : motorMap.values()) {
-            m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        }
         driveLeft = motorMap.get("mL");
         driveRight = motorMap.get("mR");
         extendLeft = motorMap.get("eL");
@@ -54,26 +51,30 @@ public class Auto5421 extends RMAutoMode {
 
     @Override
     protected void calculate() {
+        for (Motor m : motorMap.values()) {
+            m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        }
         switch (state) {
-            case 1:
-                setDriveTarget(1000);
+            /*    driveLeft.setTargetPosition(10000);
+                driveRight.setTargetPosition(10000);
                 setDrivePower(1.0);
                 updateState(StateType.ENCODER_DRIVE);
                 addTelemetry();
-                break;
+                break;*/
             /*case 2:
                 setExtendTarget(1000);
                 setExtendPower(1.0);
                 updateState(StateType.ENCODER_EXTEND);
                 addTelemetry();
-                break;
-            case 3:
+                break;*/
+            case 1:
                 sleepTime = 10000;
                 runTime.reset();
+                setDrivePower(1.0);
                 updateState(StateType.SLEEP);
                 addTelemetry();
-                break;*/
-            case 4:
+                break;
+            case 2:
                 stop();
                 break;
             case WAIT:
@@ -143,7 +144,7 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("L-LT-LP-R-RT-RP-LE-LET-LEP-RE-RET-REP-H-C-T", df.format(driveLeft.getPower()) + "-"
+        telemetry.addData("S-L-LT-LP-R-RT-RP-LE-LET-LEP-RE-RET-REP-H-C-T", state + "-" + df.format(driveLeft.getPower()) + "-"
                 + nf.format(driveLeft.getTargetPosition()) + "-"
                 + nf.format(driveLeft.getCurrentPosition()) + "-"
                 + df.format(driveRight.getPower()) + "-"
@@ -213,25 +214,29 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private boolean driveDone() {
-        if (Math.abs(driveLeft.getCurrentPosition()) )
-        /*if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 100) {
+
+        if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 300) {
             if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 10) {
                 driveLeft.setDesiredPower(0);
             } else if (driveLeft.getCurrentPosition() < driveLeft.getTargetPosition()) {
                 driveLeft.setDesiredPower(0.3);
-            } else {
+            } else if (driveLeft.getCurrentPosition() > driveLeft.getTargetPosition()){
                 driveLeft.setDesiredPower(-0.3);
+            } else {
+                driveLeft.setDesiredPower(0);
             }
         }
-        if (Math.abs(driveRight.getTargetPosition() - driveRight.getTargetPosition()) < 10) {
+        if (Math.abs(-driveRight.getTargetPosition() + driveRight.getTargetPosition()) < 300) {
             if (Math.abs(driveRight.getCurrentPosition() - driveRight.getTargetPosition()) < 10) {
                 driveRight.setDesiredPower(0);
-            } else if (driveRight.getCurrentPosition() < driveRight.getTargetPosition()) {
+            } else if (driveRight.getCurrentPosition() < -driveRight.getTargetPosition()) {
                 driveRight.setDesiredPower(0.3);
-            } else {
+            } else if (driveRight.getCurrentPosition() > -driveRight.getTargetPosition()){
                 driveRight.setDesiredPower(-0.3);
+            } else {
+                driveRight.setDesiredPower(0);
             }
-        }*/
+        }
         if (driveLeft.getPower() < 0.01 && driveRight.getPower() < 0.01) {
             return true;
         } else {
@@ -273,15 +278,6 @@ public class Auto5421 extends RMAutoMode {
         }
     }
 
-    private double doubleSign(double d) {
-        if (d == 0) {
-            return 0;
-        } else if (d*Double.POSITIVE_INFINITY == Double.POSITIVE_INFINITY) {
-            return 1;
-        } else if (d*Double.POSITIVE_INFINITY == Double.NEGATIVE_INFINITY) {
-            return -1;
-        }
-        return 0;
-    }
+    private 
 
 }
