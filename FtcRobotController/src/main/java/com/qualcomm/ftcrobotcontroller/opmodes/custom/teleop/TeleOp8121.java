@@ -14,105 +14,10 @@ import com.rmrobotics.library.core.RMOpMode;
  */
 public class TeleOp8121 extends RMOpMode {
     //  private final String CONFIGURATION_PATH = "res/8121.json";
-    private final String CONFIGURATION_PATH = "{\n" +
-            "  \"motors\":[\n" +
-            "    {\n" +
-            "      \"name\":\"MotorL\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"MotorR\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"MotorExtendL\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"MotorExtendR\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "     {\n" +
-            "      \"name\":\"MotorUpL\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "     {\n" +
-            "      \"name\":\"MotorUpR\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "     {\n" +
-            "      \"name\":\"Winch\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "     {\n" +
-            "      \"name\":\"Harvester\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "  ],\n" +
-            "  \"servos\":[\n" +
-            "    {\n" +
-            "      \"name\":\"BucketSeeSaw\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.01,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"isContinuous\":\"no\",\n" +
-            "    }\n" +
-            "    {\n" +
-            "      \"name\":\"BucketLeft\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.01,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"isContinuous\":\"no\",\n" +
-            "    }\n" +
-            "    {\n" +
-            "      \"name\":\"BucketRight\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.01,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"isContinuous\":\"no\",\n" +
-            "    }\n" +
-            "    {\n" +
-            "      \"name\":\"Latch1\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.01,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"isContinuous\":\"no\",\n" +
-            "    }\n" +
-            "    {\n" +
-            "      \"name\":\"Latch2\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.01,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"isContinuous\":\"no\",\n" +
-            "    }\n" +
-            "    {\n" +
-            "      \"name\":\"Climbers\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.01,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"isContinuous\":\"no\",\n" +
-            "    }\n" +
-            "  ]\n" +
-            "}";
 
     @Override
     public void init() {
+        super.setTeam(8121);
         super.init();
     }
 
@@ -122,6 +27,7 @@ public class TeleOp8121 extends RMOpMode {
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
         motorMap.get("MotorL").setDesiredPower(leftPower);
         motorMap.get("MotorR").setDesiredPower(rightPower);
+        telemetry.addData("power",motorMap.get("MotorL").getPower());
 
         double armLeft = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
         double armRight = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
@@ -220,6 +126,103 @@ public class TeleOp8121 extends RMOpMode {
     }
     @Override
     protected String setConfigurationPath() {
+        final String CONFIGURATION_PATH = "{\n" +
+                "  \"motors\":[\n" +
+                "    {\n" +
+                "      \"name\":\"MotorL\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"MotorR\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"MotorExtendL\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"MotorExtendR\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"MotorUpL\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"MotorUpR\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"Winch\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"Harvester\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"servos\":[\n" +
+                "    {\n" +
+                "      \"name\":\"BucketRight\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":1.0\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"BucketLeft\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":1.0\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"BucketSeeSaw\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":.5\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"Latch1\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":.5\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"Latch2\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":.5\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
         return CONFIGURATION_PATH;
     }
 

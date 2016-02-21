@@ -25,9 +25,10 @@ public abstract class RMOpMode extends OpMode {
     @Override
     public void init() {
         if (team != 5421 && team != 8121) {
-            configPath =  setConfigurationPath();
+            configPath = setConfigurationPath();
             configureHardware(configPath);
         } else {
+            configPath = setConfigurationPath();
             configureHardware();
         }
 
@@ -101,10 +102,22 @@ public abstract class RMOpMode extends OpMode {
             DbgLog.error(e.getMessage());
         } catch (ParseException e) {
             e.printStackTrace();
+            telemetry.addData("PARSE", "ARGHHH");
             DbgLog.error(e.getMessage());
+        } catch (NullPointerException e){
+            telemetry.addData("ARGHHH","ARGHHHHH");
         }
-        motorMap = jsonLoader.getMotorMap();
-        servoMap = jsonLoader.getServoMap();
+        try {
+                    motorMap = jsonLoader.getMotorMap();
+        } catch (NullPointerException er){
+            telemetry.addData("OnlyAtMotorMap", "OnlyatMotorMap");
+        }
+        try{
+            servoMap = jsonLoader.getServoMap();
+        }catch (NullPointerException err){
+            telemetry.addData("SERVO","SERVO");
+        }
+
     }
 
     protected void setTeam(int tnumber) {

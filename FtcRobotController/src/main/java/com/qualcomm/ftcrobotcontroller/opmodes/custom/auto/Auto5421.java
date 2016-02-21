@@ -278,6 +278,5 @@ public class Auto5421 extends RMAutoMode {
         }
     }
 
-    private 
 
 }
