@@ -6,6 +6,7 @@ import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
 import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
+import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
@@ -29,71 +30,6 @@ public class TeleOp5421 extends RMOpMode {
     rServo leftHook;
     rServo rightHook;
     ElapsedTime runTime;
-
-    private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
-    /*private final String CONFIGURATION_PATH = "{\n" +
-            "  \"motors\":[\n" +
-            "    {\n" +
-            "      \"name\":\"DriveLeftOne\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveLeftTwo\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightOne\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightTwo\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
-            "    },\n" +
-            "     {\n" +
-            "      \"name\":\"Harvester\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"Bucket\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
-            "    }\n" +
-            "  ],\n" +
-            "  \"servos\":[\n" +
-            "    {\n" +
-            "      \"name\":\"BucketRight\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":1.0,\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"BucketLeft\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.37,\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"Climbers\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.6,\n" +
-            "    }\n" +
-            "  ],\n" +
-            "}";*/
 
     @Override
     public void init() {
@@ -140,6 +76,41 @@ public class TeleOp5421 extends RMOpMode {
         }
         harvester.setDesiredPower(harvestPower);
 
+        //winch
+        /*double windLeft = control.triggerValue(Controller.C_ONE, Trigger.T_LEFT);
+        double windRight = control.triggerValue(Controller.C_ONE, Trigger.T_RIGHT);
+        boolean unwindLeft = control.dpadValue(Controller.C_ONE, Dpad.DPAD_LEFT);
+        boolean unwindRight = control.dpadValue(Controller.C_ONE, Dpad.DPAD_RIGHT);
+        boolean winchDown = control.dpadValue(Controller.C_ONE, Dpad.DPAD_DOWN);
+        if (winchDown) {
+            winchLeft.setDesiredPower(-1);
+            winchRight.setDesiredPower(-1);
+        } else if (unwindLeft) {
+            winchLeft.setDesiredPower(-1);
+            winchRight.setDesiredPower(0);
+        } else if (unwindRight) {
+            winchLeft.setDesiredPower(0);
+            winchRight.setDesiredPower(-1);
+        } else if (windLeft > 0.2) {
+            winchLeft.setDesiredPower(1);
+            winchRight.setDesiredPower(0);
+        } else if (windRight > 0.2) {
+            winchLeft.setDesiredPower(0);
+            winchRight.setDesiredPower(1);
+        } else {
+            winchLeft.setDesiredPower(0);
+            winchRight.setDesiredPower(0);
+        }*/
+
+        //climbers
+        boolean climberOpen = control.button(Controller.C_ONE, Button.BUTTON_A);
+        boolean climberClose = control.button(Controller.C_ONE, Button.BUTTON_B);
+        if (climberOpen) {
+            climbers.setDesiredPosition(0);
+        } else if (climberClose) {
+            climbers.setDesiredPosition(1);
+        }
+
         //bucket
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
@@ -147,9 +118,9 @@ public class TeleOp5421 extends RMOpMode {
         if(bucketRight){
             bucketSpeed = 1.0;
         }else if(bucketLeft) {
-            bucketSpeed = -1.0;
+            bucketSpeed = 0;
         }else{
-            bucketSpeed = 0.0;
+            bucketSpeed = 0.5;
         }
         bucket.setDesiredPosition(bucketSpeed);
 
@@ -183,26 +154,77 @@ public class TeleOp5421 extends RMOpMode {
             extendLeft.setDesiredPower(-0.5);
             extendRight.setDesiredPower(-0.5);
         } else {
-            extendLeft.setPowerFloat();
-            extendRight.setPowerFloat();
-        }
-
-        //climbers
-        boolean climberThrowUp = control.button(Controller.C_TWO, Button.BUTTON_A);
-        boolean climberThrowDown = control.button(Controller.C_TWO, Button.BUTTON_B);
-        double climberPos;
-        if(climberThrowUp){
-            climberPos = 0.6;
-            servoMap.get("Climbers").setDesiredPosition(climberPos);
-        }else if(climberThrowDown){
-            climberPos = 0;
-            servoMap.get("Climbers").setDesiredPosition(climberPos);
+            extendLeft.setDesiredPower(0);
+            extendRight.setDesiredPower(0);
         }
         addTelemetry();
     }
 
     @Override
     protected String setConfigurationPath() {
+        final String CONFIGURATION_PATH = "{\n" +
+                "  \"motors\":[\n" +
+                "    {\n" +
+                "      \"name\":\"DriveLeftOne\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"DriveLeftTwo\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"DriveRightOne\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"DriveRightTwo\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\"\n" +
+                "    },\n" +
+                "     {\n" +
+                "      \"name\":\"Harvester\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"Bucket\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
+                "    }\n" +
+                "  ],\n" +
+                "  \"servos\":[\n" +
+                "    {\n" +
+                "      \"name\":\"BucketRight\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":1.0,\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"BucketLeft\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":0.37,\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"Climbers\",\n" +
+                "      \"minPosition\":0.01,\n" +
+                "      \"maxPosition\":1.0,\n" +
+                "      \"direction\":\"FORWARD\",\n" +
+                "      \"init\":0.6,\n" +
+                "    }\n" +
+                "  ],\n" +
+                "}";
         return CONFIGURATION_PATH;
     }
 

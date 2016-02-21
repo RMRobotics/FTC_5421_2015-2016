@@ -14,8 +14,41 @@ import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
  */
 public class StateAuto8121 extends RMOpMode{
 
-    private String state = "INIT_STATE";
+    final int INIT_STATE = 1;
+    final int MOVE_TO_CENTER = 2;
+    final int MOVE_TO_BEACONS = 3;
+    final int FIRST_BEACON = 4;
+    final int SECOND_BEACON = 5;
+    final int PRESS_BUTTON = 6;
+    final int DROP_CLIMBERS = 7;
+    final int FRONT_OF_MOUNTAIN = 8;
+    final int UP_THE_MOUNTAIN = 9;
+
+
+    /* switch(state){
+                State_Index = "INIT_STATE": //calibrate and set telemetry for navx, optical sensors and other stuff
+                break;
+                State_Index = "MOVE_TO_CENTER":
+                break;
+                State_Index = "MOVE_TO_BEACONS":
+                break;
+                State_Index = "FIRST_BEACON":
+                break;
+                State_Index = "SECOND_BEACON":
+                break;
+                State_Index = "PRESS_BUTTON":
+                break;
+                State_Index = "DROP_CLIMBERS":
+                break;
+                State_Index = "FRONT_OF_MOUNTAIN":
+                break;
+                State_Index = "UP_THE_MOUNTAIN":
+                break;
+        }*/
+
+    private int state = 0;
     private int sensorWatch = 1;
+    private String State_Index = "INIT_STATE";
 
     ColorSensor colorSensor;
     public DeviceInterfaceModule cdim;
@@ -79,24 +112,24 @@ public class StateAuto8121 extends RMOpMode{
             case 314: //do math
                 break;
         }
-       /* switch(state){
-            case "INIT_STATE": //calibrate and set telemetry for navx, optical sensors and other stuff
+       switch(state){
+           case INIT_STATE: //calibrate and set telemetry for navx, optical sensors and other stuff
                 break;
-            case "MOVE_TO_CENTER":
+           case MOVE_TO_CENTER:
                 break;
-            case "MOVE_TO_BEACONS":
+           case MOVE_TO_BEACONS:
                 break;
-            case "FIRST_BEACON":
+           case FIRST_BEACON:
                 break;
-            case "SECOND_BEACON":
+           case SECOND_BEACON:
                 break;
-            case "PRESS_BUTTON":
+           case PRESS_BUTTON:
                 break;
-            case "DROP_CLIMBERS":
+           case DROP_CLIMBERS:
                 break;
-            case "FRONT_OF_MOUNTAIN":
+           case FRONT_OF_MOUNTAIN:
                 break;
-            case "UP_THE_MOUNTAIN":
+           case UP_THE_MOUNTAIN:
                 break;
         }*/
 

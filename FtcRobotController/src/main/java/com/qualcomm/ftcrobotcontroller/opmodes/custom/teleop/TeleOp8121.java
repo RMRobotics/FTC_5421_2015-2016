@@ -4,6 +4,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop;
 import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
+import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.core.RMOpMode;
 
@@ -65,14 +66,35 @@ public class TeleOp8121 extends RMOpMode {
             "  ],\n" +
             "  \"servos\":[\n" +
             "    {\n" +
-            "      \"name\":\"Bucket\",\n" +
+            "      \"name\":\"BucketSeeSaw\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.01,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "      \"isContinuous\":\"no\",\n" +
             "    }\n" +
             "    {\n" +
-            "      \"name\":\"Latch\",\n" +
+            "      \"name\":\"BucketLeft\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.01,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"isContinuous\":\"no\",\n" +
+            "    }\n" +
+            "    {\n" +
+            "      \"name\":\"BucketRight\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.01,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"isContinuous\":\"no\",\n" +
+            "    }\n" +
+            "    {\n" +
+            "      \"name\":\"Latch1\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.01,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"isContinuous\":\"no\",\n" +
+            "    }\n" +
+            "    {\n" +
+            "      \"name\":\"Latch2\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.01,\n" +
             "      \"direction\":\"FORWARD\",\n" +
@@ -99,11 +121,9 @@ public class TeleOp8121 extends RMOpMode {
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
         motorMap.get("MotorL").setDesiredPower(leftPower);
         motorMap.get("MotorR").setDesiredPower(rightPower);
-        telemetry.addData("Rpower", rightPower);
-        telemetry.addData("Lpower", leftPower);
 
         boolean armPress = control.buttonHeld(Controller.C_TWO, Button.BUTTON_X);
-        boolean armRetract = control.buttonHeld(Controller.C_TWO, Button.BUTTON_RB);
+        boolean armRetract = control.buttonHeld(Controller.C_TWO, Button.BUTTON_Y);
         double armPower;
         if(armPress){
             armPower = .5;
@@ -128,8 +148,8 @@ public class TeleOp8121 extends RMOpMode {
         motorMap.get("MotorUpL").setDesiredPower(armAnglePower);
         motorMap.get("MotorUpR").setDesiredPower(armAnglePower);
 
-        boolean winchPress = control.buttonHeld(Controller.C_ONE, Button.BUTTON_RB);
-        boolean winchBack = control.buttonHeld(Controller.C_ONE, Button.BUTTON_LB);
+        boolean winchPress = control.buttonHeld(Controller.C_ONE, Button.BUTTON_A);
+        boolean winchBack = control.buttonHeld(Controller.C_ONE, Button.BUTTON_B);
         double winchPower;
         if(winchPress){
             winchPower = .5;
@@ -152,6 +172,30 @@ public class TeleOp8121 extends RMOpMode {
             harvesterPower = 0;
         }
         motorMap.get("Harvester").setDesiredPower(harvesterPower);
+
+        boolean bucketLeft = control.buttonHeld(Controller.C_TWO, Button.BUTTON_LB);
+        boolean bucketRight = control.buttonHeld(Controller.C_TWO, Button.BUTTON_RB);
+        double bucketPosition;
+        if(bucketLeft){
+            bucketPosition = 0;
+        }else if(bucketRight){
+            bucketPosition = 1;
+        }
+        else{
+            bucketPosition = .5;
+        }
+        servoMap.get("BucketSeeSaw").setDesiredPosition(bucketPosition);
+
+        boolean bucketOpen = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
+        boolean bucketClose = control.dpadValue(Controller.C_TWO, Dpad.DPAD_DOWN);
+        double flapOpen = 0;
+        if(bucketOpen){
+            flapOpen = 0;
+        }else if(bucketClose){
+            flapOpen = 1;
+        }
+        servoMap.get("BucketLeft").setDesiredPosition(flapOpen);
+        servoMap.get("BucketRight").setDesiredPosition(flapOpen);
 
     }
     @Override

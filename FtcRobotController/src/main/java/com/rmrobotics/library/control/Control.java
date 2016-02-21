@@ -1,6 +1,5 @@
 package com.rmrobotics.library.control;
 
-import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Control {
