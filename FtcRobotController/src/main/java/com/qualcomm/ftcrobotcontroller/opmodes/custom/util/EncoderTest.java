@@ -10,6 +10,8 @@ import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
 
+import java.net.HttpURLConnection;
+
 public class EncoderTest extends RMOpMode {
 /*    DcMotor mL;
     DcMotor mR;
@@ -115,12 +117,12 @@ public class EncoderTest extends RMOpMode {
                 m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
             }
         }
-        boolean hTog = control.buttonPressed(Controller.C_ONE, Button.BUTTON_A);
-        if (hTog) {
-            hP = !hP;
-        }
-        if (hP) {
+        boolean hUp = control.button(Controller.C_ONE, Button.BUTTON_A);
+        boolean hDown = control.button(Controller.C_ONE, Button.BUTTON_B);
+        if (hUp) {
             h.setDesiredPower(1.0);
+        } else if (hDown) {
+            h.setDesiredPower(-1.0);
         } else {
             h.setDesiredPower(0);
         }
