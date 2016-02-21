@@ -213,7 +213,8 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private boolean driveDone() {
-        if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 100) {
+        if (Math.abs(driveLeft.getCurrentPosition()) )
+        /*if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 100) {
             if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 10) {
                 driveLeft.setDesiredPower(0);
             } else if (driveLeft.getCurrentPosition() < driveLeft.getTargetPosition()) {
@@ -230,7 +231,7 @@ public class Auto5421 extends RMAutoMode {
             } else {
                 driveRight.setDesiredPower(-0.3);
             }
-        }
+        }*/
         if (driveLeft.getPower() < 0.01 && driveRight.getPower() < 0.01) {
             return true;
         } else {
@@ -270,6 +271,17 @@ public class Auto5421 extends RMAutoMode {
         } else {
             return false;
         }
+    }
+
+    private double doubleSign(double d) {
+        if (d == 0) {
+            return 0;
+        } else if (d*Double.POSITIVE_INFINITY == Double.POSITIVE_INFINITY) {
+            return 1;
+        } else if (d*Double.POSITIVE_INFINITY == Double.NEGATIVE_INFINITY) {
+            return -1;
+        }
+        return 0;
     }
 
 }

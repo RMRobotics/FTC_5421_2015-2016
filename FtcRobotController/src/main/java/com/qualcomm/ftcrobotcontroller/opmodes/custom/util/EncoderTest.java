@@ -32,14 +32,14 @@ public class EncoderTest extends RMOpMode {
             "      \"name\":\"mL\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\"\n" +
+            "      \"direction\":\"REVERSE\"\n" +
             "      \"motorType\":\"NVRST_40\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"name\":\"mR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\"\n" +
+            "      \"direction\":\"FORWARD\"\n" +
             "      \"motorType\":\"NVRST_40\"\n" +
             "    },\n" +
             "    {\n" +
@@ -63,8 +63,22 @@ public class EncoderTest extends RMOpMode {
             "    },\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
-            "{\n" +
+            "   {\n" +
             "      \"name\":\"bucket\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.0,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":1.0\n" +
+            "    },\n" +
+            "   {\n" +
+            "      \"name\":\"bR\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.0,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":1.0\n" +
+            "    },\n" +
+            "   {\n" +
+            "      \"name\":\"bL\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +

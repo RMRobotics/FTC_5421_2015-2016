@@ -116,11 +116,19 @@ public class Motor {
     }
 
     public double getCurrentPosition() {
-        return parent.getCurrentPosition();
+        if (parent.getDirection() == DcMotor.Direction.FORWARD) {
+            return parent.getCurrentPosition();
+        } else {
+            return -parent.getCurrentPosition();
+        }
     }
 
     public int getTargetPosition() {
-        return parent.getTargetPosition();
+        if (parent.getDirection() == DcMotor.Direction.FORWARD) {
+            return parent.getTargetPosition();
+        } else {
+            return -parent.getTargetPosition();
+        }
     }
 
     public void setTargetPosition(int pos) {
