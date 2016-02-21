@@ -19,6 +19,7 @@ public class ServoTest extends RMOpMode {
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\"\n" +
+            "      \"init\":\".5\"\n" +
             "    },\n" +
             "  ],\n" +
             "}";

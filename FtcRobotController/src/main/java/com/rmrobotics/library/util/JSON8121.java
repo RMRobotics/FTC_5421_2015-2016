@@ -58,7 +58,21 @@ public class JSON8121 {
             "  ],\n" +
             "  \"servos\":[\n" +
             "    {\n" +
-            "      \"name\":\"Bucket\",\n" +
+            "      \"name\":\"BucketSeeSaw\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.01,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"isContinuous\":\"no\",\n" +
+            "    }\n" +
+            "    {\n" +
+            "      \"name\":\"BucketLeft\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.01,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"isContinuous\":\"no\",\n" +
+            "    }\n" +
+            "    {\n" +
+            "      \"name\":\"BucketRight\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.01,\n" +
             "      \"direction\":\"FORWARD\",\n" +
@@ -66,13 +80,6 @@ public class JSON8121 {
             "    }\n" +
             "    {\n" +
             "      \"name\":\"Latch\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.01,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"isContinuous\":\"no\",\n" +
-            "    }\n" +
-            "    {\n" +
-            "      \"name\":\"Climbers\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.01,\n" +
             "      \"direction\":\"FORWARD\",\n" +
