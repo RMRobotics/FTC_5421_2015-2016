@@ -131,7 +131,7 @@ public class StateAuto8121 extends RMOpMode{
                 break;
            case UP_THE_MOUNTAIN:
                 break;
-        }*/
+        }
 
     }
 

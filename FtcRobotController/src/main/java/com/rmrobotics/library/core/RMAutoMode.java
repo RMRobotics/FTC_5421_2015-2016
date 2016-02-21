@@ -12,7 +12,8 @@ public abstract class RMAutoMode extends RMOpMode {
 
     @Override
     public void loop() {
-
+        calculate();
+        updateHardware();
     }
 
     @Override

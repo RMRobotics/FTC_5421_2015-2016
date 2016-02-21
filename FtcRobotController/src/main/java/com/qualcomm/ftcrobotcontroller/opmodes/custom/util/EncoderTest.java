@@ -1,7 +1,6 @@
 
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
@@ -9,6 +8,7 @@ import com.rmrobotics.library.control.Controller;
 import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
+import com.rmrobotics.library.hardware.rServo;
 
 public class EncoderTest extends RMOpMode {
 /*    DcMotor mL;
@@ -22,6 +22,7 @@ public class EncoderTest extends RMOpMode {
     Motor eL;
     Motor eR;
     Motor h;
+    rServo b;
 
     boolean hP = false;
 
@@ -62,6 +63,13 @@ public class EncoderTest extends RMOpMode {
             "    },\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
+            "{\n" +
+            "      \"name\":\"bucket\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.0,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":1.0\n" +
+            "    },\n" +
             "  ],\n" +
             "}";
 
@@ -83,15 +91,16 @@ public class EncoderTest extends RMOpMode {
         eL = motorMap.get("eL");
         eR = motorMap.get("eR");
         h = motorMap.get("h");
+        b = servoMap.get("bucket");
     }
 
     protected void calculate() {
         for (Motor m : motorMap.values()) {
             if (m.getMode() == DcMotorController.RunMode.RESET_ENCODERS) {
-                m.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+                m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
             }
         }
-        boolean hTog = control.button(Controller.C_ONE, Button.BUTTON_A);
+        boolean hTog = control.buttonPressed(Controller.C_ONE, Button.BUTTON_A);
         if (hTog) {
             hP = !hP;
         }
@@ -106,23 +115,41 @@ public class EncoderTest extends RMOpMode {
         mL.setDesiredPower(leftPower);
         mR.setDesiredPower(rightPower);
 
+        boolean negativePower = control.button(Controller.C_ONE, Button.BUTTON_BACK);
+        if (negativePower) {
+            hardwareMap.dcMotor.get("mR").setPower(-1);
+        }
+
         boolean extendUp = control.button(Controller.C_TWO, Button.BUTTON_A);
         boolean extendDown = control.button(Controller.C_TWO, Button.BUTTON_B);
         if (extendUp) {
-            eL.setDesiredPower(0.2);
-            eR.setDesiredPower(0.2);
+            eL.setDesiredPower(1);
+            eR.setDesiredPower(1);
         } else if (extendDown) {
-            eL.setDesiredPower(-0.2);
-            eR.setDesiredPower(-0.2);
+            eL.setDesiredPower(-1);
+            eR.setDesiredPower(-1);
         } else {
             eL.setDesiredPower(0);
             eR.setDesiredPower(0);
         }
 
+        double bucket = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_X);
+        if (bucket < -0.2) {
+            b.setDesiredPosition(0);
+        } else if (bucket > 0.2) {
+            b.setDesiredPosition(1);
+        } else {
+            b.setDesiredPosition(0.5);
+        }
+        addTelemetry();
     }
 
     @Override
     protected String setConfigurationPath() {
         return CONFIGURATION_PATH;
+    }
+
+    private void addTelemetry() {
+        telemetry.addData("L-LP-R-RP-EL-ER-H", mL.getPower() + "-" + mL.getCurrentPosition() + "-" + mR.getPower()+ "-" + mR.getCurrentPosition() + "-" + eL.getCurrentPosition() + "-" + eR.getCurrentPosition() + "-" + h.getPower());
     }
 }

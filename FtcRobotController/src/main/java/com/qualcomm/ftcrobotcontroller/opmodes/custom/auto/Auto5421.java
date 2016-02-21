@@ -37,17 +37,16 @@ public class Auto5421 extends RMAutoMode {
 
     @Override
     public void init() {
-        super.setTeam(5421);
         super.init();
         for (Motor m : motorMap.values()) {
             m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         }
-        driveLeft = motorMap.get("driveLeft");
-        driveRight = motorMap.get("driveRight");
-        extendLeft = motorMap.get("extendLeft");
-        extendRight = motorMap.get("extendRight");
-        harvester = motorMap.get("harvester");
-        climbers = servoMap.get("climbers");
+        driveLeft = motorMap.get("mL");
+        driveRight = motorMap.get("mR");
+        extendLeft = motorMap.get("eL");
+        extendRight = motorMap.get("eR");
+        harvester = motorMap.get("h");
+        //climbers = servoMap.get("climbers");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         addTelemetry();
         runTime.reset();
@@ -62,7 +61,7 @@ public class Auto5421 extends RMAutoMode {
                 updateState(StateType.ENCODER_DRIVE);
                 addTelemetry();
                 break;
-            case 2:
+            /*case 2:
                 setExtendTarget(1000);
                 setExtendPower(1.0);
                 updateState(StateType.ENCODER_EXTEND);
@@ -73,7 +72,7 @@ public class Auto5421 extends RMAutoMode {
                 runTime.reset();
                 updateState(StateType.SLEEP);
                 addTelemetry();
-                break;
+                break;*/
             case 4:
                 stop();
                 break;
@@ -101,6 +100,45 @@ public class Auto5421 extends RMAutoMode {
 
     @Override
     protected String setConfigurationPath() {
+        final String CONFIGURATION_PATH = "{\n" +
+                "  \"motors\":[\n" +
+                "    {\n" +
+                "      \"name\":\"mL\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\"\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"mR\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\"\n" +
+                "      \"motorType\":\"NVRST_40\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\":\"eL\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\"\n" +
+                "      \"motorType\":\"NVRST_60\"\n" +
+                "    },\n" + "{\n" +
+                "      \"name\":\"eR\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"REVERSE\"\n" +
+                "      \"motorType\":\"NVRST_60\"\n" +
+                "    },\n" + "{\n" +
+                "      \"name\":\"h\",\n" +
+                "      \"minPower\":0.1,\n" +
+                "      \"maxPower\":1.0,\n" +
+                "      \"direction\":\"FORWARD\"\n" +
+                "      \"motorType\":\"NVRST_20\"\n" +
+                "    },\n" +
+                "  ],\n" +
+                "  \"servos\":[\n" +
+                "  ],\n" +
+                "}";
         return CONFIGURATION_PATH;
     }
 
@@ -118,7 +156,7 @@ public class Auto5421 extends RMAutoMode {
                 + nf.format(extendRight.getTargetPosition()) + "-"
                 + nf.format(extendRight.getCurrentPosition()) + "-"
                 + df.format(harvester.getPower()) + "-"
-                + df.format(climbers.getPosition()) + "-"
+//                + df.format(climbers.getPosition()) + "-"
                 + runTime.time());
     }
 
@@ -233,4 +271,5 @@ public class Auto5421 extends RMAutoMode {
             return false;
         }
     }
+
 }
