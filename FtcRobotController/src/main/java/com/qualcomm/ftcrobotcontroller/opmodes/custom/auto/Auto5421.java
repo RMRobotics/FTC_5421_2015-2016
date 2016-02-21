@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes.custom.Auto;
+package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.ElapsedTime;

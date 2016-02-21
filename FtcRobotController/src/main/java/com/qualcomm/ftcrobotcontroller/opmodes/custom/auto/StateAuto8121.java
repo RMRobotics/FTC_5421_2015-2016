@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes.custom.Auto;
+package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.ftcrobotcontroller.opmodes.sample.ColorSensorDriver;
