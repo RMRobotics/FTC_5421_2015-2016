@@ -6,6 +6,7 @@ import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
 import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
+import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.core.RMOpMode;
 
 /**
@@ -122,34 +123,37 @@ public class TeleOp8121 extends RMOpMode {
         motorMap.get("MotorL").setDesiredPower(leftPower);
         motorMap.get("MotorR").setDesiredPower(rightPower);
 
-        boolean armPress = control.buttonHeld(Controller.C_TWO, Button.BUTTON_X);
-        boolean armRetract = control.buttonHeld(Controller.C_TWO, Button.BUTTON_Y);
-        double armPower;
-        if(armPress){
-            armPower = .5;
-        }else if(armRetract){
-            armPower = -.5;
-        }else{
-            armPower = 0;
-        }
-        motorMap.get("MotorExtendL").setDesiredPower(armPower);
-        motorMap.get("MotorExtendR").setDesiredPower(armPower);
+        double armLeft = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
+        double armRight = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
+        motorMap.get("MotorExtendL").setDesiredPower(armLeft);
+        motorMap.get("MotorExtendR").setDesiredPower(armRight);
 
-        boolean armAngle = control.buttonHeld(Controller.C_TWO, Button.BUTTON_B);
-        boolean armAngleBackward = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
-        double armAnglePower;
-        if(armAngle){
-            armAnglePower = .5;
-        }else if(armAngleBackward){
-            armAnglePower = -.5;
+        boolean armAngleLeft = control.buttonHeld(Controller.C_TWO, Button.BUTTON_LB);
+        double armAngleLeftBackward = control.triggerValue(Controller.C_TWO, Trigger.T_LEFT);
+        double armAngleLeftPower;
+        if(armAngleLeft){
+            armAngleLeftPower = .5;
+        }else if(armAngleLeftBackward>.1){
+            armAngleLeftPower = -.5;
         }else{
-            armAnglePower = 0;
+            armAngleLeftPower = 0;
         }
-        motorMap.get("MotorUpL").setDesiredPower(armAnglePower);
-        motorMap.get("MotorUpR").setDesiredPower(armAnglePower);
+        motorMap.get("MotorUpL").setDesiredPower(armAngleLeftPower);
 
-        boolean winchPress = control.buttonHeld(Controller.C_ONE, Button.BUTTON_A);
-        boolean winchBack = control.buttonHeld(Controller.C_ONE, Button.BUTTON_B);
+        boolean armAngleRight = control.buttonHeld(Controller.C_TWO, Button.BUTTON_LB);
+        double armAngleRightBackward = control.triggerValue(Controller.C_TWO, Trigger.T_LEFT);
+        double armAngleRightPower;
+        if(armAngleRight){
+            armAngleRightPower = .5;
+        }else if(armAngleRightBackward>.1){
+            armAngleRightPower = -.5;
+        }else{
+            armAngleRightPower = 0;
+        }
+        motorMap.get("MotorUpR").setDesiredPower(armAngleRightPower);
+
+        boolean winchPress = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
+        boolean winchBack = control.buttonHeld(Controller.C_TWO, Button.BUTTON_Y);
         double winchPower;
         if(winchPress){
             winchPower = .5;
@@ -173,29 +177,45 @@ public class TeleOp8121 extends RMOpMode {
         }
         motorMap.get("Harvester").setDesiredPower(harvesterPower);
 
-        boolean bucketLeft = control.buttonHeld(Controller.C_TWO, Button.BUTTON_LB);
-        boolean bucketRight = control.buttonHeld(Controller.C_TWO, Button.BUTTON_RB);
-        double bucketPosition;
+        boolean bucketLeft = control.dpadValue(Controller.C_TWO, Dpad.DPAD_LEFT);
+        boolean bucketRight = control.dpadValue(Controller.C_TWO, Dpad.DPAD_RIGHT);
+        boolean bucketCenter = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
+        double bucketPosition = .5;
         if(bucketLeft){
             bucketPosition = 0;
         }else if(bucketRight){
             bucketPosition = 1;
         }
-        else{
+        else if(bucketCenter){
             bucketPosition = .5;
         }
         servoMap.get("BucketSeeSaw").setDesiredPosition(bucketPosition);
 
-        boolean bucketOpen = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
-        boolean bucketClose = control.dpadValue(Controller.C_TWO, Dpad.DPAD_DOWN);
-        double flapOpen = 0;
-        if(bucketOpen){
-            flapOpen = 0;
-        }else if(bucketClose){
-            flapOpen = 1;
+        boolean bucketFlapL = control.buttonPressed(Controller.C_TWO, Button.BUTTON_X);
+        boolean bucketFlapR = control.buttonPressed(Controller.C_TWO, Button.BUTTON_B);
+        double flapOpenL = 0;
+        double flapOpenR = 0;
+        double flapOpenLPosition = 0;
+        double flapOpenRPosition = 0;
+        if(bucketFlapL){
+            flapOpenL++;
         }
-        servoMap.get("BucketLeft").setDesiredPosition(flapOpen);
-        servoMap.get("BucketRight").setDesiredPosition(flapOpen);
+        if(flapOpenL%2 == 1){
+            flapOpenLPosition = 1;
+        }else{
+            flapOpenLPosition = 0;
+        }
+
+        if(bucketFlapR){
+            flapOpenR++;
+        }
+        if(flapOpenR%2 == 1){
+            flapOpenRPosition = 1;
+        }else{
+            flapOpenRPosition = 0;
+        }
+        servoMap.get("BucketLeft").setDesiredPosition(flapOpenLPosition);
+        servoMap.get("BucketRight").setDesiredPosition(flapOpenRPosition);
 
     }
     @Override

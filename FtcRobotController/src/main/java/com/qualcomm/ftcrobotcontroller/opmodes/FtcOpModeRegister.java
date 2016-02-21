@@ -25,8 +25,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.Auto5421;
-import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.Auto8121;
+
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp8121;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ColorSensorTest;
@@ -70,10 +69,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
         manager.register("TeleOp5421", TeleOp5421.class);
         manager.register("TeleOp8121", TeleOp8121.class);
-
-        manager.register("Auto5421", Auto5421.class);
-        manager.register("Auto8121", Auto8121.class);
-
+        
         //manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
         //manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);
         //manager.register("navXDriveStraightPIDLoopOp", navXDriveStraightPIDLoopOp.class);
