@@ -85,25 +85,13 @@ public class ServoCalibration extends RMOpMode {
 
     @Override
     public void init() {
+        super.setTeam(5421);
         super.init();
     }
 
     @Override
     protected void calculate() {
-        motorMap.get("DriveLeftOne").stop();
-        motorMap.get("DriveRightOne").stop();
 
-        boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
-        boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
-        double bucketPower;
-        if(bucketLeft){
-            bucketPower = 1.0;
-        }else if(bucketRight){
-            bucketPower = -1.0;
-        }else{
-            bucketPower = 0.0;
-        }
-        motorMap.get("Bucket").setDesiredPower(bucketPower);
         /*
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
         boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
@@ -113,42 +101,29 @@ public class ServoCalibration extends RMOpMode {
             motorMap.get("Bucket").setDesiredPower(-1.0);
         }*/
 
-
         double leftFlap = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
         double rightFlap = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
-        double lFlapPos = servoMap.get("BucketLeft").getPosition();
-        double rFlapPos = servoMap.get("BucketRight").getPosition();
+        double lFlapPos = servoMap.get("bL").getPosition();
+        double rFlapPos = servoMap.get("bR").getPosition();
         if(leftFlap > 0.2){
             lFlapPos += 0.01;
-            servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
+            servoMap.get("bL").setDesiredPosition(lFlapPos);
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }else if(leftFlap < -0.2){
             lFlapPos -= 0.01;
-            servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
+            servoMap.get("bL").setDesiredPosition(lFlapPos);
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
         if(rightFlap > 0.2){
             rFlapPos -= 0.01;
-            servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
+            servoMap.get("bR").setDesiredPosition(rFlapPos);
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }else if(rightFlap < -0.2){
             rFlapPos += 0.01;
-            servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
+            servoMap.get("bR").setDesiredPosition(rFlapPos);
             telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
 
-        boolean climberThrowUp = control.buttonHeld(Controller.C_TWO, Button.BUTTON_A);
-        boolean climberThrowDown = control.buttonHeld(Controller.C_TWO, Button.BUTTON_B);
-        double climberPos = servoMap.get("Climbers").getPosition();
-        if(climberThrowUp){
-            climberPos += 0.01;
-            servoMap.get("Climbers").setDesiredPosition(climberPos);
-            telemetry.addData("Climbers", climberPos);
-        }else if(climberThrowDown){
-            climberPos -= 0.01;
-            servoMap.get("Climbers").setDesiredPosition(climberPos);
-            telemetry.addData("Climbers", climberPos);
-        }
     }
 
     @Override

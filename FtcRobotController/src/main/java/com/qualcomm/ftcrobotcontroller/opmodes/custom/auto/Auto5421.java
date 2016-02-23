@@ -37,6 +37,7 @@ public class Auto5421 extends RMAutoMode {
 
     @Override
     public void init() {
+        super.setTeam(5421);
         super.init();
         driveLeft = motorMap.get("mL");
         driveRight = motorMap.get("mR");
@@ -55,43 +56,23 @@ public class Auto5421 extends RMAutoMode {
             m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         }
         switch (state) {
-            /*    driveLeft.setTargetPosition(10000);
-                driveRight.setTargetPosition(10000);
-                setDrivePower(1.0);
-                updateState(StateType.ENCODER_DRIVE);
-                addTelemetry();
-                break;*/
-            /*case 2:
-                setExtendTarget(1000);
-                setExtendPower(1.0);
-                updateState(StateType.ENCODER_EXTEND);
-                addTelemetry();
-                break;*/
             case 1:
+                sleepTime = 10000;
+                updateState(StateType.SLEEP);
+                addTelemetry();
+                break;
+            case 2:
+                harvester.setDesiredPower(1);
                 driveLeft.setTargetPosition(10000);
                 driveRight.setTargetPosition(10000);
                 setDrivePower(0.5);
                 updateState(StateType.ENCODER_DRIVE);
                 addTelemetry();
                 break;
-            case 2:
-                driveLeft.setTargetPosition(20000);
+            /*case 2:
+                driveLeft.setTargetPosition(10000);
                 setDrivePower(0.5, 0);
                 updateState(StateType.ENCODER_DRIVE);
-                addTelemetry();
-                break;
-            /*case 3:
-                sleepTime = 10000;
-                runTime.reset();
-                setDrivePower(1.0);
-                updateState(StateType.SLEEP);
-                addTelemetry();
-                break;
-            case 4:
-                sleepTime = 10000;
-                runTime.reset();
-                setDrivePower(1.0);
-                updateState(StateType.SLEEP);
                 addTelemetry();
                 break;*/
             case 3:

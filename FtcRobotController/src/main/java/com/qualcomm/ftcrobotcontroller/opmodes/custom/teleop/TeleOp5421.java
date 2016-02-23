@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop;
 
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
@@ -35,19 +36,20 @@ public class TeleOp5421 extends RMOpMode {
     public void init() {
         super.setTeam(5421);
         super.init();
-        driveLeft = motorMap.get("driveLeft");
-        driveRight = motorMap.get("driveRight");
-        extendLeft = motorMap.get("extendLeft");
-        extendRight = motorMap.get("extendRight");
-        winchLeft = motorMap.get("winchLeft");
-        winchRight = motorMap.get("winchRight");
-        harvester = motorMap.get("harvester");
-        climbers = servoMap.get("climbers");
-        leftFlap = servoMap.get("leftFlap");
-        rightFlap = servoMap.get("rightFlap");
+        driveLeft = motorMap.get("mL");
+        driveRight = motorMap.get("mR");
+        extendLeft = motorMap.get("eL");
+        extendRight = motorMap.get("eR");
+        //winchLeft = motorMap.get("winchLeft");
+        //winchRight = motorMap.get("winchRight");
+        harvester = motorMap.get("h");
+        //climbers = servoMap.get("climbers");
+        leftFlap = servoMap.get("bL");
+        rightFlap = servoMap.get("bR");
         bucket = servoMap.get("bucket");
-        leftHook = servoMap.get("leftHook");
-        rightHook = servoMap.get("rightHook");
+        bucket.setDesiredPosition(0.5);
+        //leftHook = servoMap.get("leftHook");
+        //rightHook = servoMap.get("rightHook");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         addTelemetry();
         runTime.reset();
@@ -55,6 +57,13 @@ public class TeleOp5421 extends RMOpMode {
 
     @Override
     protected void calculate() {
+
+        for (Motor m : motorMap.values()) {
+            if (m.getMode() == DcMotorController.RunMode.RESET_ENCODERS) {
+                m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            }
+        }
+
         addTelemetry();
 
         //drive
@@ -102,14 +111,14 @@ public class TeleOp5421 extends RMOpMode {
             winchRight.setDesiredPower(0);
         }*/
 
-        //climbers
+        /*//climbers
         boolean climberOpen = control.button(Controller.C_ONE, Button.BUTTON_A);
         boolean climberClose = control.button(Controller.C_ONE, Button.BUTTON_B);
         if (climberOpen) {
             climbers.setDesiredPosition(0);
         } else if (climberClose) {
             climbers.setDesiredPosition(1);
-        }
+        }*/
 
         //bucket
         boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
@@ -125,34 +134,34 @@ public class TeleOp5421 extends RMOpMode {
         bucket.setDesiredPosition(bucketSpeed);
 
         //flaps
-        double leftFlap = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
-        double rightFlap = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
+        double flapLeft = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
+        double flapRight = control.joystickValue(Controller.C_TWO, Joystick.J_RIGHT, Axis.A_Y);
         double lFlapPos;
         double rFlapPos;
-        if(leftFlap > 0.2){
-            lFlapPos = 1.0;
-            servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
-        }else if(leftFlap < -0.2){
-            lFlapPos = 0.36;
-            servoMap.get("BucketLeft").setDesiredPosition(lFlapPos);
+        if(flapLeft > 0.2){
+            lFlapPos = 0.5;
+            leftFlap.setDesiredPosition(lFlapPos);
+        }else if(flapLeft < -0.2){
+            lFlapPos = 0;
+            leftFlap.setDesiredPosition(lFlapPos);
         }
-        if(rightFlap > 0.2){
-            rFlapPos = 0.36;
-            servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
-        }else if(rightFlap < -0.2){
-            rFlapPos = 1.0;
-            servoMap.get("BucketRight").setDesiredPosition(rFlapPos);
+        if(flapRight > 0.2){
+            rFlapPos = 0.4;
+            rightFlap.setDesiredPosition(rFlapPos);
+        }else if(flapRight < -0.2){
+            rFlapPos = 1;
+            rightFlap.setDesiredPosition(rFlapPos);
         }
 
         //extender
         boolean extend = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
         boolean retract = control.dpadValue(Controller.C_TWO, Dpad.DPAD_DOWN);
         if (extend) {
-            extendLeft.setDesiredPower(0.5);
-            extendRight.setDesiredPower(0.5);
+            extendLeft.setDesiredPower(0.3);
+            extendRight.setDesiredPower(0.3);
         } else if (retract) {
-            extendLeft.setDesiredPower(-0.5);
-            extendRight.setDesiredPower(-0.5);
+            extendLeft.setDesiredPower(-0.3);
+            extendRight.setDesiredPower(-0.3);
         } else {
             extendLeft.setDesiredPower(0);
             extendRight.setDesiredPower(0);
@@ -233,15 +242,15 @@ public class TeleOp5421 extends RMOpMode {
                 + df.format(driveRight.getPower()) + "-"
                 + df.format(extendLeft.getPower()) + "-"
                 + df.format(extendRight.getPower()) + "-"
-                + df.format(winchLeft.getPower()) + "-"
-                + df.format(winchRight.getPower()) + "-"
+                //+ df.format(winchLeft.getPower()) + "-"
+                //+ df.format(winchRight.getPower()) + "-"
                 + df.format(harvester.getPower()) + "-"
-                + df.format(climbers.getPosition()) + "-"
+                //+ df.format(climbers.getPosition()) + "-"
                 + df.format(leftFlap.getPosition()) + "-"
                 + df.format(rightFlap.getPosition()) + "-"
                 + df.format(bucket.getPosition()) + "-"
-                + df.format(leftHook.getPosition()) + "-"
-                + df.format(rightHook.getPosition()) + "-"
+                //+ df.format(leftHook.getPosition()) + "-"
+                //+ df.format(rightHook.getPosition()) + "-"
                 + runTime.time());
     }
 }

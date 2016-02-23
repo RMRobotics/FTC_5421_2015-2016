@@ -25,6 +25,8 @@ public class EncoderTest extends RMOpMode {
     Motor eR;
     Motor h;
     rServo b;
+    rServo bL;
+    rServo bR;
 
     boolean hP = false;
 
@@ -109,6 +111,8 @@ public class EncoderTest extends RMOpMode {
         h = motorMap.get("h");
         b = servoMap.get("bucket");
         b.setDesiredPosition(0.5);
+        bL = servoMap.get("bL");
+        bR = servoMap.get("bR");
     }
 
     protected void calculate() {

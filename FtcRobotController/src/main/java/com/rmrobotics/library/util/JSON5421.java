@@ -7,69 +7,83 @@ public class JSON5421 {
     private final String CONFIGURATION = "{\n" +
             "  \"motors\":[\n" +
             "    {\n" +
-            "      \"name\":\"DriveLeftOne\",\n" +
+            "      \"name\":\"mL\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +
             "      \"motorType\":\"NVRST_40\"\n" +
             "    },\n" +
             "    {\n" +
-            "     \"name\":\"DriveLeftTwo\",\n" +
+            "     \"name\":\"mR\",\n" +
+            "      \"minPower\":0.1,\n" +
+            "      \"maxPower\":1.0,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"motorType\":\"NVRST_40\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"eL\",\n" +
+            "      \"minPower\":0.1,\n" +
+            "      \"maxPower\":1.0,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"motorType\":\"NVRST_60\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "     \"name\":\"eR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +
-            "      \"motorType\":\"NVRST_40\"\n" +
+            "      \"motorType\":\"NVRST_60\"\n" +
+            "    },\n" +
+            /*"    {\n" +
+            "      \"name\":\"wL\",\n" +
+            "      \"minPower\":0.1,\n" +
+            "      \"maxPower\":1.0,\n" +
+            "      \"direction\":\"REVERSE\",\n" +
+            "      \"motorType\":\"NVRST_60\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"name\":\"DriveRightOne\",\n" +
+            "      \"name\":\"wR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"motorType\":\"NVRST_40\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"DriveRightTwo\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"motorType\":\"NVRST_40\"\n" +
-            "    },\n" +
+            "      \"motorType\":\"NVRST_0\"\n" +
+            "    },\n" +*/
             "     {\n" +
-            "      \"name\":\"Harvester\",\n" +
+            "      \"name\":\"h\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +
             "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
-            "    {\n" +
-            "      \"name\":\"Bucket\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"motorType\":\"NVRST_40\"\n" +
-            "    }\n" +
             "  ],\n" +
             "  \"servos\":[\n" +
             "    {\n" +
-            "      \"name\":\"BucketRight\",\n" +
-            "      \"minPosition\":0.01,\n" +
+            "      \"name\":\"bL\",\n" +
+            "      \"minPosition\":0.0,\n" +
+            "      \"maxPosition\":0.5,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.0\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"bR\",\n" +
+            "      \"minPosition\":0.04,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":1.0\n" +
             "    },\n" +
-            "    {\n" +
-            "      \"name\":\"BucketLeft\",\n" +
-            "      \"minPosition\":0.01,\n" +
-            "      \"maxPosition\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"init\":0.37\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\":\"Climbers\",\n" +
+            /*"    {\n" +
+            "      \"name\":\"climbers\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":0.6\n" +
+            "    }\n" +*/
+            "    {\n" +
+            "      \"name\":\"bucket\",\n" +
+            "      \"minPosition\":0.01,\n" +
+            "      \"maxPosition\":1.0,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.5\n" +
             "    }\n" +
             "  ]\n" +
             "}";
