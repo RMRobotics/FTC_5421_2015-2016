@@ -57,6 +57,10 @@ public class StateAuto8121 extends RMOpMode{
 
     protected Map<Integer,String> gameLocationX = new HashMap<Integer,String>();
     protected Map<Integer,String> gameLocationY = new HashMap<Integer,String>();
+    public double CUR_X_ROBOT = 24*3;
+    public double CUR_Y_ROBOT = 12;
+
+
 
 
     @Override
@@ -154,13 +158,24 @@ public class StateAuto8121 extends RMOpMode{
         return movement;
     }
 
-public void ToCenter(){
+    public void ToCenter(){
 
-}
+    }
     boolean isAtCenter(){
         boolean centered=false;
         return centered;
 
+    }
+
+    public double CalibratePosition(double xPos, double yPos, double xTar, double yTar){
+        if(xPos == xTar){
+
+        }
+        return xPos;
+    }
+
+    public double CalibrateAngle(double xPos, double yPos, double xTar, double yTar){
+        return xPos;
     }
 
 
