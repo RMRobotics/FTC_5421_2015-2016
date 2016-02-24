@@ -107,7 +107,6 @@ public class StateAuto8121 extends RMOpMode{
            case INIT_STATE: //calibrate and set telemetry for navx, optical sensors and other stuff
                 break;
            case MOVE_TO_CENTER:
-
                 break;
            case MOVE_TO_BEACONS:
                 break;
