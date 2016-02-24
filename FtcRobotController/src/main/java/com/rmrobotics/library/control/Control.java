@@ -21,12 +21,12 @@ public class Control {
         return currentInput.button(c, b);
     }
 
+
     public boolean buttonPressed(Controller c, Button b){
         boolean prev = prevInput.button(c, b);
         boolean curr = currentInput.button(c, b);
         return curr && !prev;
     }
-
     public boolean buttonHeld(Controller c, Button b){
         boolean prev = prevInput.button(c, b);
         boolean curr = currentInput.button(c, b);

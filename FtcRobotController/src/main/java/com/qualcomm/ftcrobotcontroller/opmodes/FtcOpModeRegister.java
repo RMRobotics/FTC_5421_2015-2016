@@ -28,6 +28,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.Auto5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.Auto8121;
+import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.StateAuto8121;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp8121;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ColorSensorTest;
@@ -63,16 +64,17 @@ public class FtcOpModeRegister implements OpModeRegister {
        * Uncomment any of the following lines if you want to register an op mode.
        */
 
-        manager.register("ServoTest", ServoTest.class);
-        manager.register("ServoCalibration", ServoCalibration.class);
-        manager.register("ColorSensorTest", ColorSensorTest.class);
-        manager.register("EncoderTest", EncoderTest.class);
-        manager.register("OpticalSensorTest", OpticalSensorTest.class);
+      //  manager.register("ServoTest", ServoTest.class);
+      //  manager.register("ServoCalibration", ServoCalibration.class);
+      //  manager.register("ColorSensorTest", ColorSensorTest.class);
+       // manager.register("EncoderTest", EncoderTest.class);
+      //  manager.register("OpticalSensorTest", OpticalSensorTest.class);
 
-        manager.register("TeleOp5421", TeleOp5421.class);
+       // manager.register("TeleOp5421", TeleOp5421.class);
         manager.register("TeleOp8121", TeleOp8121.class);
-        manager.register("Auto5421", Auto5421.class);
+       // manager.register("Auto5421", Auto5421.class);
         manager.register("Auto8121", Auto8121.class);
+        manager.register("StateAuto8121", StateAuto8121.class);
         
         //manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
         //manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);

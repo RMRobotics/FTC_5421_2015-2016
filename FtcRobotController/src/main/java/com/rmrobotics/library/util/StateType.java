@@ -9,5 +9,14 @@ public enum StateType {
     MOTOR,
     SERVO,
     WAIT,
-    SLEEP
+    SLEEP,
+    TO_CENTER,
+    TO_BEACONS,
+    FIRST_BEACON,
+    SECOND_BEACON,
+    PRESS_BUTTON,
+    DROP_CLIMBERS,
+    TO_MOUNTAINFRONT,
+    UP_MOUNTAIN
+
 }
