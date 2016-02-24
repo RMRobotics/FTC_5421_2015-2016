@@ -37,6 +37,7 @@ public class Auto5421 extends RMAutoMode {
 
     @Override
     public void init() {
+        super.setTeam(5421);
         super.init();
         driveLeft = motorMap.get("mL");
         driveRight = motorMap.get("mR");
@@ -55,26 +56,27 @@ public class Auto5421 extends RMAutoMode {
             m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         }
         switch (state) {
-            /*    driveLeft.setTargetPosition(10000);
-                driveRight.setTargetPosition(10000);
-                setDrivePower(1.0);
-                updateState(StateType.ENCODER_DRIVE);
-                addTelemetry();
-                break;*/
-            /*case 2:
-                setExtendTarget(1000);
-                setExtendPower(1.0);
-                updateState(StateType.ENCODER_EXTEND);
-                addTelemetry();
-                break;*/
             case 1:
                 sleepTime = 10000;
-                runTime.reset();
-                setDrivePower(1.0);
                 updateState(StateType.SLEEP);
                 addTelemetry();
                 break;
             case 2:
+                harvester.setDesiredPower(1);
+                driveLeft.setTargetPosition(10000);
+                driveRight.setTargetPosition(10000);
+                setDrivePower(0.5);
+                updateState(StateType.ENCODER_DRIVE);
+                addTelemetry();
+                break;
+            /*case 2:
+                driveLeft.setTargetPosition(10000);
+                setDrivePower(0.5, 0);
+                updateState(StateType.ENCODER_DRIVE);
+                addTelemetry();
+                break;*/
+            case 3:
+                addTelemetry();
                 stop();
                 break;
             case WAIT:
@@ -82,7 +84,9 @@ public class Auto5421 extends RMAutoMode {
                     case ENCODER_DRIVE:
                         if (driveDone()) {
                             updateStateWait();
+                            endStateDrive();
                         }
+                        addTelemetry();
                         break;
                     case ENCODER_EXTEND:
                         if (extendDone()) {
@@ -95,7 +99,6 @@ public class Auto5421 extends RMAutoMode {
                         }
                         break;
                 }
-                addTelemetry();
         }
     }
 
@@ -144,7 +147,7 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("S-L-LT-LP-R-RT-RP-LE-LET-LEP-RE-RET-REP-H-C-T", state + "-" + df.format(driveLeft.getPower()) + "-"
+        telemetry.addData("S-P-L-LT-LP-R-RT-RP-LE-LET-LEP-RE-RET-REP-H-C-T", state + "-" + prevState + "-" + df.format(driveLeft.getPower()) + "-"
                 + nf.format(driveLeft.getTargetPosition()) + "-"
                 + nf.format(driveLeft.getCurrentPosition()) + "-"
                 + df.format(driveRight.getPower()) + "-"
@@ -215,27 +218,11 @@ public class Auto5421 extends RMAutoMode {
 
     private boolean driveDone() {
 
-        if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 300) {
-            if (Math.abs(driveLeft.getCurrentPosition() - driveLeft.getTargetPosition()) < 10) {
-                driveLeft.setDesiredPower(0);
-            } else if (driveLeft.getCurrentPosition() < driveLeft.getTargetPosition()) {
-                driveLeft.setDesiredPower(0.3);
-            } else if (driveLeft.getCurrentPosition() > driveLeft.getTargetPosition()){
-                driveLeft.setDesiredPower(-0.3);
-            } else {
-                driveLeft.setDesiredPower(0);
-            }
+        if (Math.abs(driveLeft.getCurrentPosition()) > driveLeft.getTargetPosition()) {
+            driveLeft.setDesiredPower(0);
         }
-        if (Math.abs(-driveRight.getTargetPosition() + driveRight.getTargetPosition()) < 300) {
-            if (Math.abs(driveRight.getCurrentPosition() - driveRight.getTargetPosition()) < 10) {
-                driveRight.setDesiredPower(0);
-            } else if (driveRight.getCurrentPosition() < -driveRight.getTargetPosition()) {
-                driveRight.setDesiredPower(0.3);
-            } else if (driveRight.getCurrentPosition() > -driveRight.getTargetPosition()){
-                driveRight.setDesiredPower(-0.3);
-            } else {
-                driveRight.setDesiredPower(0);
-            }
+        if (Math.abs(driveRight.getCurrentPosition()) > driveRight.getTargetPosition()) {
+            driveRight.setDesiredPower(0);
         }
         if (driveLeft.getPower() < 0.01 && driveRight.getPower() < 0.01) {
             return true;
@@ -278,5 +265,9 @@ public class Auto5421 extends RMAutoMode {
         }
     }
 
+    private void endStateDrive() {
+        driveLeft.setDesiredPower(0);
+        driveRight.setDesiredPower(0);
+    }
 
 }
