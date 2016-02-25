@@ -53,7 +53,9 @@ public class Auto5421 extends RMAutoMode {
     @Override
     protected void calculate() {
         for (Motor m : motorMap.values()) {
-            m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            if (m.getMode() != DcMotorController.RunMode.RUN_USING_ENCODERS) {
+                m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            }
         }
         switch (state) {
             case 1:
@@ -63,8 +65,7 @@ public class Auto5421 extends RMAutoMode {
                 break;
             case 2:
                 harvester.setDesiredPower(1);
-                driveLeft.setTargetPosition(10000);
-                driveRight.setTargetPosition(10000);
+                setDriveTarget(10000);
                 setDrivePower(0.5);
                 updateState(StateType.ENCODER_DRIVE);
                 addTelemetry();
@@ -84,7 +85,7 @@ public class Auto5421 extends RMAutoMode {
                     case ENCODER_DRIVE:
                         if (driveDone()) {
                             updateStateWait();
-                            endStateDrive();
+                            driveStop();
                         }
                         addTelemetry();
                         break;
@@ -265,9 +266,16 @@ public class Auto5421 extends RMAutoMode {
         }
     }
 
-    private void endStateDrive() {
+    private void driveStop() {
         driveLeft.setDesiredPower(0);
         driveRight.setDesiredPower(0);
     }
+
+    private void extendStop() {
+        extendLeft.setDesiredPower(0);
+        extendRight.setDesiredPower(0);
+    }
+
+
 
 }
