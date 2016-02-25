@@ -267,6 +267,8 @@ public class TeleOp5421 extends RMOpMode {
                 + df.format(bucket.getPosition()) + "-"
                 //+ df.format(leftHook.getPosition()) + "-"
                 //+ df.format(rightHook.getPosition()) + "-"
+                //+ df.format(clearLeft.getPosition()) + "-"
+                //+ df.format(clearRight.getPosition()) + "-"
                 + runTime.time());
     }
 }
