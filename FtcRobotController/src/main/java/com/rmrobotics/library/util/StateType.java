@@ -17,6 +17,8 @@ public enum StateType {
     PRESS_BUTTON,
     DROP_CLIMBERS,
     TO_MOUNTAINFRONT,
-    UP_MOUNTAIN
+    UP_MOUNTAIN,
+    DRIVE_FORWARD,
+    TURN
 
 }

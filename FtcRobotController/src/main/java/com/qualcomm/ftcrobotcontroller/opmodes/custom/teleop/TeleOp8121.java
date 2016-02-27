@@ -8,11 +8,13 @@ import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.core.RMOpMode;
+import com.rmrobotics.library.hardware.Motor;
 
 /**
  * Created by RM Robotics on 12/23/2015.
  */
 public class TeleOp8121 extends RMOpMode {
+    Motor Harvester;
     //  private final String CONFIGURATION_PATH = "res/8121.json";
 
     @Override
@@ -40,37 +42,25 @@ public class TeleOp8121 extends RMOpMode {
         boolean harvesterReverse = control.buttonHeld(Controller.C_ONE, Button.BUTTON_RB);
         double harvesterPower;
         if(harvesterForward){
-            harvesterPower = .5;
+            harvesterPower = 1;
         }else if(harvesterReverse){
-            harvesterPower = -.5;
+            harvesterPower = -1;
         }
         else{
             harvesterPower = 0;
         }
         motorMap.get("Harvester").setDesiredPower(harvesterPower);
 
-        boolean bucketLeft = control.dpadValue(Controller.C_TWO, Dpad.DPAD_LEFT);
-        boolean bucketRight = control.dpadValue(Controller.C_TWO, Dpad.DPAD_RIGHT);
-        boolean bucketCenter = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
-        double bucketPosition = .5;
-        if(bucketLeft){
-            bucketPosition = 0;
-        }else if(bucketRight){
-            bucketPosition = 1;
-        }
-        else if(bucketCenter){
-            bucketPosition = .5;
-        }
-        servoMap.get("BucketSeeSaw").setDesiredPosition(bucketPosition);
 
-        boolean bucketFlapL = control.buttonPressed(Controller.C_TWO, Button.BUTTON_X);
-        boolean bucketFlapR = control.buttonPressed(Controller.C_TWO, Button.BUTTON_B);
+      /*  boolean bucketFlapL = control.buttonHeld(Controller.C_TWO, Button.BUTTON_X);
+        boolean bucketFlapR = control.buttonHeld(Controller.C_TWO, Button.BUTTON_B);
         boolean bucketLOpen = false;
         boolean bucketROpen = false;
         double flapLPosition;
         double flapRPosition;
 
         if(bucketFlapL){
+            telemetry.addData("pressR","Yes");
             bucketLOpen = !bucketLOpen;
         }
         if(bucketFlapR){
@@ -78,16 +68,37 @@ public class TeleOp8121 extends RMOpMode {
         }
 
         if(bucketLOpen){
-            flapLPosition = .1;
+            flapLPosition = .5;
         }else{
-            flapLPosition = .9;
+            flapLPosition = .1;
         }
 
         if(bucketROpen){
-            flapRPosition = .1;
+            flapRPosition = .5;
         }else{
-            flapRPosition = .9;
+            flapRPosition = .1;
         }
+        servoMap.get("BucketLeft").setDesiredPosition(flapLPosition);
+        servoMap.get("BucketRight").setDesiredPosition(flapRPosition);
+        telemetry.addData("flapR",flapRPosition);
+        telemetry.addData("flapL",flapLPosition);*/
+
+        boolean bucketLeft = control.buttonHeld(Controller.C_TWO, Button.BUTTON_LB);
+        boolean bucketRight = control.buttonHeld(Controller.C_TWO, Button.BUTTON_RB);
+        double flapLPosition;
+        double flapRPosition;
+
+        if(bucketLeft){
+            flapLPosition = .5;
+        }else{
+            flapLPosition = 0;
+        }
+        if(bucketRight){
+            flapRPosition = .5;
+        }else{
+            flapRPosition = 0;
+        }
+
         servoMap.get("BucketLeft").setDesiredPosition(flapLPosition);
         servoMap.get("BucketRight").setDesiredPosition(flapRPosition);
 
@@ -140,13 +151,6 @@ public class TeleOp8121 extends RMOpMode {
                 "    },\n" +
                 "  ],\n" +
                 "  \"servos\":[\n" +
-                "    {\n" +
-                "      \"name\":\"BucketSeeSaw\",\n" +
-                "      \"minPosition\":0.01,\n" +
-                "      \"maxPosition\":1.0,\n" +
-                "      \"direction\":\"FORWARD\",\n" +
-                "      \"init\":0.6\n" +
-                "    },\n" +
                 "     {\n" +
                 "      \"name\":\"BucketLeft\",\n" +
                 "      \"minPosition\":0.01,\n" +

@@ -1,10 +1,54 @@
-package com.rmrobotics.library.util;
+package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
+
+import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.rmrobotics.library.core.RMOpMode;
+import com.rmrobotics.library.hardware.Motor;
 
 /**
- * Created by Josh on 2/18/2016.
+ * Created by RM Robotics on 2/27/2016.
  */
-public class JSON8121 {
-        public final String CONFIGURATION = "{\n" +
+public class BoardTest extends RMOpMode{
+
+    TouchSensor touchSensor;
+    public double encL;
+    public double encR;
+
+    @Override
+    public void init(){
+        super.setTeam(8121);
+        super.init();
+        touchSensor = hardwareMap.touchSensor.get("sensor_touch");
+
+        for (Motor m : motorMap.values()) {
+            m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            m.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        }
+    }
+
+    @Override
+    public void calculate(){
+        for (Motor m : motorMap.values()) {
+            m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        }
+
+        encL = motorMap.get("MotorL").getCurrentPosition();
+        encR = motorMap.get("MotorR").getCurrentPosition();
+        if(touchSensor.isPressed()){
+            motorMap.get("MotorL").setDesiredPower(0);
+            motorMap.get("MotorR").setDesiredPower(0);
+        }else{
+            motorMap.get("MotorL").setDesiredPower(.7);
+            motorMap.get("MotorR").setDesiredPower(.7);
+        }
+        telemetry.addData("Left",encL);
+        telemetry.addData("Right",encR);
+
+    }
+
+    @Override
+    protected String setConfigurationPath() {
+        final String CONFIGURATION_PATH = "{\n" +
                 "  \"motors\":[\n" +
                 "    {\n" +
                 "      \"name\":\"MotorL\",\n" +
@@ -66,10 +110,6 @@ public class JSON8121 {
                 "    } \n" +
                 "  ],\n" +
                 "}";
-
-        public JSON8121() {}
-
-        public String CONFIGURATION() {
-                return CONFIGURATION;
-        }
+        return CONFIGURATION_PATH;
+    }
 }

@@ -18,19 +18,13 @@ import com.rmrobotics.library.util.StateType;
 /**
  * Created by School Work on 2/17/2016.
  */
-public class StateAuto8121 extends RMOpMode{
+public class StateAutoMountain8121 extends RMOpMode{
 
     private final int WAIT = 999;
 
     final int INIT_STATE = 1;
     final int MOVE_TO_CENTER = 2;
-    final int MOVE_TO_BEACONS = 3;
-    final int FIRST_BEACON = 4;
-    final int SECOND_BEACON = 5;
-    final int PRESS_BUTTON = 6;
-    final int DROP_CLIMBERS = 7;
-    final int FRONT_OF_MOUNTAIN = 8;
-    final int UP_THE_MOUNTAIN = 9;
+    final int UP_THE_MOUNTAIN = 3;
     final int TURN = 303;
 
     Motor motorL;
@@ -77,9 +71,9 @@ public class StateAuto8121 extends RMOpMode{
         colorSensor.enableLed(false);
         sensorGyro.calibrate();
 
-       // navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
-         //       NAVX_DIM_I2C_PORT,
-           //     AHRS.DeviceDataType.kQuatAndRawData);
+        // navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
+        //       NAVX_DIM_I2C_PORT,
+        //     AHRS.DeviceDataType.kQuatAndRawData);
 
         motorL = motorMap.get("MotorL");
         motorR = motorMap.get("MotorR");
@@ -90,7 +84,7 @@ public class StateAuto8121 extends RMOpMode{
             m.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         }
 
-}
+    }
 
     @Override
     public void calculate(){
@@ -133,62 +127,51 @@ public class StateAuto8121 extends RMOpMode{
             case 314: //do math
                 break;
         }*/
-       switch(state){
-           case INIT_STATE:
-               TARGET_X = 0;
-               TARGET_Y = Math.sqrt(2)*boardLength/2;
-               state = MOVE_TO_BEACONS;
-           case MOVE_TO_BEACONS:
-               motorL.setTargetPosition(tarDistance);
-               motorR.setTargetPosition(tarDistance);
-               motorL.setDesiredPower(.7);
-               motorR.setDesiredPower(.7);
-               curState = StateType.TO_BEACONS;
-               prevState = state;
-               state = WAIT;
+        switch(state){
+            case INIT_STATE:
+                TARGET_X = 0;
+                TARGET_Y = Math.sqrt(2)*boardLength*2.1/6;
+                state = MOVE_TO_CENTER;
+            case MOVE_TO_CENTER:
+                motorL.setTargetPosition(tarDistance);
+                motorR.setTargetPosition(tarDistance);
+                motorL.setDesiredPower(.7);
+                motorR.setDesiredPower(.7);
+                curState = StateType.TO_CENTER;
+                prevState = state;
+                state = WAIT;
                 break;
-           case FIRST_BEACON:
+            case UP_THE_MOUNTAIN:
+                motorL.setTargetPosition(tarDistance);
+                motorR.setTargetPosition(tarDistance);
+                motorL.setDesiredPower(1);
+                motorR.setDesiredPower(1);
+                curState = StateType.UP_MOUNTAIN;
+                prevState = state;
+                state = WAIT;
                 break;
-           case SECOND_BEACON:
+            case TURN: //ADD CW OR CCW BASED ON NEGATIVE ANGLES TO REDUCE TIME
+                motorR.setTargetPosition((int)motorR.getCurrentPosition()+100000);
+                motorL.setTargetPosition((int)motorL.getCurrentPosition());
+                motorR.setDesiredPower(.9);
+                motorL.setDesiredPower(0);
                 break;
-           case PRESS_BUTTON:
+            case WAIT:
+                atTarPos = TargetPositionCheck();
+                if(atTarPos){
+                    state = prevState + 1;
+                    OffMotors();
+                    atTarPos = !atTarPos;
+                    switch(curState){
+                        case TO_CENTER:
+                            TARGET_Y = Math.sqrt(2)*boardLength*2.1/6;
+                            TARGET_X = Math.sqrt(2)*boardLength*1.5/6;
+                            break;
+                        case UP_MOUNTAIN:
+                            break;
+                    }
+                }
                 break;
-           case DROP_CLIMBERS:
-                break;
-           case FRONT_OF_MOUNTAIN:
-                break;
-           case UP_THE_MOUNTAIN:
-                break;
-           case TURN: //ADD CW OR CCW BASED ON NEGATIVE ANGLES TO REDUCE TIME
-               motorR.setTargetPosition((int)motorR.getCurrentPosition()+100000);
-               motorL.setTargetPosition((int)motorL.getCurrentPosition());
-               break;
-           case WAIT:
-               atTarPos = TargetPositionCheck();
-               if(atTarPos){
-                   state = prevState + 1;
-                   OffMotors();
-                   atTarPos = !atTarPos;
-                   switch(curState){
-                       case TO_BEACONS:
-                           TARGET_Y = 0;
-                           TARGET_X = 0;
-                           break;
-                       case FIRST_BEACON:
-                           break;
-                       case SECOND_BEACON:
-                           break;
-                       case PRESS_BUTTON:
-                           break;
-                       case DROP_CLIMBERS:
-                           break;
-                       case TO_MOUNTAINFRONT:
-                           break;
-                       case UP_MOUNTAIN:
-                           break;
-                   }
-               }
-               break;
         }
 
     }
@@ -226,7 +209,6 @@ public class StateAuto8121 extends RMOpMode{
         motorL.setDesiredPower(0);
         motorR.setDesiredPower(0);
     }
-
 
 
 
@@ -671,3 +653,4 @@ public class StateAuto8121 extends RMOpMode{
     }
 
 }
+
