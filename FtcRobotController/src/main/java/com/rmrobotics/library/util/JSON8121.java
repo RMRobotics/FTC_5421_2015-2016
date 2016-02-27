@@ -10,14 +10,14 @@ public class JSON8121 {
                 "      \"name\":\"MotorL\",\n" +
                 "      \"minPower\":0.1,\n" +
                 "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"FORWARD\",\n" +
+                "      \"direction\":\"REVERSE\",\n" +
                 "      \"motorType\":\"NVRST_40\"\n" +
                 "    },\n" +
                 "    {\n" +
                 "     \"name\":\"MotorR\",\n" +
                 "      \"minPower\":0.1,\n" +
                 "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\",\n" +
+                "      \"direction\":\"FORWARD\",\n" +
                 "      \"motorType\":\"NVRST_40\"\n" +
                 "    },\n" +
                 "    {\n" +

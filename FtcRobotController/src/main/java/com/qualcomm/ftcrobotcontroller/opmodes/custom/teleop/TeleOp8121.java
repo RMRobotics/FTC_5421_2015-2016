@@ -139,7 +139,7 @@ public class TeleOp8121 extends RMOpMode {
                 "      \"name\":\"MotorExtendC\",\n" +
                 "      \"minPower\":0.1,\n" +
                 "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\",\n" +
+                "      \"direction\":\"FORWARD\",\n" +
                 "      \"motorType\":\"NVRST_40\"\n" +
                 "    },\n" +
                 "     {\n" +

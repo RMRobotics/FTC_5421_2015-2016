@@ -148,16 +148,40 @@ public class StateAuto8121 extends RMOpMode{
                state = WAIT;
                 break;
            case FIRST_BEACON:
+               motorL.setTargetPosition(tarDistance);
+               motorR.setTargetPosition(tarDistance);
+               motorL.setDesiredPower(.7);
+               motorR.setDesiredPower(.7);
+               curState = StateType.FIRST_BEACON;
+               prevState = state;
+               state = WAIT;
                 break;
            case SECOND_BEACON:
                 break;
            case PRESS_BUTTON:
+               motorL.setTargetPosition(tarDistance);
+               motorR.setTargetPosition(tarDistance);
+               motorL.setDesiredPower(.7);
+               motorR.setDesiredPower(.7);
+               curState = StateType.PRESS_BUTTON;
+               prevState = state;
+               state = WAIT;
                 break;
            case DROP_CLIMBERS:
                 break;
            case FRONT_OF_MOUNTAIN:
+               motorL.setTargetPosition(tarDistance);
+               motorR.setTargetPosition(tarDistance);
+               motorL.setDesiredPower(1);
+               motorR.setDesiredPower(1);
+               curState = StateType.TO_MOUNTAINFRONT;
+               prevState = state;
+               state = WAIT;
                 break;
            case UP_THE_MOUNTAIN:
+               motorL.setTargetPosition(tarDistance);
+               motorR.setTargetPosition(tarDistance);
+               OffMotors();
                 break;
            case TURN: //ADD CW OR CCW BASED ON NEGATIVE ANGLES TO REDUCE TIME
                motorR.setTargetPosition((int)motorR.getCurrentPosition()+100000);
@@ -171,18 +195,35 @@ public class StateAuto8121 extends RMOpMode{
                    atTarPos = !atTarPos;
                    switch(curState){
                        case TO_BEACONS:
-                           TARGET_Y = 0;
-                           TARGET_X = 0;
+                           TARGET_Y = Math.sqrt(2)*boardLength/2;
+                           TARGET_X =  -Math.sqrt(2)*boardLength/12;
+                           state = prevState + 1;
                            break;
                        case FIRST_BEACON:
+                           boolean beaconColor = CheckSensor();
+                           if (beaconColor = true) {
+                               state = PRESS_BUTTON;
+                               TARGET_Y = Math.sqrt(2)*boardLength*2.5/6;
+                               TARGET_X = -Math.sqrt(2)*boardLength/12;
+                           }
+                           else {
+                               state = SECOND_BEACON;
+                           }
                            break;
                        case SECOND_BEACON:
+                               state = PRESS_BUTTON;
                            break;
                        case PRESS_BUTTON:
+                           state = FRONT_OF_MOUNTAIN;
+                           TARGET_Y = Math.sqrt(2)*boardLength*2.5/6;
+                           TARGET_X =  -Math.sqrt(2)*boardLength*1.5/6;
                            break;
                        case DROP_CLIMBERS:
                            break;
                        case TO_MOUNTAINFRONT:
+                           state = FRONT_OF_MOUNTAIN;
+                           TARGET_Y = Math.sqrt(2)*boardLength*2.5/6;
+                           TARGET_X =  -Math.sqrt(2)*boardLength*1.5/6;
                            break;
                        case UP_MOUNTAIN:
                            break;
@@ -222,11 +263,23 @@ public class StateAuto8121 extends RMOpMode{
         }
     }
 
-    public void OffMotors(){
+    public void OffMotors() {
         motorL.setDesiredPower(0);
         motorR.setDesiredPower(0);
     }
 
+    public boolean CheckSensor(){
+        colorSensor.enableLed(true);
+        if (colorSensor.red() > colorSensor.blue()+10) {
+            return true;
+        }
+        else if (colorSensor.blue() > colorSensor.red()+10) {
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 
