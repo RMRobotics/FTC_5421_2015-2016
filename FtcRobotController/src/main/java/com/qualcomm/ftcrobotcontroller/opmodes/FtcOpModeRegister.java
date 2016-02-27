@@ -31,6 +31,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.Auto8121;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.StateAuto8121;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp8121;
+import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.BoardTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ColorSensorTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.OpticalSensorTest;
@@ -75,6 +76,7 @@ public class FtcOpModeRegister implements OpModeRegister {
        // manager.register("Auto5421", Auto5421.class);
         manager.register("Auto8121", Auto8121.class);
         manager.register("StateAuto8121", StateAuto8121.class);
+        manager.register("BoardTest", BoardTest.class);
         
         //manager.register("navXCollisionDetectionOp", navXCollisionDetectionOp.class);
         //manager.register("navXDriveStraightPIDLinearOp", navXDriveStraightPIDLinearOp.class);

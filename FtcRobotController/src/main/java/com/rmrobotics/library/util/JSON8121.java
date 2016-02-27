@@ -38,7 +38,8 @@ public class JSON8121 {
                 "      \"name\":\"MotorExtendC\",\n" +
                 "      \"minPower\":0.1,\n" +
                 "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\",\n" +
+                "      \"direction\":\"REVERSE" +
+                "\",\n" +
                 "      \"motorType\":\"NVRST_40\"\n" +
                 "    },\n" +
                 "     {\n" +
