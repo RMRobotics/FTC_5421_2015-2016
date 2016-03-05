@@ -2,7 +2,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
@@ -11,8 +10,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class ColorSensorTest5421 extends OpMode {
 
     ColorSensor cs;
-    DcMotor mL;
-    DcMotor mR;
+    //DcMotor mL;
+    //DcMotor mR;
     Gamepad g1;
 
     @Override
