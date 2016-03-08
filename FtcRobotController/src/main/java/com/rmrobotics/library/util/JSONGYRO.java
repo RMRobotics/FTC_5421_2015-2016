@@ -23,4 +23,11 @@ public class JSONGYRO {
             "    },\n" +
             "   ],\n" +
             " }";
+
+        public JSONGYRO() {}
+
+        public String CONFIGURATION() {
+                return CONFIGURATION;
+        }
+}
 }
