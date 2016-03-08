@@ -17,7 +17,9 @@ public class TeleOp5421 extends RMOpMode {
     DecimalFormat df = new DecimalFormat("#.##");
 
     Motor driveLeft;
+    Motor slaveLeft;
     Motor driveRight;
+    Motor slaveRight;
     Motor extendLeft;
     Motor extendRight;
     //Motor winchLeft;
@@ -38,7 +40,9 @@ public class TeleOp5421 extends RMOpMode {
         super.setTeam(5421);
         super.init();
         driveLeft = motorMap.get("mL");
+        slaveLeft = motorMap.get("sL");
         driveRight = motorMap.get("mR");
+        slaveRight = motorMap.get("sR");
         extendLeft = motorMap.get("eL");
         extendRight = motorMap.get("eR");
         //winchLeft = motorMap.get("wL");
@@ -73,7 +77,9 @@ public class TeleOp5421 extends RMOpMode {
         double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
         driveLeft.setDesiredPower(leftPower);
+        slaveLeft.setDesiredPower(leftPower);
         driveRight.setDesiredPower(rightPower);
+        slaveRight.setDesiredPower(rightPower);
 
         //harvester
         boolean harvestUp = control.button(Controller.C_ONE, Button.BUTTON_LB);
