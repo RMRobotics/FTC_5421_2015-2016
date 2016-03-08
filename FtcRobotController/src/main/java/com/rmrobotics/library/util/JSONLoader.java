@@ -45,6 +45,10 @@ public class JSONLoader {
                 JSON8121 config8121 = new JSON8121();
                 JSONString = config8121.CONFIGURATION();
                 break;
+            case 25421:
+                JSON5421Aux config25421 = new JSON5421Aux();
+                JSONString =  config25421.CONFIGURATION();
+                break;
         }
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonFile = (JSONObject) jsonParser.parse(JSONString);

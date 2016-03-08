@@ -16,10 +16,12 @@ import java.text.DecimalFormat;
 public class TestifyOp5421 extends RMOpMode {
     DecimalFormat df = new DecimalFormat("#.##");
 
-    Motor driveLeft;
-    Motor driveRight;
-    Motor extendLeft;
-    Motor extendRight;
+    Motor driveLeft1;
+    Motor driveRight1;
+    Motor driveLeft2;
+    Motor driveRight2;
+    //Motor extendLeft;
+    //Motor extendRight;
     //Motor winchLeft;
     //Motor winchRight;
     Motor harvester;
@@ -35,12 +37,14 @@ public class TestifyOp5421 extends RMOpMode {
 
     @Override
     public void init() {
-        super.setTeam(5421);
+        super.setTeam(25421);
         super.init();
-        driveLeft = motorMap.get("mL");
-        driveRight = motorMap.get("mR");
-        extendLeft = motorMap.get("eL");
-        extendRight = motorMap.get("eR");
+        driveLeft1 = motorMap.get("mL1");
+        driveRight1 = motorMap.get("mR1");
+        driveLeft2 = motorMap.get("mL2");
+        driveRight2 = motorMap.get("mR2");
+        //extendLeft = motorMap.get("eL");
+        //extendRight = motorMap.get("eR");
         //winchLeft = motorMap.get("wL");
         //winchRight = motorMap.get("wR");
         harvester = motorMap.get("h");
@@ -54,7 +58,7 @@ public class TestifyOp5421 extends RMOpMode {
         //clearLeft = servoMap.get("aL");
         //clearRight = servoMap.get("aR");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-        addTelemetry();
+        //addTelemetry();
         runTime.reset();
     }
 
@@ -72,8 +76,10 @@ public class TestifyOp5421 extends RMOpMode {
         //drive
         double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
-        driveLeft.setDesiredPower(leftPower);
-        driveRight.setDesiredPower(rightPower);
+        driveLeft1.setDesiredPower(leftPower);
+        driveLeft2.setDesiredPower(leftPower);
+        driveRight1.setDesiredPower(rightPower);
+        driveRight2.setDesiredPower(rightPower);
 
         //harvester
         boolean harvestUp = control.button(Controller.C_ONE, Button.BUTTON_LB);
@@ -160,14 +166,14 @@ public class TestifyOp5421 extends RMOpMode {
         boolean extend = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
         boolean retract = control.dpadValue(Controller.C_TWO, Dpad.DPAD_DOWN);
         if (extend) {
-            extendLeft.setDesiredPower(0.3);
-            extendRight.setDesiredPower(0.3);
+            //extendLeft.setDesiredPower(0.3);
+            //extendRight.setDesiredPower(0.3);
         } else if (retract) {
-            extendLeft.setDesiredPower(-0.3);
-            extendRight.setDesiredPower(-0.3);
+            //extendLeft.setDesiredPower(-0.3);
+            //extendRight.setDesiredPower(-0.3);
         } else {
-            extendLeft.setDesiredPower(0);
-            extendRight.setDesiredPower(0);
+            //extendLeft.setDesiredPower(0);
+            //extendRight.setDesiredPower(0);
         }
 
         /*//all clear signal
@@ -183,6 +189,7 @@ public class TestifyOp5421 extends RMOpMode {
             clearRight.setDesiredPosition(1.0);
         }*/
         addTelemetry();
+        harvester.setDesiredPower(leftPower);
     }
 
     @Override
@@ -254,10 +261,12 @@ public class TestifyOp5421 extends RMOpMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(driveLeft.getPower()) + "-"
-                + df.format(driveRight.getPower()) + "-"
-                + df.format(extendLeft.getPower()) + "-"
-                + df.format(extendRight.getPower()) + "-"
+      /*  telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(driveLeft1.getPower()) + "-"
+                + df.format(driveRight1.getPower()) + "-"
+                + df.format(driveLeft2.getPower()) + "-"
+                + df.format(driveRight2.getPower()) + "-"
+                //+ df.format(extendLeft.getPower()) + "-"
+                //+ df.format(extendRight.getPower()) + "-"
                 //+ df.format(winchLeft.getPower()) + "-"
                 //+ df.format(winchRight.getPower()) + "-"
                 + df.format(harvester.getPower()) + "-"
@@ -269,6 +278,6 @@ public class TestifyOp5421 extends RMOpMode {
                 //+ df.format(rightHook.getPosition()) + "-"
                 //+ df.format(clearLeft.getPosition()) + "-"
                 //+ df.format(clearRight.getPosition()) + "-"
-                + runTime.time());
+                + runTime.time());*/
     }
 }

@@ -29,7 +29,7 @@ public abstract class RMOpMode extends OpMode {
 
     @Override
     public void init() {
-        if (team != 5421 && team != 8121) {
+        if (team != 5421 && team != 8121 && team != 25421) {
             configPath = setConfigurationPath();
             configureHardware(configPath);
         } else {
