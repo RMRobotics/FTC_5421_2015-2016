@@ -30,4 +30,4 @@ public class JSONGYRO {
                 return CONFIGURATION;
         }
 }
-}
+

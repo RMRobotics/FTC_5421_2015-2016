@@ -1,7 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
@@ -12,7 +11,7 @@ public class GyroTest5421 extends OpMode {
     GyroSensor gyro;
     //DcMotor mL;
     //DcMotor mR;
-    Gamepad g1;
+    //Gamepad g1;
 
     @Override
     public void init() {
@@ -21,7 +20,7 @@ public class GyroTest5421 extends OpMode {
         //mL = hardwareMap.dcMotor.get("mL");
         //mR = hardwareMap.dcMotor.get("mR");
         //mR.setDirection(DcMotor.Direction.REVERSE);
-        g1 = gamepad1;
+        //g1 = gamepad1;
     }
 
     @Override
