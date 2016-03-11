@@ -36,9 +36,9 @@ public class GyroTest5421 extends OpMode {
     public void loop() {
         double leftPower = g1.left_stick_y;
         double rightPower = g1.right_stick_y;
-        if (!(gyro.getHeading() > 45) && !(gyro.getHeading() < 315)) {
-            mL.setPower(leftPower * 0.5);
-            mR.setPower(rightPower * 0.5);
+        if (Math.abs(45-gyro.getHeading()) > 3) {
+            mL.setPower(leftPower * 0.2);
+            mR.setPower(rightPower * 0.2);
         } else {
             mL.setPower(0);
             mR.setPower(0);
