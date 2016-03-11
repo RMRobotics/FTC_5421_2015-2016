@@ -5,22 +5,21 @@ package com.rmrobotics.library.util;
  */
 public enum StateType {
     ENCODER_DRIVE,
-    ENCODER_EXTEND,
     MOTOR,
     SERVO,
     WAIT,
     SLEEP,
-    SLEEP_DRIVE,
-    SLEEP_EXTEND,
-    TO_CENTER,
-    TO_BEACONS,
-    FIRST_BEACON,
-    SECOND_BEACON,
-    PRESS_BUTTON,
-    DROP_CLIMBERS,
-    TO_MOUNTAINFRONT,
-    UP_MOUNTAIN,
-    DRIVE_FORWARD,
-    TURN
+    GYRO
+    //SLEEP_DRIVE,
+    //TO_CENTER,
+    //TO_BEACONS,
+    //FIRST_BEACON,
+    //SECOND_BEACON,
+    //PRESS_BUTTON,
+    //DROP_CLIMBERS,
+    //TO_MOUNTAINFRONT,
+    //UP_MOUNTAIN,
+    //DRIVE_FORWARD,
+    //TURN
 
 }

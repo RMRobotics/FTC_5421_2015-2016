@@ -1,6 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.core.RMAutoMode;
 import com.rmrobotics.library.hardware.Motor;
@@ -21,11 +22,14 @@ public class Auto5421 extends RMAutoMode {
     int state = 1;
     StateType prevStateType;
     double sleepTime;
+    double turnDegree;
+
+    GyroSensor gyro;
 
     Motor driveLeft;
+    Motor slaveLeft;
     Motor driveRight;
-    Motor extendLeft;
-    Motor extendRight;
+    Motor slaveRight;
     Motor harvester;
     rServo climbers;
     ElapsedTime runTime;
@@ -33,16 +37,18 @@ public class Auto5421 extends RMAutoMode {
     DecimalFormat df = new DecimalFormat("#.##");
     DecimalFormat nf = new DecimalFormat("########");
 
-    private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
+    //private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
 
     @Override
     public void init() {
-        super.setTeam(5421);
+        super.setTeam(25421);
         super.init();
+        gyro = hardwareMap.gyroSensor.get("gyro");
+        gyro.calibrate();
         driveLeft = motorMap.get("mL");
+        slaveLeft = motorMap.get("sL");
         driveRight = motorMap.get("mR");
-        extendLeft = motorMap.get("eL");
-        extendRight = motorMap.get("eR");
+        slaveRight = motorMap.get("sR");
         harvester = motorMap.get("h");
         //climbers = servoMap.get("climbers");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
@@ -59,6 +65,11 @@ public class Auto5421 extends RMAutoMode {
         }
         switch (state) {
             case 1:
+                turnDegree = 45;
+                setDrivePower(0, 0.3);
+                updateState(StateType.GYRO);
+                break;
+            /*case 1:
                 sleepTime = 10000;
                 updateState(StateType.SLEEP);
                 addTelemetry();
@@ -76,8 +87,7 @@ public class Auto5421 extends RMAutoMode {
                 updateState(StateType.ENCODER_DRIVE);
                 addTelemetry();
                 break;*/
-            case 3:
-                addTelemetry();
+            case 2:
                 stop();
                 break;
             case WAIT:
@@ -87,20 +97,23 @@ public class Auto5421 extends RMAutoMode {
                             updateStateWait();
                             driveStop();
                         }
-                        addTelemetry();
-                        break;
-                    case ENCODER_EXTEND:
-                        if (extendDone()) {
-                            updateStateWait();
-                        }
                         break;
                     case SLEEP:
                         if (timeDone()) {
                             updateStateWait();
                         }
                         break;
+                    case GYRO:
+                        if (gyroDone()) {
+                            updateStateWait();
+                        }
+                        break;
                 }
+            default:
+                stop();
         }
+        updateSlave();
+        addTelemetry();
     }
 
     @Override
@@ -154,12 +167,6 @@ public class Auto5421 extends RMAutoMode {
                 + df.format(driveRight.getPower()) + "-"
                 + nf.format(driveRight.getTargetPosition()) + "-"
                 + nf.format(driveRight.getCurrentPosition()) + "-"
-                + df.format(extendLeft.getPower()) + "-"
-                + nf.format(extendLeft.getTargetPosition()) + "-"
-                + nf.format(extendLeft.getCurrentPosition()) + "-"
-                + df.format(extendRight.getPower()) + "-"
-                + nf.format(extendRight.getTargetPosition()) + "-"
-                + nf.format(extendRight.getCurrentPosition()) + "-"
                 + df.format(harvester.getPower()) + "-"
 //                + df.format(climbers.getPosition()) + "-"
                 + runTime.time());
@@ -175,16 +182,6 @@ public class Auto5421 extends RMAutoMode {
         driveRight.setTargetPosition(targetRight);
     }
 
-    private void setExtendTarget(int target) {
-        extendLeft.setTargetPosition(target);
-        extendRight.setTargetPosition(target);
-    }
-
-    private void setExtendTarget(int targetLeft, int targetRight) {
-        extendLeft.setTargetPosition(targetLeft);
-        extendRight.setTargetPosition(targetRight);
-    }
-
     private void setDrivePower(double power) {
         driveLeft.setDesiredPower(power);
         driveRight.setDesiredPower(power);
@@ -193,16 +190,6 @@ public class Auto5421 extends RMAutoMode {
     private void setDrivePower(double powerLeft, double powerRight) {
         driveLeft.setDesiredPower(powerLeft);
         driveRight.setDesiredPower(powerRight);
-    }
-
-    private void setExtendPower(double power) {
-        extendLeft.setDesiredPower(power);
-        extendRight.setDesiredPower(power);
-    }
-
-    private void setExtendPower(double powerLeft, double powerRight) {
-        extendLeft.setDesiredPower(powerLeft);
-        extendRight.setDesiredPower(powerRight);
     }
 
     private void updateState(StateType type) {
@@ -215,6 +202,11 @@ public class Auto5421 extends RMAutoMode {
         state = prevState + 1;
         prevState = WAIT;
         prevStateType = StateType.WAIT;
+    }
+
+    private void updateSlave() {
+        slaveLeft.setDesiredPower(driveLeft.getDesiredPower());
+        slaveRight.setDesiredPower(driveRight.getDesiredPower());
     }
 
     private boolean driveDone() {
@@ -232,26 +224,8 @@ public class Auto5421 extends RMAutoMode {
         }
     }
 
-    private boolean extendDone() {
-        if (Math.abs(extendLeft.getCurrentPosition() - extendLeft.getTargetPosition()) < 100) {
-            if (Math.abs(extendLeft.getCurrentPosition() - extendLeft.getTargetPosition()) < 10) {
-                extendLeft.setDesiredPower(0);
-            } else if (extendLeft.getCurrentPosition() < extendLeft.getTargetPosition()) {
-                extendLeft.setDesiredPower(0.2);
-            } else {
-                extendLeft.setDesiredPower(-0.2);
-            }
-        }
-        if (Math.abs(extendRight.getTargetPosition() - extendRight.getTargetPosition()) < 10) {
-            if (Math.abs(extendRight.getCurrentPosition() - extendRight.getTargetPosition()) < 10) {
-                extendRight.setDesiredPower(0);
-            } else if (extendRight.getCurrentPosition() < extendRight.getTargetPosition()) {
-                extendRight.setDesiredPower(0.3);
-            } else {
-                extendRight.setDesiredPower(-0.3);
-            }
-        }
-        if (extendLeft.getPower() < 0.01 && extendRight.getPower() < 0.01) {
+    private boolean gyroDone() {
+        if (Math.abs(gyro.getHeading() - turnDegree) < 3) {
             return true;
         } else {
             return false;
@@ -270,12 +244,5 @@ public class Auto5421 extends RMAutoMode {
         driveLeft.setDesiredPower(0);
         driveRight.setDesiredPower(0);
     }
-
-    private void extendStop() {
-        extendLeft.setDesiredPower(0);
-        extendRight.setDesiredPower(0);
-    }
-
-
 
 }

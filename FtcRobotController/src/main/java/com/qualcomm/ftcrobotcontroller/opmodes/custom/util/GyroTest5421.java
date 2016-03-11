@@ -1,6 +1,9 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
@@ -9,18 +12,20 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 public class GyroTest5421 extends OpMode {
 
     GyroSensor gyro;
-    //DcMotor mL;
-    //DcMotor mR;
-    //Gamepad g1;
+    DcMotor mL;
+    DcMotor mR;
+    Gamepad g1;
 
     @Override
     public void init() {
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
-        //mL = hardwareMap.dcMotor.get("mL");
-        //mL.setDirection(DcMotor.Direction.REVERSE);
-        //mR = hardwareMap.dcMotor.get("mR");
-        //g1 = gamepad1;
+        mL = hardwareMap.dcMotor.get("mL");
+        mL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        mR = hardwareMap.dcMotor.get("mR");
+        mR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        mR.setDirection(DcMotor.Direction.REVERSE);
+        g1 = gamepad1;
     }
 
     public void init_loop() {
@@ -29,17 +34,21 @@ public class GyroTest5421 extends OpMode {
 
     @Override
     public void loop() {
-        //double leftPower = g1.left_stick_y;
-        //double rightPower = g1.right_stick_y;
-        //mL.setPower(leftPower*0.5);
-        //mR.setPower(rightPower*0.5);
+        double leftPower = g1.left_stick_y;
+        double rightPower = g1.right_stick_y;
+        if (!(gyro.getHeading() > 45) && !(gyro.getHeading() < 315)) {
+            mL.setPower(leftPower * 0.5);
+            mR.setPower(rightPower * 0.5);
+        } else {
+            mL.setPower(0);
+            mR.setPower(0);
+        }
 
         //telemetry.addData("X-Y-Z-H", gyro.rawX() + "-" + gyro.rawY() + "-" + gyro.rawZ() + "-" + gyro.getHeading());
 
-        telemetry.addData("1. x", String.format("%03d", gyro.rawX()));
-        telemetry.addData("2. y", String.format("%03d", gyro.rawY()));
-        telemetry.addData("3. z", String.format("%03d", gyro.rawZ()));
-        telemetry.addData("4. h", String.format("%03d", gyro.getHeading()));
-        telemetry.addData("5. t", String.format("%05d", getRuntime()));
+        telemetry.addData("h", String.format("%03d", gyro.getHeading()));
+        //telemetry.addData("t", String.format("%05d", getRuntime()));
+        telemetry.addData("mL", mL.getPower());
+        telemetry.addData("mR", mR.getPower());
     }
 }

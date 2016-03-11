@@ -1,7 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
 import com.rmrobotics.library.control.Axis;
-import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
 import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.core.RMOpMode;
@@ -85,7 +84,7 @@ public class ServoCalibration extends RMOpMode {
 
     @Override
     public void init() {
-        super.setTeam(5421);
+        super.setTeam(25421);
         super.init();
     }
 
@@ -108,22 +107,18 @@ public class ServoCalibration extends RMOpMode {
         if(leftFlap > 0.2){
             lFlapPos += 0.01;
             servoMap.get("bL").setDesiredPosition(lFlapPos);
-            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }else if(leftFlap < -0.2){
             lFlapPos -= 0.01;
             servoMap.get("bL").setDesiredPosition(lFlapPos);
-            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
         if(rightFlap > 0.2){
             rFlapPos -= 0.01;
             servoMap.get("bR").setDesiredPosition(rFlapPos);
-            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }else if(rightFlap < -0.2){
             rFlapPos += 0.01;
             servoMap.get("bR").setDesiredPosition(rFlapPos);
-            telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
         }
-
+        telemetry.addData("L-LJ-R-RJ", lFlapPos + " " + leftFlap + " " + rFlapPos + " " + rightFlap);
     }
 
     @Override

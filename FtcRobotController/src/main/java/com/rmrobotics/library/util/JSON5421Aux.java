@@ -7,28 +7,28 @@ public class JSON5421Aux {
     private final String CONFIGURATION = "{\n" +
             "  \"motors\":[\n" +
             "    {\n" +
-            "      \"name\":\"mL1\",\n" +
+            "      \"name\":\"mL\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
             "    {\n" +
-            "     \"name\":\"mR1\",\n" +
+            "     \"name\":\"mR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +
             "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"name\":\"mL2\",\n" +
+            "      \"name\":\"sL\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
             "    {\n" +
-            "     \"name\":\"mR2\",\n" +
+            "     \"name\":\"sR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +

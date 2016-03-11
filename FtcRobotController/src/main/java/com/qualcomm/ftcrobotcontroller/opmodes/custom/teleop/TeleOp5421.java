@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
-import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
 import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
@@ -20,8 +19,6 @@ public class TeleOp5421 extends RMOpMode {
     Motor slaveLeft;
     Motor driveRight;
     Motor slaveRight;
-    Motor extendLeft;
-    Motor extendRight;
     //Motor winchLeft;
     //Motor winchRight;
     Motor harvester;
@@ -43,8 +40,6 @@ public class TeleOp5421 extends RMOpMode {
         slaveLeft = motorMap.get("sL");
         driveRight = motorMap.get("mR");
         slaveRight = motorMap.get("sR");
-        extendLeft = motorMap.get("eL");
-        extendRight = motorMap.get("eR");
         //winchLeft = motorMap.get("wL");
         //winchRight = motorMap.get("wR");
         harvester = motorMap.get("h");
@@ -162,20 +157,6 @@ public class TeleOp5421 extends RMOpMode {
             rightFlap.setDesiredPosition(rFlapPos);
         }
 
-        //extender
-        boolean extend = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
-        boolean retract = control.dpadValue(Controller.C_TWO, Dpad.DPAD_DOWN);
-        if (extend) {
-            extendLeft.setDesiredPower(0.3);
-            extendRight.setDesiredPower(0.3);
-        } else if (retract) {
-            extendLeft.setDesiredPower(-0.3);
-            extendRight.setDesiredPower(-0.3);
-        } else {
-            extendLeft.setDesiredPower(0);
-            extendRight.setDesiredPower(0);
-        }
-
         /*//all clear signal
         boolean reset = control.button(Controller.C_TWO, Button.BUTTON_Y);
         boolean leftDown = control.button(Controller.C_TWO, Button.BUTTON_X);
@@ -261,9 +242,9 @@ public class TeleOp5421 extends RMOpMode {
 
     private void addTelemetry() {
         telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(driveLeft.getPower()) + "-"
+                + df.format(slaveLeft.getPower()) + "-"
                 + df.format(driveRight.getPower()) + "-"
-                + df.format(extendLeft.getPower()) + "-"
-                + df.format(extendRight.getPower()) + "-"
+                + df.format(slaveRight.getPower()) + "-"
                 //+ df.format(winchLeft.getPower()) + "-"
                 //+ df.format(winchRight.getPower()) + "-"
                 + df.format(harvester.getPower()) + "-"
