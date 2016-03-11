@@ -10,29 +10,29 @@ public class JSON5421 {
             "      \"name\":\"mL\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\",\n" +
-            "      \"motorType\":\"NVRST_40\"\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
             "    {\n" +
             "     \"name\":\"mR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"motorType\":\"NVRST_40\"\n" +
+            "      \"direction\":\"REVERSE\",\n" +
+            "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"name\":\"eL\",\n" +
+            "      \"name\":\"sL\",\n" +
+            "      \"minPower\":0.1,\n" +
+            "      \"maxPower\":1.0,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"motorType\":\"NVRST_20\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "     \"name\":\"sR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +
-            "      \"motorType\":\"NVRST_60\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "     \"name\":\"eR\",\n" +
-            "      \"minPower\":0.1,\n" +
-            "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
-            "      \"motorType\":\"NVRST_60\"\n" +
+            "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
             /*"    {\n" +
             "      \"name\":\"wL\",\n" +
@@ -85,7 +85,7 @@ public class JSON5421 {
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":0.5\n" +
             "    }\n" +
-            "    {\n" +
+/*            "    {\n" +
             "      \"name\":\"aL\",\n" +
             "      \"minPosition\":0.0,\n" +
             "      \"maxPosition\":0.5,\n" +
@@ -98,7 +98,7 @@ public class JSON5421 {
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +
             "      \"init\":1.0\n" +
-            "    },\n" +
+            "    },\n" +*/
             "  ]\n" +
             "}";
 

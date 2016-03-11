@@ -46,7 +46,7 @@ public class JSONLoader {
                 JSONString = config8121.CONFIGURATION();
                 break;
             case 25421:
-                JSON5421Aux config25421 = new JSON5421Aux();
+                JSON5421OLD config25421 = new JSON5421OLD();
                 JSONString =  config25421.CONFIGURATION();
                 break;
         }

@@ -41,7 +41,7 @@ public class Auto5421 extends RMAutoMode {
 
     @Override
     public void init() {
-        super.setTeam(25421);
+        super.setTeam(5421);
         super.init();
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
