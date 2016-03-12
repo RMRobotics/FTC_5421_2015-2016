@@ -24,14 +24,14 @@ public class JSON5421 {
             "      \"name\":\"eL\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"FORWARD\",\n" +
+            "      \"direction\":\"REVERSE\",\n" +
             "      \"motorType\":\"NVRST_60\"\n" +
             "    },\n" +
             "    {\n" +
             "     \"name\":\"eR\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
-            "      \"direction\":\"REVERSE\",\n" +
+            "      \"direction\":\"FORWARD\",\n" +
             "      \"motorType\":\"NVRST_60\"\n" +
             "    },\n" +
             /*"    {\n" +
@@ -85,6 +85,20 @@ public class JSON5421 {
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":0.5\n" +
             "    }\n" +
+            "    {\n" +
+            "      \"name\":\"aL\",\n" +
+            "      \"minPosition\":0.0,\n" +
+            "      \"maxPosition\":0.5,\n" +
+            "      \"direction\":\"FORWARD\",\n" +
+            "      \"init\":0.0\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"name\":\"aR\",\n" +
+            "      \"minPosition\":0.04,\n" +
+            "      \"maxPosition\":1.0,\n" +
+            "      \"direction\":\"REVERSE\",\n" +
+            "      \"init\":1.0\n" +
+            "    },\n" +
             "  ]\n" +
             "}";
 

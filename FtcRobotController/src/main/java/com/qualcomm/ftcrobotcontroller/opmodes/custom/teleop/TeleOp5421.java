@@ -7,7 +7,6 @@ import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
 import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
-import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
@@ -21,15 +20,17 @@ public class TeleOp5421 extends RMOpMode {
     Motor driveRight;
     Motor extendLeft;
     Motor extendRight;
-    Motor winchLeft;
-    Motor winchRight;
+    //Motor winchLeft;
+    //Motor winchRight;
     Motor harvester;
-    rServo climbers;
+    //rServo climbers;
     rServo leftFlap;
     rServo rightFlap;
     rServo bucket;
-    rServo leftHook;
-    rServo rightHook;
+    //rServo leftHook;
+    //rServo rightHook;
+    //rServo clearLeft;
+    //rServo clearRight;
     ElapsedTime runTime;
 
     @Override
@@ -40,8 +41,8 @@ public class TeleOp5421 extends RMOpMode {
         driveRight = motorMap.get("mR");
         extendLeft = motorMap.get("eL");
         extendRight = motorMap.get("eR");
-        //winchLeft = motorMap.get("winchLeft");
-        //winchRight = motorMap.get("winchRight");
+        //winchLeft = motorMap.get("wL");
+        //winchRight = motorMap.get("wR");
         harvester = motorMap.get("h");
         //climbers = servoMap.get("climbers");
         leftFlap = servoMap.get("bL");
@@ -50,6 +51,8 @@ public class TeleOp5421 extends RMOpMode {
         bucket.setDesiredPosition(0.5);
         //leftHook = servoMap.get("leftHook");
         //rightHook = servoMap.get("rightHook");
+        //clearLeft = servoMap.get("aL");
+        //clearRight = servoMap.get("aR");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         addTelemetry();
         runTime.reset();
@@ -166,6 +169,19 @@ public class TeleOp5421 extends RMOpMode {
             extendLeft.setDesiredPower(0);
             extendRight.setDesiredPower(0);
         }
+
+        /*//all clear signal
+        boolean reset = control.button(Controller.C_TWO, Button.BUTTON_Y);
+        boolean leftDown = control.button(Controller.C_TWO, Button.BUTTON_X);
+        boolean rightDown = control.buttonPressed(Controller.C_TWO, Button.BUTTON_B);
+        if (reset) {
+            clearLeft.setInitPos();
+            clearRight.setInitPos();
+        } else if (leftDown) {
+            clearLeft.setDesiredPosition(1.0);
+        } else if (rightDown) {
+            clearRight.setDesiredPosition(1.0);
+        }*/
         addTelemetry();
     }
 
@@ -251,6 +267,8 @@ public class TeleOp5421 extends RMOpMode {
                 + df.format(bucket.getPosition()) + "-"
                 //+ df.format(leftHook.getPosition()) + "-"
                 //+ df.format(rightHook.getPosition()) + "-"
+                //+ df.format(clearLeft.getPosition()) + "-"
+                //+ df.format(clearRight.getPosition()) + "-"
                 + runTime.time());
     }
 }

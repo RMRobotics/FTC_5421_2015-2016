@@ -10,6 +10,8 @@ public enum StateType {
     SERVO,
     WAIT,
     SLEEP,
+    SLEEP_DRIVE,
+    SLEEP_EXTEND,
     TO_CENTER,
     TO_BEACONS,
     FIRST_BEACON,
