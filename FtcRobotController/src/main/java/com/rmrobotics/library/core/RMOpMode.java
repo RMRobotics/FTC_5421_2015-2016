@@ -82,7 +82,7 @@ public abstract class RMOpMode extends OpMode {
         }
     }
 
-    protected abstract String setConfigurationPath();
+    protected String setConfigurationPath(){ return null; }
 
     protected void configureHardware(String path){
         JSONLoader jsonLoader = null;
