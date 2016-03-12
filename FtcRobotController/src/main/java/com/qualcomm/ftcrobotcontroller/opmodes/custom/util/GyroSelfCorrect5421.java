@@ -1,33 +1,33 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
 
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /**
  * Created by Simon on 3/11/2016.
  */
-public class GyroSelfCorrect5421 extends RMOpMode {
+public class GyroSelfCorrect5421 extends OpMode {
 
     GyroSensor gyro;
-    Motor mL;
-    Motor sL;
-    Motor mR;
-    Motor sR;
+    DcMotor mL;
+    DcMotor mR;
+    String skew;
 
     @Override
     public void init() {
-        super.setTeam(5421);
-        super.init();
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
-        mL = motorMap.get("mL");
-        mL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        sL = motorMap.get("sL");
-        mR = motorMap.get("mR");
-        mR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        sR = motorMap.get("sR");
+        mL = hardwareMap.dcMotor.get("mL");
+        mL.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        mL.setDirection(DcMotor.Direction.REVERSE);
+        mR = hardwareMap.dcMotor.get("mR");
+        mR.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
     }
 
     public void init_loop() {
@@ -35,38 +35,34 @@ public class GyroSelfCorrect5421 extends RMOpMode {
     }
 
     @Override
-    protected void calculate() {
-        if (gyro.getHeading() > 2) {
-            drive(0.1, 0.3);
-        } else if (gyro.getHeading() < 358) {
-            drive(0.3, 0.1);
+    public void loop() {
+        if (gyro.getHeading() > 2 && gyro.getHeading() < 180) {
+            drive(0.2, 0.5);
+            skew = "RIGHT";
+        } else if (gyro.getHeading() < 358 && gyro.getHeading() > 180) {
+            drive(0.5, 0.2);
+            skew = "LEFT";
         } else {
-            drive(0.2);
+            drive(0.5);
+            skew = "STRAIGHT";
         }
-        updateSlave();
         addTelemetry();
     }
 
     private void drive(double p) {
-        mL.setDesiredPower(-p);
-        mR.setDesiredPower(-p);
+        mL.setPower(p);
+        mR.setPower(p);
     }
 
     private void drive(double p1, double p2) {
-        mL.setDesiredPower(-p1);
-        mR.setDesiredPower(-p2);
-    }
-
-    private void updateSlave() {
-        sL.setDesiredPower(mL.getDesiredPower());
-        sR.setDesiredPower(mR.getDesiredPower());
+        mL.setPower(p1);
+        mR.setPower(p2);
     }
 
     private void addTelemetry() {
+        telemetry.addData("SKEW", skew);
         telemetry.addData("h", String.format("%03d", gyro.getHeading()));
         telemetry.addData("mL", mL.getPower());
-        telemetry.addData("sL", sL.getPower());
         telemetry.addData("mR", mR.getPower());
-        telemetry.addData("sR", sR.getPower());
     }
 }
