@@ -6,7 +6,7 @@ import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
 
 /**
- * Created by RM Robotics on 3/11/2016.
+ * Created by Simon on 3/11/2016.
  */
 public class GyroSelfCorrect5421 extends RMOpMode {
 
