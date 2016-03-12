@@ -41,7 +41,7 @@ public class GyroSelfCorrect5421 extends RMOpMode {
         } else if (gyro.getHeading() < 358) {
             drive(0.3, 0.1);
         } else {
-            drive(0.15);
+            drive(0.2);
         }
         updateSlave();
         addTelemetry();
