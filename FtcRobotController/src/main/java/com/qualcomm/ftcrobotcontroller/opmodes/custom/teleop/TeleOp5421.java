@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
 import com.rmrobotics.library.control.Controller;
+import com.rmrobotics.library.control.Dpad;
 import com.rmrobotics.library.control.Joystick;
+import com.rmrobotics.library.control.Trigger;
 import com.rmrobotics.library.core.RMOpMode;
 import com.rmrobotics.library.hardware.Motor;
 import com.rmrobotics.library.hardware.rServo;
@@ -15,17 +17,17 @@ import java.text.DecimalFormat;
 public class TeleOp5421 extends RMOpMode {
     DecimalFormat df = new DecimalFormat("#.##");
 
-    Motor driveLeft;
-    Motor slaveLeft;
-    Motor driveRight;
-    Motor slaveRight;
-    //Motor winchLeft;
-    //Motor winchRight;
-    Motor harvester;
+    Motor mL;
+    Motor sL;
+    Motor mR;
+    Motor sR;
+    Motor wL;
+    Motor wR;
+    Motor h;
     //rServo climbers;
-    rServo leftFlap;
-    rServo rightFlap;
-    rServo bucket;
+    rServo bL;
+    rServo bR;
+    rServo b;
     //rServo leftHook;
     //rServo rightHook;
     //rServo clearLeft;
@@ -36,18 +38,18 @@ public class TeleOp5421 extends RMOpMode {
     public void init() {
         super.setTeam(5421);
         super.init();
-        driveLeft = motorMap.get("mL");
-        slaveLeft = motorMap.get("sL");
-        driveRight = motorMap.get("mR");
-        slaveRight = motorMap.get("sR");
-        //winchLeft = motorMap.get("wL");
-        //winchRight = motorMap.get("wR");
-        harvester = motorMap.get("h");
+        mL = motorMap.get("mL");
+        sL = motorMap.get("sL");
+        mR = motorMap.get("mR");
+        sR = motorMap.get("sR");
+        wL = motorMap.get("wL");
+        wR = motorMap.get("wR");
+        h = motorMap.get("h");
         //climbers = servoMap.get("climbers");
-        leftFlap = servoMap.get("bL");
-        rightFlap = servoMap.get("bR");
-        bucket = servoMap.get("bucket");
-        bucket.setDesiredPosition(0.5);
+        bL = servoMap.get("bL");
+        bR = servoMap.get("bR");
+        b = servoMap.get("b");
+        b.setDesiredPosition(0.5);
         //leftHook = servoMap.get("leftHook");
         //rightHook = servoMap.get("rightHook");
         //clearLeft = servoMap.get("aL");
@@ -71,10 +73,10 @@ public class TeleOp5421 extends RMOpMode {
         //drive
         double leftPower = control.joystickValue(Controller.C_ONE, Joystick.J_LEFT, Axis.A_Y);
         double rightPower = control.joystickValue(Controller.C_ONE, Joystick.J_RIGHT, Axis.A_Y);
-        driveLeft.setDesiredPower(leftPower);
-        slaveLeft.setDesiredPower(leftPower);
-        driveRight.setDesiredPower(rightPower);
-        slaveRight.setDesiredPower(rightPower);
+        mL.setDesiredPower(leftPower);
+        sL.setDesiredPower(leftPower);
+        mR.setDesiredPower(rightPower);
+        sR.setDesiredPower(rightPower);
 
         //harvester
         boolean harvestUp = control.button(Controller.C_ONE, Button.BUTTON_LB);
@@ -87,33 +89,33 @@ public class TeleOp5421 extends RMOpMode {
         }else{
             harvestPower = 0.0;
         }
-        harvester.setDesiredPower(harvestPower);
+        h.setDesiredPower(harvestPower);
 
         //winch
-        /*double windLeft = control.triggerValue(Controller.C_ONE, Trigger.T_LEFT);
+        double windLeft = control.triggerValue(Controller.C_ONE, Trigger.T_LEFT);
         double windRight = control.triggerValue(Controller.C_ONE, Trigger.T_RIGHT);
         boolean unwindLeft = control.dpadValue(Controller.C_ONE, Dpad.DPAD_LEFT);
         boolean unwindRight = control.dpadValue(Controller.C_ONE, Dpad.DPAD_RIGHT);
-        boolean winchDown = control.dpadValue(Controller.C_ONE, Dpad.DPAD_DOWN);
-        if (winchDown) {
-            winchLeft.setDesiredPower(-1);
-            winchRight.setDesiredPower(-1);
-        } else if (unwindLeft) {
-            winchLeft.setDesiredPower(-1);
-            winchRight.setDesiredPower(0);
-        } else if (unwindRight) {
-            winchLeft.setDesiredPower(0);
-            winchRight.setDesiredPower(-1);
-        } else if (windLeft > 0.2) {
-            winchLeft.setDesiredPower(1);
-            winchRight.setDesiredPower(0);
-        } else if (windRight > 0.2) {
-            winchLeft.setDesiredPower(0);
-            winchRight.setDesiredPower(1);
+        boolean windDown = control.dpadValue(Controller.C_ONE, Dpad.DPAD_DOWN);
+        if (windDown) {
+            wL.setDesiredPower(-1.0);
+            wR.setDesiredPower(-1.0);
         } else {
-            winchLeft.setDesiredPower(0);
-            winchRight.setDesiredPower(0);
-        }*/
+            if (windLeft > 0.3) {
+                wL.setDesiredPower(1.0);
+            } else if (unwindLeft) {
+                wL.setDesiredPower(-1.0);
+            } else {
+                wL.setDesiredPower(0);
+            }
+            if (windRight > 0.3) {
+                wR.setDesiredPower(1.0);
+            } else if (unwindRight) {
+                wR.setDesiredPower(-1.0);
+            } else {
+                wR.setDesiredPower(0);
+            }
+        }
 
         /*//climbers
         boolean climberOpen = control.button(Controller.C_ONE, Button.BUTTON_A);
@@ -125,17 +127,17 @@ public class TeleOp5421 extends RMOpMode {
         }*/
 
         //bucket
-        boolean bucketLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
-        boolean bucketRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
-        double bucketSpeed;
-        if(bucketRight){
-            bucketSpeed = 1.0;
-        }else if(bucketLeft) {
-            bucketSpeed = 0;
+        boolean bLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
+        boolean bRight = control.button(Controller.C_TWO, Button.BUTTON_RB);
+        double bSpeed;
+        if(bRight){
+            bSpeed = 1.0;
+        }else if(bLeft) {
+            bSpeed = 0;
         }else{
-            bucketSpeed = 0.5;
+            bSpeed = 0.5;
         }
-        bucket.setDesiredPosition(bucketSpeed);
+        b.setDesiredPosition(bSpeed);
 
         //flaps
         double flapLeft = control.joystickValue(Controller.C_TWO, Joystick.J_LEFT, Axis.A_Y);
@@ -144,17 +146,17 @@ public class TeleOp5421 extends RMOpMode {
         double rFlapPos;
         if(flapLeft > 0.2){
             lFlapPos = 0.5;
-            leftFlap.setDesiredPosition(lFlapPos);
+            bL.setDesiredPosition(lFlapPos);
         }else if(flapLeft < -0.2){
             lFlapPos = 0;
-            leftFlap.setDesiredPosition(lFlapPos);
+            bL.setDesiredPosition(lFlapPos);
         }
         if(flapRight > 0.2){
             rFlapPos = 0.4;
-            rightFlap.setDesiredPosition(rFlapPos);
+            bR.setDesiredPosition(rFlapPos);
         }else if(flapRight < -0.2){
             rFlapPos = 1;
-            rightFlap.setDesiredPosition(rFlapPos);
+            bR.setDesiredPosition(rFlapPos);
         }
 
         /*//all clear signal
@@ -172,86 +174,18 @@ public class TeleOp5421 extends RMOpMode {
         addTelemetry();
     }
 
-    @Override
-    protected String setConfigurationPath() {
-        final String CONFIGURATION_PATH = "{\n" +
-                "  \"motors\":[\n" +
-                "    {\n" +
-                "      \"name\":\"DriveLeftOne\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"DriveLeftTwo\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"DriveRightOne\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"FORWARD\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"DriveRightTwo\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"FORWARD\"\n" +
-                "    },\n" +
-                "     {\n" +
-                "      \"name\":\"Harvester\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"Bucket\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"FORWARD\"\n" + //forward is counterclockwise
-                "    }\n" +
-                "  ],\n" +
-                "  \"servos\":[\n" +
-                "    {\n" +
-                "      \"name\":\"BucketRight\",\n" +
-                "      \"minPosition\":0.01,\n" +
-                "      \"maxPosition\":1.0,\n" +
-                "      \"direction\":\"FORWARD\",\n" +
-                "      \"init\":1.0,\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"BucketLeft\",\n" +
-                "      \"minPosition\":0.01,\n" +
-                "      \"maxPosition\":1.0,\n" +
-                "      \"direction\":\"FORWARD\",\n" +
-                "      \"init\":0.37,\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"Climbers\",\n" +
-                "      \"minPosition\":0.01,\n" +
-                "      \"maxPosition\":1.0,\n" +
-                "      \"direction\":\"FORWARD\",\n" +
-                "      \"init\":0.6,\n" +
-                "    }\n" +
-                "  ],\n" +
-                "}";
-        return CONFIGURATION_PATH;
-    }
-
     private void addTelemetry() {
-        telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(driveLeft.getPower()) + "-"
-                + df.format(slaveLeft.getPower()) + "-"
-                + df.format(driveRight.getPower()) + "-"
-                + df.format(slaveRight.getPower()) + "-"
-                //+ df.format(winchLeft.getPower()) + "-"
-                //+ df.format(winchRight.getPower()) + "-"
-                + df.format(harvester.getPower()) + "-"
+        telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(mL.getPower()) + "-"
+                + df.format(sL.getPower()) + "-"
+                + df.format(mR.getPower()) + "-"
+                + df.format(sR.getPower()) + "-"
+                + df.format(wL.getPower()) + "-"
+                + df.format(wR.getPower()) + "-"
+                + df.format(h.getPower()) + "-"
                 //+ df.format(climbers.getPosition()) + "-"
-                + df.format(leftFlap.getPosition()) + "-"
-                + df.format(rightFlap.getPosition()) + "-"
-                + df.format(bucket.getPosition()) + "-"
+                + df.format(bL.getPosition()) + "-"
+                + df.format(bR.getPosition()) + "-"
+                + df.format(b.getPosition()) + "-"
                 //+ df.format(leftHook.getPosition()) + "-"
                 //+ df.format(rightHook.getPosition()) + "-"
                 //+ df.format(clearLeft.getPosition()) + "-"

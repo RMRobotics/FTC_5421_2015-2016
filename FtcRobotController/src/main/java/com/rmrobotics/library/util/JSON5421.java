@@ -34,7 +34,7 @@ public class JSON5421 {
             "      \"direction\":\"REVERSE\",\n" +
             "      \"motorType\":\"NVRST_20\"\n" +
             "    },\n" +
-            /*"    {\n" +
+            "    {\n" +
             "      \"name\":\"wL\",\n" +
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
@@ -46,8 +46,8 @@ public class JSON5421 {
             "      \"minPower\":0.1,\n" +
             "      \"maxPower\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
-            "      \"motorType\":\"NVRST_0\"\n" +
-            "    },\n" +*/
+            "      \"motorType\":\"NVRST_60\"\n" +
+            "    },\n" +
             "     {\n" +
             "      \"name\":\"h\",\n" +
             "      \"minPower\":0.1,\n" +
@@ -79,7 +79,7 @@ public class JSON5421 {
             "      \"init\":0.6\n" +
             "    }\n" +*/
             "    {\n" +
-            "      \"name\":\"bucket\",\n" +
+            "      \"name\":\"b\",\n" +
             "      \"minPosition\":0.01,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
