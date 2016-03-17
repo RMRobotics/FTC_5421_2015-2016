@@ -40,7 +40,6 @@ public abstract class RMOpMode extends OpMode {
         this.control = new Control(gamepad1, gamepad2);
 
         for (Motor m : motorMap.values()) {
-            //m.setMode(DcMotorController.RunMode.RESET_ENCODERS);
             m.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         }
 

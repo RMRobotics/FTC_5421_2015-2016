@@ -3,6 +3,7 @@ package com.rmrobotics.library.hardware;
 /**
  * Created by Simon on 2/8/2016.
  */
+
 public enum MOTOR_TYPE {
     TETRIX("Tetrix"),
     NVRST_20("NeveRest 20"),

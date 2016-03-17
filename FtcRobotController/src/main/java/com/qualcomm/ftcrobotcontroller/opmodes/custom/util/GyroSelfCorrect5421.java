@@ -4,14 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.rmrobotics.library.core.RMOpMode;
-import com.rmrobotics.library.hardware.Motor;
-
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Created by Simon on 3/11/2016.
  */
+
 public class GyroSelfCorrect5421 extends OpMode {
 
     GyroSensor gyro;

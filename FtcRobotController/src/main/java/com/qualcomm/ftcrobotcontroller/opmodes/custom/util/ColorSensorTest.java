@@ -1,19 +1,12 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.util;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.view.View;
-import com.rmrobotics.library.control.Button;
-import com.rmrobotics.library.control.Controller;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.rmrobotics.library.core.RMOpMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Timer;
-
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 public class ColorSensorTest extends RMOpMode{
     Calendar cal;

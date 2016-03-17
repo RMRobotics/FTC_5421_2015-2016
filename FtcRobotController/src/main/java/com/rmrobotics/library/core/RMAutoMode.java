@@ -3,6 +3,7 @@ package com.rmrobotics.library.core;
 /**
  * Created by Simon on 2/17/2016.
  */
+
 public abstract class RMAutoMode extends RMOpMode {
 
     @Override
