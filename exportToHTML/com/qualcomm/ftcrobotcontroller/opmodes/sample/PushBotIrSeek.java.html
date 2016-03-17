@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>PushBotIrSeek.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(204,120,50); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(0,0,255); }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+PushBotIrSeek.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s2">;</span><span class="s1"> 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="s2">;</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s2">;</span><span class="s1"> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.IrSeekerSensor</span><span class="s2">;</span><span class="s1"> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.util.Range</span><span class="s2">;</span><span class="s1"> 
+<a name="l7"><span class="ln">7    </span></a> 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s3">/** 
+<a name="l9"><span class="ln">9    </span></a> * Created by Jordan Burklund on 7/30/2015. 
+<a name="l10"><span class="ln">10   </span></a> * An example linear op mode where the pushbot 
+<a name="l11"><span class="ln">11   </span></a> * will track an IR beacon. 
+<a name="l12"><span class="ln">12   </span></a> */</span><span class="s1"> 
+<a name="l13"><span class="ln">13   </span></a></span><span class="s0">public class </span><span class="s1">PushBotIrSeek </span><span class="s0">extends </span><span class="s1">LinearOpMode { 
+<a name="l14"><span class="ln">14   </span></a>    </span><span class="s0">final static double </span><span class="s1">kBaseSpeed = </span><span class="s4">0.15</span><span class="s2">;  </span><span class="s3">// Higher values will cause the robot to move faster</span><span class="s1"> 
+<a name="l15"><span class="ln">15   </span></a> 
+<a name="l16"><span class="ln">16   </span></a>    </span><span class="s0">final static double </span><span class="s1">kMinimumStrength = </span><span class="s4">0.08</span><span class="s2">; </span><span class="s3">// Higher values will cause the robot to follow closer</span><span class="s1"> 
+<a name="l17"><span class="ln">17   </span></a>    </span><span class="s0">final static double </span><span class="s1">kMaximumStrength = </span><span class="s4">0.60</span><span class="s2">; </span><span class="s3">// Lower values will cause the robot to stop sooner</span><span class="s1"> 
+<a name="l18"><span class="ln">18   </span></a> 
+<a name="l19"><span class="ln">19   </span></a>    IrSeekerSensor irSeeker</span><span class="s2">;</span><span class="s1"> 
+<a name="l20"><span class="ln">20   </span></a>    DcMotor leftMotor</span><span class="s2">;</span><span class="s1"> 
+<a name="l21"><span class="ln">21   </span></a>    DcMotor rightMotor</span><span class="s2">;</span><span class="s1"> 
+<a name="l22"><span class="ln">22   </span></a> 
+<a name="l23"><span class="ln">23   </span></a>    @Override 
+<a name="l24"><span class="ln">24   </span></a>    </span><span class="s0">public void </span><span class="s1">runOpMode() </span><span class="s0">throws </span><span class="s1">InterruptedException { 
+<a name="l25"><span class="ln">25   </span></a>        irSeeker = hardwareMap.irSeekerSensor.get(</span><span class="s5">&quot;sensor_ir&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l26"><span class="ln">26   </span></a>        leftMotor = hardwareMap.dcMotor.get(</span><span class="s5">&quot;left_drive&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l27"><span class="ln">27   </span></a>        rightMotor = hardwareMap.dcMotor.get(</span><span class="s5">&quot;right_drive&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a>        rightMotor.setDirection(DcMotor.Direction.REVERSE)</span><span class="s2">;</span><span class="s1"> 
+<a name="l29"><span class="ln">29   </span></a> 
+<a name="l30"><span class="ln">30   </span></a>        </span><span class="s3">// Wait for the start button to be pressed</span><span class="s1"> 
+<a name="l31"><span class="ln">31   </span></a>        waitForStart()</span><span class="s2">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a> 
+<a name="l33"><span class="ln">33   </span></a>        </span><span class="s3">// Continuously track the IR beacon</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a>        </span><span class="s0">while</span><span class="s1">(opModeIsActive()) { 
+<a name="l35"><span class="ln">35   </span></a>            </span><span class="s0">double </span><span class="s1">angle = irSeeker.getAngle() / </span><span class="s4">30</span><span class="s2">;  </span><span class="s3">// value between -4...4</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a>            </span><span class="s0">double </span><span class="s1">strength = irSeeker.getStrength()</span><span class="s2">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a>            </span><span class="s0">if </span><span class="s1">(strength&gt;kMinimumStrength &amp;&amp; strength&lt;kMaximumStrength) { 
+<a name="l38"><span class="ln">38   </span></a>                </span><span class="s0">double </span><span class="s1">leftSpeed = Range.clip(kBaseSpeed + (angle / </span><span class="s4">8</span><span class="s1">)</span><span class="s2">, </span><span class="s1">-</span><span class="s4">1</span><span class="s2">, </span><span class="s4">1</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l39"><span class="ln">39   </span></a>                </span><span class="s0">double </span><span class="s1">rightSpeed = Range.clip(kBaseSpeed - (angle / </span><span class="s4">8</span><span class="s1">)</span><span class="s2">, </span><span class="s1">-</span><span class="s4">1</span><span class="s2">, </span><span class="s4">1</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a>                leftMotor.setPower(leftSpeed)</span><span class="s2">;</span><span class="s1"> 
+<a name="l41"><span class="ln">41   </span></a>                rightMotor.setPower(rightSpeed)</span><span class="s2">;</span><span class="s1"> 
+<a name="l42"><span class="ln">42   </span></a>            } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l43"><span class="ln">43   </span></a>                leftMotor.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l44"><span class="ln">44   </span></a>                rightMotor.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l45"><span class="ln">45   </span></a>            } 
+<a name="l46"><span class="ln">46   </span></a>            telemetry.addData(</span><span class="s5">&quot;Seeker&quot;</span><span class="s2">, </span><span class="s1">irSeeker.toString())</span><span class="s2">;</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a>            telemetry.addData(</span><span class="s5">&quot;Speed&quot;</span><span class="s2">, </span><span class="s5">&quot; Left=&quot; </span><span class="s1">+ leftMotor.getPower() + </span><span class="s5">&quot; Right=&quot; </span><span class="s1">+ rightMotor.getPower())</span><span class="s2">;</span><span class="s1"> 
+<a name="l48"><span class="ln">48   </span></a> 
+<a name="l49"><span class="ln">49   </span></a>            </span><span class="s3">//Wait one hardware cycle to avoid taxing the processor</span><span class="s1"> 
+<a name="l50"><span class="ln">50   </span></a>            waitOneFullHardwareCycle()</span><span class="s2">;</span><span class="s1"> 
+<a name="l51"><span class="ln">51   </span></a>        } 
+<a name="l52"><span class="ln">52   </span></a> 
+<a name="l53"><span class="ln">53   </span></a>    } 
+<a name="l54"><span class="ln">54   </span></a>} 
+<a name="l55"><span class="ln">55   </span></a></span></pre>
+</body>
+</html>
