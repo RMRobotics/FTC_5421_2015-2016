@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Created by Peter on 2/29/16.
+ * Created by Simon on 2/29/16.
  */
+
 public class ColorSensorTest5421 extends OpMode {
 
     ColorSensor cs;

@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
- * Created by Peter on 2/29/16.
+ * Created by Simon on 2/29/16.
  */
+
 public class GyroTest5421 extends OpMode {
 
     GyroSensor gyro;
@@ -44,10 +45,9 @@ public class GyroTest5421 extends OpMode {
             mR.setPower(0);
         }
 
-        //telemetry.addData("X-Y-Z-H", gyro.rawX() + "-" + gyro.rawY() + "-" + gyro.rawZ() + "-" + gyro.getHeading());
 
         telemetry.addData("h", String.format("%03d", gyro.getHeading()));
-        //telemetry.addData("t", String.format("%05d", getRuntime()));
+        telemetry.addData("t", String.format("%05d", getRuntime()));
         telemetry.addData("mL", mL.getPower());
         telemetry.addData("mR", mR.getPower());
     }

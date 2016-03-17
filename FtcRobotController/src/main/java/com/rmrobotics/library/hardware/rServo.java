@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * Created by RM Robotics on 11/23/2015.
+ * Created by Simon on 11/23/2015.
  */
 
 public class rServo {

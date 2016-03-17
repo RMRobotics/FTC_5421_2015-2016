@@ -6,6 +6,7 @@ import com.rmrobotics.library.core.RMOpMode;
 /**
  * Created by Peter on 2/3/16.
  */
+
 public class OpticalSensorTest extends RMOpMode {
     OpticalDistanceSensor ost;
     @Override

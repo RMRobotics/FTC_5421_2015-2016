@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
- * Created by Peter on 3/9/16.
+ * Created by Simon on 3/9/16.
  */
+
 public class DemoBot extends OpMode {
 
     DcMotor mL;

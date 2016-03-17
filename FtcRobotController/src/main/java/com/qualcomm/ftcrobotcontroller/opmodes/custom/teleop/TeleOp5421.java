@@ -189,7 +189,7 @@ public class TeleOp5421 extends RMOpMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(mL.getPower()) + "-"
+        /*telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(mL.getPower()) + "-"
                 + df.format(sL.getPower()) + "-"
                 + df.format(mR.getPower()) + "-"
                 + df.format(sR.getPower()) + "-"
@@ -204,7 +204,7 @@ public class TeleOp5421 extends RMOpMode {
                 //+ df.format(rightHook.getPosition()) + "-"
                 //+ df.format(clearLeft.getPosition()) + "-"
                 //+ df.format(clearRight.getPosition()) + "-"
-                + runTime.time());
+                + runTime.time());*/
         telemetry.addData("GYRO", !gyro.isCalibrating() + "-" + gyro.getHeading());
         telemetry.addData("ML-LT-LP", df.format(mL.getPower()) + "-" + nf.format(mL.getTargetPosition()) + "-" + nf.format(mL.getCurrentPosition()));
         telemetry.addData("MR-RT-RP", df.format(mR.getPower()) + "-" + nf.format(mR.getTargetPosition()) + "-" + nf.format(mR.getCurrentPosition()));

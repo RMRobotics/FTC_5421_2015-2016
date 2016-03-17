@@ -1,9 +1,9 @@
 package com.rmrobotics.library.util;
 
-
 /**
  * Created by Peter on 3/8/16.
  */
+
 public class JSONGYRO {
     public final String CONFIGURATION = "{\n" +
             "  \"motors\":[\n" +

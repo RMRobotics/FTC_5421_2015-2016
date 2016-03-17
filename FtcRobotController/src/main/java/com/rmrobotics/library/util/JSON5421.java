@@ -3,6 +3,7 @@ package com.rmrobotics.library.util;
 /**
  * Created by Simon on 2/18/2016.
  */
+
 public class JSON5421 {
     private final String CONFIGURATION = "{\n" +
             "  \"motors\":[\n" +
