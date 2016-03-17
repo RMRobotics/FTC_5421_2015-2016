@@ -5,12 +5,11 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.core.RMAutoMode;
 import com.rmrobotics.library.hardware.Motor;
-import com.rmrobotics.library.hardware.rServo;
 import com.rmrobotics.library.util.StateType;
 
 import java.text.DecimalFormat;
 
-public class Auto5421 extends RMAutoMode {
+public class BeaconParkAuto5421 extends RMAutoMode {
 
     private final int WAIT = 5421;
 
@@ -32,7 +31,7 @@ public class Auto5421 extends RMAutoMode {
     Motor wL;
     Motor wR;
     Motor h;
-    rServo climbers;
+    //rServo climbers;
     ElapsedTime runTime;
 
     DecimalFormat df = new DecimalFormat("#.##");
@@ -71,25 +70,7 @@ public class Auto5421 extends RMAutoMode {
                 updateDP();
                 updateState(StateType.GYRO_ENCODER_DRIVE);
                 break;
-            /*case 1:
-                sleepTime = 10000;
-                updateState(StateType.SLEEP);
-                addTelemetry();
-                break;
-            case 2:
-                harvester.setDesiredPower(1);
-                setDriveTarget(10000);
-                setDrivePower(0.5);
-                updateState(StateType.ENCODER_DRIVE);
-                addTelemetry();
-                break;
-            /*case 2:
-                driveLeft.setTargetPosition(10000);
-                setDrivePower(0.5, 0);
-                updateState(StateType.ENCODER_DRIVE);
-                addTelemetry();
-                break;*/
-            case 2:
+            default:
                 stop();
                 break;
             case WAIT:
@@ -123,8 +104,6 @@ public class Auto5421 extends RMAutoMode {
                         }
                         break;
                 }
-            default:
-                stop();
         }
         updateSlave();
         addTelemetry();
