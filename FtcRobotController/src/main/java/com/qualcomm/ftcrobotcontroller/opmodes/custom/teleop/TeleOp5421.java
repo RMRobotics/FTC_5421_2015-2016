@@ -1,6 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.rmrobotics.library.control.Axis;
 import com.rmrobotics.library.control.Button;
@@ -16,6 +17,7 @@ import java.text.DecimalFormat;
 
 public class TeleOp5421 extends RMOpMode {
     DecimalFormat df = new DecimalFormat("#.##");
+    DecimalFormat nf = new DecimalFormat("########");
 
     Motor mL;
     Motor sL;
@@ -28,6 +30,7 @@ public class TeleOp5421 extends RMOpMode {
     rServo bL;
     rServo bR;
     rServo b;
+    GyroSensor gyro;
     //rServo leftHook;
     //rServo rightHook;
     //rServo clearLeft;
@@ -50,6 +53,8 @@ public class TeleOp5421 extends RMOpMode {
         bR = servoMap.get("bR");
         b = servoMap.get("b");
         b.setDesiredPosition(0.5);
+        gyro = hardwareMap.gyroSensor.get("gyro");
+        gyro.calibrate();
         //leftHook = servoMap.get("leftHook");
         //rightHook = servoMap.get("rightHook");
         //clearLeft = servoMap.get("aL");
@@ -57,6 +62,10 @@ public class TeleOp5421 extends RMOpMode {
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         addTelemetry();
         runTime.reset();
+    }
+
+    public void init_loop() {
+        addTelemetry();
     }
 
     @Override
@@ -97,18 +106,23 @@ public class TeleOp5421 extends RMOpMode {
         boolean unwindLeft = control.dpadValue(Controller.C_ONE, Dpad.DPAD_LEFT);
         boolean unwindRight = control.dpadValue(Controller.C_ONE, Dpad.DPAD_RIGHT);
         boolean windDown = control.dpadValue(Controller.C_ONE, Dpad.DPAD_DOWN);
+        boolean Brake = control.dpadValue(Controller.C_ONE, Dpad.DPAD_UP);
         if (windDown) {
             wL.setDesiredPower(-1.0);
             wR.setDesiredPower(-1.0);
         } else {
-            if (windLeft > 0.3) {
+            if (Brake) {
+                wL.setDesiredPower(0.0);
+                wR.setDesiredPower(0.0);
+            }
+            if (windLeft > 0.7) {
                 wL.setDesiredPower(1.0);
             } else if (unwindLeft) {
                 wL.setDesiredPower(-1.0);
             } else {
                 wL.setDesiredPower(0);
             }
-            if (windRight > 0.3) {
+            if (windRight > 0.7) {
                 wR.setDesiredPower(1.0);
             } else if (unwindRight) {
                 wR.setDesiredPower(-1.0);
@@ -145,14 +159,14 @@ public class TeleOp5421 extends RMOpMode {
         double lFlapPos;
         double rFlapPos;
         if(flapLeft > 0.2){
-            lFlapPos = 0.5;
+            lFlapPos = 1;
             bL.setDesiredPosition(lFlapPos);
         }else if(flapLeft < -0.2){
             lFlapPos = 0;
             bL.setDesiredPosition(lFlapPos);
         }
         if(flapRight > 0.2){
-            rFlapPos = 0.4;
+            rFlapPos = 0;
             bR.setDesiredPosition(rFlapPos);
         }else if(flapRight < -0.2){
             rFlapPos = 1;
@@ -191,5 +205,12 @@ public class TeleOp5421 extends RMOpMode {
                 //+ df.format(clearLeft.getPosition()) + "-"
                 //+ df.format(clearRight.getPosition()) + "-"
                 + runTime.time());
+        telemetry.addData("GYRO", !gyro.isCalibrating() + "-" + gyro.getHeading());
+        telemetry.addData("ML-LT-LP", df.format(mL.getPower()) + "-" + nf.format(mL.getTargetPosition()) + "-" + nf.format(mL.getCurrentPosition()));
+        telemetry.addData("MR-RT-RP", df.format(mR.getPower()) + "-" + nf.format(mR.getTargetPosition()) + "-" + nf.format(mR.getCurrentPosition()));
+        telemetry.addData("H", df.format(h.getPower()));
+        telemetry.addData("WL", df.format(wL.getPower()));
+        telemetry.addData("WR", df.format(wR.getPower()));
+        telemetry.addData("TIME", runTime.time());
     }
 }

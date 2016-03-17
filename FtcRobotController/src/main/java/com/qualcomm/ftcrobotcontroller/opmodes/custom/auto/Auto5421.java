@@ -10,10 +10,6 @@ import com.rmrobotics.library.util.StateType;
 
 import java.text.DecimalFormat;
 
-/**
- * Created by Simon on 2/17/2016.
- */
-
 public class Auto5421 extends RMAutoMode {
 
     private final int WAIT = 5421;
@@ -22,22 +18,25 @@ public class Auto5421 extends RMAutoMode {
     int state = 1;
     StateType prevStateType;
     double sleepTime;
-    double turnDegree;
+    double turnTarget;
+    String skew;
+    double mLdP;
+    double mRdP;
 
     GyroSensor gyro;
 
-    Motor driveLeft;
-    Motor slaveLeft;
-    Motor driveRight;
-    Motor slaveRight;
-    Motor harvester;
+    Motor mL;
+    Motor sL;
+    Motor mR;
+    Motor sR;
+    Motor wL;
+    Motor wR;
+    Motor h;
     rServo climbers;
     ElapsedTime runTime;
 
     DecimalFormat df = new DecimalFormat("#.##");
     DecimalFormat nf = new DecimalFormat("########");
-
-    //private final String CONFIGURATION_PATH = "res/5421robot_cleanUpImprovement.JSON";
 
     @Override
     public void init() {
@@ -45,11 +44,13 @@ public class Auto5421 extends RMAutoMode {
         super.init();
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
-        driveLeft = motorMap.get("mL");
-        slaveLeft = motorMap.get("sL");
-        driveRight = motorMap.get("mR");
-        slaveRight = motorMap.get("sR");
-        harvester = motorMap.get("h");
+        mL = motorMap.get("mL");
+        sL = motorMap.get("sL");
+        mR = motorMap.get("mR");
+        sR = motorMap.get("sR");
+        wL = motorMap.get("wL");
+        wR = motorMap.get("wR");
+        h = motorMap.get("h");
         //climbers = servoMap.get("climbers");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         addTelemetry();
@@ -65,9 +66,10 @@ public class Auto5421 extends RMAutoMode {
         }
         switch (state) {
             case 1:
-                turnDegree = 45;
-                setDrivePower(0, 0.3);
-                updateState(StateType.GYRO);
+                setDriveTarget(10000);
+                setDrivePower(0.5);
+                updateDP();
+                updateState(StateType.GYRO_ENCODER_DRIVE);
                 break;
             /*case 1:
                 sleepTime = 10000;
@@ -98,6 +100,18 @@ public class Auto5421 extends RMAutoMode {
                             driveStop();
                         }
                         break;
+                    case GYRO_ENCODER_DRIVE:
+                        if (gyroEncoderDriveDone()) {
+                            updateStateWait();
+                            driveStop();
+                        }
+                        break;
+                    case GYRO_DRIVE:
+                        if (gyroTimeDriveDone()) {
+                            updateStateWait();
+                            driveStop();
+                        }
+                        break;
                     case SLEEP:
                         if (timeDone()) {
                             updateStateWait();
@@ -116,80 +130,35 @@ public class Auto5421 extends RMAutoMode {
         addTelemetry();
     }
 
-    @Override
-    protected String setConfigurationPath() {
-        final String CONFIGURATION_PATH = "{\n" +
-                "  \"motors\":[\n" +
-                "    {\n" +
-                "      \"name\":\"mL\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"FORWARD\"\n" +
-                "      \"motorType\":\"NVRST_40\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"mR\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\"\n" +
-                "      \"motorType\":\"NVRST_40\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\":\"eL\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"FORWARD\"\n" +
-                "      \"motorType\":\"NVRST_60\"\n" +
-                "    },\n" + "{\n" +
-                "      \"name\":\"eR\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"REVERSE\"\n" +
-                "      \"motorType\":\"NVRST_60\"\n" +
-                "    },\n" + "{\n" +
-                "      \"name\":\"h\",\n" +
-                "      \"minPower\":0.1,\n" +
-                "      \"maxPower\":1.0,\n" +
-                "      \"direction\":\"FORWARD\"\n" +
-                "      \"motorType\":\"NVRST_20\"\n" +
-                "    },\n" +
-                "  ],\n" +
-                "  \"servos\":[\n" +
-                "  ],\n" +
-                "}";
-        return CONFIGURATION_PATH;
-    }
-
     private void addTelemetry() {
-        telemetry.addData("S-P-L-LT-LP-R-RT-RP-LE-LET-LEP-RE-RET-REP-H-C-T", state + "-" + prevState + "-" + df.format(driveLeft.getPower()) + "-"
-                + nf.format(driveLeft.getTargetPosition()) + "-"
-                + nf.format(driveLeft.getCurrentPosition()) + "-"
-                + df.format(driveRight.getPower()) + "-"
-                + nf.format(driveRight.getTargetPosition()) + "-"
-                + nf.format(driveRight.getCurrentPosition()) + "-"
-                + df.format(harvester.getPower()) + "-"
-//                + df.format(climbers.getPosition()) + "-"
-                + runTime.time());
+        telemetry.addData("S-P", state);
+        telemetry.addData("ML-LT-LP", df.format(mL.getPower()) + "-" + nf.format(mL.getTargetPosition()) + "-" + nf.format(mL.getCurrentPosition()));
+        telemetry.addData("MR-RT-RP", df.format(mR.getPower()) + "-" + nf.format(mR.getTargetPosition()) + "-" + nf.format(mR.getCurrentPosition()));
+        telemetry.addData("H", df.format(h.getPower()));
+        telemetry.addData("WL", df.format(wL.getPower()));
+        telemetry.addData("WR", df.format(wR.getPower()));
+        telemetry.addData("GYRO", gyro.getHeading() + "-" + skew);
+        telemetry.addData("TIME", runTime.time());
     }
 
     private void setDriveTarget(int target) {
-        driveLeft.setTargetPosition(target);
-        driveRight.setTargetPosition(target);
+        mL.setTargetPosition(target);
+        mR.setTargetPosition(target);
     }
 
     private void setDriveTarget(int targetLeft, int targetRight) {
-        driveLeft.setTargetPosition(targetLeft);
-        driveRight.setTargetPosition(targetRight);
+        mL.setTargetPosition(targetLeft);
+        mR.setTargetPosition(targetRight);
     }
 
     private void setDrivePower(double power) {
-        driveLeft.setDesiredPower(power);
-        driveRight.setDesiredPower(power);
+        mL.setDesiredPower(power);
+        mR.setDesiredPower(power);
     }
 
     private void setDrivePower(double powerLeft, double powerRight) {
-        driveLeft.setDesiredPower(powerLeft);
-        driveRight.setDesiredPower(powerRight);
+        mL.setDesiredPower(powerLeft);
+        mR.setDesiredPower(powerRight);
     }
 
     private void updateState(StateType type) {
@@ -205,19 +174,24 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private void updateSlave() {
-        slaveLeft.setDesiredPower(driveLeft.getDesiredPower());
-        slaveRight.setDesiredPower(driveRight.getDesiredPower());
+        sL.setDesiredPower(mL.getDesiredPower());
+        sR.setDesiredPower(mR.getDesiredPower());
+    }
+
+    private void updateDP() {
+        mLdP = mL.getDesiredPower();
+        mRdP = mR.getDesiredPower();
     }
 
     private boolean driveDone() {
 
-        if (Math.abs(driveLeft.getCurrentPosition()) > driveLeft.getTargetPosition()) {
-            driveLeft.setDesiredPower(0);
+        if (Math.abs(mL.getCurrentPosition()) > mL.getTargetPosition()) {
+            mL.setDesiredPower(0);
         }
-        if (Math.abs(driveRight.getCurrentPosition()) > driveRight.getTargetPosition()) {
-            driveRight.setDesiredPower(0);
+        if (Math.abs(mR.getCurrentPosition()) > mR.getTargetPosition()) {
+            mR.setDesiredPower(0);
         }
-        if (driveLeft.getPower() < 0.01 && driveRight.getPower() < 0.01) {
+        if (mL.getPower() < 0.01 && mR.getPower() < 0.01) {
             return true;
         } else {
             return false;
@@ -225,10 +199,41 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private boolean gyroDone() {
-        if (Math.abs(gyro.getHeading() - turnDegree) < 3) {
+        if (Math.abs(gyro.getHeading() - turnTarget) < 3) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    private boolean gyroEncoderDriveDone() {
+        if (Math.abs(mL.getCurrentPosition()) < mL.getTargetPosition() && Math.abs(mR.getCurrentPosition()) < mR.getTargetPosition()) {
+            gyroDrive();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean gyroTimeDriveDone() {
+        if (runTime.time() <= sleepTime) {
+            gyroDrive();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void gyroDrive() {
+        if (gyro.getHeading() > 2 && gyro.getHeading() < 180) {
+            setDrivePower(0.3, 0.5);
+            skew = "RIGHT";
+        } else if (gyro.getHeading() < 358 && gyro.getHeading() > 180) {
+            setDrivePower(0.5, 0.3);
+            skew = "LEFT";
+        } else {
+            setDrivePower(0.5);
+            skew = "STRAIGHT";
         }
     }
 
@@ -241,8 +246,8 @@ public class Auto5421 extends RMAutoMode {
     }
 
     private void driveStop() {
-        driveLeft.setDesiredPower(0);
-        driveRight.setDesiredPower(0);
+        mL.setDesiredPower(0);
+        mR.setDesiredPower(0);
     }
 
 }

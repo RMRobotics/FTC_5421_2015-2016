@@ -66,7 +66,7 @@ public class JSON5421 {
             "    },\n" +
             "    {\n" +
             "      \"name\":\"bR\",\n" +
-            "      \"minPosition\":0.04,\n" +
+            "      \"minPosition\":0.4,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":1.0\n" +

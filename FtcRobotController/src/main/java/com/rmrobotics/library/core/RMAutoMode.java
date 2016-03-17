@@ -25,7 +25,7 @@ public abstract class RMAutoMode extends RMOpMode {
     }
 
     @Override
-    protected abstract String setConfigurationPath();
+    protected String setConfigurationPath() { return null; }
 
     @Override
     protected void configureHardware(String path) {
