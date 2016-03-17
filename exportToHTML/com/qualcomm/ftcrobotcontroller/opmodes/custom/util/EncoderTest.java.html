@@ -1,0 +1,200 @@
+<html>
+<head>
+<title>EncoderTest.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { }
+.s1 { color: rgb(0,0,128); font-weight: bold; }
+.s2 { color: rgb(204,120,50); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+.s5 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+EncoderTest.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<a name="l1"><span class="ln">1    </span></a><span class="s0"> 
+<a name="l2"><span class="ln">2    </span></a></span><span class="s1">package </span><span class="s0">com.qualcomm.ftcrobotcontroller.opmodes.custom.util</span><span class="s2">;</span><span class="s0"> 
+<a name="l3"><span class="ln">3    </span></a> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s1">import </span><span class="s0">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s2">;</span><span class="s0"> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s1">import </span><span class="s0">com.rmrobotics.library.control.Axis</span><span class="s2">;</span><span class="s0"> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s1">import </span><span class="s0">com.rmrobotics.library.control.Button</span><span class="s2">;</span><span class="s0"> 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s1">import </span><span class="s0">com.rmrobotics.library.control.Controller</span><span class="s2">;</span><span class="s0"> 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s1">import </span><span class="s0">com.rmrobotics.library.control.Joystick</span><span class="s2">;</span><span class="s0"> 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s1">import </span><span class="s0">com.rmrobotics.library.core.RMOpMode</span><span class="s2">;</span><span class="s0"> 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s1">import </span><span class="s0">com.rmrobotics.library.hardware.Motor</span><span class="s2">;</span><span class="s0"> 
+<a name="l11"><span class="ln">11   </span></a></span><span class="s1">import </span><span class="s0">com.rmrobotics.library.hardware.rServo</span><span class="s2">;</span><span class="s0"> 
+<a name="l12"><span class="ln">12   </span></a> 
+<a name="l13"><span class="ln">13   </span></a></span><span class="s1">import </span><span class="s0">java.net.HttpURLConnection</span><span class="s2">;</span><span class="s0"> 
+<a name="l14"><span class="ln">14   </span></a> 
+<a name="l15"><span class="ln">15   </span></a></span><span class="s1">public class </span><span class="s0">EncoderTest </span><span class="s1">extends </span><span class="s0">RMOpMode { 
+<a name="l16"><span class="ln">16   </span></a></span><span class="s3">/*    DcMotor mL; 
+<a name="l17"><span class="ln">17   </span></a>    DcMotor mR; 
+<a name="l18"><span class="ln">18   </span></a>    DcMotor eL; 
+<a name="l19"><span class="ln">19   </span></a>    DcMotor eR; 
+<a name="l20"><span class="ln">20   </span></a>    DcMotor h;*/</span><span class="s0"> 
+<a name="l21"><span class="ln">21   </span></a> 
+<a name="l22"><span class="ln">22   </span></a>    Motor mL</span><span class="s2">;</span><span class="s0"> 
+<a name="l23"><span class="ln">23   </span></a>    Motor mR</span><span class="s2">;</span><span class="s0"> 
+<a name="l24"><span class="ln">24   </span></a>    Motor eL</span><span class="s2">;</span><span class="s0"> 
+<a name="l25"><span class="ln">25   </span></a>    Motor eR</span><span class="s2">;</span><span class="s0"> 
+<a name="l26"><span class="ln">26   </span></a>    Motor h</span><span class="s2">;</span><span class="s0"> 
+<a name="l27"><span class="ln">27   </span></a>    rServo b</span><span class="s2">;</span><span class="s0"> 
+<a name="l28"><span class="ln">28   </span></a>    rServo bL</span><span class="s2">;</span><span class="s0"> 
+<a name="l29"><span class="ln">29   </span></a>    rServo bR</span><span class="s2">;</span><span class="s0"> 
+<a name="l30"><span class="ln">30   </span></a> 
+<a name="l31"><span class="ln">31   </span></a>    </span><span class="s1">boolean </span><span class="s0">hP = </span><span class="s1">false</span><span class="s2">;</span><span class="s0"> 
+<a name="l32"><span class="ln">32   </span></a> 
+<a name="l33"><span class="ln">33   </span></a>    </span><span class="s1">private final </span><span class="s0">String CONFIGURATION_PATH = </span><span class="s4">&quot;{</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l34"><span class="ln">34   </span></a>            </span><span class="s4">&quot;  </span><span class="s1">\&quot;</span><span class="s4">motors</span><span class="s1">\&quot;</span><span class="s4">:[</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l35"><span class="ln">35   </span></a>            </span><span class="s4">&quot;    {</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l36"><span class="ln">36   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">mL</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l37"><span class="ln">37   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPower</span><span class="s1">\&quot;</span><span class="s4">:0.1,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l38"><span class="ln">38   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPower</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l39"><span class="ln">39   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">REVERSE</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l40"><span class="ln">40   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">motorType</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">NVRST_40</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l41"><span class="ln">41   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l42"><span class="ln">42   </span></a>            </span><span class="s4">&quot;    {</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l43"><span class="ln">43   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">mR</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l44"><span class="ln">44   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPower</span><span class="s1">\&quot;</span><span class="s4">:0.1,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l45"><span class="ln">45   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPower</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l46"><span class="ln">46   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">FORWARD</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l47"><span class="ln">47   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">motorType</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">NVRST_40</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l48"><span class="ln">48   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l49"><span class="ln">49   </span></a>            </span><span class="s4">&quot;    {</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l50"><span class="ln">50   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">eL</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l51"><span class="ln">51   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPower</span><span class="s1">\&quot;</span><span class="s4">:0.1,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l52"><span class="ln">52   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPower</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l53"><span class="ln">53   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">FORWARD</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l54"><span class="ln">54   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">motorType</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">NVRST_60</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l55"><span class="ln">55   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ </span><span class="s4">&quot;{</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l56"><span class="ln">56   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">eR</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l57"><span class="ln">57   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPower</span><span class="s1">\&quot;</span><span class="s4">:0.1,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l58"><span class="ln">58   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPower</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l59"><span class="ln">59   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">REVERSE</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l60"><span class="ln">60   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">motorType</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">NVRST_60</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l61"><span class="ln">61   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ </span><span class="s4">&quot;{</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l62"><span class="ln">62   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">h</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l63"><span class="ln">63   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPower</span><span class="s1">\&quot;</span><span class="s4">:0.1,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l64"><span class="ln">64   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPower</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l65"><span class="ln">65   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">FORWARD</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l66"><span class="ln">66   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">motorType</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">NVRST_20</span><span class="s1">\&quot;\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l67"><span class="ln">67   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l68"><span class="ln">68   </span></a>            </span><span class="s4">&quot;  ],</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l69"><span class="ln">69   </span></a>            </span><span class="s4">&quot;  </span><span class="s1">\&quot;</span><span class="s4">servos</span><span class="s1">\&quot;</span><span class="s4">:[</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l70"><span class="ln">70   </span></a>            </span><span class="s4">&quot;   {</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l71"><span class="ln">71   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">bucket</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l72"><span class="ln">72   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPosition</span><span class="s1">\&quot;</span><span class="s4">:0.01,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l73"><span class="ln">73   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPosition</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l74"><span class="ln">74   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">FORWARD</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l75"><span class="ln">75   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">init</span><span class="s1">\&quot;</span><span class="s4">:1.0</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l76"><span class="ln">76   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l77"><span class="ln">77   </span></a>            </span><span class="s4">&quot;   {</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l78"><span class="ln">78   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">bR</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l79"><span class="ln">79   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPosition</span><span class="s1">\&quot;</span><span class="s4">:0.01,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l80"><span class="ln">80   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPosition</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l81"><span class="ln">81   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">FORWARD</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l82"><span class="ln">82   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">init</span><span class="s1">\&quot;</span><span class="s4">:1.0</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l83"><span class="ln">83   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l84"><span class="ln">84   </span></a>            </span><span class="s4">&quot;   {</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l85"><span class="ln">85   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">name</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">bL</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l86"><span class="ln">86   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">minPosition</span><span class="s1">\&quot;</span><span class="s4">:0.01,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l87"><span class="ln">87   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">maxPosition</span><span class="s1">\&quot;</span><span class="s4">:1.0,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l88"><span class="ln">88   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">direction</span><span class="s1">\&quot;</span><span class="s4">:</span><span class="s1">\&quot;</span><span class="s4">FORWARD</span><span class="s1">\&quot;</span><span class="s4">,</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l89"><span class="ln">89   </span></a>            </span><span class="s4">&quot;      </span><span class="s1">\&quot;</span><span class="s4">init</span><span class="s1">\&quot;</span><span class="s4">:1.0</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l90"><span class="ln">90   </span></a>            </span><span class="s4">&quot;    },</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l91"><span class="ln">91   </span></a>            </span><span class="s4">&quot;  ],</span><span class="s1">\n</span><span class="s4">&quot; </span><span class="s0">+ 
+<a name="l92"><span class="ln">92   </span></a>            </span><span class="s4">&quot;}&quot;</span><span class="s2">;</span><span class="s0"> 
+<a name="l93"><span class="ln">93   </span></a> 
+<a name="l94"><span class="ln">94   </span></a>    </span><span class="s1">public void </span><span class="s0">init() { 
+<a name="l95"><span class="ln">95   </span></a>        </span><span class="s1">super</span><span class="s0">.init()</span><span class="s2">;</span><span class="s0"> 
+<a name="l96"><span class="ln">96   </span></a>        </span><span class="s3">/*mL = hardwareMap.dcMotor.get(&quot;mL&quot;); 
+<a name="l97"><span class="ln">97   </span></a>        mL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS); 
+<a name="l98"><span class="ln">98   </span></a>        mR = hardwareMap.dcMotor.get(&quot;mR&quot;); 
+<a name="l99"><span class="ln">99   </span></a>        mR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS); 
+<a name="l100"><span class="ln">100  </span></a>        mR.setDirection(DcMotor.Direction.REVERSE); 
+<a name="l101"><span class="ln">101  </span></a>        eL = hardwareMap.dcMotor.get(&quot;eL&quot;); 
+<a name="l102"><span class="ln">102  </span></a>        eL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS); 
+<a name="l103"><span class="ln">103  </span></a>        eR = hardwareMap.dcMotor.get(&quot;eR&quot;); 
+<a name="l104"><span class="ln">104  </span></a>        eR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS); 
+<a name="l105"><span class="ln">105  </span></a>        eR.setDirection(DcMotor.Direction.REVERSE); 
+<a name="l106"><span class="ln">106  </span></a>        h = hardwareMap.dcMotor.get(&quot;h&quot;);*/</span><span class="s0"> 
+<a name="l107"><span class="ln">107  </span></a>        mL = motorMap.get(</span><span class="s4">&quot;mL&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l108"><span class="ln">108  </span></a>        mR = motorMap.get(</span><span class="s4">&quot;mR&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l109"><span class="ln">109  </span></a>        eL = motorMap.get(</span><span class="s4">&quot;eL&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l110"><span class="ln">110  </span></a>        eR = motorMap.get(</span><span class="s4">&quot;eR&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l111"><span class="ln">111  </span></a>        h = motorMap.get(</span><span class="s4">&quot;h&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l112"><span class="ln">112  </span></a>        b = servoMap.get(</span><span class="s4">&quot;bucket&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l113"><span class="ln">113  </span></a>        b.setDesiredPosition(</span><span class="s5">0.5</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l114"><span class="ln">114  </span></a>        bL = servoMap.get(</span><span class="s4">&quot;bL&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l115"><span class="ln">115  </span></a>        bR = servoMap.get(</span><span class="s4">&quot;bR&quot;</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l116"><span class="ln">116  </span></a>    } 
+<a name="l117"><span class="ln">117  </span></a> 
+<a name="l118"><span class="ln">118  </span></a>    </span><span class="s1">protected void </span><span class="s0">calculate() { 
+<a name="l119"><span class="ln">119  </span></a>        </span><span class="s1">for </span><span class="s0">(Motor m : motorMap.values()) { 
+<a name="l120"><span class="ln">120  </span></a>            </span><span class="s1">if </span><span class="s0">(m.getMode() == DcMotorController.RunMode.RESET_ENCODERS) { 
+<a name="l121"><span class="ln">121  </span></a>                m.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s2">;</span><span class="s0"> 
+<a name="l122"><span class="ln">122  </span></a>            } 
+<a name="l123"><span class="ln">123  </span></a>        } 
+<a name="l124"><span class="ln">124  </span></a>        </span><span class="s1">boolean </span><span class="s0">hUp = control.button(Controller.C_ONE</span><span class="s2">, </span><span class="s0">Button.BUTTON_A)</span><span class="s2">;</span><span class="s0"> 
+<a name="l125"><span class="ln">125  </span></a>        </span><span class="s1">boolean </span><span class="s0">hDown = control.button(Controller.C_ONE</span><span class="s2">, </span><span class="s0">Button.BUTTON_B)</span><span class="s2">;</span><span class="s0"> 
+<a name="l126"><span class="ln">126  </span></a>        </span><span class="s1">if </span><span class="s0">(hUp) { 
+<a name="l127"><span class="ln">127  </span></a>            h.setDesiredPower(</span><span class="s5">1.0</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l128"><span class="ln">128  </span></a>        } </span><span class="s1">else if </span><span class="s0">(hDown) { 
+<a name="l129"><span class="ln">129  </span></a>            h.setDesiredPower(-</span><span class="s5">1.0</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l130"><span class="ln">130  </span></a>        } </span><span class="s1">else </span><span class="s0">{ 
+<a name="l131"><span class="ln">131  </span></a>            h.setDesiredPower(</span><span class="s5">0</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l132"><span class="ln">132  </span></a>        } 
+<a name="l133"><span class="ln">133  </span></a> 
+<a name="l134"><span class="ln">134  </span></a>        </span><span class="s1">double </span><span class="s0">leftPower = control.joystickValue(Controller.C_ONE</span><span class="s2">, </span><span class="s0">Joystick.J_LEFT</span><span class="s2">, </span><span class="s0">Axis.A_Y)</span><span class="s2">;</span><span class="s0"> 
+<a name="l135"><span class="ln">135  </span></a>        </span><span class="s1">double </span><span class="s0">rightPower = control.joystickValue(Controller.C_ONE</span><span class="s2">, </span><span class="s0">Joystick.J_RIGHT</span><span class="s2">, </span><span class="s0">Axis.A_Y)</span><span class="s2">;</span><span class="s0"> 
+<a name="l136"><span class="ln">136  </span></a>        mL.setDesiredPower(leftPower)</span><span class="s2">;</span><span class="s0"> 
+<a name="l137"><span class="ln">137  </span></a>        mR.setDesiredPower(rightPower)</span><span class="s2">;</span><span class="s0"> 
+<a name="l138"><span class="ln">138  </span></a> 
+<a name="l139"><span class="ln">139  </span></a>        </span><span class="s1">boolean </span><span class="s0">negativePower = control.button(Controller.C_ONE</span><span class="s2">, </span><span class="s0">Button.BUTTON_BACK)</span><span class="s2">;</span><span class="s0"> 
+<a name="l140"><span class="ln">140  </span></a>        </span><span class="s1">if </span><span class="s0">(negativePower) { 
+<a name="l141"><span class="ln">141  </span></a>            hardwareMap.dcMotor.get(</span><span class="s4">&quot;mR&quot;</span><span class="s0">).setPower(-</span><span class="s5">1</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l142"><span class="ln">142  </span></a>        } 
+<a name="l143"><span class="ln">143  </span></a> 
+<a name="l144"><span class="ln">144  </span></a>        </span><span class="s1">boolean </span><span class="s0">extendUp = control.button(Controller.C_TWO</span><span class="s2">, </span><span class="s0">Button.BUTTON_A)</span><span class="s2">;</span><span class="s0"> 
+<a name="l145"><span class="ln">145  </span></a>        </span><span class="s1">boolean </span><span class="s0">extendDown = control.button(Controller.C_TWO</span><span class="s2">, </span><span class="s0">Button.BUTTON_B)</span><span class="s2">;</span><span class="s0"> 
+<a name="l146"><span class="ln">146  </span></a>        </span><span class="s1">if </span><span class="s0">(extendUp) { 
+<a name="l147"><span class="ln">147  </span></a>            eL.setDesiredPower(</span><span class="s5">1</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l148"><span class="ln">148  </span></a>            eR.setDesiredPower(</span><span class="s5">1</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l149"><span class="ln">149  </span></a>        } </span><span class="s1">else if </span><span class="s0">(extendDown) { 
+<a name="l150"><span class="ln">150  </span></a>            eL.setDesiredPower(-</span><span class="s5">1</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l151"><span class="ln">151  </span></a>            eR.setDesiredPower(-</span><span class="s5">1</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l152"><span class="ln">152  </span></a>        } </span><span class="s1">else </span><span class="s0">{ 
+<a name="l153"><span class="ln">153  </span></a>            eL.setDesiredPower(</span><span class="s5">0</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l154"><span class="ln">154  </span></a>            eR.setDesiredPower(</span><span class="s5">0</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l155"><span class="ln">155  </span></a>        } 
+<a name="l156"><span class="ln">156  </span></a> 
+<a name="l157"><span class="ln">157  </span></a>        </span><span class="s1">double </span><span class="s0">bucket = control.joystickValue(Controller.C_TWO</span><span class="s2">, </span><span class="s0">Joystick.J_RIGHT</span><span class="s2">, </span><span class="s0">Axis.A_X)</span><span class="s2">;</span><span class="s0"> 
+<a name="l158"><span class="ln">158  </span></a>        </span><span class="s1">if </span><span class="s0">(bucket &lt; -</span><span class="s5">0.2</span><span class="s0">) { 
+<a name="l159"><span class="ln">159  </span></a>            b.setDesiredPosition(</span><span class="s5">0</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l160"><span class="ln">160  </span></a>        } </span><span class="s1">else if </span><span class="s0">(bucket &gt; </span><span class="s5">0.2</span><span class="s0">) { 
+<a name="l161"><span class="ln">161  </span></a>            b.setDesiredPosition(</span><span class="s5">1</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l162"><span class="ln">162  </span></a>        } </span><span class="s1">else </span><span class="s0">{ 
+<a name="l163"><span class="ln">163  </span></a>            b.setDesiredPosition(</span><span class="s5">0.5</span><span class="s0">)</span><span class="s2">;</span><span class="s0"> 
+<a name="l164"><span class="ln">164  </span></a>        } 
+<a name="l165"><span class="ln">165  </span></a>        addTelemetry()</span><span class="s2">;</span><span class="s0"> 
+<a name="l166"><span class="ln">166  </span></a>    } 
+<a name="l167"><span class="ln">167  </span></a> 
+<a name="l168"><span class="ln">168  </span></a>    @Override 
+<a name="l169"><span class="ln">169  </span></a>    </span><span class="s1">protected </span><span class="s0">String setConfigurationPath() { 
+<a name="l170"><span class="ln">170  </span></a>        </span><span class="s1">return </span><span class="s0">CONFIGURATION_PATH</span><span class="s2">;</span><span class="s0"> 
+<a name="l171"><span class="ln">171  </span></a>    } 
+<a name="l172"><span class="ln">172  </span></a> 
+<a name="l173"><span class="ln">173  </span></a>    </span><span class="s1">private void </span><span class="s0">addTelemetry() { 
+<a name="l174"><span class="ln">174  </span></a>        telemetry.addData(</span><span class="s4">&quot;L-LP-R-RP-EL-ER-H&quot;</span><span class="s2">, </span><span class="s0">mL.getPower() + </span><span class="s4">&quot;-&quot; </span><span class="s0">+ mL.getCurrentPosition() + </span><span class="s4">&quot;-&quot; </span><span class="s0">+ mR.getPower()+ </span><span class="s4">&quot;-&quot; </span><span class="s0">+ mR.getCurrentPosition() + </span><span class="s4">&quot;-&quot; </span><span class="s0">+ eL.getCurrentPosition() + </span><span class="s4">&quot;-&quot; </span><span class="s0">+ eR.getCurrentPosition() + </span><span class="s4">&quot;-&quot; </span><span class="s0">+ h.getPower())</span><span class="s2">;</span><span class="s0"> 
+<a name="l175"><span class="ln">175  </span></a>    } 
+<a name="l176"><span class="ln">176  </span></a>}</span></pre>
+</body>
+</html>
