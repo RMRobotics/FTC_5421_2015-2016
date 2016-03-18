@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,7 +32,7 @@ public class MountainAuto5421 extends RMAutoMode {
     Motor wL;
     Motor wR;
     Motor h;
-    //rServo climbers;
+    DcMotor led;
     ElapsedTime runTime;
 
     DecimalFormat df = new DecimalFormat("#.##");
@@ -50,7 +51,8 @@ public class MountainAuto5421 extends RMAutoMode {
         wL = motorMap.get("wL");
         wR = motorMap.get("wR");
         h = motorMap.get("h");
-        //climbers = servoMap.get("climbers");
+        led = hardwareMap.dcMotor.get("led");
+        led.setPower(0.5);
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         addTelemetry();
         runTime.reset();
@@ -65,6 +67,7 @@ public class MountainAuto5421 extends RMAutoMode {
         }
         switch (state) {
             case 1:
+                turnTarget = 0;
                 setDriveTarget(10000);
                 setDrivePower(0.5);
                 updateDP();
@@ -83,7 +86,8 @@ public class MountainAuto5421 extends RMAutoMode {
                 updateState(StateType.GYRO_ENCODER_DRIVE);
                 break;
             default:
-                stop();
+                led.setPower(-0.5);
+                opStop();
                 break;
             case WAIT:
                 switch (prevStateType) {
@@ -122,14 +126,16 @@ public class MountainAuto5421 extends RMAutoMode {
     }
 
     private void addTelemetry() {
-        telemetry.addData("S-P", state);
-        telemetry.addData("ML-LT-LP", df.format(mL.getPower()) + "-" + nf.format(mL.getTargetPosition()) + "-" + nf.format(mL.getCurrentPosition()));
-        telemetry.addData("MR-RT-RP", df.format(mR.getPower()) + "-" + nf.format(mR.getTargetPosition()) + "-" + nf.format(mR.getCurrentPosition()));
-        telemetry.addData("H", df.format(h.getPower()));
-        telemetry.addData("WL", df.format(wL.getPower()));
-        telemetry.addData("WR", df.format(wR.getPower()));
-        telemetry.addData("GYRO", gyro.getHeading() + "-" + skew);
         telemetry.addData("TIME", runTime.time());
+        telemetry.addData("GYRO", gyro.getHeading() + "-" + skew + "-" + !gyro.isCalibrating());
+        telemetry.addData("WR", df.format(wR.getPower()));
+        telemetry.addData("WL", df.format(wL.getPower()));
+        telemetry.addData("H", df.format(h.getPower()));
+        telemetry.addData("SR", df.format(sR.getPower()));
+        telemetry.addData("SL", df.format(sL.getPower()));
+        telemetry.addData("MR-RT-RP", df.format(mR.getPower()) + "-" + nf.format(mR.getTargetPosition()) + "-" + nf.format(mR.getCurrentPosition()));
+        telemetry.addData("ML-LT-LP", df.format(mL.getPower()) + "-" + nf.format(mL.getTargetPosition()) + "-" + nf.format(mL.getCurrentPosition()));
+        telemetry.addData("S-P", state);
     }
 
     private void setDriveTarget(int target) {
@@ -153,6 +159,7 @@ public class MountainAuto5421 extends RMAutoMode {
     }
 
     private void updateState(StateType type) {
+        runTime.reset();
         prevState = state;
         prevStateType = type;
         state = WAIT;
@@ -175,7 +182,6 @@ public class MountainAuto5421 extends RMAutoMode {
     }
 
     private boolean driveDone() {
-
         if (Math.abs(mL.getCurrentPosition()) > mL.getTargetPosition()) {
             mL.setDesiredPower(0);
         }
@@ -216,12 +222,101 @@ public class MountainAuto5421 extends RMAutoMode {
     }
 
     private void gyroDrive() {
-        if (gyro.getHeading() > 2 && gyro.getHeading() < 180) {
-            setDrivePower(0.3, 0.5);
-            skew = "RIGHT";
-        } else if (gyro.getHeading() < 358 && gyro.getHeading() > 180) {
-            setDrivePower(0.5, 0.3);
-            skew = "LEFT";
+        if (turnTarget > 1 && turnTarget < 180) {
+            if (gyro.getHeading() > turnTarget + 1 && gyro.getHeading() < turnTarget + 180) {
+                if (Math.abs(gyro.getHeading() - turnTarget) > 5) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
+                skew = "RIGHT";
+            } else if (gyro.getHeading() < turnTarget - 1 || gyro.getHeading() > turnTarget + 180) {
+                if ((gyro.getHeading() > turnTarget && Math.abs(gyro.getHeading() - turnTarget) > 5) || (gyro.getHeading() < turnTarget && Math.abs(gyro.getHeading() - turnTarget) > 5)) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
+                skew = "LEFT";
+            } else {
+                setDrivePower(0.5);
+                skew = "STRAIGHT";
+            }
+        } else if (turnTarget < 359 && turnTarget >= 180) {
+            if (gyro.getHeading() < turnTarget - 1 && gyro.getHeading() > turnTarget - 180) {
+                if (Math.abs(gyro.getHeading() - turnTarget) > 5) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
+                skew = "LEFT";
+            } else if (gyro.getHeading() > turnTarget + 1 || gyro.getHeading() < turnTarget - 180) {
+                if ((gyro.getHeading() > turnTarget && Math.abs(gyro.getHeading() - turnTarget) > 5) || (gyro.getHeading() < turnTarget - 180 && Math.abs(gyro.getHeading() - turnTarget) > 5)) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
+                skew = "RIGHT";
+            } else {
+                setDrivePower(0.5);
+                skew = "STRAIGHT";
+            }
+        } else if (turnTarget == 0) {
+            if (gyro.getHeading() > 1 && gyro.getHeading() < 180) {
+                if (gyro.getHeading() > 5) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
+                skew = "RIGHT";
+            } else if (gyro.getHeading() < 359 && gyro.getHeading() > 180) {
+                if (gyro.getHeading() < 355) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
+                skew = "LEFT";
+            } else {
+                setDrivePower(0.5);
+                skew = "STRAIGHT";
+            }
+        } else if (turnTarget == 1) {
+            if (gyro.getHeading() > 2 && gyro.getHeading() < 180) {
+                if (gyro.getHeading() > 6) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
+                skew = "RIGHT";
+            } else if (gyro.getHeading() < 360 && gyro.getHeading() > 180) {
+                if (gyro.getHeading() < 356) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
+                skew = "LEFT";
+            } else {
+                setDrivePower(0.5);
+                skew = "STRAIGHT";
+            }
+        } else if (turnTarget == 359) {
+            if (gyro.getHeading() > 0 && gyro.getHeading() < 180) {
+                if (gyro.getHeading() > 4) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
+                skew = "RIGHT";
+            } else if (gyro.getHeading() < 358 && gyro.getHeading() > 180) {
+                if (gyro.getHeading() < 354) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
+                skew = "LEFT";
+            } else {
+                setDrivePower(0.5);
+                skew = "STRAIGHT";
+            }
         } else {
             setDrivePower(0.5);
             skew = "STRAIGHT";
@@ -239,6 +334,12 @@ public class MountainAuto5421 extends RMAutoMode {
     private void driveStop() {
         mL.setDesiredPower(0);
         mR.setDesiredPower(0);
+    }
+
+    private void opStop() {
+        for (Motor m : motorMap.values()) {
+            m.setDesiredPower(0);
+        }
     }
 
 }
