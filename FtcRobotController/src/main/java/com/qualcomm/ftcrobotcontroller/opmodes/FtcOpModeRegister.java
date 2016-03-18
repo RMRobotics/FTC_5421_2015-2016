@@ -27,7 +27,8 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.BeaconParkAuto5421;
-import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.MountainAuto5421;
+import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.MountainBlueAuto5421;
+import com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.MountainRedAuto5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ColorSensorTest5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.DemoBot;
@@ -73,7 +74,8 @@ public class FtcOpModeRegister implements OpModeRegister {
 
         manager.register("TeleOp5421", TeleOp5421.class);
 
-        manager.register("MountainAuto5421", MountainAuto5421.class);
+        manager.register("MountainRedAuto5421", MountainRedAuto5421.class);
+        manager.register("MountainBlueAuto5421", MountainBlueAuto5421.class);
         manager.register("BeaconParkAuto5421", BeaconParkAuto5421.class);
 
         manager.register("GyroTest5421", GyroTest5421.class);

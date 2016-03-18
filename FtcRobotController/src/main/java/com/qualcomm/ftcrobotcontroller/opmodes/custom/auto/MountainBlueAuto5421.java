@@ -10,7 +10,7 @@ import com.rmrobotics.library.util.StateType;
 
 import java.text.DecimalFormat;
 
-public class MountainAuto5421 extends RMAutoMode {
+public class MountainBlueAuto5421 extends RMAutoMode {
 
     private final int WAIT = 5421;
 
@@ -74,7 +74,7 @@ public class MountainAuto5421 extends RMAutoMode {
                 updateState(StateType.GYRO_ENCODER_DRIVE);
                 break;
             case 2:
-                turnTarget = 270;
+                turnTarget = 90;
                 setDrivePower(0, 0.5);
                 updateDP();
                 updateState(StateType.GYRO);
