@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.auto;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,7 +32,7 @@ public class MountainAuto5421 extends RMAutoMode {
     Motor wL;
     Motor wR;
     Motor h;
-    //rServo climbers;
+    DcMotor led;
     ElapsedTime runTime;
 
     DecimalFormat df = new DecimalFormat("#.##");
@@ -50,7 +51,8 @@ public class MountainAuto5421 extends RMAutoMode {
         wL = motorMap.get("wL");
         wR = motorMap.get("wR");
         h = motorMap.get("h");
-        //climbers = servoMap.get("climbers");
+        led = hardwareMap.dcMotor.get("led");
+        led.setPower(0.5);
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         addTelemetry();
         runTime.reset();
@@ -84,7 +86,8 @@ public class MountainAuto5421 extends RMAutoMode {
                 updateState(StateType.GYRO_ENCODER_DRIVE);
                 break;
             default:
-                stop();
+                led.setPower(-0.5);
+                opStop();
                 break;
             case WAIT:
                 switch (prevStateType) {
@@ -331,6 +334,12 @@ public class MountainAuto5421 extends RMAutoMode {
     private void driveStop() {
         mL.setDesiredPower(0);
         mR.setDesiredPower(0);
+    }
+
+    private void opStop() {
+        for (Motor m : motorMap.values()) {
+            m.setDesiredPower(0);
+        }
     }
 
 }

@@ -28,15 +28,10 @@ public class TeleOp5421 extends RMOpMode {
     Motor wR;
     Motor h;
     DcMotor led;
-    //rServo climbers;
     rServo bL;
     rServo bR;
     rServo b;
     GyroSensor gyro;
-    //rServo leftHook;
-    //rServo rightHook;
-    //rServo clearLeft;
-    //rServo clearRight;
     ElapsedTime runTime;
 
     @Override
@@ -51,17 +46,12 @@ public class TeleOp5421 extends RMOpMode {
         wR = motorMap.get("wR");
         h = motorMap.get("h");
         led = hardwareMap.dcMotor.get("led");
-        //climbers = servoMap.get("climbers");
         bL = servoMap.get("bL");
         bR = servoMap.get("bR");
         b = servoMap.get("b");
         b.setDesiredPosition(0.5);
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
-        //leftHook = servoMap.get("leftHook");
-        //rightHook = servoMap.get("rightHook");
-        //clearLeft = servoMap.get("aL");
-        //clearRight = servoMap.get("aR");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         led.setPower(0.5);
         addTelemetry();
@@ -134,15 +124,6 @@ public class TeleOp5421 extends RMOpMode {
                 wR.setDesiredPower(0);
             }
         }
-
-        /*//climbers
-        boolean climberOpen = control.button(Controller.C_ONE, Button.BUTTON_A);
-        boolean climberClose = control.button(Controller.C_ONE, Button.BUTTON_B);
-        if (climberOpen) {
-            climbers.setDesiredPosition(0);
-        } else if (climberClose) {
-            climbers.setDesiredPosition(1);
-        }*/
 
         //bucket
         boolean bLeft = control.button(Controller.C_TWO, Button.BUTTON_LB);
