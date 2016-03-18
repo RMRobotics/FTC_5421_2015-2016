@@ -1,5 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop;
 
+import android.graphics.YuvImage;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -31,6 +33,8 @@ public class TeleOp5421 extends RMOpMode {
     rServo bL;
     rServo bR;
     rServo b;
+    rServo hL;
+    rServo hR;
     GyroSensor gyro;
     ElapsedTime runTime;
 
@@ -50,6 +54,8 @@ public class TeleOp5421 extends RMOpMode {
         bR = servoMap.get("bR");
         b = servoMap.get("b");
         b.setDesiredPosition(0.5);
+        hL = servoMap.get("hL");
+        hR = servoMap.get("hR");
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
@@ -95,12 +101,12 @@ public class TeleOp5421 extends RMOpMode {
         h.setDesiredPower(harvestPower);
 
         //winch
-        double windLeft = control.triggerValue(Controller.C_ONE, Trigger.T_LEFT);
-        double windRight = control.triggerValue(Controller.C_ONE, Trigger.T_RIGHT);
-        boolean unwindLeft = control.dpadValue(Controller.C_ONE, Dpad.DPAD_LEFT);
-        boolean unwindRight = control.dpadValue(Controller.C_ONE, Dpad.DPAD_RIGHT);
-        boolean windDown = control.dpadValue(Controller.C_ONE, Dpad.DPAD_DOWN);
-        boolean Brake = control.dpadValue(Controller.C_ONE, Dpad.DPAD_UP);
+        double windLeft = control.triggerValue(Controller.C_TWO, Trigger.T_LEFT);
+        double windRight = control.triggerValue(Controller.C_TWO, Trigger.T_RIGHT);
+        boolean unwindLeft = control.dpadValue(Controller.C_TWO, Dpad.DPAD_LEFT);
+        boolean unwindRight = control.dpadValue(Controller.C_TWO, Dpad.DPAD_RIGHT);
+        boolean windDown = control.dpadValue(Controller.C_TWO, Dpad.DPAD_DOWN);
+        boolean Brake = control.dpadValue(Controller.C_TWO, Dpad.DPAD_UP);
         if (windDown) {
             wL.setDesiredPower(-1.0);
             wR.setDesiredPower(-1.0);
@@ -123,6 +129,23 @@ public class TeleOp5421 extends RMOpMode {
             } else {
                 wR.setDesiredPower(0);
             }
+        }
+
+        //hook
+        boolean hUp = control.button(Controller.C_TWO, Button.BUTTON_Y);
+        boolean hDown = control.button(Controller.C_TWO, Button.BUTTON_A);
+        boolean hLeftUp = control.button(Controller.C_TWO, Button.BUTTON_X);
+        boolean hRightUp = control.button(Controller.C_TWO, Button.BUTTON_B);
+        if (hUp) {
+            hL.setDesiredPosition(1.0);
+            hR.setDesiredPosition(1.0);
+        } else if (hDown) {
+            hL.setDesiredPosition(0);
+            hR.setDesiredPosition(0);
+        } else if (hLeftUp) {
+            hL.setDesiredPosition(1.0);
+        } else if (hRightUp) {
+            hR.setDesiredPosition(1.0);
         }
 
         //bucket

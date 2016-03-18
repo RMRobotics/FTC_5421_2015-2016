@@ -34,6 +34,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ColorSensorTest5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.DemoBot;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.GyroSelfCorrect5421;
 import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.GyroTest5421;
+import com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ServoCalibration;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
@@ -63,7 +64,7 @@ public class FtcOpModeRegister implements OpModeRegister {
        */
 
         //  manager.register("ServoTest", ServoTest.class);
-        //  manager.register("ServoCalibration", ServoCalibration.class);
+        manager.register("ServoCalibration", ServoCalibration.class);
         //  manager.register("ColorSensorTest", ColorSensorTest.class);
         // manager.register("EncoderTest", EncoderTest.class);
         //  manager.register("OpticalSensorTest", OpticalSensorTest.class);
