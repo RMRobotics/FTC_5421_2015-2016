@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -26,6 +27,7 @@ public class TeleOp5421 extends RMOpMode {
     Motor wL;
     Motor wR;
     Motor h;
+    DcMotor led;
     //rServo climbers;
     rServo bL;
     rServo bR;
@@ -48,6 +50,7 @@ public class TeleOp5421 extends RMOpMode {
         wL = motorMap.get("wL");
         wR = motorMap.get("wR");
         h = motorMap.get("h");
+        led = hardwareMap.dcMotor.get("led");
         //climbers = servoMap.get("climbers");
         bL = servoMap.get("bL");
         bR = servoMap.get("bR");
@@ -60,6 +63,7 @@ public class TeleOp5421 extends RMOpMode {
         //clearLeft = servoMap.get("aL");
         //clearRight = servoMap.get("aR");
         runTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        led.setPower(0.5);
         addTelemetry();
         runTime.reset();
     }
@@ -173,44 +177,35 @@ public class TeleOp5421 extends RMOpMode {
             bR.setDesiredPosition(rFlapPos);
         }
 
-        /*//all clear signal
-        boolean reset = control.button(Controller.C_TWO, Button.BUTTON_Y);
-        boolean leftDown = control.button(Controller.C_TWO, Button.BUTTON_X);
-        boolean rightDown = control.buttonPressed(Controller.C_TWO, Button.BUTTON_B);
-        if (reset) {
-            clearLeft.setInitPos();
-            clearRight.setInitPos();
-        } else if (leftDown) {
-            clearLeft.setDesiredPosition(1.0);
-        } else if (rightDown) {
-            clearRight.setDesiredPosition(1.0);
-        }*/
+        //led
+        if (runTime.time() > 30000) {
+            led.setPower(-0.5);
+        } else {
+            led.setPower(0.5);
+        }
         addTelemetry();
     }
 
+    private String ledStatus(DcMotor.Direction d) {
+        if (d == DcMotor.Direction.FORWARD) {
+            return "ALLIANCE";
+        } else if (d == DcMotor.Direction.REVERSE) {
+            return "INDICATOR";
+        } else {
+            return "OFF";
+        }
+    }
+
     private void addTelemetry() {
-        /*telemetry.addData("L-R-LE-RE-H-C-LF-RF-B-LH-RH-T", df.format(mL.getPower()) + "-"
-                + df.format(sL.getPower()) + "-"
-                + df.format(mR.getPower()) + "-"
-                + df.format(sR.getPower()) + "-"
-                + df.format(wL.getPower()) + "-"
-                + df.format(wR.getPower()) + "-"
-                + df.format(h.getPower()) + "-"
-                //+ df.format(climbers.getPosition()) + "-"
-                + df.format(bL.getPosition()) + "-"
-                + df.format(bR.getPosition()) + "-"
-                + df.format(b.getPosition()) + "-"
-                //+ df.format(leftHook.getPosition()) + "-"
-                //+ df.format(rightHook.getPosition()) + "-"
-                //+ df.format(clearLeft.getPosition()) + "-"
-                //+ df.format(clearRight.getPosition()) + "-"
-                + runTime.time());*/
-        telemetry.addData("GYRO", !gyro.isCalibrating() + "-" + gyro.getHeading());
-        telemetry.addData("ML-LT-LP", df.format(mL.getPower()) + "-" + nf.format(mL.getTargetPosition()) + "-" + nf.format(mL.getCurrentPosition()));
-        telemetry.addData("MR-RT-RP", df.format(mR.getPower()) + "-" + nf.format(mR.getTargetPosition()) + "-" + nf.format(mR.getCurrentPosition()));
-        telemetry.addData("H", df.format(h.getPower()));
-        telemetry.addData("WL", df.format(wL.getPower()));
-        telemetry.addData("WR", df.format(wR.getPower()));
         telemetry.addData("TIME", runTime.time());
+        telemetry.addData("GYRO", gyro.getHeading() + "-" + !gyro.isCalibrating());
+        telemetry.addData("LED", ledStatus(led.getDirection()));
+        telemetry.addData("WR", df.format(wR.getPower()));
+        telemetry.addData("WL", df.format(wL.getPower()));
+        telemetry.addData("H", df.format(h.getPower()));
+        telemetry.addData("SR", df.format(sR.getPower()));
+        telemetry.addData("SL", df.format(sL.getPower()));
+        telemetry.addData("MR-RT-RP", df.format(mR.getPower()) + "-" + nf.format(mR.getTargetPosition()) + "-" + nf.format(mR.getCurrentPosition()));
+        telemetry.addData("ML-LT-LP", df.format(mL.getPower()) + "-" + nf.format(mL.getTargetPosition()) + "-" + nf.format(mL.getCurrentPosition()));
     }
 }
