@@ -208,10 +208,18 @@ public class BeaconParkAuto5421 extends RMAutoMode {
     private void gyroDrive() {
         if (turnTarget > 1 && turnTarget < 180) {
             if (gyro.getHeading() > turnTarget + 1 && gyro.getHeading() < turnTarget + 180) {
-                setDrivePower(0.3, 0.5);
+                if (Math.abs(gyro.getHeading() - turnTarget) > 5) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
                 skew = "RIGHT";
             } else if (gyro.getHeading() < turnTarget - 1 || gyro.getHeading() > turnTarget + 180) {
-                setDrivePower(0.5, 0.3);
+                if ((gyro.getHeading() > turnTarget && Math.abs(gyro.getHeading() - turnTarget) > 5) || (gyro.getHeading() < turnTarget && Math.abs(gyro.getHeading() - turnTarget) > 5)) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
                 skew = "LEFT";
             } else {
                 setDrivePower(0.5);
@@ -219,10 +227,18 @@ public class BeaconParkAuto5421 extends RMAutoMode {
             }
         } else if (turnTarget < 359 && turnTarget >= 180) {
             if (gyro.getHeading() < turnTarget - 1 && gyro.getHeading() > turnTarget - 180) {
-                setDrivePower(0.5, 0.3);
+                if (Math.abs(gyro.getHeading() - turnTarget) > 5) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
                 skew = "LEFT";
             } else if (gyro.getHeading() > turnTarget + 1 || gyro.getHeading() < turnTarget - 180) {
-                setDrivePower(0.3, 0.5);
+                if ((gyro.getHeading() > turnTarget && Math.abs(gyro.getHeading() - turnTarget) > 5) || (gyro.getHeading() < turnTarget - 180 && Math.abs(gyro.getHeading() - turnTarget) > 5)) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
                 skew = "RIGHT";
             } else {
                 setDrivePower(0.5);
@@ -230,10 +246,18 @@ public class BeaconParkAuto5421 extends RMAutoMode {
             }
         } else if (turnTarget == 0) {
             if (gyro.getHeading() > 1 && gyro.getHeading() < 180) {
-                setDrivePower(0.3, 0.5);
+                if (gyro.getHeading() > 5) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
                 skew = "RIGHT";
             } else if (gyro.getHeading() < 359 && gyro.getHeading() > 180) {
-                setDrivePower(0.5, 0.3);
+                if (gyro.getHeading() < 355) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
                 skew = "LEFT";
             } else {
                 setDrivePower(0.5);
@@ -241,10 +265,18 @@ public class BeaconParkAuto5421 extends RMAutoMode {
             }
         } else if (turnTarget == 1) {
             if (gyro.getHeading() > 2 && gyro.getHeading() < 180) {
-                setDrivePower(0.3, 0.5);
+                if (gyro.getHeading() > 6) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
                 skew = "RIGHT";
-            } else if (gyro.getHeading() < 360 && gyro.getHeading() >= 180) {
-                setDrivePower(0.5, 0.3);
+            } else if (gyro.getHeading() < 360 && gyro.getHeading() > 180) {
+                if (gyro.getHeading() < 356) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
                 skew = "LEFT";
             } else {
                 setDrivePower(0.5);
@@ -252,10 +284,18 @@ public class BeaconParkAuto5421 extends RMAutoMode {
             }
         } else if (turnTarget == 359) {
             if (gyro.getHeading() > 0 && gyro.getHeading() < 180) {
-                setDrivePower(0.3, 0.5);
+                if (gyro.getHeading() > 4) {
+                    setDrivePower(0, mRdP);
+                } else {
+                    setDrivePower(mLdP - 0.1, mRdP);
+                }
                 skew = "RIGHT";
-            } else if (gyro.getHeading() < 358 && gyro.getHeading() >= 180) {
-                setDrivePower(0.5, 0.3);
+            } else if (gyro.getHeading() < 358 && gyro.getHeading() > 180) {
+                if (gyro.getHeading() < 354) {
+                    setDrivePower(mLdP, 0);
+                } else {
+                    setDrivePower(mLdP, mRdP - 0.1);
+                }
                 skew = "LEFT";
             } else {
                 setDrivePower(0.5);
