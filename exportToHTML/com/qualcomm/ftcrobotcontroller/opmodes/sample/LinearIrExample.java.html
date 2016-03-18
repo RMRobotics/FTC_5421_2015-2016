@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(128,128,128); }
-.s1 { color: rgb(169,183,198); }
-.s2 { color: rgb(204,120,50); }
-.s3 { color: rgb(98,151,85); font-style: italic; }
-.s4 { color: rgb(104,151,187); }
-.s5 { color: rgb(106,135,89); }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { }
+.s2 { color: rgb(0,0,128); font-weight: bold; }
+.s3 { color: rgb(204,120,50); }
+.s4 { color: rgb(0,0,255); }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
 </style>
 </head>
-<BODY BGCOLOR="#2b2b2b">
+<BODY BGCOLOR="#ffffff">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -51,70 +51,70 @@ LinearIrExample.java</FONT>
 <a name="l29"><span class="ln">29   </span></a>OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 <a name="l30"><span class="ln">30   </span></a>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */</span><span class="s1"> 
 <a name="l31"><span class="ln">31   </span></a> 
-<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s2">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s3">;</span><span class="s1"> 
 <a name="l33"><span class="ln">33   </span></a> 
-<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="s2">;</span><span class="s1"> 
-<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s2">;</span><span class="s1"> 
-<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.IrSeekerSensor</span><span class="s2">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="s3">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s3">;</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.IrSeekerSensor</span><span class="s3">;</span><span class="s1"> 
 <a name="l37"><span class="ln">37   </span></a> 
-<a name="l38"><span class="ln">38   </span></a></span><span class="s3">/** 
+<a name="l38"><span class="ln">38   </span></a></span><span class="s0">/** 
 <a name="l39"><span class="ln">39   </span></a> * A simple example of a linear op mode that will approach an IR beacon 
 <a name="l40"><span class="ln">40   </span></a> */</span><span class="s1"> 
 <a name="l41"><span class="ln">41   </span></a></span><span class="s2">public class </span><span class="s1">LinearIrExample </span><span class="s2">extends </span><span class="s1">LinearOpMode { 
 <a name="l42"><span class="ln">42   </span></a> 
-<a name="l43"><span class="ln">43   </span></a>  </span><span class="s2">final static double </span><span class="s1">MOTOR_POWER = </span><span class="s4">0.15</span><span class="s2">; </span><span class="s0">// Higher values will cause the robot to move faster</span><span class="s1"> 
-<a name="l44"><span class="ln">44   </span></a>  </span><span class="s2">final static double </span><span class="s1">HOLD_IR_SIGNAL_STRENGTH = </span><span class="s4">0.20</span><span class="s2">; </span><span class="s0">// Higher values will cause the robot to follow closer</span><span class="s1"> 
+<a name="l43"><span class="ln">43   </span></a>  </span><span class="s2">final static double </span><span class="s1">MOTOR_POWER = </span><span class="s4">0.15</span><span class="s3">; </span><span class="s0">// Higher values will cause the robot to move faster</span><span class="s1"> 
+<a name="l44"><span class="ln">44   </span></a>  </span><span class="s2">final static double </span><span class="s1">HOLD_IR_SIGNAL_STRENGTH = </span><span class="s4">0.20</span><span class="s3">; </span><span class="s0">// Higher values will cause the robot to follow closer</span><span class="s1"> 
 <a name="l45"><span class="ln">45   </span></a> 
-<a name="l46"><span class="ln">46   </span></a>  DcMotor motorRight</span><span class="s2">;</span><span class="s1"> 
-<a name="l47"><span class="ln">47   </span></a>  DcMotor motorLeft</span><span class="s2">;</span><span class="s1"> 
+<a name="l46"><span class="ln">46   </span></a>  DcMotor motorRight</span><span class="s3">;</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a>  DcMotor motorLeft</span><span class="s3">;</span><span class="s1"> 
 <a name="l48"><span class="ln">48   </span></a> 
-<a name="l49"><span class="ln">49   </span></a>  IrSeekerSensor irSeeker</span><span class="s2">;</span><span class="s1"> 
+<a name="l49"><span class="ln">49   </span></a>  IrSeekerSensor irSeeker</span><span class="s3">;</span><span class="s1"> 
 <a name="l50"><span class="ln">50   </span></a> 
 <a name="l51"><span class="ln">51   </span></a>  @Override 
 <a name="l52"><span class="ln">52   </span></a>  </span><span class="s2">public void </span><span class="s1">runOpMode() </span><span class="s2">throws </span><span class="s1">InterruptedException { 
 <a name="l53"><span class="ln">53   </span></a> 
 <a name="l54"><span class="ln">54   </span></a>    </span><span class="s0">// set up the hardware devices we are going to use</span><span class="s1"> 
-<a name="l55"><span class="ln">55   </span></a>    irSeeker = hardwareMap.irSeekerSensor.get(</span><span class="s5">&quot;ir_seeker&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l56"><span class="ln">56   </span></a>    motorLeft = hardwareMap.dcMotor.get(</span><span class="s5">&quot;motor_1&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l57"><span class="ln">57   </span></a>    motorRight = hardwareMap.dcMotor.get(</span><span class="s5">&quot;motor_2&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l55"><span class="ln">55   </span></a>    irSeeker = hardwareMap.irSeekerSensor.get(</span><span class="s5">&quot;ir_seeker&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a>    motorLeft = hardwareMap.dcMotor.get(</span><span class="s5">&quot;motor_1&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l57"><span class="ln">57   </span></a>    motorRight = hardwareMap.dcMotor.get(</span><span class="s5">&quot;motor_2&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l58"><span class="ln">58   </span></a> 
-<a name="l59"><span class="ln">59   </span></a>    motorLeft.setDirection(DcMotor.Direction.REVERSE)</span><span class="s2">;</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>    motorLeft.setDirection(DcMotor.Direction.REVERSE)</span><span class="s3">;</span><span class="s1"> 
 <a name="l60"><span class="ln">60   </span></a> 
 <a name="l61"><span class="ln">61   </span></a>    </span><span class="s0">// wait for the start button to be pressed</span><span class="s1"> 
-<a name="l62"><span class="ln">62   </span></a>    waitForStart()</span><span class="s2">;</span><span class="s1"> 
+<a name="l62"><span class="ln">62   </span></a>    waitForStart()</span><span class="s3">;</span><span class="s1"> 
 <a name="l63"><span class="ln">63   </span></a> 
 <a name="l64"><span class="ln">64   </span></a>    </span><span class="s0">// wait for the IR Seeker to detect a signal</span><span class="s1"> 
 <a name="l65"><span class="ln">65   </span></a>    </span><span class="s2">while </span><span class="s1">(!irSeeker.signalDetected()) { 
-<a name="l66"><span class="ln">66   </span></a>      sleep(</span><span class="s4">1000</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l66"><span class="ln">66   </span></a>      sleep(</span><span class="s4">1000</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l67"><span class="ln">67   </span></a>    } 
 <a name="l68"><span class="ln">68   </span></a> 
 <a name="l69"><span class="ln">69   </span></a>    </span><span class="s2">if </span><span class="s1">(irSeeker.getAngle() &lt; </span><span class="s4">0</span><span class="s1">) { 
 <a name="l70"><span class="ln">70   </span></a>      </span><span class="s0">// if the signal is to the left move left</span><span class="s1"> 
-<a name="l71"><span class="ln">71   </span></a>      motorRight.setPower(MOTOR_POWER)</span><span class="s2">;</span><span class="s1"> 
-<a name="l72"><span class="ln">72   </span></a>      motorLeft.setPower(-MOTOR_POWER)</span><span class="s2">;</span><span class="s1"> 
+<a name="l71"><span class="ln">71   </span></a>      motorRight.setPower(MOTOR_POWER)</span><span class="s3">;</span><span class="s1"> 
+<a name="l72"><span class="ln">72   </span></a>      motorLeft.setPower(-MOTOR_POWER)</span><span class="s3">;</span><span class="s1"> 
 <a name="l73"><span class="ln">73   </span></a>    } </span><span class="s2">else if </span><span class="s1">(irSeeker.getAngle() &gt; </span><span class="s4">0</span><span class="s1">) { 
 <a name="l74"><span class="ln">74   </span></a>      </span><span class="s0">// if the signal is to the right move right</span><span class="s1"> 
-<a name="l75"><span class="ln">75   </span></a>      motorRight.setPower(-MOTOR_POWER)</span><span class="s2">;</span><span class="s1"> 
-<a name="l76"><span class="ln">76   </span></a>      motorLeft.setPower(MOTOR_POWER)</span><span class="s2">;</span><span class="s1"> 
+<a name="l75"><span class="ln">75   </span></a>      motorRight.setPower(-MOTOR_POWER)</span><span class="s3">;</span><span class="s1"> 
+<a name="l76"><span class="ln">76   </span></a>      motorLeft.setPower(MOTOR_POWER)</span><span class="s3">;</span><span class="s1"> 
 <a name="l77"><span class="ln">77   </span></a>    } 
 <a name="l78"><span class="ln">78   </span></a> 
 <a name="l79"><span class="ln">79   </span></a>    </span><span class="s0">// wait for the robot to center on the beacon</span><span class="s1"> 
 <a name="l80"><span class="ln">80   </span></a>    </span><span class="s2">while </span><span class="s1">(irSeeker.getAngle() != </span><span class="s4">0</span><span class="s1">) { 
-<a name="l81"><span class="ln">81   </span></a>      waitOneFullHardwareCycle()</span><span class="s2">;</span><span class="s1"> 
+<a name="l81"><span class="ln">81   </span></a>      waitOneFullHardwareCycle()</span><span class="s3">;</span><span class="s1"> 
 <a name="l82"><span class="ln">82   </span></a>    } 
 <a name="l83"><span class="ln">83   </span></a> 
 <a name="l84"><span class="ln">84   </span></a>    </span><span class="s0">// now approach the beacon</span><span class="s1"> 
-<a name="l85"><span class="ln">85   </span></a>    motorRight.setPower(MOTOR_POWER)</span><span class="s2">;</span><span class="s1"> 
-<a name="l86"><span class="ln">86   </span></a>    motorLeft.setPower(MOTOR_POWER)</span><span class="s2">;</span><span class="s1"> 
+<a name="l85"><span class="ln">85   </span></a>    motorRight.setPower(MOTOR_POWER)</span><span class="s3">;</span><span class="s1"> 
+<a name="l86"><span class="ln">86   </span></a>    motorLeft.setPower(MOTOR_POWER)</span><span class="s3">;</span><span class="s1"> 
 <a name="l87"><span class="ln">87   </span></a> 
 <a name="l88"><span class="ln">88   </span></a>    </span><span class="s0">// wait until we are close enough</span><span class="s1"> 
 <a name="l89"><span class="ln">89   </span></a>    </span><span class="s2">while </span><span class="s1">(irSeeker.getStrength() &lt; HOLD_IR_SIGNAL_STRENGTH) { 
-<a name="l90"><span class="ln">90   </span></a>      waitOneFullHardwareCycle()</span><span class="s2">;</span><span class="s1"> 
+<a name="l90"><span class="ln">90   </span></a>      waitOneFullHardwareCycle()</span><span class="s3">;</span><span class="s1"> 
 <a name="l91"><span class="ln">91   </span></a>    } 
 <a name="l92"><span class="ln">92   </span></a> 
 <a name="l93"><span class="ln">93   </span></a>    </span><span class="s0">// stop the motors</span><span class="s1"> 
-<a name="l94"><span class="ln">94   </span></a>    motorRight.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l95"><span class="ln">95   </span></a>    motorLeft.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l94"><span class="ln">94   </span></a>    motorRight.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>    motorLeft.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l96"><span class="ln">96   </span></a>  } 
 <a name="l97"><span class="ln">97   </span></a>} 
 <a name="l98"><span class="ln">98   </span></a></span></pre>

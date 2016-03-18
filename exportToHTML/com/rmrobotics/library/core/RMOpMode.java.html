@@ -4,14 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(204,120,50); }
-.s1 { color: rgb(169,183,198); }
-.s2 { color: rgb(104,151,187); }
-.s3 { color: rgb(128,128,128); }
-.s4 { color: rgb(106,135,89); }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(204,120,50); }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
 </style>
 </head>
-<BODY BGCOLOR="#2b2b2b">
+<BODY BGCOLOR="#ffffff">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -19,137 +20,137 @@ RMOpMode.java</FONT>
 </center></TD></TR></TABLE>
 <pre>
 
-<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.rmrobotics.library.core</span><span class="s0">;</span><span class="s1"> 
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.rmrobotics.library.core</span><span class="s2">;</span><span class="s1"> 
 <a name="l2"><span class="ln">2    </span></a> 
-<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.ftccommon.DbgLog</span><span class="s0">;</span><span class="s1"> 
-<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s0">;</span><span class="s1"> 
-<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s0">;</span><span class="s1"> 
-<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.control.Control</span><span class="s0">;</span><span class="s1"> 
-<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.hardware.Motor</span><span class="s0">;</span><span class="s1"> 
-<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.hardware.rServo</span><span class="s0">;</span><span class="s1"> 
-<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.util.JSON8121</span><span class="s0">;</span><span class="s1"> 
-<a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.util.JSONLoader</span><span class="s0">;</span><span class="s1"> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.ftccommon.DbgLog</span><span class="s2">;</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s2">;</span><span class="s1"> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s2">;</span><span class="s1"> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.control.Control</span><span class="s2">;</span><span class="s1"> 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.hardware.Motor</span><span class="s2">;</span><span class="s1"> 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.hardware.rServo</span><span class="s2">;</span><span class="s1"> 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.util.JSON8121</span><span class="s2">;</span><span class="s1"> 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">com.rmrobotics.library.util.JSONLoader</span><span class="s2">;</span><span class="s1"> 
 <a name="l11"><span class="ln">11   </span></a> 
-<a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">org.json.simple.parser.ParseException</span><span class="s0">;</span><span class="s1"> 
+<a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">org.json.simple.parser.ParseException</span><span class="s2">;</span><span class="s1"> 
 <a name="l13"><span class="ln">13   </span></a> 
-<a name="l14"><span class="ln">14   </span></a></span><span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s0">;</span><span class="s1"> 
-<a name="l15"><span class="ln">15   </span></a></span><span class="s0">import </span><span class="s1">java.util.HashMap</span><span class="s0">;</span><span class="s1"> 
-<a name="l16"><span class="ln">16   </span></a></span><span class="s0">import </span><span class="s1">java.util.Map</span><span class="s0">;</span><span class="s1"> 
+<a name="l14"><span class="ln">14   </span></a></span><span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s2">;</span><span class="s1"> 
+<a name="l15"><span class="ln">15   </span></a></span><span class="s0">import </span><span class="s1">java.util.HashMap</span><span class="s2">;</span><span class="s1"> 
+<a name="l16"><span class="ln">16   </span></a></span><span class="s0">import </span><span class="s1">java.util.Map</span><span class="s2">;</span><span class="s1"> 
 <a name="l17"><span class="ln">17   </span></a> 
 <a name="l18"><span class="ln">18   </span></a></span><span class="s0">public abstract class </span><span class="s1">RMOpMode </span><span class="s0">extends </span><span class="s1">OpMode { 
 <a name="l19"><span class="ln">19   </span></a> 
-<a name="l20"><span class="ln">20   </span></a>    </span><span class="s0">protected </span><span class="s1">Map&lt;String</span><span class="s0">, </span><span class="s1">Motor&gt; motorMap = </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s0">, </span><span class="s1">Motor&gt;()</span><span class="s0">;</span><span class="s1"> 
-<a name="l21"><span class="ln">21   </span></a>    </span><span class="s0">protected </span><span class="s1">Map&lt;String</span><span class="s0">, </span><span class="s1">rServo&gt; servoMap =  </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s0">, </span><span class="s1">rServo&gt;()</span><span class="s0">;</span><span class="s1"> 
+<a name="l20"><span class="ln">20   </span></a>    </span><span class="s0">protected </span><span class="s1">Map&lt;String</span><span class="s2">, </span><span class="s1">Motor&gt; motorMap = </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s2">, </span><span class="s1">Motor&gt;()</span><span class="s2">;</span><span class="s1"> 
+<a name="l21"><span class="ln">21   </span></a>    </span><span class="s0">protected </span><span class="s1">Map&lt;String</span><span class="s2">, </span><span class="s1">rServo&gt; servoMap =  </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s2">, </span><span class="s1">rServo&gt;()</span><span class="s2">;</span><span class="s1"> 
 <a name="l22"><span class="ln">22   </span></a> 
-<a name="l23"><span class="ln">23   </span></a>    </span><span class="s0">private </span><span class="s1">Map&lt;String</span><span class="s0">, </span><span class="s1">Motor&gt; motorImportMap = </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s0">, </span><span class="s1">Motor&gt;()</span><span class="s0">;</span><span class="s1"> 
-<a name="l24"><span class="ln">24   </span></a>    </span><span class="s0">protected </span><span class="s1">Control control</span><span class="s0">;</span><span class="s1"> 
-<a name="l25"><span class="ln">25   </span></a>    </span><span class="s0">private </span><span class="s1">String configPath</span><span class="s0">;</span><span class="s1"> 
-<a name="l26"><span class="ln">26   </span></a>    </span><span class="s0">protected int </span><span class="s1">team</span><span class="s0">;</span><span class="s1"> 
+<a name="l23"><span class="ln">23   </span></a>    </span><span class="s0">private </span><span class="s1">Map&lt;String</span><span class="s2">, </span><span class="s1">Motor&gt; motorImportMap = </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s2">, </span><span class="s1">Motor&gt;()</span><span class="s2">;</span><span class="s1"> 
+<a name="l24"><span class="ln">24   </span></a>    </span><span class="s0">protected </span><span class="s1">Control control</span><span class="s2">;</span><span class="s1"> 
+<a name="l25"><span class="ln">25   </span></a>    </span><span class="s0">private </span><span class="s1">String configPath</span><span class="s2">;</span><span class="s1"> 
+<a name="l26"><span class="ln">26   </span></a>    </span><span class="s0">protected int </span><span class="s1">team</span><span class="s2">;</span><span class="s1"> 
 <a name="l27"><span class="ln">27   </span></a> 
-<a name="l28"><span class="ln">28   </span></a>    </span><span class="s0">public </span><span class="s1">String life</span><span class="s0">;</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a>    </span><span class="s0">public </span><span class="s1">String life</span><span class="s2">;</span><span class="s1"> 
 <a name="l29"><span class="ln">29   </span></a> 
 <a name="l30"><span class="ln">30   </span></a>    @Override 
 <a name="l31"><span class="ln">31   </span></a>    </span><span class="s0">public void </span><span class="s1">init() { 
-<a name="l32"><span class="ln">32   </span></a>        </span><span class="s0">if </span><span class="s1">(team != </span><span class="s2">5421 </span><span class="s1">&amp;&amp; team != </span><span class="s2">8121 </span><span class="s1">&amp;&amp; team != </span><span class="s2">25421</span><span class="s1">) { 
-<a name="l33"><span class="ln">33   </span></a>            configPath = setConfigurationPath()</span><span class="s0">;</span><span class="s1"> 
-<a name="l34"><span class="ln">34   </span></a>            configureHardware(configPath)</span><span class="s0">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a>        </span><span class="s0">if </span><span class="s1">(team != </span><span class="s3">5421 </span><span class="s1">&amp;&amp; team != </span><span class="s3">8121 </span><span class="s1">&amp;&amp; team != </span><span class="s3">25421</span><span class="s1">) { 
+<a name="l33"><span class="ln">33   </span></a>            configPath = setConfigurationPath()</span><span class="s2">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a>            configureHardware(configPath)</span><span class="s2">;</span><span class="s1"> 
 <a name="l35"><span class="ln">35   </span></a>        } </span><span class="s0">else </span><span class="s1">{ 
-<a name="l36"><span class="ln">36   </span></a>            configPath = setConfigurationPath()</span><span class="s0">;</span><span class="s1"> 
-<a name="l37"><span class="ln">37   </span></a>            configureHardware()</span><span class="s0">;</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a>            configPath = setConfigurationPath()</span><span class="s2">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a>            configureHardware()</span><span class="s2">;</span><span class="s1"> 
 <a name="l38"><span class="ln">38   </span></a>        } 
 <a name="l39"><span class="ln">39   </span></a> 
-<a name="l40"><span class="ln">40   </span></a>        </span><span class="s0">this</span><span class="s1">.control = </span><span class="s0">new </span><span class="s1">Control(gamepad1</span><span class="s0">, </span><span class="s1">gamepad2)</span><span class="s0">;</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a>        </span><span class="s0">this</span><span class="s1">.control = </span><span class="s0">new </span><span class="s1">Control(gamepad1</span><span class="s2">, </span><span class="s1">gamepad2)</span><span class="s2">;</span><span class="s1"> 
 <a name="l41"><span class="ln">41   </span></a> 
 <a name="l42"><span class="ln">42   </span></a>        </span><span class="s0">for </span><span class="s1">(Motor m : motorMap.values()) { 
-<a name="l43"><span class="ln">43   </span></a>            m.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS)</span><span class="s0">;</span><span class="s1"> 
+<a name="l43"><span class="ln">43   </span></a>            m.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS)</span><span class="s2">;</span><span class="s1"> 
 <a name="l44"><span class="ln">44   </span></a>        } 
 <a name="l45"><span class="ln">45   </span></a> 
-<a name="l46"><span class="ln">46   </span></a>        </span><span class="s0">for </span><span class="s1">(rServo r : servoMap.values()) { </span><span class="s3">//testing only</span><span class="s1"> 
-<a name="l47"><span class="ln">47   </span></a>            r.setInitPos()</span><span class="s0">;</span><span class="s1"> 
+<a name="l46"><span class="ln">46   </span></a>        </span><span class="s0">for </span><span class="s1">(rServo r : servoMap.values()) { </span><span class="s4">//testing only</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a>            r.setInitPos()</span><span class="s2">;</span><span class="s1"> 
 <a name="l48"><span class="ln">48   </span></a>        } 
 <a name="l49"><span class="ln">49   </span></a>    } 
 <a name="l50"><span class="ln">50   </span></a> 
 <a name="l51"><span class="ln">51   </span></a>    </span><span class="s0">public void </span><span class="s1">init(</span><span class="s0">int </span><span class="s1">n) { 
-<a name="l52"><span class="ln">52   </span></a>        </span><span class="s0">this</span><span class="s1">.control = </span><span class="s0">new </span><span class="s1">Control(gamepad1</span><span class="s0">, </span><span class="s1">gamepad2)</span><span class="s0">;</span><span class="s1"> 
+<a name="l52"><span class="ln">52   </span></a>        </span><span class="s0">this</span><span class="s1">.control = </span><span class="s0">new </span><span class="s1">Control(gamepad1</span><span class="s2">, </span><span class="s1">gamepad2)</span><span class="s2">;</span><span class="s1"> 
 <a name="l53"><span class="ln">53   </span></a>    } 
 <a name="l54"><span class="ln">54   </span></a> 
 <a name="l55"><span class="ln">55   </span></a>    @Override 
 <a name="l56"><span class="ln">56   </span></a>    </span><span class="s0">public void </span><span class="s1">loop() { 
-<a name="l57"><span class="ln">57   </span></a>        </span><span class="s0">this</span><span class="s1">.updateInput()</span><span class="s0">;</span><span class="s1"> 
-<a name="l58"><span class="ln">58   </span></a>        </span><span class="s0">this</span><span class="s1">.calculate()</span><span class="s0">;</span><span class="s1"> 
-<a name="l59"><span class="ln">59   </span></a>        </span><span class="s0">this</span><span class="s1">.updateHardware()</span><span class="s0">;</span><span class="s1"> 
+<a name="l57"><span class="ln">57   </span></a>        </span><span class="s0">this</span><span class="s1">.updateInput()</span><span class="s2">;</span><span class="s1"> 
+<a name="l58"><span class="ln">58   </span></a>        </span><span class="s0">this</span><span class="s1">.calculate()</span><span class="s2">;</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>        </span><span class="s0">this</span><span class="s1">.updateHardware()</span><span class="s2">;</span><span class="s1"> 
 <a name="l60"><span class="ln">60   </span></a>    } 
 <a name="l61"><span class="ln">61   </span></a> 
 <a name="l62"><span class="ln">62   </span></a>    </span><span class="s0">protected void </span><span class="s1">updateInput() { 
 <a name="l63"><span class="ln">63   </span></a>        </span><span class="s0">try </span><span class="s1">{ 
-<a name="l64"><span class="ln">64   </span></a>            control.update(gamepad1</span><span class="s0">, </span><span class="s1">gamepad2)</span><span class="s0">; </span><span class="s3">//TODO put in teleOp subclass</span><span class="s1"> 
+<a name="l64"><span class="ln">64   </span></a>            control.update(gamepad1</span><span class="s2">, </span><span class="s1">gamepad2)</span><span class="s2">; </span><span class="s4">//TODO put in teleOp subclass</span><span class="s1"> 
 <a name="l65"><span class="ln">65   </span></a>        } </span><span class="s0">catch </span><span class="s1">(NullPointerException e) { 
-<a name="l66"><span class="ln">66   </span></a>            telemetry.addData(</span><span class="s4">&quot;Oops&quot;</span><span class="s0">,</span><span class="s4">&quot;oops twice&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l66"><span class="ln">66   </span></a>            telemetry.addData(</span><span class="s5">&quot;Oops&quot;</span><span class="s2">,</span><span class="s5">&quot;oops twice&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l67"><span class="ln">67   </span></a>        } 
 <a name="l68"><span class="ln">68   </span></a> 
 <a name="l69"><span class="ln">69   </span></a>    } 
 <a name="l70"><span class="ln">70   </span></a> 
-<a name="l71"><span class="ln">71   </span></a>    </span><span class="s0">protected abstract void </span><span class="s1">calculate()</span><span class="s0">;</span><span class="s1"> 
+<a name="l71"><span class="ln">71   </span></a>    </span><span class="s0">protected abstract void </span><span class="s1">calculate()</span><span class="s2">;</span><span class="s1"> 
 <a name="l72"><span class="ln">72   </span></a> 
 <a name="l73"><span class="ln">73   </span></a>    </span><span class="s0">protected void </span><span class="s1">updateHardware() { 
 <a name="l74"><span class="ln">74   </span></a>        </span><span class="s0">for </span><span class="s1">(Motor m : motorMap.values()) { 
-<a name="l75"><span class="ln">75   </span></a>            m.updateCurrentPower()</span><span class="s0">;</span><span class="s1"> 
-<a name="l76"><span class="ln">76   </span></a>            m.setCurrentPower()</span><span class="s0">;</span><span class="s1"> 
+<a name="l75"><span class="ln">75   </span></a>            m.updateCurrentPower()</span><span class="s2">;</span><span class="s1"> 
+<a name="l76"><span class="ln">76   </span></a>            m.setCurrentPower()</span><span class="s2">;</span><span class="s1"> 
 <a name="l77"><span class="ln">77   </span></a>        } 
 <a name="l78"><span class="ln">78   </span></a>        </span><span class="s0">for </span><span class="s1">(rServo s : servoMap.values()) { 
-<a name="l79"><span class="ln">79   </span></a>            s.updateCurrentPosition()</span><span class="s0">;</span><span class="s1"> 
-<a name="l80"><span class="ln">80   </span></a>            s.setPosition()</span><span class="s0">;</span><span class="s1"> 
+<a name="l79"><span class="ln">79   </span></a>            s.updateCurrentPosition()</span><span class="s2">;</span><span class="s1"> 
+<a name="l80"><span class="ln">80   </span></a>            s.setPosition()</span><span class="s2">;</span><span class="s1"> 
 <a name="l81"><span class="ln">81   </span></a>        } 
 <a name="l82"><span class="ln">82   </span></a>    } 
 <a name="l83"><span class="ln">83   </span></a> 
-<a name="l84"><span class="ln">84   </span></a>    </span><span class="s0">protected </span><span class="s1">String setConfigurationPath(){ </span><span class="s0">return null; </span><span class="s1">} 
+<a name="l84"><span class="ln">84   </span></a>    </span><span class="s0">protected </span><span class="s1">String setConfigurationPath(){ </span><span class="s0">return null</span><span class="s2">; </span><span class="s1">} 
 <a name="l85"><span class="ln">85   </span></a> 
 <a name="l86"><span class="ln">86   </span></a>    </span><span class="s0">protected void </span><span class="s1">configureHardware(String path){ 
-<a name="l87"><span class="ln">87   </span></a>        JSONLoader jsonLoader = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l87"><span class="ln">87   </span></a>        JSONLoader jsonLoader = </span><span class="s0">null</span><span class="s2">;</span><span class="s1"> 
 <a name="l88"><span class="ln">88   </span></a>        </span><span class="s0">try </span><span class="s1">{ 
-<a name="l89"><span class="ln">89   </span></a>            jsonLoader = </span><span class="s0">new </span><span class="s1">JSONLoader(path</span><span class="s0">, </span><span class="s1">hardwareMap)</span><span class="s0">;</span><span class="s1"> 
+<a name="l89"><span class="ln">89   </span></a>            jsonLoader = </span><span class="s0">new </span><span class="s1">JSONLoader(path</span><span class="s2">, </span><span class="s1">hardwareMap)</span><span class="s2">;</span><span class="s1"> 
 <a name="l90"><span class="ln">90   </span></a>        } </span><span class="s0">catch </span><span class="s1">(IOException e) { 
-<a name="l91"><span class="ln">91   </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
-<a name="l92"><span class="ln">92   </span></a>            DbgLog.error(e.getMessage())</span><span class="s0">;</span><span class="s1"> 
+<a name="l91"><span class="ln">91   </span></a>            e.printStackTrace()</span><span class="s2">;</span><span class="s1"> 
+<a name="l92"><span class="ln">92   </span></a>            DbgLog.error(e.getMessage())</span><span class="s2">;</span><span class="s1"> 
 <a name="l93"><span class="ln">93   </span></a>        } </span><span class="s0">catch </span><span class="s1">(ParseException e) { 
-<a name="l94"><span class="ln">94   </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
-<a name="l95"><span class="ln">95   </span></a>            DbgLog.error(e.getMessage())</span><span class="s0">;</span><span class="s1"> 
+<a name="l94"><span class="ln">94   </span></a>            e.printStackTrace()</span><span class="s2">;</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>            DbgLog.error(e.getMessage())</span><span class="s2">;</span><span class="s1"> 
 <a name="l96"><span class="ln">96   </span></a>        } 
-<a name="l97"><span class="ln">97   </span></a>        motorMap =  jsonLoader.getMotorMap()</span><span class="s0">;</span><span class="s1"> 
-<a name="l98"><span class="ln">98   </span></a>        servoMap =  jsonLoader.getServoMap()</span><span class="s0">;</span><span class="s1"> 
+<a name="l97"><span class="ln">97   </span></a>        motorMap =  jsonLoader.getMotorMap()</span><span class="s2">;</span><span class="s1"> 
+<a name="l98"><span class="ln">98   </span></a>        servoMap =  jsonLoader.getServoMap()</span><span class="s2">;</span><span class="s1"> 
 <a name="l99"><span class="ln">99   </span></a>    } 
 <a name="l100"><span class="ln">100  </span></a> 
 <a name="l101"><span class="ln">101  </span></a>    </span><span class="s0">protected void </span><span class="s1">configureHardware() { 
-<a name="l102"><span class="ln">102  </span></a>        JSONLoader jsonLoader = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l102"><span class="ln">102  </span></a>        JSONLoader jsonLoader = </span><span class="s0">null</span><span class="s2">;</span><span class="s1"> 
 <a name="l103"><span class="ln">103  </span></a>        </span><span class="s0">try </span><span class="s1">{ 
-<a name="l104"><span class="ln">104  </span></a>            jsonLoader = </span><span class="s0">new </span><span class="s1">JSONLoader(team</span><span class="s0">, </span><span class="s1">hardwareMap)</span><span class="s0">;</span><span class="s1"> 
+<a name="l104"><span class="ln">104  </span></a>            jsonLoader = </span><span class="s0">new </span><span class="s1">JSONLoader(team</span><span class="s2">, </span><span class="s1">hardwareMap)</span><span class="s2">;</span><span class="s1"> 
 <a name="l105"><span class="ln">105  </span></a>        } </span><span class="s0">catch </span><span class="s1">(IOException e) { 
-<a name="l106"><span class="ln">106  </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
-<a name="l107"><span class="ln">107  </span></a>            DbgLog.error(e.getMessage())</span><span class="s0">;</span><span class="s1"> 
+<a name="l106"><span class="ln">106  </span></a>            e.printStackTrace()</span><span class="s2">;</span><span class="s1"> 
+<a name="l107"><span class="ln">107  </span></a>            DbgLog.error(e.getMessage())</span><span class="s2">;</span><span class="s1"> 
 <a name="l108"><span class="ln">108  </span></a>        } </span><span class="s0">catch </span><span class="s1">(ParseException e) { 
-<a name="l109"><span class="ln">109  </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
-<a name="l110"><span class="ln">110  </span></a>            JSON8121 config8121 = </span><span class="s0">new </span><span class="s1">JSON8121()</span><span class="s0">;</span><span class="s1"> 
-<a name="l111"><span class="ln">111  </span></a>            telemetry.addData(</span><span class="s4">&quot;PARSE&quot;</span><span class="s0">, </span><span class="s4">&quot;ARGHHH&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
-<a name="l112"><span class="ln">112  </span></a>            telemetry.addData(</span><span class="s4">&quot;File&quot;</span><span class="s0">, </span><span class="s1">config8121.CONFIGURATION())</span><span class="s0">;</span><span class="s1"> 
-<a name="l113"><span class="ln">113  </span></a>            DbgLog.error(e.getMessage())</span><span class="s0">;</span><span class="s1"> 
+<a name="l109"><span class="ln">109  </span></a>            e.printStackTrace()</span><span class="s2">;</span><span class="s1"> 
+<a name="l110"><span class="ln">110  </span></a>            JSON8121 config8121 = </span><span class="s0">new </span><span class="s1">JSON8121()</span><span class="s2">;</span><span class="s1"> 
+<a name="l111"><span class="ln">111  </span></a>            telemetry.addData(</span><span class="s5">&quot;PARSE&quot;</span><span class="s2">, </span><span class="s5">&quot;ARGHHH&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l112"><span class="ln">112  </span></a>            telemetry.addData(</span><span class="s5">&quot;File&quot;</span><span class="s2">, </span><span class="s1">config8121.CONFIGURATION())</span><span class="s2">;</span><span class="s1"> 
+<a name="l113"><span class="ln">113  </span></a>            DbgLog.error(e.getMessage())</span><span class="s2">;</span><span class="s1"> 
 <a name="l114"><span class="ln">114  </span></a>        } </span><span class="s0">catch </span><span class="s1">(NullPointerException e){ 
-<a name="l115"><span class="ln">115  </span></a>            telemetry.addData(</span><span class="s4">&quot;Null&quot;</span><span class="s0">,</span><span class="s4">&quot;null&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l115"><span class="ln">115  </span></a>            telemetry.addData(</span><span class="s5">&quot;Null&quot;</span><span class="s2">,</span><span class="s5">&quot;null&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l116"><span class="ln">116  </span></a>        } 
 <a name="l117"><span class="ln">117  </span></a>        </span><span class="s0">try </span><span class="s1">{ 
-<a name="l118"><span class="ln">118  </span></a>                    motorMap = jsonLoader.getMotorMap()</span><span class="s0">;</span><span class="s1"> 
+<a name="l118"><span class="ln">118  </span></a>                    motorMap = jsonLoader.getMotorMap()</span><span class="s2">;</span><span class="s1"> 
 <a name="l119"><span class="ln">119  </span></a>        } </span><span class="s0">catch </span><span class="s1">(NullPointerException er){ 
-<a name="l120"><span class="ln">120  </span></a>            telemetry.addData(</span><span class="s4">&quot;OnlyAtMotorMap&quot;</span><span class="s0">, </span><span class="s4">&quot;OnlyatMotorMap&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l120"><span class="ln">120  </span></a>            telemetry.addData(</span><span class="s5">&quot;OnlyAtMotorMap&quot;</span><span class="s2">, </span><span class="s5">&quot;OnlyatMotorMap&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l121"><span class="ln">121  </span></a>        } 
 <a name="l122"><span class="ln">122  </span></a>        </span><span class="s0">try</span><span class="s1">{ 
-<a name="l123"><span class="ln">123  </span></a>            servoMap = jsonLoader.getServoMap()</span><span class="s0">;</span><span class="s1"> 
+<a name="l123"><span class="ln">123  </span></a>            servoMap = jsonLoader.getServoMap()</span><span class="s2">;</span><span class="s1"> 
 <a name="l124"><span class="ln">124  </span></a>        }</span><span class="s0">catch </span><span class="s1">(NullPointerException err){ 
-<a name="l125"><span class="ln">125  </span></a>            telemetry.addData(</span><span class="s4">&quot;SERVO&quot;</span><span class="s0">,</span><span class="s4">&quot;SERVO&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l125"><span class="ln">125  </span></a>            telemetry.addData(</span><span class="s5">&quot;SERVO&quot;</span><span class="s2">,</span><span class="s5">&quot;SERVO&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l126"><span class="ln">126  </span></a>        } 
 <a name="l127"><span class="ln">127  </span></a> 
 <a name="l128"><span class="ln">128  </span></a>    } 
 <a name="l129"><span class="ln">129  </span></a> 
 <a name="l130"><span class="ln">130  </span></a>    </span><span class="s0">protected void </span><span class="s1">setTeam(</span><span class="s0">int </span><span class="s1">tnumber) { 
-<a name="l131"><span class="ln">131  </span></a>        team = tnumber</span><span class="s0">;</span><span class="s1"> 
+<a name="l131"><span class="ln">131  </span></a>        team = tnumber</span><span class="s2">;</span><span class="s1"> 
 <a name="l132"><span class="ln">132  </span></a>    } 
 <a name="l133"><span class="ln">133  </span></a> 
 <a name="l134"><span class="ln">134  </span></a>}</span></pre>

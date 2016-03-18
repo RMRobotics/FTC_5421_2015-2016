@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(128,128,128); }
-.s1 { color: rgb(169,183,198); }
-.s2 { color: rgb(204,120,50); }
-.s3 { color: rgb(98,151,85); font-style: italic; }
-.s4 { color: rgb(119,183,103); font-style: italic; }
-.s5 { color: rgb(104,151,187); }
-.s6 { color: rgb(106,135,89); }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { }
+.s2 { color: rgb(0,0,128); font-weight: bold; }
+.s3 { color: rgb(204,120,50); }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+.s5 { color: rgb(0,0,255); }
+.s6 { color: rgb(0,128,0); font-weight: bold; }
 </style>
 </head>
-<BODY BGCOLOR="#2b2b2b">
+<BODY BGCOLOR="#ffffff">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -52,17 +52,17 @@ MatrixK9TeleOp.java</FONT>
 <a name="l29"><span class="ln">29   </span></a>OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 <a name="l30"><span class="ln">30   </span></a>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */</span><span class="s1"> 
 <a name="l31"><span class="ln">31   </span></a> 
-<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s2">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s3">;</span><span class="s1"> 
 <a name="l33"><span class="ln">33   </span></a> 
-<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s2">;</span><span class="s1"> 
-<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s2">;</span><span class="s1"> 
-<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.Servo</span><span class="s2">;</span><span class="s1"> 
-<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.ServoController</span><span class="s2">;</span><span class="s1"> 
-<a name="l38"><span class="ln">38   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.util.Range</span><span class="s2">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s3">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s3">;</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.Servo</span><span class="s3">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.ServoController</span><span class="s3">;</span><span class="s1"> 
+<a name="l38"><span class="ln">38   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.util.Range</span><span class="s3">;</span><span class="s1"> 
 <a name="l39"><span class="ln">39   </span></a> 
-<a name="l40"><span class="ln">40   </span></a></span><span class="s3">/** 
+<a name="l40"><span class="ln">40   </span></a></span><span class="s0">/** 
 <a name="l41"><span class="ln">41   </span></a> * TeleOp5421 Mode 
-<a name="l42"><span class="ln">42   </span></a> * </span><span class="s4">&lt;p&gt;</span><span class="s3"> 
+<a name="l42"><span class="ln">42   </span></a> * </span><span class="s4">&lt;p&gt;</span><span class="s0"> 
 <a name="l43"><span class="ln">43   </span></a> * Enables control of the robot via the gamepad 
 <a name="l44"><span class="ln">44   </span></a> */</span><span class="s1"> 
 <a name="l45"><span class="ln">45   </span></a></span><span class="s2">public class </span><span class="s1">MatrixK9TeleOp </span><span class="s2">extends </span><span class="s1">OpMode { 
@@ -73,30 +73,30 @@ MatrixK9TeleOp.java</FONT>
 <a name="l50"><span class="ln">50   </span></a>     * Also, as the claw servo approaches 0, the claw opens up (drops the game element). 
 <a name="l51"><span class="ln">51   </span></a>     */</span><span class="s1"> 
 <a name="l52"><span class="ln">52   </span></a>    </span><span class="s0">// TETRIX VALUES.</span><span class="s1"> 
-<a name="l53"><span class="ln">53   </span></a>    </span><span class="s2">final static double </span><span class="s1">ARM_MIN_RANGE  = </span><span class="s5">0.40</span><span class="s2">;</span><span class="s1"> 
-<a name="l54"><span class="ln">54   </span></a>    </span><span class="s2">final static double </span><span class="s1">ARM_MAX_RANGE  = </span><span class="s5">1.0</span><span class="s2">;</span><span class="s1"> 
-<a name="l55"><span class="ln">55   </span></a>    </span><span class="s2">final static double </span><span class="s1">CLAW_MIN_RANGE  = </span><span class="s5">0.30</span><span class="s2">;</span><span class="s1"> 
-<a name="l56"><span class="ln">56   </span></a>    </span><span class="s2">final static double </span><span class="s1">CLAW_MAX_RANGE  = </span><span class="s5">0.9</span><span class="s2">;</span><span class="s1"> 
+<a name="l53"><span class="ln">53   </span></a>    </span><span class="s2">final static double </span><span class="s1">ARM_MIN_RANGE  = </span><span class="s5">0.40</span><span class="s3">;</span><span class="s1"> 
+<a name="l54"><span class="ln">54   </span></a>    </span><span class="s2">final static double </span><span class="s1">ARM_MAX_RANGE  = </span><span class="s5">1.0</span><span class="s3">;</span><span class="s1"> 
+<a name="l55"><span class="ln">55   </span></a>    </span><span class="s2">final static double </span><span class="s1">CLAW_MIN_RANGE  = </span><span class="s5">0.30</span><span class="s3">;</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a>    </span><span class="s2">final static double </span><span class="s1">CLAW_MAX_RANGE  = </span><span class="s5">0.9</span><span class="s3">;</span><span class="s1"> 
 <a name="l57"><span class="ln">57   </span></a> 
 <a name="l58"><span class="ln">58   </span></a>    </span><span class="s0">// position of the arm servo.</span><span class="s1"> 
-<a name="l59"><span class="ln">59   </span></a>    </span><span class="s2">double </span><span class="s1">armPosition</span><span class="s2">;</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>    </span><span class="s2">double </span><span class="s1">armPosition</span><span class="s3">;</span><span class="s1"> 
 <a name="l60"><span class="ln">60   </span></a> 
 <a name="l61"><span class="ln">61   </span></a>    </span><span class="s0">// amount to change the arm servo position.</span><span class="s1"> 
-<a name="l62"><span class="ln">62   </span></a>    </span><span class="s2">double </span><span class="s1">armDelta = </span><span class="s5">0.1</span><span class="s2">;</span><span class="s1"> 
+<a name="l62"><span class="ln">62   </span></a>    </span><span class="s2">double </span><span class="s1">armDelta = </span><span class="s5">0.1</span><span class="s3">;</span><span class="s1"> 
 <a name="l63"><span class="ln">63   </span></a> 
 <a name="l64"><span class="ln">64   </span></a>    </span><span class="s0">// position of the claw servo</span><span class="s1"> 
-<a name="l65"><span class="ln">65   </span></a>    </span><span class="s2">double </span><span class="s1">clawPosition</span><span class="s2">;</span><span class="s1"> 
+<a name="l65"><span class="ln">65   </span></a>    </span><span class="s2">double </span><span class="s1">clawPosition</span><span class="s3">;</span><span class="s1"> 
 <a name="l66"><span class="ln">66   </span></a> 
 <a name="l67"><span class="ln">67   </span></a>    </span><span class="s0">// amount to change the claw servo position by</span><span class="s1"> 
-<a name="l68"><span class="ln">68   </span></a>    </span><span class="s2">double </span><span class="s1">clawDelta = </span><span class="s5">0.1</span><span class="s2">;</span><span class="s1"> 
+<a name="l68"><span class="ln">68   </span></a>    </span><span class="s2">double </span><span class="s1">clawDelta = </span><span class="s5">0.1</span><span class="s3">;</span><span class="s1"> 
 <a name="l69"><span class="ln">69   </span></a> 
-<a name="l70"><span class="ln">70   </span></a>    DcMotor motorRight</span><span class="s2">;</span><span class="s1"> 
-<a name="l71"><span class="ln">71   </span></a>    DcMotor motorLeft</span><span class="s2">;</span><span class="s1"> 
-<a name="l72"><span class="ln">72   </span></a>    Servo claw</span><span class="s2">;</span><span class="s1"> 
-<a name="l73"><span class="ln">73   </span></a>    Servo arm</span><span class="s2">;</span><span class="s1"> 
-<a name="l74"><span class="ln">74   </span></a>    ServoController sc</span><span class="s2">;</span><span class="s1"> 
+<a name="l70"><span class="ln">70   </span></a>    DcMotor motorRight</span><span class="s3">;</span><span class="s1"> 
+<a name="l71"><span class="ln">71   </span></a>    DcMotor motorLeft</span><span class="s3">;</span><span class="s1"> 
+<a name="l72"><span class="ln">72   </span></a>    Servo claw</span><span class="s3">;</span><span class="s1"> 
+<a name="l73"><span class="ln">73   </span></a>    Servo arm</span><span class="s3">;</span><span class="s1"> 
+<a name="l74"><span class="ln">74   </span></a>    ServoController sc</span><span class="s3">;</span><span class="s1"> 
 <a name="l75"><span class="ln">75   </span></a> 
-<a name="l76"><span class="ln">76   </span></a>    </span><span class="s3">/** 
+<a name="l76"><span class="ln">76   </span></a>    </span><span class="s0">/** 
 <a name="l77"><span class="ln">77   </span></a>     * Constructor 
 <a name="l78"><span class="ln">78   </span></a>     */</span><span class="s1"> 
 <a name="l79"><span class="ln">79   </span></a>    </span><span class="s2">public </span><span class="s1">MatrixK9TeleOp() { 
@@ -128,20 +128,20 @@ MatrixK9TeleOp.java</FONT>
 <a name="l105"><span class="ln">105  </span></a>         *    &quot;servo_1&quot; controls the arm joint of the manipulator. 
 <a name="l106"><span class="ln">106  </span></a>         *    &quot;servo_6&quot; controls the claw joint of the manipulator. 
 <a name="l107"><span class="ln">107  </span></a>         */</span><span class="s1"> 
-<a name="l108"><span class="ln">108  </span></a>        motorRight = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_2&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l109"><span class="ln">109  </span></a>        motorLeft = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_1&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l110"><span class="ln">110  </span></a>        motorRight.setDirection(DcMotor.Direction.REVERSE)</span><span class="s2">;</span><span class="s1"> 
+<a name="l108"><span class="ln">108  </span></a>        motorRight = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_2&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l109"><span class="ln">109  </span></a>        motorLeft = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_1&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l110"><span class="ln">110  </span></a>        motorRight.setDirection(DcMotor.Direction.REVERSE)</span><span class="s3">;</span><span class="s1"> 
 <a name="l111"><span class="ln">111  </span></a> 
 <a name="l112"><span class="ln">112  </span></a>        </span><span class="s0">// enable pwm.</span><span class="s1"> 
-<a name="l113"><span class="ln">113  </span></a>        sc = hardwareMap.servoController.get(</span><span class="s6">&quot;matrixServo&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l114"><span class="ln">114  </span></a>        sc.pwmEnable()</span><span class="s2">;</span><span class="s1"> 
+<a name="l113"><span class="ln">113  </span></a>        sc = hardwareMap.servoController.get(</span><span class="s6">&quot;matrixServo&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l114"><span class="ln">114  </span></a>        sc.pwmEnable()</span><span class="s3">;</span><span class="s1"> 
 <a name="l115"><span class="ln">115  </span></a> 
-<a name="l116"><span class="ln">116  </span></a>        arm = hardwareMap.servo.get(</span><span class="s6">&quot;servo_1&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l117"><span class="ln">117  </span></a>        claw = hardwareMap.servo.get(</span><span class="s6">&quot;servo_6&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l116"><span class="ln">116  </span></a>        arm = hardwareMap.servo.get(</span><span class="s6">&quot;servo_1&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l117"><span class="ln">117  </span></a>        claw = hardwareMap.servo.get(</span><span class="s6">&quot;servo_6&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l118"><span class="ln">118  </span></a> 
 <a name="l119"><span class="ln">119  </span></a>        </span><span class="s0">// assign the starting position of the wrist and claw</span><span class="s1"> 
-<a name="l120"><span class="ln">120  </span></a>        armPosition = </span><span class="s5">0.2</span><span class="s2">;</span><span class="s1"> 
-<a name="l121"><span class="ln">121  </span></a>        clawPosition = </span><span class="s5">0.2</span><span class="s2">;</span><span class="s1"> 
+<a name="l120"><span class="ln">120  </span></a>        armPosition = </span><span class="s5">0.2</span><span class="s3">;</span><span class="s1"> 
+<a name="l121"><span class="ln">121  </span></a>        clawPosition = </span><span class="s5">0.2</span><span class="s3">;</span><span class="s1"> 
 <a name="l122"><span class="ln">122  </span></a>    } 
 <a name="l123"><span class="ln">123  </span></a> 
 <a name="l124"><span class="ln">124  </span></a>    </span><span class="s0">/* 
@@ -163,53 +163,53 @@ MatrixK9TeleOp.java</FONT>
 <a name="l140"><span class="ln">140  </span></a>        </span><span class="s0">// 1 is full down</span><span class="s1"> 
 <a name="l141"><span class="ln">141  </span></a>        </span><span class="s0">// direction: left_stick_x ranges from -1 to 1, where -1 is full left</span><span class="s1"> 
 <a name="l142"><span class="ln">142  </span></a>        </span><span class="s0">// and 1 is full right</span><span class="s1"> 
-<a name="l143"><span class="ln">143  </span></a>        </span><span class="s2">float </span><span class="s1">throttle = -gamepad1.left_stick_y</span><span class="s2">;</span><span class="s1"> 
-<a name="l144"><span class="ln">144  </span></a>        </span><span class="s2">float </span><span class="s1">direction = gamepad1.left_stick_x</span><span class="s2">;</span><span class="s1"> 
-<a name="l145"><span class="ln">145  </span></a>        </span><span class="s2">float </span><span class="s1">right = throttle - direction</span><span class="s2">;</span><span class="s1"> 
-<a name="l146"><span class="ln">146  </span></a>        </span><span class="s2">float </span><span class="s1">left = throttle + direction</span><span class="s2">;</span><span class="s1"> 
+<a name="l143"><span class="ln">143  </span></a>        </span><span class="s2">float </span><span class="s1">throttle = -gamepad1.left_stick_y</span><span class="s3">;</span><span class="s1"> 
+<a name="l144"><span class="ln">144  </span></a>        </span><span class="s2">float </span><span class="s1">direction = gamepad1.left_stick_x</span><span class="s3">;</span><span class="s1"> 
+<a name="l145"><span class="ln">145  </span></a>        </span><span class="s2">float </span><span class="s1">right = throttle - direction</span><span class="s3">;</span><span class="s1"> 
+<a name="l146"><span class="ln">146  </span></a>        </span><span class="s2">float </span><span class="s1">left = throttle + direction</span><span class="s3">;</span><span class="s1"> 
 <a name="l147"><span class="ln">147  </span></a> 
 <a name="l148"><span class="ln">148  </span></a>        </span><span class="s0">// clip the right/left values so that the values never exceed +/- 1</span><span class="s1"> 
-<a name="l149"><span class="ln">149  </span></a>        right = Range.clip(right</span><span class="s2">, </span><span class="s1">-</span><span class="s5">1</span><span class="s2">, </span><span class="s5">1</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l150"><span class="ln">150  </span></a>        left = Range.clip(left</span><span class="s2">, </span><span class="s1">-</span><span class="s5">1</span><span class="s2">, </span><span class="s5">1</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l149"><span class="ln">149  </span></a>        right = Range.clip(right</span><span class="s3">, </span><span class="s1">-</span><span class="s5">1</span><span class="s3">, </span><span class="s5">1</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l150"><span class="ln">150  </span></a>        left = Range.clip(left</span><span class="s3">, </span><span class="s1">-</span><span class="s5">1</span><span class="s3">, </span><span class="s5">1</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l151"><span class="ln">151  </span></a> 
 <a name="l152"><span class="ln">152  </span></a>        </span><span class="s0">// scale the joystick value to make it easier to control</span><span class="s1"> 
 <a name="l153"><span class="ln">153  </span></a>        </span><span class="s0">// the robot more precisely at slower speeds.</span><span class="s1"> 
-<a name="l154"><span class="ln">154  </span></a>        right = (</span><span class="s2">float</span><span class="s1">)scaleInput(right)</span><span class="s2">;</span><span class="s1"> 
-<a name="l155"><span class="ln">155  </span></a>        left =  (</span><span class="s2">float</span><span class="s1">)scaleInput(left)</span><span class="s2">;</span><span class="s1"> 
+<a name="l154"><span class="ln">154  </span></a>        right = (</span><span class="s2">float</span><span class="s1">)scaleInput(right)</span><span class="s3">;</span><span class="s1"> 
+<a name="l155"><span class="ln">155  </span></a>        left =  (</span><span class="s2">float</span><span class="s1">)scaleInput(left)</span><span class="s3">;</span><span class="s1"> 
 <a name="l156"><span class="ln">156  </span></a> 
 <a name="l157"><span class="ln">157  </span></a>        </span><span class="s0">// write the values to the motors</span><span class="s1"> 
-<a name="l158"><span class="ln">158  </span></a>        motorRight.setPower(right)</span><span class="s2">;</span><span class="s1"> 
-<a name="l159"><span class="ln">159  </span></a>        motorLeft.setPower(left)</span><span class="s2">;</span><span class="s1"> 
+<a name="l158"><span class="ln">158  </span></a>        motorRight.setPower(right)</span><span class="s3">;</span><span class="s1"> 
+<a name="l159"><span class="ln">159  </span></a>        motorLeft.setPower(left)</span><span class="s3">;</span><span class="s1"> 
 <a name="l160"><span class="ln">160  </span></a> 
 <a name="l161"><span class="ln">161  </span></a>        </span><span class="s0">// update the position of the arm.</span><span class="s1"> 
 <a name="l162"><span class="ln">162  </span></a>        </span><span class="s2">if </span><span class="s1">(gamepad1.a) { 
 <a name="l163"><span class="ln">163  </span></a>            </span><span class="s0">// if the A button is pushed on gamepad1, increment the position of</span><span class="s1"> 
 <a name="l164"><span class="ln">164  </span></a>            </span><span class="s0">// the arm servo.</span><span class="s1"> 
-<a name="l165"><span class="ln">165  </span></a>            armPosition += armDelta</span><span class="s2">;</span><span class="s1"> 
+<a name="l165"><span class="ln">165  </span></a>            armPosition += armDelta</span><span class="s3">;</span><span class="s1"> 
 <a name="l166"><span class="ln">166  </span></a>        } 
 <a name="l167"><span class="ln">167  </span></a> 
 <a name="l168"><span class="ln">168  </span></a>        </span><span class="s2">if </span><span class="s1">(gamepad1.y) { 
 <a name="l169"><span class="ln">169  </span></a>            </span><span class="s0">// if the Y button is pushed on gamepad1, decrease the position of</span><span class="s1"> 
 <a name="l170"><span class="ln">170  </span></a>            </span><span class="s0">// the arm servo.</span><span class="s1"> 
-<a name="l171"><span class="ln">171  </span></a>            armPosition -= armDelta</span><span class="s2">;</span><span class="s1"> 
+<a name="l171"><span class="ln">171  </span></a>            armPosition -= armDelta</span><span class="s3">;</span><span class="s1"> 
 <a name="l172"><span class="ln">172  </span></a>        } 
 <a name="l173"><span class="ln">173  </span></a> 
 <a name="l174"><span class="ln">174  </span></a>        </span><span class="s0">// update the position of the claw</span><span class="s1"> 
 <a name="l175"><span class="ln">175  </span></a>        </span><span class="s2">if </span><span class="s1">(gamepad1.x) { 
-<a name="l176"><span class="ln">176  </span></a>            clawPosition += clawDelta</span><span class="s2">;</span><span class="s1"> 
+<a name="l176"><span class="ln">176  </span></a>            clawPosition += clawDelta</span><span class="s3">;</span><span class="s1"> 
 <a name="l177"><span class="ln">177  </span></a>        } 
 <a name="l178"><span class="ln">178  </span></a> 
 <a name="l179"><span class="ln">179  </span></a>        </span><span class="s2">if </span><span class="s1">(gamepad1.b) { 
-<a name="l180"><span class="ln">180  </span></a>            clawPosition -= clawDelta</span><span class="s2">;</span><span class="s1"> 
+<a name="l180"><span class="ln">180  </span></a>            clawPosition -= clawDelta</span><span class="s3">;</span><span class="s1"> 
 <a name="l181"><span class="ln">181  </span></a>        } 
 <a name="l182"><span class="ln">182  </span></a> 
 <a name="l183"><span class="ln">183  </span></a>        </span><span class="s0">// clip the position values so that they never exceed their allowed range.</span><span class="s1"> 
-<a name="l184"><span class="ln">184  </span></a>        armPosition = Range.clip(armPosition</span><span class="s2">, </span><span class="s1">ARM_MIN_RANGE</span><span class="s2">, </span><span class="s1">ARM_MAX_RANGE)</span><span class="s2">;</span><span class="s1"> 
-<a name="l185"><span class="ln">185  </span></a>        clawPosition = Range.clip(clawPosition</span><span class="s2">, </span><span class="s1">CLAW_MIN_RANGE</span><span class="s2">, </span><span class="s1">CLAW_MAX_RANGE)</span><span class="s2">;</span><span class="s1"> 
+<a name="l184"><span class="ln">184  </span></a>        armPosition = Range.clip(armPosition</span><span class="s3">, </span><span class="s1">ARM_MIN_RANGE</span><span class="s3">, </span><span class="s1">ARM_MAX_RANGE)</span><span class="s3">;</span><span class="s1"> 
+<a name="l185"><span class="ln">185  </span></a>        clawPosition = Range.clip(clawPosition</span><span class="s3">, </span><span class="s1">CLAW_MIN_RANGE</span><span class="s3">, </span><span class="s1">CLAW_MAX_RANGE)</span><span class="s3">;</span><span class="s1"> 
 <a name="l186"><span class="ln">186  </span></a> 
 <a name="l187"><span class="ln">187  </span></a>        </span><span class="s0">// write position values to the wrist and claw servo</span><span class="s1"> 
-<a name="l188"><span class="ln">188  </span></a>        arm.setPosition(armPosition)</span><span class="s2">;</span><span class="s1"> 
-<a name="l189"><span class="ln">189  </span></a>        claw.setPosition(clawPosition)</span><span class="s2">;</span><span class="s1"> 
+<a name="l188"><span class="ln">188  </span></a>        arm.setPosition(armPosition)</span><span class="s3">;</span><span class="s1"> 
+<a name="l189"><span class="ln">189  </span></a>        claw.setPosition(clawPosition)</span><span class="s3">;</span><span class="s1"> 
 <a name="l190"><span class="ln">190  </span></a> 
 <a name="l191"><span class="ln">191  </span></a> 
 <a name="l192"><span class="ln">192  </span></a> 
@@ -219,11 +219,11 @@ MatrixK9TeleOp.java</FONT>
 <a name="l196"><span class="ln">196  </span></a>         * will return a null value. The legacy NXT-compatible motor controllers 
 <a name="l197"><span class="ln">197  </span></a>         * are currently write only. 
 <a name="l198"><span class="ln">198  </span></a>         */</span><span class="s1"> 
-<a name="l199"><span class="ln">199  </span></a>        telemetry.addData(</span><span class="s6">&quot;Text&quot;</span><span class="s2">, </span><span class="s6">&quot;*** Robot Data***&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l200"><span class="ln">200  </span></a>        telemetry.addData(</span><span class="s6">&quot;arm&quot;</span><span class="s2">, </span><span class="s6">&quot;arm:  &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s2">, </span><span class="s1">armPosition))</span><span class="s2">;</span><span class="s1"> 
-<a name="l201"><span class="ln">201  </span></a>        telemetry.addData(</span><span class="s6">&quot;claw&quot;</span><span class="s2">, </span><span class="s6">&quot;claw:  &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s2">, </span><span class="s1">clawPosition))</span><span class="s2">;</span><span class="s1"> 
-<a name="l202"><span class="ln">202  </span></a>        telemetry.addData(</span><span class="s6">&quot;left tgt pwr&quot;</span><span class="s2">,  </span><span class="s6">&quot;left  pwr: &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s2">, </span><span class="s1">left))</span><span class="s2">;</span><span class="s1"> 
-<a name="l203"><span class="ln">203  </span></a>        telemetry.addData(</span><span class="s6">&quot;right tgt pwr&quot;</span><span class="s2">, </span><span class="s6">&quot;right pwr: &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s2">, </span><span class="s1">right))</span><span class="s2">;</span><span class="s1"> 
+<a name="l199"><span class="ln">199  </span></a>        telemetry.addData(</span><span class="s6">&quot;Text&quot;</span><span class="s3">, </span><span class="s6">&quot;*** Robot Data***&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l200"><span class="ln">200  </span></a>        telemetry.addData(</span><span class="s6">&quot;arm&quot;</span><span class="s3">, </span><span class="s6">&quot;arm:  &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s3">, </span><span class="s1">armPosition))</span><span class="s3">;</span><span class="s1"> 
+<a name="l201"><span class="ln">201  </span></a>        telemetry.addData(</span><span class="s6">&quot;claw&quot;</span><span class="s3">, </span><span class="s6">&quot;claw:  &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s3">, </span><span class="s1">clawPosition))</span><span class="s3">;</span><span class="s1"> 
+<a name="l202"><span class="ln">202  </span></a>        telemetry.addData(</span><span class="s6">&quot;left tgt pwr&quot;</span><span class="s3">,  </span><span class="s6">&quot;left  pwr: &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s3">, </span><span class="s1">left))</span><span class="s3">;</span><span class="s1"> 
+<a name="l203"><span class="ln">203  </span></a>        telemetry.addData(</span><span class="s6">&quot;right tgt pwr&quot;</span><span class="s3">, </span><span class="s6">&quot;right pwr: &quot; </span><span class="s1">+ String.format(</span><span class="s6">&quot;%.2f&quot;</span><span class="s3">, </span><span class="s1">right))</span><span class="s3">;</span><span class="s1"> 
 <a name="l204"><span class="ln">204  </span></a> 
 <a name="l205"><span class="ln">205  </span></a>    } 
 <a name="l206"><span class="ln">206  </span></a> 
@@ -244,32 +244,32 @@ MatrixK9TeleOp.java</FONT>
 <a name="l221"><span class="ln">221  </span></a>     * the robot more precisely at slower speeds. 
 <a name="l222"><span class="ln">222  </span></a>     */</span><span class="s1"> 
 <a name="l223"><span class="ln">223  </span></a>    </span><span class="s2">double </span><span class="s1">scaleInput(</span><span class="s2">double </span><span class="s1">dVal)  { 
-<a name="l224"><span class="ln">224  </span></a>        </span><span class="s2">double</span><span class="s1">[] scaleArray = { </span><span class="s5">0.0</span><span class="s2">, </span><span class="s5">0.05</span><span class="s2">, </span><span class="s5">0.09</span><span class="s2">, </span><span class="s5">0.10</span><span class="s2">, </span><span class="s5">0.12</span><span class="s2">, </span><span class="s5">0.15</span><span class="s2">, </span><span class="s5">0.18</span><span class="s2">, </span><span class="s5">0.24</span><span class="s2">,</span><span class="s1"> 
-<a name="l225"><span class="ln">225  </span></a>                </span><span class="s5">0.30</span><span class="s2">, </span><span class="s5">0.36</span><span class="s2">, </span><span class="s5">0.43</span><span class="s2">, </span><span class="s5">0.50</span><span class="s2">, </span><span class="s5">0.60</span><span class="s2">, </span><span class="s5">0.72</span><span class="s2">, </span><span class="s5">0.85</span><span class="s2">, </span><span class="s5">1.00</span><span class="s2">, </span><span class="s5">1.00 </span><span class="s1">}</span><span class="s2">;</span><span class="s1"> 
+<a name="l224"><span class="ln">224  </span></a>        </span><span class="s2">double</span><span class="s1">[] scaleArray = { </span><span class="s5">0.0</span><span class="s3">, </span><span class="s5">0.05</span><span class="s3">, </span><span class="s5">0.09</span><span class="s3">, </span><span class="s5">0.10</span><span class="s3">, </span><span class="s5">0.12</span><span class="s3">, </span><span class="s5">0.15</span><span class="s3">, </span><span class="s5">0.18</span><span class="s3">, </span><span class="s5">0.24</span><span class="s3">,</span><span class="s1"> 
+<a name="l225"><span class="ln">225  </span></a>                </span><span class="s5">0.30</span><span class="s3">, </span><span class="s5">0.36</span><span class="s3">, </span><span class="s5">0.43</span><span class="s3">, </span><span class="s5">0.50</span><span class="s3">, </span><span class="s5">0.60</span><span class="s3">, </span><span class="s5">0.72</span><span class="s3">, </span><span class="s5">0.85</span><span class="s3">, </span><span class="s5">1.00</span><span class="s3">, </span><span class="s5">1.00 </span><span class="s1">}</span><span class="s3">;</span><span class="s1"> 
 <a name="l226"><span class="ln">226  </span></a> 
 <a name="l227"><span class="ln">227  </span></a>        </span><span class="s0">// get the corresponding index for the scaleInput array.</span><span class="s1"> 
-<a name="l228"><span class="ln">228  </span></a>        </span><span class="s2">int </span><span class="s1">index = (</span><span class="s2">int</span><span class="s1">) (dVal * </span><span class="s5">16.0</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l228"><span class="ln">228  </span></a>        </span><span class="s2">int </span><span class="s1">index = (</span><span class="s2">int</span><span class="s1">) (dVal * </span><span class="s5">16.0</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l229"><span class="ln">229  </span></a> 
 <a name="l230"><span class="ln">230  </span></a>        </span><span class="s0">// index should be positive.</span><span class="s1"> 
 <a name="l231"><span class="ln">231  </span></a>        </span><span class="s2">if </span><span class="s1">(index &lt; </span><span class="s5">0</span><span class="s1">) { 
-<a name="l232"><span class="ln">232  </span></a>            index = -index</span><span class="s2">;</span><span class="s1"> 
+<a name="l232"><span class="ln">232  </span></a>            index = -index</span><span class="s3">;</span><span class="s1"> 
 <a name="l233"><span class="ln">233  </span></a>        } 
 <a name="l234"><span class="ln">234  </span></a> 
 <a name="l235"><span class="ln">235  </span></a>        </span><span class="s0">// index cannot exceed size of array minus 1.</span><span class="s1"> 
 <a name="l236"><span class="ln">236  </span></a>        </span><span class="s2">if </span><span class="s1">(index &gt; </span><span class="s5">16</span><span class="s1">) { 
-<a name="l237"><span class="ln">237  </span></a>            index = </span><span class="s5">16</span><span class="s2">;</span><span class="s1"> 
+<a name="l237"><span class="ln">237  </span></a>            index = </span><span class="s5">16</span><span class="s3">;</span><span class="s1"> 
 <a name="l238"><span class="ln">238  </span></a>        } 
 <a name="l239"><span class="ln">239  </span></a> 
 <a name="l240"><span class="ln">240  </span></a>        </span><span class="s0">// get value from the array.</span><span class="s1"> 
-<a name="l241"><span class="ln">241  </span></a>        </span><span class="s2">double </span><span class="s1">dScale = </span><span class="s5">0.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l241"><span class="ln">241  </span></a>        </span><span class="s2">double </span><span class="s1">dScale = </span><span class="s5">0.0</span><span class="s3">;</span><span class="s1"> 
 <a name="l242"><span class="ln">242  </span></a>        </span><span class="s2">if </span><span class="s1">(dVal &lt; </span><span class="s5">0</span><span class="s1">) { 
-<a name="l243"><span class="ln">243  </span></a>            dScale = -scaleArray[index]</span><span class="s2">;</span><span class="s1"> 
+<a name="l243"><span class="ln">243  </span></a>            dScale = -scaleArray[index]</span><span class="s3">;</span><span class="s1"> 
 <a name="l244"><span class="ln">244  </span></a>        } </span><span class="s2">else </span><span class="s1">{ 
-<a name="l245"><span class="ln">245  </span></a>            dScale = scaleArray[index]</span><span class="s2">;</span><span class="s1"> 
+<a name="l245"><span class="ln">245  </span></a>            dScale = scaleArray[index]</span><span class="s3">;</span><span class="s1"> 
 <a name="l246"><span class="ln">246  </span></a>        } 
 <a name="l247"><span class="ln">247  </span></a> 
 <a name="l248"><span class="ln">248  </span></a>        </span><span class="s0">// return scaled value.</span><span class="s1"> 
-<a name="l249"><span class="ln">249  </span></a>        </span><span class="s2">return </span><span class="s1">dScale</span><span class="s2">;</span><span class="s1"> 
+<a name="l249"><span class="ln">249  </span></a>        </span><span class="s2">return </span><span class="s1">dScale</span><span class="s3">;</span><span class="s1"> 
 <a name="l250"><span class="ln">250  </span></a>    } 
 <a name="l251"><span class="ln">251  </span></a> 
 <a name="l252"><span class="ln">252  </span></a>} 

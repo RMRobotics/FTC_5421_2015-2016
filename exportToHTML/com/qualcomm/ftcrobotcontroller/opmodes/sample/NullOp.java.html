@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(128,128,128); }
-.s1 { color: rgb(169,183,198); }
-.s2 { color: rgb(204,120,50); }
-.s3 { color: rgb(98,151,85); font-style: italic; }
-.s4 { color: rgb(119,183,103); font-style: italic; }
-.s5 { color: rgb(106,135,89); }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { }
+.s2 { color: rgb(0,0,128); font-weight: bold; }
+.s3 { color: rgb(204,120,50); }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
 </style>
 </head>
-<BODY BGCOLOR="#2b2b2b">
+<BODY BGCOLOR="#ffffff">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -51,23 +51,23 @@ NullOp.java</FONT>
 <a name="l29"><span class="ln">29   </span></a>OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 <a name="l30"><span class="ln">30   </span></a>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */</span><span class="s1"> 
 <a name="l31"><span class="ln">31   </span></a> 
-<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s2">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s3">;</span><span class="s1"> 
 <a name="l33"><span class="ln">33   </span></a> 
-<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s2">;</span><span class="s1"> 
-<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.util.ElapsedTime</span><span class="s2">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s3">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.util.ElapsedTime</span><span class="s3">;</span><span class="s1"> 
 <a name="l36"><span class="ln">36   </span></a> 
-<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">java.text.SimpleDateFormat</span><span class="s2">;</span><span class="s1"> 
-<a name="l38"><span class="ln">38   </span></a></span><span class="s2">import </span><span class="s1">java.util.Date</span><span class="s2">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">java.text.SimpleDateFormat</span><span class="s3">;</span><span class="s1"> 
+<a name="l38"><span class="ln">38   </span></a></span><span class="s2">import </span><span class="s1">java.util.Date</span><span class="s3">;</span><span class="s1"> 
 <a name="l39"><span class="ln">39   </span></a> 
-<a name="l40"><span class="ln">40   </span></a></span><span class="s3">/** 
+<a name="l40"><span class="ln">40   </span></a></span><span class="s0">/** 
 <a name="l41"><span class="ln">41   </span></a> * TeleOp5421 Mode 
-<a name="l42"><span class="ln">42   </span></a> * </span><span class="s4">&lt;p&gt;</span><span class="s3"> 
+<a name="l42"><span class="ln">42   </span></a> * </span><span class="s4">&lt;p&gt;</span><span class="s0"> 
 <a name="l43"><span class="ln">43   </span></a> *Enables control of the robot via the gamepad 
 <a name="l44"><span class="ln">44   </span></a> */</span><span class="s1"> 
 <a name="l45"><span class="ln">45   </span></a></span><span class="s2">public class </span><span class="s1">NullOp </span><span class="s2">extends </span><span class="s1">OpMode { 
 <a name="l46"><span class="ln">46   </span></a> 
-<a name="l47"><span class="ln">47   </span></a>  </span><span class="s2">private </span><span class="s1">String startDate</span><span class="s2">;</span><span class="s1"> 
-<a name="l48"><span class="ln">48   </span></a>  </span><span class="s2">private </span><span class="s1">ElapsedTime runtime = </span><span class="s2">new </span><span class="s1">ElapsedTime()</span><span class="s2">;</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a>  </span><span class="s2">private </span><span class="s1">String startDate</span><span class="s3">;</span><span class="s1"> 
+<a name="l48"><span class="ln">48   </span></a>  </span><span class="s2">private </span><span class="s1">ElapsedTime runtime = </span><span class="s2">new </span><span class="s1">ElapsedTime()</span><span class="s3">;</span><span class="s1"> 
 <a name="l49"><span class="ln">49   </span></a> 
 <a name="l50"><span class="ln">50   </span></a>  @Override 
 <a name="l51"><span class="ln">51   </span></a>  </span><span class="s2">public void </span><span class="s1">init() { 
@@ -79,9 +79,9 @@ NullOp.java</FONT>
 <a name="l57"><span class="ln">57   </span></a>     */</span><span class="s1"> 
 <a name="l58"><span class="ln">58   </span></a>  @Override 
 <a name="l59"><span class="ln">59   </span></a>  </span><span class="s2">public void </span><span class="s1">init_loop() { 
-<a name="l60"><span class="ln">60   </span></a>    startDate = </span><span class="s2">new </span><span class="s1">SimpleDateFormat(</span><span class="s5">&quot;yyyy/MM/dd HH:mm:ss&quot;</span><span class="s1">).format(</span><span class="s2">new </span><span class="s1">Date())</span><span class="s2">;</span><span class="s1"> 
-<a name="l61"><span class="ln">61   </span></a>    runtime.reset()</span><span class="s2">;</span><span class="s1"> 
-<a name="l62"><span class="ln">62   </span></a>    telemetry.addData(</span><span class="s5">&quot;Null Op Init Loop&quot;</span><span class="s2">, </span><span class="s1">runtime.toString())</span><span class="s2">;</span><span class="s1"> 
+<a name="l60"><span class="ln">60   </span></a>    startDate = </span><span class="s2">new </span><span class="s1">SimpleDateFormat(</span><span class="s5">&quot;yyyy/MM/dd HH:mm:ss&quot;</span><span class="s1">).format(</span><span class="s2">new </span><span class="s1">Date())</span><span class="s3">;</span><span class="s1"> 
+<a name="l61"><span class="ln">61   </span></a>    runtime.reset()</span><span class="s3">;</span><span class="s1"> 
+<a name="l62"><span class="ln">62   </span></a>    telemetry.addData(</span><span class="s5">&quot;Null Op Init Loop&quot;</span><span class="s3">, </span><span class="s1">runtime.toString())</span><span class="s3">;</span><span class="s1"> 
 <a name="l63"><span class="ln">63   </span></a>  } 
 <a name="l64"><span class="ln">64   </span></a> 
 <a name="l65"><span class="ln">65   </span></a>  </span><span class="s0">/* 
@@ -90,8 +90,8 @@ NullOp.java</FONT>
 <a name="l68"><span class="ln">68   </span></a>   */</span><span class="s1"> 
 <a name="l69"><span class="ln">69   </span></a>  @Override 
 <a name="l70"><span class="ln">70   </span></a>  </span><span class="s2">public void </span><span class="s1">loop() { 
-<a name="l71"><span class="ln">71   </span></a>    telemetry.addData(</span><span class="s5">&quot;1 Start&quot;</span><span class="s2">, </span><span class="s5">&quot;NullOp started at &quot; </span><span class="s1">+ startDate)</span><span class="s2">;</span><span class="s1"> 
-<a name="l72"><span class="ln">72   </span></a>    telemetry.addData(</span><span class="s5">&quot;2 Status&quot;</span><span class="s2">, </span><span class="s5">&quot;running for &quot; </span><span class="s1">+ runtime.toString())</span><span class="s2">;</span><span class="s1"> 
+<a name="l71"><span class="ln">71   </span></a>    telemetry.addData(</span><span class="s5">&quot;1 Start&quot;</span><span class="s3">, </span><span class="s5">&quot;NullOp started at &quot; </span><span class="s1">+ startDate)</span><span class="s3">;</span><span class="s1"> 
+<a name="l72"><span class="ln">72   </span></a>    telemetry.addData(</span><span class="s5">&quot;2 Status&quot;</span><span class="s3">, </span><span class="s5">&quot;running for &quot; </span><span class="s1">+ runtime.toString())</span><span class="s3">;</span><span class="s1"> 
 <a name="l73"><span class="ln">73   </span></a>  } 
 <a name="l74"><span class="ln">74   </span></a>} 
 <a name="l75"><span class="ln">75   </span></a></span></pre>

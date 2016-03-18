@@ -4,14 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(128,128,128); }
-.s1 { color: rgb(169,183,198); }
-.s2 { color: rgb(204,120,50); }
-.s3 { color: rgb(104,151,187); }
-.s4 { color: rgb(106,135,89); }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { }
+.s2 { color: rgb(0,0,128); font-weight: bold; }
+.s3 { color: rgb(204,120,50); }
+.s4 { color: rgb(0,0,255); }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
 </style>
 </head>
-<BODY BGCOLOR="#2b2b2b">
+<BODY BGCOLOR="#ffffff">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -50,10 +51,10 @@ MRGyroTest.java</FONT>
 <a name="l29"><span class="ln">29   </span></a>OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 <a name="l30"><span class="ln">30   </span></a>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */</span><span class="s1"> 
 <a name="l31"><span class="ln">31   </span></a> 
-<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s2">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s3">;</span><span class="s1"> 
 <a name="l33"><span class="ln">33   </span></a> 
-<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="s2">;</span><span class="s1"> 
-<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.GyroSensor</span><span class="s2">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="s3">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.GyroSensor</span><span class="s3">;</span><span class="s1"> 
 <a name="l36"><span class="ln">36   </span></a> 
 <a name="l37"><span class="ln">37   </span></a></span><span class="s0">/* 
 <a name="l38"><span class="ln">38   </span></a> * 
@@ -72,51 +73,51 @@ MRGyroTest.java</FONT>
 <a name="l51"><span class="ln">51   </span></a>  @Override 
 <a name="l52"><span class="ln">52   </span></a>  </span><span class="s2">public void </span><span class="s1">runOpMode() </span><span class="s2">throws </span><span class="s1">InterruptedException { 
 <a name="l53"><span class="ln">53   </span></a> 
-<a name="l54"><span class="ln">54   </span></a>    GyroSensor sensorGyro</span><span class="s2">;</span><span class="s1"> 
-<a name="l55"><span class="ln">55   </span></a>    </span><span class="s2">int </span><span class="s1">xVal</span><span class="s2">, </span><span class="s1">yVal</span><span class="s2">, </span><span class="s1">zVal = </span><span class="s3">0</span><span class="s2">;</span><span class="s1"> 
-<a name="l56"><span class="ln">56   </span></a>    </span><span class="s2">int </span><span class="s1">heading = </span><span class="s3">0</span><span class="s2">;</span><span class="s1"> 
+<a name="l54"><span class="ln">54   </span></a>    GyroSensor sensorGyro</span><span class="s3">;</span><span class="s1"> 
+<a name="l55"><span class="ln">55   </span></a>    </span><span class="s2">int </span><span class="s1">xVal</span><span class="s3">, </span><span class="s1">yVal</span><span class="s3">, </span><span class="s1">zVal = </span><span class="s4">0</span><span class="s3">;</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a>    </span><span class="s2">int </span><span class="s1">heading = </span><span class="s4">0</span><span class="s3">;</span><span class="s1"> 
 <a name="l57"><span class="ln">57   </span></a> 
 <a name="l58"><span class="ln">58   </span></a>    </span><span class="s0">// write some device information (connection info, name and type)</span><span class="s1"> 
 <a name="l59"><span class="ln">59   </span></a>    </span><span class="s0">// to the log file.</span><span class="s1"> 
-<a name="l60"><span class="ln">60   </span></a>    hardwareMap.logDevices()</span><span class="s2">;</span><span class="s1"> 
+<a name="l60"><span class="ln">60   </span></a>    hardwareMap.logDevices()</span><span class="s3">;</span><span class="s1"> 
 <a name="l61"><span class="ln">61   </span></a> 
 <a name="l62"><span class="ln">62   </span></a>    </span><span class="s0">// get a reference to our GyroSensor object.</span><span class="s1"> 
-<a name="l63"><span class="ln">63   </span></a>    sensorGyro = hardwareMap.gyroSensor.get(</span><span class="s4">&quot;gyro&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l63"><span class="ln">63   </span></a>    sensorGyro = hardwareMap.gyroSensor.get(</span><span class="s5">&quot;gyro&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l64"><span class="ln">64   </span></a> 
 <a name="l65"><span class="ln">65   </span></a>    </span><span class="s0">// calibrate the gyro.</span><span class="s1"> 
-<a name="l66"><span class="ln">66   </span></a>    sensorGyro.calibrate()</span><span class="s2">;</span><span class="s1"> 
+<a name="l66"><span class="ln">66   </span></a>    sensorGyro.calibrate()</span><span class="s3">;</span><span class="s1"> 
 <a name="l67"><span class="ln">67   </span></a> 
 <a name="l68"><span class="ln">68   </span></a>    </span><span class="s0">// wait for the start button to be pressed.</span><span class="s1"> 
-<a name="l69"><span class="ln">69   </span></a>    waitForStart()</span><span class="s2">;</span><span class="s1"> 
+<a name="l69"><span class="ln">69   </span></a>    waitForStart()</span><span class="s3">;</span><span class="s1"> 
 <a name="l70"><span class="ln">70   </span></a> 
 <a name="l71"><span class="ln">71   </span></a>    </span><span class="s0">// make sure the gyro is calibrated.</span><span class="s1"> 
 <a name="l72"><span class="ln">72   </span></a>    </span><span class="s2">while </span><span class="s1">(sensorGyro.isCalibrating())  { 
-<a name="l73"><span class="ln">73   </span></a>      Thread.sleep(</span><span class="s3">50</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l73"><span class="ln">73   </span></a>      Thread.sleep(</span><span class="s4">50</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l74"><span class="ln">74   </span></a>    } 
 <a name="l75"><span class="ln">75   </span></a> 
 <a name="l76"><span class="ln">76   </span></a>    </span><span class="s2">while </span><span class="s1">(opModeIsActive())  { 
 <a name="l77"><span class="ln">77   </span></a>      </span><span class="s0">// if the A and B buttons are pressed, reset Z heading.</span><span class="s1"> 
 <a name="l78"><span class="ln">78   </span></a>      </span><span class="s2">if</span><span class="s1">(gamepad1.a &amp;&amp; gamepad1.b)  { 
 <a name="l79"><span class="ln">79   </span></a>        </span><span class="s0">// reset heading.</span><span class="s1"> 
-<a name="l80"><span class="ln">80   </span></a>        sensorGyro.resetZAxisIntegrator()</span><span class="s2">;</span><span class="s1"> 
+<a name="l80"><span class="ln">80   </span></a>        sensorGyro.resetZAxisIntegrator()</span><span class="s3">;</span><span class="s1"> 
 <a name="l81"><span class="ln">81   </span></a>      } 
 <a name="l82"><span class="ln">82   </span></a> 
 <a name="l83"><span class="ln">83   </span></a>      </span><span class="s0">// get the x, y, and z values (rate of change of angle).</span><span class="s1"> 
-<a name="l84"><span class="ln">84   </span></a>      xVal = sensorGyro.rawX()</span><span class="s2">;</span><span class="s1"> 
-<a name="l85"><span class="ln">85   </span></a>      yVal = sensorGyro.rawY()</span><span class="s2">;</span><span class="s1"> 
-<a name="l86"><span class="ln">86   </span></a>      zVal = sensorGyro.rawZ()</span><span class="s2">;</span><span class="s1"> 
+<a name="l84"><span class="ln">84   </span></a>      xVal = sensorGyro.rawX()</span><span class="s3">;</span><span class="s1"> 
+<a name="l85"><span class="ln">85   </span></a>      yVal = sensorGyro.rawY()</span><span class="s3">;</span><span class="s1"> 
+<a name="l86"><span class="ln">86   </span></a>      zVal = sensorGyro.rawZ()</span><span class="s3">;</span><span class="s1"> 
 <a name="l87"><span class="ln">87   </span></a> 
 <a name="l88"><span class="ln">88   </span></a>      </span><span class="s0">// get the heading info.</span><span class="s1"> 
 <a name="l89"><span class="ln">89   </span></a>      </span><span class="s0">// the Modern Robotics' gyro sensor keeps</span><span class="s1"> 
 <a name="l90"><span class="ln">90   </span></a>      </span><span class="s0">// track of the current heading for the Z axis only.</span><span class="s1"> 
-<a name="l91"><span class="ln">91   </span></a>      heading = sensorGyro.getHeading()</span><span class="s2">;</span><span class="s1"> 
+<a name="l91"><span class="ln">91   </span></a>      heading = sensorGyro.getHeading()</span><span class="s3">;</span><span class="s1"> 
 <a name="l92"><span class="ln">92   </span></a> 
-<a name="l93"><span class="ln">93   </span></a>      telemetry.addData(</span><span class="s4">&quot;1. x&quot;</span><span class="s2">, </span><span class="s1">String.format(</span><span class="s4">&quot;%03d&quot;</span><span class="s2">, </span><span class="s1">xVal))</span><span class="s2">;</span><span class="s1"> 
-<a name="l94"><span class="ln">94   </span></a>      telemetry.addData(</span><span class="s4">&quot;2. y&quot;</span><span class="s2">, </span><span class="s1">String.format(</span><span class="s4">&quot;%03d&quot;</span><span class="s2">, </span><span class="s1">yVal))</span><span class="s2">;</span><span class="s1"> 
-<a name="l95"><span class="ln">95   </span></a>      telemetry.addData(</span><span class="s4">&quot;3. z&quot;</span><span class="s2">, </span><span class="s1">String.format(</span><span class="s4">&quot;%03d&quot;</span><span class="s2">, </span><span class="s1">zVal))</span><span class="s2">;</span><span class="s1"> 
-<a name="l96"><span class="ln">96   </span></a>      telemetry.addData(</span><span class="s4">&quot;4. h&quot;</span><span class="s2">, </span><span class="s1">String.format(</span><span class="s4">&quot;%03d&quot;</span><span class="s2">, </span><span class="s1">heading))</span><span class="s2">;</span><span class="s1"> 
+<a name="l93"><span class="ln">93   </span></a>      telemetry.addData(</span><span class="s5">&quot;1. x&quot;</span><span class="s3">, </span><span class="s1">String.format(</span><span class="s5">&quot;%03d&quot;</span><span class="s3">, </span><span class="s1">xVal))</span><span class="s3">;</span><span class="s1"> 
+<a name="l94"><span class="ln">94   </span></a>      telemetry.addData(</span><span class="s5">&quot;2. y&quot;</span><span class="s3">, </span><span class="s1">String.format(</span><span class="s5">&quot;%03d&quot;</span><span class="s3">, </span><span class="s1">yVal))</span><span class="s3">;</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>      telemetry.addData(</span><span class="s5">&quot;3. z&quot;</span><span class="s3">, </span><span class="s1">String.format(</span><span class="s5">&quot;%03d&quot;</span><span class="s3">, </span><span class="s1">zVal))</span><span class="s3">;</span><span class="s1"> 
+<a name="l96"><span class="ln">96   </span></a>      telemetry.addData(</span><span class="s5">&quot;4. h&quot;</span><span class="s3">, </span><span class="s1">String.format(</span><span class="s5">&quot;%03d&quot;</span><span class="s3">, </span><span class="s1">heading))</span><span class="s3">;</span><span class="s1"> 
 <a name="l97"><span class="ln">97   </span></a> 
-<a name="l98"><span class="ln">98   </span></a>      Thread.sleep(</span><span class="s3">100</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l98"><span class="ln">98   </span></a>      Thread.sleep(</span><span class="s4">100</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
 <a name="l99"><span class="ln">99   </span></a>    } 
 <a name="l100"><span class="ln">100  </span></a>  } 
 <a name="l101"><span class="ln">101  </span></a>} 
