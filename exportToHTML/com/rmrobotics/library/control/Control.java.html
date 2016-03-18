@@ -4,14 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(0,0,128); font-weight: bold; }
-.s1 { }
-.s2 { color: rgb(204,120,50); }
-.s3 { color: rgb(0,0,255); }
-.s4 { color: rgb(128,128,128); font-style: italic; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(104,151,187); }
+.s3 { color: rgb(128,128,128); }
 </style>
 </head>
-<BODY BGCOLOR="#ffffff">
+<BODY BGCOLOR="#2b2b2b">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -19,153 +18,153 @@ Control.java</FONT>
 </center></TD></TR></TABLE>
 <pre>
 
-<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.rmrobotics.library.control</span><span class="s2">;</span><span class="s1"> 
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.rmrobotics.library.control</span><span class="s0">;</span><span class="s1"> 
 <a name="l2"><span class="ln">2    </span></a> 
-<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.Gamepad</span><span class="s2">;</span><span class="s1"> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.Gamepad</span><span class="s0">;</span><span class="s1"> 
 <a name="l4"><span class="ln">4    </span></a> 
 <a name="l5"><span class="ln">5    </span></a></span><span class="s0">public class </span><span class="s1">Control { 
 <a name="l6"><span class="ln">6    </span></a> 
-<a name="l7"><span class="ln">7    </span></a>    </span><span class="s0">private </span><span class="s1">ControllerInput currentInput</span><span class="s2">;</span><span class="s1"> 
-<a name="l8"><span class="ln">8    </span></a>    </span><span class="s0">private </span><span class="s1">ControllerInput prevInput</span><span class="s2">;</span><span class="s1"> 
+<a name="l7"><span class="ln">7    </span></a>    </span><span class="s0">private </span><span class="s1">ControllerInput currentInput</span><span class="s0">;</span><span class="s1"> 
+<a name="l8"><span class="ln">8    </span></a>    </span><span class="s0">private </span><span class="s1">ControllerInput prevInput</span><span class="s0">;</span><span class="s1"> 
 <a name="l9"><span class="ln">9    </span></a> 
-<a name="l10"><span class="ln">10   </span></a>    </span><span class="s0">public </span><span class="s1">Control(Gamepad g1</span><span class="s2">, </span><span class="s1">Gamepad g2){ 
-<a name="l11"><span class="ln">11   </span></a>        currentInput =  </span><span class="s0">new </span><span class="s1">ControllerInput(g1</span><span class="s2">, </span><span class="s1">g2)</span><span class="s2">;</span><span class="s1"> 
-<a name="l12"><span class="ln">12   </span></a>        prevInput = currentInput</span><span class="s2">;</span><span class="s1"> 
+<a name="l10"><span class="ln">10   </span></a>    </span><span class="s0">public </span><span class="s1">Control(Gamepad g1</span><span class="s0">, </span><span class="s1">Gamepad g2){ 
+<a name="l11"><span class="ln">11   </span></a>        currentInput =  </span><span class="s0">new </span><span class="s1">ControllerInput(g1</span><span class="s0">, </span><span class="s1">g2)</span><span class="s0">;</span><span class="s1"> 
+<a name="l12"><span class="ln">12   </span></a>        prevInput = currentInput</span><span class="s0">;</span><span class="s1"> 
 <a name="l13"><span class="ln">13   </span></a>    } 
 <a name="l14"><span class="ln">14   </span></a> 
-<a name="l15"><span class="ln">15   </span></a>    </span><span class="s0">public void </span><span class="s1">update(Gamepad g1</span><span class="s2">, </span><span class="s1">Gamepad g2) { 
-<a name="l16"><span class="ln">16   </span></a>        prevInput =  currentInput</span><span class="s2">;</span><span class="s1"> 
-<a name="l17"><span class="ln">17   </span></a>        currentInput =  </span><span class="s0">new </span><span class="s1">ControllerInput(g1</span><span class="s2">, </span><span class="s1">g2)</span><span class="s2">;</span><span class="s1"> 
+<a name="l15"><span class="ln">15   </span></a>    </span><span class="s0">public void </span><span class="s1">update(Gamepad g1</span><span class="s0">, </span><span class="s1">Gamepad g2) { 
+<a name="l16"><span class="ln">16   </span></a>        prevInput =  currentInput</span><span class="s0">;</span><span class="s1"> 
+<a name="l17"><span class="ln">17   </span></a>        currentInput =  </span><span class="s0">new </span><span class="s1">ControllerInput(g1</span><span class="s0">, </span><span class="s1">g2)</span><span class="s0">;</span><span class="s1"> 
 <a name="l18"><span class="ln">18   </span></a>    } 
 <a name="l19"><span class="ln">19   </span></a> 
-<a name="l20"><span class="ln">20   </span></a>    </span><span class="s0">public boolean </span><span class="s1">button(Controller c</span><span class="s2">, </span><span class="s1">Button b){ 
-<a name="l21"><span class="ln">21   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.button(c</span><span class="s2">, </span><span class="s1">b)</span><span class="s2">;</span><span class="s1"> 
+<a name="l20"><span class="ln">20   </span></a>    </span><span class="s0">public boolean </span><span class="s1">button(Controller c</span><span class="s0">, </span><span class="s1">Button b){ 
+<a name="l21"><span class="ln">21   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.button(c</span><span class="s0">, </span><span class="s1">b)</span><span class="s0">;</span><span class="s1"> 
 <a name="l22"><span class="ln">22   </span></a>    } 
 <a name="l23"><span class="ln">23   </span></a> 
 <a name="l24"><span class="ln">24   </span></a> 
-<a name="l25"><span class="ln">25   </span></a>    </span><span class="s0">public boolean </span><span class="s1">buttonPressed(Controller c</span><span class="s2">, </span><span class="s1">Button b){ 
-<a name="l26"><span class="ln">26   </span></a>        </span><span class="s0">boolean </span><span class="s1">prev = prevInput.button(c</span><span class="s2">, </span><span class="s1">b)</span><span class="s2">;</span><span class="s1"> 
-<a name="l27"><span class="ln">27   </span></a>        </span><span class="s0">boolean </span><span class="s1">curr = currentInput.button(c</span><span class="s2">, </span><span class="s1">b)</span><span class="s2">;</span><span class="s1"> 
-<a name="l28"><span class="ln">28   </span></a>        </span><span class="s0">return </span><span class="s1">curr &amp;&amp; !prev</span><span class="s2">;</span><span class="s1"> 
+<a name="l25"><span class="ln">25   </span></a>    </span><span class="s0">public boolean </span><span class="s1">buttonPressed(Controller c</span><span class="s0">, </span><span class="s1">Button b){ 
+<a name="l26"><span class="ln">26   </span></a>        </span><span class="s0">boolean </span><span class="s1">prev = prevInput.button(c</span><span class="s0">, </span><span class="s1">b)</span><span class="s0">;</span><span class="s1"> 
+<a name="l27"><span class="ln">27   </span></a>        </span><span class="s0">boolean </span><span class="s1">curr = currentInput.button(c</span><span class="s0">, </span><span class="s1">b)</span><span class="s0">;</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a>        </span><span class="s0">return </span><span class="s1">curr &amp;&amp; !prev</span><span class="s0">;</span><span class="s1"> 
 <a name="l29"><span class="ln">29   </span></a>    } 
-<a name="l30"><span class="ln">30   </span></a>    </span><span class="s0">public boolean </span><span class="s1">buttonHeld(Controller c</span><span class="s2">, </span><span class="s1">Button b){ 
-<a name="l31"><span class="ln">31   </span></a>        </span><span class="s0">boolean </span><span class="s1">prev = prevInput.button(c</span><span class="s2">, </span><span class="s1">b)</span><span class="s2">;</span><span class="s1"> 
-<a name="l32"><span class="ln">32   </span></a>        </span><span class="s0">boolean </span><span class="s1">curr = currentInput.button(c</span><span class="s2">, </span><span class="s1">b)</span><span class="s2">;</span><span class="s1"> 
-<a name="l33"><span class="ln">33   </span></a>        </span><span class="s0">return </span><span class="s1">curr &amp;&amp; prev</span><span class="s2">;</span><span class="s1"> 
+<a name="l30"><span class="ln">30   </span></a>    </span><span class="s0">public boolean </span><span class="s1">buttonHeld(Controller c</span><span class="s0">, </span><span class="s1">Button b){ 
+<a name="l31"><span class="ln">31   </span></a>        </span><span class="s0">boolean </span><span class="s1">prev = prevInput.button(c</span><span class="s0">, </span><span class="s1">b)</span><span class="s0">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a>        </span><span class="s0">boolean </span><span class="s1">curr = currentInput.button(c</span><span class="s0">, </span><span class="s1">b)</span><span class="s0">;</span><span class="s1"> 
+<a name="l33"><span class="ln">33   </span></a>        </span><span class="s0">return </span><span class="s1">curr &amp;&amp; prev</span><span class="s0">;</span><span class="s1"> 
 <a name="l34"><span class="ln">34   </span></a>    } 
 <a name="l35"><span class="ln">35   </span></a> 
-<a name="l36"><span class="ln">36   </span></a>    </span><span class="s0">public boolean </span><span class="s1">buttonReleased(Controller c</span><span class="s2">, </span><span class="s1">Button b){ 
-<a name="l37"><span class="ln">37   </span></a>        </span><span class="s0">boolean </span><span class="s1">prev = prevInput.button(c</span><span class="s2">, </span><span class="s1">b)</span><span class="s2">;</span><span class="s1"> 
-<a name="l38"><span class="ln">38   </span></a>        </span><span class="s0">boolean </span><span class="s1">curr = currentInput.button(c</span><span class="s2">, </span><span class="s1">b)</span><span class="s2">;</span><span class="s1"> 
-<a name="l39"><span class="ln">39   </span></a>        </span><span class="s0">return </span><span class="s1">!curr &amp;&amp; prev</span><span class="s2">;</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a>    </span><span class="s0">public boolean </span><span class="s1">buttonReleased(Controller c</span><span class="s0">, </span><span class="s1">Button b){ 
+<a name="l37"><span class="ln">37   </span></a>        </span><span class="s0">boolean </span><span class="s1">prev = prevInput.button(c</span><span class="s0">, </span><span class="s1">b)</span><span class="s0">;</span><span class="s1"> 
+<a name="l38"><span class="ln">38   </span></a>        </span><span class="s0">boolean </span><span class="s1">curr = currentInput.button(c</span><span class="s0">, </span><span class="s1">b)</span><span class="s0">;</span><span class="s1"> 
+<a name="l39"><span class="ln">39   </span></a>        </span><span class="s0">return </span><span class="s1">!curr &amp;&amp; prev</span><span class="s0">;</span><span class="s1"> 
 <a name="l40"><span class="ln">40   </span></a>    } 
 <a name="l41"><span class="ln">41   </span></a> 
-<a name="l42"><span class="ln">42   </span></a>    </span><span class="s0">public double </span><span class="s1">joystickValue(Controller c</span><span class="s2">, </span><span class="s1">Joystick j</span><span class="s2">, </span><span class="s1">Axis a){ 
-<a name="l43"><span class="ln">43   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.joystickValue(c</span><span class="s2">, </span><span class="s1">j</span><span class="s2">, </span><span class="s1">a)</span><span class="s2">;</span><span class="s1"> 
+<a name="l42"><span class="ln">42   </span></a>    </span><span class="s0">public double </span><span class="s1">joystickValue(Controller c</span><span class="s0">, </span><span class="s1">Joystick j</span><span class="s0">, </span><span class="s1">Axis a){ 
+<a name="l43"><span class="ln">43   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.joystickValue(c</span><span class="s0">, </span><span class="s1">j</span><span class="s0">, </span><span class="s1">a)</span><span class="s0">;</span><span class="s1"> 
 <a name="l44"><span class="ln">44   </span></a>    } 
 <a name="l45"><span class="ln">45   </span></a> 
-<a name="l46"><span class="ln">46   </span></a>    </span><span class="s0">public double </span><span class="s1">triggerValue(Controller c</span><span class="s2">, </span><span class="s1">Trigger t){ 
-<a name="l47"><span class="ln">47   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.triggerValue(c</span><span class="s2">, </span><span class="s1">t)</span><span class="s2">;</span><span class="s1"> 
+<a name="l46"><span class="ln">46   </span></a>    </span><span class="s0">public double </span><span class="s1">triggerValue(Controller c</span><span class="s0">, </span><span class="s1">Trigger t){ 
+<a name="l47"><span class="ln">47   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.triggerValue(c</span><span class="s0">, </span><span class="s1">t)</span><span class="s0">;</span><span class="s1"> 
 <a name="l48"><span class="ln">48   </span></a>    } 
 <a name="l49"><span class="ln">49   </span></a> 
-<a name="l50"><span class="ln">50   </span></a>    </span><span class="s0">public boolean </span><span class="s1">dpadValue(Controller c</span><span class="s2">, </span><span class="s1">Dpad d) { 
-<a name="l51"><span class="ln">51   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.dpad(c</span><span class="s2">, </span><span class="s1">d)</span><span class="s2">;</span><span class="s1"> 
+<a name="l50"><span class="ln">50   </span></a>    </span><span class="s0">public boolean </span><span class="s1">dpadValue(Controller c</span><span class="s0">, </span><span class="s1">Dpad d) { 
+<a name="l51"><span class="ln">51   </span></a>        </span><span class="s0">return </span><span class="s1">currentInput.dpad(c</span><span class="s0">, </span><span class="s1">d)</span><span class="s0">;</span><span class="s1"> 
 <a name="l52"><span class="ln">52   </span></a>    } 
 <a name="l53"><span class="ln">53   </span></a> 
 <a name="l54"><span class="ln">54   </span></a>} 
 <a name="l55"><span class="ln">55   </span></a> 
 <a name="l56"><span class="ln">56   </span></a></span><span class="s0">class </span><span class="s1">ControllerInput{ 
 <a name="l57"><span class="ln">57   </span></a> 
-<a name="l58"><span class="ln">58   </span></a>    </span><span class="s0">private </span><span class="s1">Gamepad game1</span><span class="s2">;</span><span class="s1"> 
-<a name="l59"><span class="ln">59   </span></a>    </span><span class="s0">private </span><span class="s1">Gamepad game2</span><span class="s2">;</span><span class="s1"> 
+<a name="l58"><span class="ln">58   </span></a>    </span><span class="s0">private </span><span class="s1">Gamepad game1</span><span class="s0">;</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>    </span><span class="s0">private </span><span class="s1">Gamepad game2</span><span class="s0">;</span><span class="s1"> 
 <a name="l60"><span class="ln">60   </span></a> 
-<a name="l61"><span class="ln">61   </span></a>    </span><span class="s0">public </span><span class="s1">ControllerInput(Gamepad g1</span><span class="s2">, </span><span class="s1">Gamepad g2){ 
-<a name="l62"><span class="ln">62   </span></a>        game1 =  g1</span><span class="s2">;</span><span class="s1"> 
-<a name="l63"><span class="ln">63   </span></a>        game2 =  g2</span><span class="s2">;</span><span class="s1"> 
+<a name="l61"><span class="ln">61   </span></a>    </span><span class="s0">public </span><span class="s1">ControllerInput(Gamepad g1</span><span class="s0">, </span><span class="s1">Gamepad g2){ 
+<a name="l62"><span class="ln">62   </span></a>        game1 =  g1</span><span class="s0">;</span><span class="s1"> 
+<a name="l63"><span class="ln">63   </span></a>        game2 =  g2</span><span class="s0">;</span><span class="s1"> 
 <a name="l64"><span class="ln">64   </span></a>    } 
 <a name="l65"><span class="ln">65   </span></a> 
-<a name="l66"><span class="ln">66   </span></a>    </span><span class="s0">public double </span><span class="s1">joystickValue(Controller c</span><span class="s2">, </span><span class="s1">Joystick j</span><span class="s2">, </span><span class="s1">Axis a){ 
-<a name="l67"><span class="ln">67   </span></a>        Gamepad g = getController(c)</span><span class="s2">;</span><span class="s1"> 
+<a name="l66"><span class="ln">66   </span></a>    </span><span class="s0">public double </span><span class="s1">joystickValue(Controller c</span><span class="s0">, </span><span class="s1">Joystick j</span><span class="s0">, </span><span class="s1">Axis a){ 
+<a name="l67"><span class="ln">67   </span></a>        Gamepad g = getController(c)</span><span class="s0">;</span><span class="s1"> 
 <a name="l68"><span class="ln">68   </span></a>        </span><span class="s0">switch</span><span class="s1">(j){ 
 <a name="l69"><span class="ln">69   </span></a>            </span><span class="s0">case </span><span class="s1">J_LEFT: 
 <a name="l70"><span class="ln">70   </span></a>                </span><span class="s0">switch</span><span class="s1">(a){ 
 <a name="l71"><span class="ln">71   </span></a>                    </span><span class="s0">case </span><span class="s1">A_X: 
-<a name="l72"><span class="ln">72   </span></a>                        </span><span class="s0">return </span><span class="s1">g.left_stick_x</span><span class="s2">;</span><span class="s1"> 
+<a name="l72"><span class="ln">72   </span></a>                        </span><span class="s0">return </span><span class="s1">g.left_stick_x</span><span class="s0">;</span><span class="s1"> 
 <a name="l73"><span class="ln">73   </span></a>                    </span><span class="s0">case </span><span class="s1">A_Y: 
-<a name="l74"><span class="ln">74   </span></a>                        </span><span class="s0">return </span><span class="s1">g.left_stick_y</span><span class="s2">;</span><span class="s1"> 
+<a name="l74"><span class="ln">74   </span></a>                        </span><span class="s0">return </span><span class="s1">g.left_stick_y</span><span class="s0">;</span><span class="s1"> 
 <a name="l75"><span class="ln">75   </span></a>                } 
 <a name="l76"><span class="ln">76   </span></a>            </span><span class="s0">case </span><span class="s1">J_RIGHT: 
 <a name="l77"><span class="ln">77   </span></a>                </span><span class="s0">switch</span><span class="s1">(a){ 
 <a name="l78"><span class="ln">78   </span></a>                    </span><span class="s0">case </span><span class="s1">A_X: 
-<a name="l79"><span class="ln">79   </span></a>                        </span><span class="s0">return </span><span class="s1">g.right_stick_x</span><span class="s2">;</span><span class="s1"> 
+<a name="l79"><span class="ln">79   </span></a>                        </span><span class="s0">return </span><span class="s1">g.right_stick_x</span><span class="s0">;</span><span class="s1"> 
 <a name="l80"><span class="ln">80   </span></a>                    </span><span class="s0">case </span><span class="s1">A_Y: 
-<a name="l81"><span class="ln">81   </span></a>                        </span><span class="s0">return </span><span class="s1">g.right_stick_y</span><span class="s2">;</span><span class="s1"> 
+<a name="l81"><span class="ln">81   </span></a>                        </span><span class="s0">return </span><span class="s1">g.right_stick_y</span><span class="s0">;</span><span class="s1"> 
 <a name="l82"><span class="ln">82   </span></a>                } 
 <a name="l83"><span class="ln">83   </span></a>        } 
-<a name="l84"><span class="ln">84   </span></a>        </span><span class="s0">return </span><span class="s1">-</span><span class="s3">1</span><span class="s2">;</span><span class="s1"> 
+<a name="l84"><span class="ln">84   </span></a>        </span><span class="s0">return </span><span class="s1">-</span><span class="s2">1</span><span class="s0">;</span><span class="s1"> 
 <a name="l85"><span class="ln">85   </span></a>    } 
 <a name="l86"><span class="ln">86   </span></a> 
-<a name="l87"><span class="ln">87   </span></a>    </span><span class="s0">public double </span><span class="s1">triggerValue(Controller c</span><span class="s2">, </span><span class="s1">Trigger t){ 
-<a name="l88"><span class="ln">88   </span></a>        Gamepad g = getController(c)</span><span class="s2">;</span><span class="s1"> 
+<a name="l87"><span class="ln">87   </span></a>    </span><span class="s0">public double </span><span class="s1">triggerValue(Controller c</span><span class="s0">, </span><span class="s1">Trigger t){ 
+<a name="l88"><span class="ln">88   </span></a>        Gamepad g = getController(c)</span><span class="s0">;</span><span class="s1"> 
 <a name="l89"><span class="ln">89   </span></a>        </span><span class="s0">switch </span><span class="s1">(t){ 
 <a name="l90"><span class="ln">90   </span></a>            </span><span class="s0">case </span><span class="s1">T_LEFT: 
-<a name="l91"><span class="ln">91   </span></a>                </span><span class="s0">return </span><span class="s1">g.left_trigger</span><span class="s2">;</span><span class="s1"> 
+<a name="l91"><span class="ln">91   </span></a>                </span><span class="s0">return </span><span class="s1">g.left_trigger</span><span class="s0">;</span><span class="s1"> 
 <a name="l92"><span class="ln">92   </span></a>            </span><span class="s0">case </span><span class="s1">T_RIGHT: 
-<a name="l93"><span class="ln">93   </span></a>                </span><span class="s0">return </span><span class="s1">g.right_trigger</span><span class="s2">;</span><span class="s1"> 
+<a name="l93"><span class="ln">93   </span></a>                </span><span class="s0">return </span><span class="s1">g.right_trigger</span><span class="s0">;</span><span class="s1"> 
 <a name="l94"><span class="ln">94   </span></a>        } 
-<a name="l95"><span class="ln">95   </span></a>        </span><span class="s0">return </span><span class="s1">-</span><span class="s3">1</span><span class="s2">;</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>        </span><span class="s0">return </span><span class="s1">-</span><span class="s2">1</span><span class="s0">;</span><span class="s1"> 
 <a name="l96"><span class="ln">96   </span></a>    } 
 <a name="l97"><span class="ln">97   </span></a> 
-<a name="l98"><span class="ln">98   </span></a>    </span><span class="s0">public boolean </span><span class="s1">button(Controller c</span><span class="s2">, </span><span class="s1">Button b){ 
-<a name="l99"><span class="ln">99   </span></a>        Gamepad g = getController(c)</span><span class="s2">;</span><span class="s1"> 
+<a name="l98"><span class="ln">98   </span></a>    </span><span class="s0">public boolean </span><span class="s1">button(Controller c</span><span class="s0">, </span><span class="s1">Button b){ 
+<a name="l99"><span class="ln">99   </span></a>        Gamepad g = getController(c)</span><span class="s0">;</span><span class="s1"> 
 <a name="l100"><span class="ln">100  </span></a>        </span><span class="s0">switch</span><span class="s1">(b){ 
 <a name="l101"><span class="ln">101  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_A: 
-<a name="l102"><span class="ln">102  </span></a>                </span><span class="s0">return </span><span class="s1">g.a</span><span class="s2">;</span><span class="s1"> 
+<a name="l102"><span class="ln">102  </span></a>                </span><span class="s0">return </span><span class="s1">g.a</span><span class="s0">;</span><span class="s1"> 
 <a name="l103"><span class="ln">103  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_B: 
-<a name="l104"><span class="ln">104  </span></a>                </span><span class="s0">return </span><span class="s1">g.b</span><span class="s2">;</span><span class="s1"> 
+<a name="l104"><span class="ln">104  </span></a>                </span><span class="s0">return </span><span class="s1">g.b</span><span class="s0">;</span><span class="s1"> 
 <a name="l105"><span class="ln">105  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_X: 
-<a name="l106"><span class="ln">106  </span></a>                </span><span class="s0">return </span><span class="s1">g.x</span><span class="s2">;</span><span class="s1"> 
+<a name="l106"><span class="ln">106  </span></a>                </span><span class="s0">return </span><span class="s1">g.x</span><span class="s0">;</span><span class="s1"> 
 <a name="l107"><span class="ln">107  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_Y: 
-<a name="l108"><span class="ln">108  </span></a>                </span><span class="s0">return </span><span class="s1">g.y</span><span class="s2">;</span><span class="s1"> 
+<a name="l108"><span class="ln">108  </span></a>                </span><span class="s0">return </span><span class="s1">g.y</span><span class="s0">;</span><span class="s1"> 
 <a name="l109"><span class="ln">109  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_LB: 
-<a name="l110"><span class="ln">110  </span></a>                </span><span class="s0">return </span><span class="s1">g.left_bumper</span><span class="s2">;</span><span class="s1"> 
+<a name="l110"><span class="ln">110  </span></a>                </span><span class="s0">return </span><span class="s1">g.left_bumper</span><span class="s0">;</span><span class="s1"> 
 <a name="l111"><span class="ln">111  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_RB: 
-<a name="l112"><span class="ln">112  </span></a>                </span><span class="s0">return </span><span class="s1">g.right_bumper</span><span class="s2">;</span><span class="s1"> 
+<a name="l112"><span class="ln">112  </span></a>                </span><span class="s0">return </span><span class="s1">g.right_bumper</span><span class="s0">;</span><span class="s1"> 
 <a name="l113"><span class="ln">113  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_BACK: 
-<a name="l114"><span class="ln">114  </span></a>                </span><span class="s0">return </span><span class="s1">g.back</span><span class="s2">;</span><span class="s1"> 
+<a name="l114"><span class="ln">114  </span></a>                </span><span class="s0">return </span><span class="s1">g.back</span><span class="s0">;</span><span class="s1"> 
 <a name="l115"><span class="ln">115  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_START: 
-<a name="l116"><span class="ln">116  </span></a>                </span><span class="s0">return </span><span class="s1">g.start</span><span class="s2">;</span><span class="s1"> 
+<a name="l116"><span class="ln">116  </span></a>                </span><span class="s0">return </span><span class="s1">g.start</span><span class="s0">;</span><span class="s1"> 
 <a name="l117"><span class="ln">117  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_JOYL: 
-<a name="l118"><span class="ln">118  </span></a>                </span><span class="s0">return </span><span class="s1">g.left_stick_button</span><span class="s2">;</span><span class="s1"> 
+<a name="l118"><span class="ln">118  </span></a>                </span><span class="s0">return </span><span class="s1">g.left_stick_button</span><span class="s0">;</span><span class="s1"> 
 <a name="l119"><span class="ln">119  </span></a>            </span><span class="s0">case </span><span class="s1">BUTTON_JOYR: 
-<a name="l120"><span class="ln">120  </span></a>                </span><span class="s0">return </span><span class="s1">g.right_stick_button</span><span class="s2">;</span><span class="s1"> 
+<a name="l120"><span class="ln">120  </span></a>                </span><span class="s0">return </span><span class="s1">g.right_stick_button</span><span class="s0">;</span><span class="s1"> 
 <a name="l121"><span class="ln">121  </span></a>        } 
-<a name="l122"><span class="ln">122  </span></a>        </span><span class="s0">return false</span><span class="s2">;</span><span class="s1"> 
+<a name="l122"><span class="ln">122  </span></a>        </span><span class="s0">return false;</span><span class="s1"> 
 <a name="l123"><span class="ln">123  </span></a>    } 
 <a name="l124"><span class="ln">124  </span></a> 
-<a name="l125"><span class="ln">125  </span></a>    </span><span class="s0">public boolean </span><span class="s1">dpad(Controller c</span><span class="s2">, </span><span class="s1">Dpad d) { 
-<a name="l126"><span class="ln">126  </span></a>        Gamepad g = getController(c)</span><span class="s2">;</span><span class="s1"> 
+<a name="l125"><span class="ln">125  </span></a>    </span><span class="s0">public boolean </span><span class="s1">dpad(Controller c</span><span class="s0">, </span><span class="s1">Dpad d) { 
+<a name="l126"><span class="ln">126  </span></a>        Gamepad g = getController(c)</span><span class="s0">;</span><span class="s1"> 
 <a name="l127"><span class="ln">127  </span></a>        </span><span class="s0">switch </span><span class="s1">(d) { 
 <a name="l128"><span class="ln">128  </span></a>            </span><span class="s0">case </span><span class="s1">DPAD_UP: 
-<a name="l129"><span class="ln">129  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_up</span><span class="s2">;</span><span class="s1"> 
+<a name="l129"><span class="ln">129  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_up</span><span class="s0">;</span><span class="s1"> 
 <a name="l130"><span class="ln">130  </span></a>            </span><span class="s0">case </span><span class="s1">DPAD_DOWN: 
-<a name="l131"><span class="ln">131  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_down</span><span class="s2">;</span><span class="s1"> 
+<a name="l131"><span class="ln">131  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_down</span><span class="s0">;</span><span class="s1"> 
 <a name="l132"><span class="ln">132  </span></a>            </span><span class="s0">case </span><span class="s1">DPAD_LEFT: 
-<a name="l133"><span class="ln">133  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_left</span><span class="s2">;</span><span class="s1"> 
+<a name="l133"><span class="ln">133  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_left</span><span class="s0">;</span><span class="s1"> 
 <a name="l134"><span class="ln">134  </span></a>            </span><span class="s0">case </span><span class="s1">DPAD_RIGHT: 
-<a name="l135"><span class="ln">135  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_right</span><span class="s2">;</span><span class="s1"> 
+<a name="l135"><span class="ln">135  </span></a>                </span><span class="s0">return </span><span class="s1">g.dpad_right</span><span class="s0">;</span><span class="s1"> 
 <a name="l136"><span class="ln">136  </span></a>        } 
-<a name="l137"><span class="ln">137  </span></a>        </span><span class="s0">return false</span><span class="s2">;</span><span class="s1"> 
+<a name="l137"><span class="ln">137  </span></a>        </span><span class="s0">return false;</span><span class="s1"> 
 <a name="l138"><span class="ln">138  </span></a>    } 
 <a name="l139"><span class="ln">139  </span></a> 
 <a name="l140"><span class="ln">140  </span></a>    </span><span class="s0">private </span><span class="s1">Gamepad getController(Controller c){ 
 <a name="l141"><span class="ln">141  </span></a>        </span><span class="s0">switch </span><span class="s1">(c){ 
 <a name="l142"><span class="ln">142  </span></a>            </span><span class="s0">case </span><span class="s1">C_ONE: 
-<a name="l143"><span class="ln">143  </span></a>                </span><span class="s0">return </span><span class="s1">game1</span><span class="s2">;</span><span class="s1"> 
+<a name="l143"><span class="ln">143  </span></a>                </span><span class="s0">return </span><span class="s1">game1</span><span class="s0">;</span><span class="s1"> 
 <a name="l144"><span class="ln">144  </span></a>            </span><span class="s0">case </span><span class="s1">C_TWO: 
-<a name="l145"><span class="ln">145  </span></a>                </span><span class="s0">return </span><span class="s1">game2</span><span class="s2">;</span><span class="s1"> 
+<a name="l145"><span class="ln">145  </span></a>                </span><span class="s0">return </span><span class="s1">game2</span><span class="s0">;</span><span class="s1"> 
 <a name="l146"><span class="ln">146  </span></a>        } 
-<a name="l147"><span class="ln">147  </span></a>        </span><span class="s0">return null</span><span class="s2">; </span><span class="s4">//Technically very bad practice...</span><span class="s1"> 
+<a name="l147"><span class="ln">147  </span></a>        </span><span class="s0">return null; </span><span class="s3">//Technically very bad practice...</span><span class="s1"> 
 <a name="l148"><span class="ln">148  </span></a>    } 
 <a name="l149"><span class="ln">149  </span></a> 
 <a name="l150"><span class="ln">150  </span></a>}</span></pre>

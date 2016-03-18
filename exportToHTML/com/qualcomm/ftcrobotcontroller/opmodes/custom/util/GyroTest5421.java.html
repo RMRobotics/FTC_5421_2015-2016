@@ -4,15 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(0,0,128); font-weight: bold; }
-.s1 { }
-.s2 { color: rgb(204,120,50); }
-.s3 { color: rgb(128,128,128); font-style: italic; }
-.s4 { color: rgb(0,128,0); font-weight: bold; }
-.s5 { color: rgb(0,0,255); }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(98,151,85); font-style: italic; }
+.s3 { color: rgb(106,135,89); }
+.s4 { color: rgb(104,151,187); }
 </style>
 </head>
-<BODY BGCOLOR="#ffffff">
+<BODY BGCOLOR="#2b2b2b">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -20,58 +19,58 @@ GyroTest5421.java</FONT>
 </center></TD></TR></TABLE>
 <pre>
 
-<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util</span><span class="s2">;</span><span class="s1"> 
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util</span><span class="s0">;</span><span class="s1"> 
 <a name="l2"><span class="ln">2    </span></a> 
-<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s2">;</span><span class="s1"> 
-<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s2">;</span><span class="s1"> 
-<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s2">;</span><span class="s1"> 
-<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.Gamepad</span><span class="s2">;</span><span class="s1"> 
-<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.GyroSensor</span><span class="s2">;</span><span class="s1"> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s0">;</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s0">;</span><span class="s1"> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s0">;</span><span class="s1"> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.Gamepad</span><span class="s0">;</span><span class="s1"> 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.GyroSensor</span><span class="s0">;</span><span class="s1"> 
 <a name="l8"><span class="ln">8    </span></a> 
-<a name="l9"><span class="ln">9    </span></a></span><span class="s3">/** 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s2">/** 
 <a name="l10"><span class="ln">10   </span></a> * Created by Simon on 2/29/16. 
 <a name="l11"><span class="ln">11   </span></a> */</span><span class="s1"> 
 <a name="l12"><span class="ln">12   </span></a> 
 <a name="l13"><span class="ln">13   </span></a></span><span class="s0">public class </span><span class="s1">GyroTest5421 </span><span class="s0">extends </span><span class="s1">OpMode { 
 <a name="l14"><span class="ln">14   </span></a> 
-<a name="l15"><span class="ln">15   </span></a>    GyroSensor gyro</span><span class="s2">;</span><span class="s1"> 
-<a name="l16"><span class="ln">16   </span></a>    DcMotor mL</span><span class="s2">;</span><span class="s1"> 
-<a name="l17"><span class="ln">17   </span></a>    DcMotor mR</span><span class="s2">;</span><span class="s1"> 
-<a name="l18"><span class="ln">18   </span></a>    Gamepad g1</span><span class="s2">;</span><span class="s1"> 
+<a name="l15"><span class="ln">15   </span></a>    GyroSensor gyro</span><span class="s0">;</span><span class="s1"> 
+<a name="l16"><span class="ln">16   </span></a>    DcMotor mL</span><span class="s0">;</span><span class="s1"> 
+<a name="l17"><span class="ln">17   </span></a>    DcMotor mR</span><span class="s0">;</span><span class="s1"> 
+<a name="l18"><span class="ln">18   </span></a>    Gamepad g1</span><span class="s0">;</span><span class="s1"> 
 <a name="l19"><span class="ln">19   </span></a> 
 <a name="l20"><span class="ln">20   </span></a>    @Override 
 <a name="l21"><span class="ln">21   </span></a>    </span><span class="s0">public void </span><span class="s1">init() { 
-<a name="l22"><span class="ln">22   </span></a>        gyro = hardwareMap.gyroSensor.get(</span><span class="s4">&quot;gyro&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l23"><span class="ln">23   </span></a>        gyro.calibrate()</span><span class="s2">;</span><span class="s1"> 
-<a name="l24"><span class="ln">24   </span></a>        mL = hardwareMap.dcMotor.get(</span><span class="s4">&quot;mL&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l25"><span class="ln">25   </span></a>        mL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s2">;</span><span class="s1"> 
-<a name="l26"><span class="ln">26   </span></a>        mR = hardwareMap.dcMotor.get(</span><span class="s4">&quot;mR&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l27"><span class="ln">27   </span></a>        mR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s2">;</span><span class="s1"> 
-<a name="l28"><span class="ln">28   </span></a>        mR.setDirection(DcMotor.Direction.REVERSE)</span><span class="s2">;</span><span class="s1"> 
-<a name="l29"><span class="ln">29   </span></a>        g1 = gamepad1</span><span class="s2">;</span><span class="s1"> 
+<a name="l22"><span class="ln">22   </span></a>        gyro = hardwareMap.gyroSensor.get(</span><span class="s3">&quot;gyro&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l23"><span class="ln">23   </span></a>        gyro.calibrate()</span><span class="s0">;</span><span class="s1"> 
+<a name="l24"><span class="ln">24   </span></a>        mL = hardwareMap.dcMotor.get(</span><span class="s3">&quot;mL&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l25"><span class="ln">25   </span></a>        mL.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s0">;</span><span class="s1"> 
+<a name="l26"><span class="ln">26   </span></a>        mR = hardwareMap.dcMotor.get(</span><span class="s3">&quot;mR&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l27"><span class="ln">27   </span></a>        mR.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s0">;</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a>        mR.setDirection(DcMotor.Direction.REVERSE)</span><span class="s0">;</span><span class="s1"> 
+<a name="l29"><span class="ln">29   </span></a>        g1 = gamepad1</span><span class="s0">;</span><span class="s1"> 
 <a name="l30"><span class="ln">30   </span></a>    } 
 <a name="l31"><span class="ln">31   </span></a> 
 <a name="l32"><span class="ln">32   </span></a>    </span><span class="s0">public void </span><span class="s1">init_loop() { 
-<a name="l33"><span class="ln">33   </span></a>        telemetry.addData(</span><span class="s4">&quot;GYRO CALIBRATING:&quot;</span><span class="s2">, </span><span class="s1">gyro.isCalibrating())</span><span class="s2">;</span><span class="s1"> 
+<a name="l33"><span class="ln">33   </span></a>        telemetry.addData(</span><span class="s3">&quot;GYRO CALIBRATING:&quot;</span><span class="s0">, </span><span class="s1">gyro.isCalibrating())</span><span class="s0">;</span><span class="s1"> 
 <a name="l34"><span class="ln">34   </span></a>    } 
 <a name="l35"><span class="ln">35   </span></a> 
 <a name="l36"><span class="ln">36   </span></a>    @Override 
 <a name="l37"><span class="ln">37   </span></a>    </span><span class="s0">public void </span><span class="s1">loop() { 
-<a name="l38"><span class="ln">38   </span></a>        </span><span class="s0">double </span><span class="s1">leftPower = g1.left_stick_y</span><span class="s2">;</span><span class="s1"> 
-<a name="l39"><span class="ln">39   </span></a>        </span><span class="s0">double </span><span class="s1">rightPower = g1.right_stick_y</span><span class="s2">;</span><span class="s1"> 
-<a name="l40"><span class="ln">40   </span></a>        </span><span class="s0">if </span><span class="s1">(Math.abs(</span><span class="s5">45</span><span class="s1">-gyro.getHeading()) &gt; </span><span class="s5">3</span><span class="s1">) { 
-<a name="l41"><span class="ln">41   </span></a>            mL.setPower(leftPower * </span><span class="s5">0.2</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l42"><span class="ln">42   </span></a>            mR.setPower(rightPower * </span><span class="s5">0.2</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l38"><span class="ln">38   </span></a>        </span><span class="s0">double </span><span class="s1">leftPower = g1.left_stick_y</span><span class="s0">;</span><span class="s1"> 
+<a name="l39"><span class="ln">39   </span></a>        </span><span class="s0">double </span><span class="s1">rightPower = g1.right_stick_y</span><span class="s0">;</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a>        </span><span class="s0">if </span><span class="s1">(Math.abs(</span><span class="s4">45</span><span class="s1">-gyro.getHeading()) &gt; </span><span class="s4">3</span><span class="s1">) { 
+<a name="l41"><span class="ln">41   </span></a>            mL.setPower(leftPower * </span><span class="s4">0.2</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l42"><span class="ln">42   </span></a>            mR.setPower(rightPower * </span><span class="s4">0.2</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
 <a name="l43"><span class="ln">43   </span></a>        } </span><span class="s0">else </span><span class="s1">{ 
-<a name="l44"><span class="ln">44   </span></a>            mL.setPower(</span><span class="s5">0</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
-<a name="l45"><span class="ln">45   </span></a>            mR.setPower(</span><span class="s5">0</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l44"><span class="ln">44   </span></a>            mL.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l45"><span class="ln">45   </span></a>            mR.setPower(</span><span class="s4">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
 <a name="l46"><span class="ln">46   </span></a>        } 
 <a name="l47"><span class="ln">47   </span></a> 
 <a name="l48"><span class="ln">48   </span></a> 
-<a name="l49"><span class="ln">49   </span></a>        telemetry.addData(</span><span class="s4">&quot;h&quot;</span><span class="s2">, </span><span class="s1">String.format(</span><span class="s4">&quot;%03d&quot;</span><span class="s2">, </span><span class="s1">gyro.getHeading()))</span><span class="s2">;</span><span class="s1"> 
-<a name="l50"><span class="ln">50   </span></a>        telemetry.addData(</span><span class="s4">&quot;t&quot;</span><span class="s2">, </span><span class="s1">String.format(</span><span class="s4">&quot;%05d&quot;</span><span class="s2">, </span><span class="s1">getRuntime()))</span><span class="s2">;</span><span class="s1"> 
-<a name="l51"><span class="ln">51   </span></a>        telemetry.addData(</span><span class="s4">&quot;mL&quot;</span><span class="s2">, </span><span class="s1">mL.getPower())</span><span class="s2">;</span><span class="s1"> 
-<a name="l52"><span class="ln">52   </span></a>        telemetry.addData(</span><span class="s4">&quot;mR&quot;</span><span class="s2">, </span><span class="s1">mR.getPower())</span><span class="s2">;</span><span class="s1"> 
+<a name="l49"><span class="ln">49   </span></a>        telemetry.addData(</span><span class="s3">&quot;h&quot;</span><span class="s0">, </span><span class="s1">String.format(</span><span class="s3">&quot;%03d&quot;</span><span class="s0">, </span><span class="s1">gyro.getHeading()))</span><span class="s0">;</span><span class="s1"> 
+<a name="l50"><span class="ln">50   </span></a>        telemetry.addData(</span><span class="s3">&quot;t&quot;</span><span class="s0">, </span><span class="s1">String.format(</span><span class="s3">&quot;%05d&quot;</span><span class="s0">, </span><span class="s1">getRuntime()))</span><span class="s0">;</span><span class="s1"> 
+<a name="l51"><span class="ln">51   </span></a>        telemetry.addData(</span><span class="s3">&quot;mL&quot;</span><span class="s0">, </span><span class="s1">mL.getPower())</span><span class="s0">;</span><span class="s1"> 
+<a name="l52"><span class="ln">52   </span></a>        telemetry.addData(</span><span class="s3">&quot;mR&quot;</span><span class="s0">, </span><span class="s1">mR.getPower())</span><span class="s0">;</span><span class="s1"> 
 <a name="l53"><span class="ln">53   </span></a>    } 
 <a name="l54"><span class="ln">54   </span></a>} 
 <a name="l55"><span class="ln">55   </span></a></span></pre>

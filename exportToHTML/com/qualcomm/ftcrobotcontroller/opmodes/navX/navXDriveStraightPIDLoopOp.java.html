@@ -4,15 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(128,128,128); font-style: italic; }
-.s1 { }
-.s2 { color: rgb(0,0,128); font-weight: bold; }
-.s3 { color: rgb(204,120,50); }
-.s4 { color: rgb(0,0,255); }
-.s5 { color: rgb(0,128,0); font-weight: bold; }
+.s0 { color: rgb(128,128,128); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(204,120,50); }
+.s3 { color: rgb(104,151,187); }
+.s4 { color: rgb(106,135,89); }
 </style>
 </head>
-<BODY BGCOLOR="#ffffff">
+<BODY BGCOLOR="#2b2b2b">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -50,14 +49,14 @@ navXDriveStraightPIDLoopOp.java</FONT>
 <a name="l28"><span class="ln">28   </span></a>CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
 <a name="l29"><span class="ln">29   </span></a>OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 <a name="l30"><span class="ln">30   </span></a>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */</span><span class="s1"> 
-<a name="l31"><span class="ln">31   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.navX</span><span class="s3">;</span><span class="s1"> 
+<a name="l31"><span class="ln">31   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.navX</span><span class="s2">;</span><span class="s1"> 
 <a name="l32"><span class="ln">32   </span></a> 
-<a name="l33"><span class="ln">33   </span></a></span><span class="s2">import </span><span class="s1">com.kauailabs.navx.ftc.AHRS</span><span class="s3">;</span><span class="s1"> 
-<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.kauailabs.navx.ftc.navXPIDController</span><span class="s3">;</span><span class="s1"> 
-<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s3">;</span><span class="s1"> 
-<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s3">;</span><span class="s1"> 
-<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s3">;</span><span class="s1"> 
-<a name="l38"><span class="ln">38   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.util.ElapsedTime</span><span class="s3">;</span><span class="s1"> 
+<a name="l33"><span class="ln">33   </span></a></span><span class="s2">import </span><span class="s1">com.kauailabs.navx.ftc.AHRS</span><span class="s2">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.kauailabs.navx.ftc.navXPIDController</span><span class="s2">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s2">;</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s2">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s2">;</span><span class="s1"> 
+<a name="l38"><span class="ln">38   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.util.ElapsedTime</span><span class="s2">;</span><span class="s1"> 
 <a name="l39"><span class="ln">39   </span></a> 
 <a name="l40"><span class="ln">40   </span></a></span><span class="s0">/* 
 <a name="l41"><span class="ln">41   </span></a> * An example loop op mode where the robot will drive in 
@@ -75,60 +74,60 @@ navXDriveStraightPIDLoopOp.java</FONT>
 <a name="l53"><span class="ln">53   </span></a> */</span><span class="s1"> 
 <a name="l54"><span class="ln">54   </span></a> 
 <a name="l55"><span class="ln">55   </span></a></span><span class="s2">public class </span><span class="s1">navXDriveStraightPIDLoopOp </span><span class="s2">extends </span><span class="s1">OpMode { 
-<a name="l56"><span class="ln">56   </span></a>    DcMotor leftMotor</span><span class="s3">;</span><span class="s1"> 
-<a name="l57"><span class="ln">57   </span></a>    DcMotor rightMotor</span><span class="s3">;</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a>    DcMotor leftMotor</span><span class="s2">;</span><span class="s1"> 
+<a name="l57"><span class="ln">57   </span></a>    DcMotor rightMotor</span><span class="s2">;</span><span class="s1"> 
 <a name="l58"><span class="ln">58   </span></a> 
 <a name="l59"><span class="ln">59   </span></a>    </span><span class="s0">/* This is the port on the Core Device Interface Module        */</span><span class="s1"> 
 <a name="l60"><span class="ln">60   </span></a>    </span><span class="s0">/* in which the navX-Model Device is connected.  Modify this  */</span><span class="s1"> 
 <a name="l61"><span class="ln">61   </span></a>    </span><span class="s0">/* depending upon which I2C port you are using.               */</span><span class="s1"> 
-<a name="l62"><span class="ln">62   </span></a>    </span><span class="s2">private final int </span><span class="s1">NAVX_DIM_I2C_PORT = </span><span class="s4">0</span><span class="s3">;</span><span class="s1"> 
-<a name="l63"><span class="ln">63   </span></a>    </span><span class="s2">private </span><span class="s1">AHRS navx_device</span><span class="s3">;</span><span class="s1"> 
-<a name="l64"><span class="ln">64   </span></a>    </span><span class="s2">private </span><span class="s1">navXPIDController yawPIDController</span><span class="s3">;</span><span class="s1"> 
-<a name="l65"><span class="ln">65   </span></a>    </span><span class="s2">private </span><span class="s1">ElapsedTime runtime = </span><span class="s2">new </span><span class="s1">ElapsedTime()</span><span class="s3">;</span><span class="s1"> 
+<a name="l62"><span class="ln">62   </span></a>    </span><span class="s2">private final int </span><span class="s1">NAVX_DIM_I2C_PORT = </span><span class="s3">0</span><span class="s2">;</span><span class="s1"> 
+<a name="l63"><span class="ln">63   </span></a>    </span><span class="s2">private </span><span class="s1">AHRS navx_device</span><span class="s2">;</span><span class="s1"> 
+<a name="l64"><span class="ln">64   </span></a>    </span><span class="s2">private </span><span class="s1">navXPIDController yawPIDController</span><span class="s2">;</span><span class="s1"> 
+<a name="l65"><span class="ln">65   </span></a>    </span><span class="s2">private </span><span class="s1">ElapsedTime runtime = </span><span class="s2">new </span><span class="s1">ElapsedTime()</span><span class="s2">;</span><span class="s1"> 
 <a name="l66"><span class="ln">66   </span></a> 
-<a name="l67"><span class="ln">67   </span></a>    </span><span class="s2">private final byte </span><span class="s1">NAVX_DEVICE_UPDATE_RATE_HZ = </span><span class="s4">50</span><span class="s3">;</span><span class="s1"> 
+<a name="l67"><span class="ln">67   </span></a>    </span><span class="s2">private final byte </span><span class="s1">NAVX_DEVICE_UPDATE_RATE_HZ = </span><span class="s3">50</span><span class="s2">;</span><span class="s1"> 
 <a name="l68"><span class="ln">68   </span></a> 
-<a name="l69"><span class="ln">69   </span></a>    </span><span class="s2">private final double </span><span class="s1">TARGET_ANGLE_DEGREES = </span><span class="s4">90.0</span><span class="s3">;</span><span class="s1"> 
-<a name="l70"><span class="ln">70   </span></a>    </span><span class="s2">private final double </span><span class="s1">TOLERANCE_DEGREES = </span><span class="s4">2.0</span><span class="s3">;</span><span class="s1"> 
-<a name="l71"><span class="ln">71   </span></a>    </span><span class="s2">private final double </span><span class="s1">MIN_MOTOR_OUTPUT_VALUE = -</span><span class="s4">1.0</span><span class="s3">;</span><span class="s1"> 
-<a name="l72"><span class="ln">72   </span></a>    </span><span class="s2">private final double </span><span class="s1">MAX_MOTOR_OUTPUT_VALUE = </span><span class="s4">1.0</span><span class="s3">;</span><span class="s1"> 
-<a name="l73"><span class="ln">73   </span></a>    </span><span class="s2">private final double </span><span class="s1">YAW_PID_P = </span><span class="s4">0.005</span><span class="s3">;</span><span class="s1"> 
-<a name="l74"><span class="ln">74   </span></a>    </span><span class="s2">private final double </span><span class="s1">YAW_PID_I = </span><span class="s4">0.0</span><span class="s3">;</span><span class="s1"> 
-<a name="l75"><span class="ln">75   </span></a>    </span><span class="s2">private final double </span><span class="s1">YAW_PID_D = </span><span class="s4">0.0</span><span class="s3">;</span><span class="s1"> 
+<a name="l69"><span class="ln">69   </span></a>    </span><span class="s2">private final double </span><span class="s1">TARGET_ANGLE_DEGREES = </span><span class="s3">90.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l70"><span class="ln">70   </span></a>    </span><span class="s2">private final double </span><span class="s1">TOLERANCE_DEGREES = </span><span class="s3">2.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l71"><span class="ln">71   </span></a>    </span><span class="s2">private final double </span><span class="s1">MIN_MOTOR_OUTPUT_VALUE = -</span><span class="s3">1.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l72"><span class="ln">72   </span></a>    </span><span class="s2">private final double </span><span class="s1">MAX_MOTOR_OUTPUT_VALUE = </span><span class="s3">1.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l73"><span class="ln">73   </span></a>    </span><span class="s2">private final double </span><span class="s1">YAW_PID_P = </span><span class="s3">0.005</span><span class="s2">;</span><span class="s1"> 
+<a name="l74"><span class="ln">74   </span></a>    </span><span class="s2">private final double </span><span class="s1">YAW_PID_I = </span><span class="s3">0.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l75"><span class="ln">75   </span></a>    </span><span class="s2">private final double </span><span class="s1">YAW_PID_D = </span><span class="s3">0.0</span><span class="s2">;</span><span class="s1"> 
 <a name="l76"><span class="ln">76   </span></a> 
-<a name="l77"><span class="ln">77   </span></a>    </span><span class="s2">private boolean </span><span class="s1">first_iteration = </span><span class="s2">true</span><span class="s3">;</span><span class="s1"> 
-<a name="l78"><span class="ln">78   </span></a>    navXPIDController.PIDResult yawPIDResult</span><span class="s3">;</span><span class="s1"> 
+<a name="l77"><span class="ln">77   </span></a>    </span><span class="s2">private boolean </span><span class="s1">first_iteration = </span><span class="s2">true;</span><span class="s1"> 
+<a name="l78"><span class="ln">78   </span></a>    navXPIDController.PIDResult yawPIDResult</span><span class="s2">;</span><span class="s1"> 
 <a name="l79"><span class="ln">79   </span></a> 
 <a name="l80"><span class="ln">80   </span></a>    @Override 
 <a name="l81"><span class="ln">81   </span></a>    </span><span class="s2">public void </span><span class="s1">init() { 
-<a name="l82"><span class="ln">82   </span></a>        leftMotor = hardwareMap.dcMotor.get(</span><span class="s5">&quot;left_drive&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l83"><span class="ln">83   </span></a>        rightMotor = hardwareMap.dcMotor.get(</span><span class="s5">&quot;right_drive&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l82"><span class="ln">82   </span></a>        leftMotor = hardwareMap.dcMotor.get(</span><span class="s4">&quot;left_drive&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l83"><span class="ln">83   </span></a>        rightMotor = hardwareMap.dcMotor.get(</span><span class="s4">&quot;right_drive&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l84"><span class="ln">84   </span></a> 
-<a name="l85"><span class="ln">85   </span></a>        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get(</span><span class="s5">&quot;dim&quot;</span><span class="s1">)</span><span class="s3">,</span><span class="s1"> 
-<a name="l86"><span class="ln">86   </span></a>                NAVX_DIM_I2C_PORT</span><span class="s3">,</span><span class="s1"> 
-<a name="l87"><span class="ln">87   </span></a>                AHRS.DeviceDataType.kProcessedData</span><span class="s3">,</span><span class="s1"> 
-<a name="l88"><span class="ln">88   </span></a>                NAVX_DEVICE_UPDATE_RATE_HZ)</span><span class="s3">;</span><span class="s1"> 
+<a name="l85"><span class="ln">85   </span></a>        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get(</span><span class="s4">&quot;dim&quot;</span><span class="s1">)</span><span class="s2">,</span><span class="s1"> 
+<a name="l86"><span class="ln">86   </span></a>                NAVX_DIM_I2C_PORT</span><span class="s2">,</span><span class="s1"> 
+<a name="l87"><span class="ln">87   </span></a>                AHRS.DeviceDataType.kProcessedData</span><span class="s2">,</span><span class="s1"> 
+<a name="l88"><span class="ln">88   </span></a>                NAVX_DEVICE_UPDATE_RATE_HZ)</span><span class="s2">;</span><span class="s1"> 
 <a name="l89"><span class="ln">89   </span></a> 
-<a name="l90"><span class="ln">90   </span></a>        rightMotor.setDirection(DcMotor.Direction.REVERSE)</span><span class="s3">;</span><span class="s1"> 
+<a name="l90"><span class="ln">90   </span></a>        rightMotor.setDirection(DcMotor.Direction.REVERSE)</span><span class="s2">;</span><span class="s1"> 
 <a name="l91"><span class="ln">91   </span></a> 
 <a name="l92"><span class="ln">92   </span></a>        </span><span class="s0">/* If possible, use encoders when driving, as it results in more */</span><span class="s1"> 
 <a name="l93"><span class="ln">93   </span></a>        </span><span class="s0">/* predictable drive system response.                           */</span><span class="s1"> 
-<a name="l94"><span class="ln">94   </span></a>        leftMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s3">;</span><span class="s1"> 
-<a name="l95"><span class="ln">95   </span></a>        rightMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s3">;</span><span class="s1"> 
+<a name="l94"><span class="ln">94   </span></a>        leftMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s2">;</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>        rightMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS)</span><span class="s2">;</span><span class="s1"> 
 <a name="l96"><span class="ln">96   </span></a> 
 <a name="l97"><span class="ln">97   </span></a>        </span><span class="s0">/* Create a PID Controller which uses the Yaw Angle as input. */</span><span class="s1"> 
-<a name="l98"><span class="ln">98   </span></a>        yawPIDController = </span><span class="s2">new </span><span class="s1">navXPIDController( navx_device</span><span class="s3">,</span><span class="s1"> 
-<a name="l99"><span class="ln">99   </span></a>                navXPIDController.navXTimestampedDataSource.YAW)</span><span class="s3">;</span><span class="s1"> 
+<a name="l98"><span class="ln">98   </span></a>        yawPIDController = </span><span class="s2">new </span><span class="s1">navXPIDController( navx_device</span><span class="s2">,</span><span class="s1"> 
+<a name="l99"><span class="ln">99   </span></a>                navXPIDController.navXTimestampedDataSource.YAW)</span><span class="s2">;</span><span class="s1"> 
 <a name="l100"><span class="ln">100  </span></a> 
 <a name="l101"><span class="ln">101  </span></a>        </span><span class="s0">/* Configure the PID controller */</span><span class="s1"> 
-<a name="l102"><span class="ln">102  </span></a>        yawPIDController.setSetpoint(TARGET_ANGLE_DEGREES)</span><span class="s3">;</span><span class="s1"> 
-<a name="l103"><span class="ln">103  </span></a>        yawPIDController.setContinuous(</span><span class="s2">true</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l104"><span class="ln">104  </span></a>        yawPIDController.setOutputRange(MIN_MOTOR_OUTPUT_VALUE</span><span class="s3">, </span><span class="s1">MAX_MOTOR_OUTPUT_VALUE)</span><span class="s3">;</span><span class="s1"> 
-<a name="l105"><span class="ln">105  </span></a>        yawPIDController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE</span><span class="s3">, </span><span class="s1">TOLERANCE_DEGREES)</span><span class="s3">;</span><span class="s1"> 
-<a name="l106"><span class="ln">106  </span></a>        yawPIDController.setPID(YAW_PID_P</span><span class="s3">, </span><span class="s1">YAW_PID_I</span><span class="s3">, </span><span class="s1">YAW_PID_D)</span><span class="s3">;</span><span class="s1"> 
-<a name="l107"><span class="ln">107  </span></a>        yawPIDController.enable(</span><span class="s2">true</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l102"><span class="ln">102  </span></a>        yawPIDController.setSetpoint(TARGET_ANGLE_DEGREES)</span><span class="s2">;</span><span class="s1"> 
+<a name="l103"><span class="ln">103  </span></a>        yawPIDController.setContinuous(</span><span class="s2">true</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l104"><span class="ln">104  </span></a>        yawPIDController.setOutputRange(MIN_MOTOR_OUTPUT_VALUE</span><span class="s2">, </span><span class="s1">MAX_MOTOR_OUTPUT_VALUE)</span><span class="s2">;</span><span class="s1"> 
+<a name="l105"><span class="ln">105  </span></a>        yawPIDController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE</span><span class="s2">, </span><span class="s1">TOLERANCE_DEGREES)</span><span class="s2">;</span><span class="s1"> 
+<a name="l106"><span class="ln">106  </span></a>        yawPIDController.setPID(YAW_PID_P</span><span class="s2">, </span><span class="s1">YAW_PID_I</span><span class="s2">, </span><span class="s1">YAW_PID_D)</span><span class="s2">;</span><span class="s1"> 
+<a name="l107"><span class="ln">107  </span></a>        yawPIDController.enable(</span><span class="s2">true</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l108"><span class="ln">108  </span></a> 
-<a name="l109"><span class="ln">109  </span></a>        first_iteration = </span><span class="s2">true</span><span class="s3">;</span><span class="s1"> 
+<a name="l109"><span class="ln">109  </span></a>        first_iteration = </span><span class="s2">true;</span><span class="s1"> 
 <a name="l110"><span class="ln">110  </span></a>    } 
 <a name="l111"><span class="ln">111  </span></a> 
 <a name="l112"><span class="ln">112  </span></a>    @Override 
@@ -136,9 +135,9 @@ navXDriveStraightPIDLoopOp.java</FONT>
 <a name="l114"><span class="ln">114  </span></a>        </span><span class="s0">/* reset the navX-Model device yaw angle so that whatever direction */</span><span class="s1"> 
 <a name="l115"><span class="ln">115  </span></a>        </span><span class="s0">/* it is currently pointing will be zero degrees.                   */</span><span class="s1"> 
 <a name="l116"><span class="ln">116  </span></a>        </span><span class="s2">if </span><span class="s1">( first_iteration ) { 
-<a name="l117"><span class="ln">117  </span></a>            first_iteration = </span><span class="s2">false</span><span class="s3">;</span><span class="s1"> 
-<a name="l118"><span class="ln">118  </span></a>            navx_device.zeroYaw()</span><span class="s3">;</span><span class="s1"> 
-<a name="l119"><span class="ln">119  </span></a>            yawPIDResult = </span><span class="s2">new </span><span class="s1">navXPIDController.PIDResult()</span><span class="s3">;</span><span class="s1"> 
+<a name="l117"><span class="ln">117  </span></a>            first_iteration = </span><span class="s2">false;</span><span class="s1"> 
+<a name="l118"><span class="ln">118  </span></a>            navx_device.zeroYaw()</span><span class="s2">;</span><span class="s1"> 
+<a name="l119"><span class="ln">119  </span></a>            yawPIDResult = </span><span class="s2">new </span><span class="s1">navXPIDController.PIDResult()</span><span class="s2">;</span><span class="s1"> 
 <a name="l120"><span class="ln">120  </span></a>        } 
 <a name="l121"><span class="ln">121  </span></a> 
 <a name="l122"><span class="ln">122  </span></a>        </span><span class="s0">/* Wait for new Yaw PID output values, then update the motors 
@@ -146,22 +145,22 @@ navXDriveStraightPIDLoopOp.java</FONT>
 <a name="l124"><span class="ln">124  </span></a>         */</span><span class="s1"> 
 <a name="l125"><span class="ln">125  </span></a> 
 <a name="l126"><span class="ln">126  </span></a>        </span><span class="s0">/* Drive straight forward at 1/2 of full drive speed */</span><span class="s1"> 
-<a name="l127"><span class="ln">127  </span></a>        </span><span class="s2">double </span><span class="s1">drive_speed = </span><span class="s4">0.5</span><span class="s3">;</span><span class="s1"> 
+<a name="l127"><span class="ln">127  </span></a>        </span><span class="s2">double </span><span class="s1">drive_speed = </span><span class="s3">0.5</span><span class="s2">;</span><span class="s1"> 
 <a name="l128"><span class="ln">128  </span></a> 
 <a name="l129"><span class="ln">129  </span></a>        </span><span class="s2">if </span><span class="s1">( yawPIDController.isNewUpdateAvailable(yawPIDResult) ) { 
 <a name="l130"><span class="ln">130  </span></a>            </span><span class="s2">if </span><span class="s1">( yawPIDResult.isOnTarget() ) { 
-<a name="l131"><span class="ln">131  </span></a>                leftMotor.setPower(drive_speed)</span><span class="s3">;</span><span class="s1"> 
-<a name="l132"><span class="ln">132  </span></a>                rightMotor.setPower(drive_speed)</span><span class="s3">;</span><span class="s1"> 
+<a name="l131"><span class="ln">131  </span></a>                leftMotor.setPower(drive_speed)</span><span class="s2">;</span><span class="s1"> 
+<a name="l132"><span class="ln">132  </span></a>                rightMotor.setPower(drive_speed)</span><span class="s2">;</span><span class="s1"> 
 <a name="l133"><span class="ln">133  </span></a>            } </span><span class="s2">else </span><span class="s1">{ 
-<a name="l134"><span class="ln">134  </span></a>                </span><span class="s2">double </span><span class="s1">output = yawPIDResult.getOutput()</span><span class="s3">;</span><span class="s1"> 
-<a name="l135"><span class="ln">135  </span></a>                </span><span class="s2">if </span><span class="s1">( output &lt; </span><span class="s4">0 </span><span class="s1">) { 
+<a name="l134"><span class="ln">134  </span></a>                </span><span class="s2">double </span><span class="s1">output = yawPIDResult.getOutput()</span><span class="s2">;</span><span class="s1"> 
+<a name="l135"><span class="ln">135  </span></a>                </span><span class="s2">if </span><span class="s1">( output &lt; </span><span class="s3">0 </span><span class="s1">) { 
 <a name="l136"><span class="ln">136  </span></a>                    </span><span class="s0">/* Rotate Left */</span><span class="s1"> 
-<a name="l137"><span class="ln">137  </span></a>                    leftMotor.setPower(drive_speed - output)</span><span class="s3">;</span><span class="s1"> 
-<a name="l138"><span class="ln">138  </span></a>                    rightMotor.setPower(drive_speed + output)</span><span class="s3">;</span><span class="s1"> 
+<a name="l137"><span class="ln">137  </span></a>                    leftMotor.setPower(drive_speed - output)</span><span class="s2">;</span><span class="s1"> 
+<a name="l138"><span class="ln">138  </span></a>                    rightMotor.setPower(drive_speed + output)</span><span class="s2">;</span><span class="s1"> 
 <a name="l139"><span class="ln">139  </span></a>                } </span><span class="s2">else </span><span class="s1">{ 
 <a name="l140"><span class="ln">140  </span></a>                    </span><span class="s0">/* Rotate Right */</span><span class="s1"> 
-<a name="l141"><span class="ln">141  </span></a>                    leftMotor.setPower(drive_speed + output)</span><span class="s3">;</span><span class="s1"> 
-<a name="l142"><span class="ln">142  </span></a>                    rightMotor.setPower(drive_speed - output)</span><span class="s3">;</span><span class="s1"> 
+<a name="l141"><span class="ln">141  </span></a>                    leftMotor.setPower(drive_speed + output)</span><span class="s2">;</span><span class="s1"> 
+<a name="l142"><span class="ln">142  </span></a>                    rightMotor.setPower(drive_speed - output)</span><span class="s2">;</span><span class="s1"> 
 <a name="l143"><span class="ln">143  </span></a>                } 
 <a name="l144"><span class="ln">144  </span></a>            } 
 <a name="l145"><span class="ln">145  </span></a>        } </span><span class="s2">else </span><span class="s1">{ 

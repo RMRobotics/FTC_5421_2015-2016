@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(128,128,128); font-style: italic; }
-.s1 { }
-.s2 { color: rgb(0,0,128); font-weight: bold; }
-.s3 { color: rgb(204,120,50); }
-.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
-.s5 { color: rgb(0,128,0); font-weight: bold; }
+.s0 { color: rgb(128,128,128); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(204,120,50); }
+.s3 { color: rgb(98,151,85); font-style: italic; }
+.s4 { color: rgb(98,151,85); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(106,135,89); }
 </style>
 </head>
-<BODY BGCOLOR="#ffffff">
+<BODY BGCOLOR="#2b2b2b">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -45,29 +45,29 @@ FtcOpModeRegister.java</FONT>
 <a name="l23"><span class="ln">23   </span></a>OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 <a name="l24"><span class="ln">24   </span></a>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */</span><span class="s1"> 
 <a name="l25"><span class="ln">25   </span></a> 
-<a name="l26"><span class="ln">26   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes</span><span class="s3">;</span><span class="s1"> 
+<a name="l26"><span class="ln">26   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes</span><span class="s2">;</span><span class="s1"> 
 <a name="l27"><span class="ln">27   </span></a> 
 <a name="l28"><span class="ln">28   </span></a> 
-<a name="l29"><span class="ln">29   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.BeaconParkAuto5421</span><span class="s3">;</span><span class="s1"> 
-<a name="l30"><span class="ln">30   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.MountainAuto5421</span><span class="s3">;</span><span class="s1"> 
-<a name="l31"><span class="ln">31   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp5421</span><span class="s3">;</span><span class="s1"> 
-<a name="l32"><span class="ln">32   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ColorSensorTest5421</span><span class="s3">;</span><span class="s1"> 
-<a name="l33"><span class="ln">33   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.DemoBot</span><span class="s3">;</span><span class="s1"> 
-<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.GyroSelfCorrect5421</span><span class="s3">;</span><span class="s1"> 
-<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.GyroTest5421</span><span class="s3">;</span><span class="s1"> 
-<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpModeManager</span><span class="s3">;</span><span class="s1"> 
-<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpModeRegister</span><span class="s3">;</span><span class="s1"> 
+<a name="l29"><span class="ln">29   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.BeaconParkAuto5421</span><span class="s2">;</span><span class="s1"> 
+<a name="l30"><span class="ln">30   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.auto.MountainAuto5421</span><span class="s2">;</span><span class="s1"> 
+<a name="l31"><span class="ln">31   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.teleop.TeleOp5421</span><span class="s2">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.ColorSensorTest5421</span><span class="s2">;</span><span class="s1"> 
+<a name="l33"><span class="ln">33   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.DemoBot</span><span class="s2">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.GyroSelfCorrect5421</span><span class="s2">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.custom.util.GyroTest5421</span><span class="s2">;</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpModeManager</span><span class="s2">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpModeRegister</span><span class="s2">;</span><span class="s1"> 
 <a name="l38"><span class="ln">38   </span></a> 
-<a name="l39"><span class="ln">39   </span></a></span><span class="s0">/** 
+<a name="l39"><span class="ln">39   </span></a></span><span class="s3">/** 
 <a name="l40"><span class="ln">40   </span></a> * Register Op Modes 
 <a name="l41"><span class="ln">41   </span></a> */</span><span class="s1"> 
 <a name="l42"><span class="ln">42   </span></a></span><span class="s2">public class </span><span class="s1">FtcOpModeRegister </span><span class="s2">implements </span><span class="s1">OpModeRegister { 
 <a name="l43"><span class="ln">43   </span></a> 
-<a name="l44"><span class="ln">44   </span></a>    </span><span class="s0">/** 
+<a name="l44"><span class="ln">44   </span></a>    </span><span class="s3">/** 
 <a name="l45"><span class="ln">45   </span></a>     * The Op Mode Manager will call this method when it wants a list of all 
 <a name="l46"><span class="ln">46   </span></a>     * available op modes. Add your op mode to the list to enable it. 
 <a name="l47"><span class="ln">47   </span></a>     * 
-<a name="l48"><span class="ln">48   </span></a>     * </span><span class="s4">@param </span><span class="s0">manager op mode manager 
+<a name="l48"><span class="ln">48   </span></a>     * </span><span class="s4">@param </span><span class="s3">manager op mode manager 
 <a name="l49"><span class="ln">49   </span></a>     */</span><span class="s1"> 
 <a name="l50"><span class="ln">50   </span></a>    </span><span class="s2">public void </span><span class="s1">register(OpModeManager manager) { 
 <a name="l51"><span class="ln">51   </span></a> 
@@ -93,16 +93,16 @@ FtcOpModeRegister.java</FONT>
 <a name="l71"><span class="ln">71   </span></a>        </span><span class="s0">// manager.register(&quot;Auto8121&quot;, Auto8121.class);</span><span class="s1"> 
 <a name="l72"><span class="ln">72   </span></a>        </span><span class="s0">// manager.register(&quot;StateAuto8121&quot;, StateAuto8121.class);</span><span class="s1"> 
 <a name="l73"><span class="ln">73   </span></a> 
-<a name="l74"><span class="ln">74   </span></a>        manager.register(</span><span class="s5">&quot;TeleOp5421&quot;</span><span class="s3">, </span><span class="s1">TeleOp5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l74"><span class="ln">74   </span></a>        manager.register(</span><span class="s5">&quot;TeleOp5421&quot;</span><span class="s2">, </span><span class="s1">TeleOp5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l75"><span class="ln">75   </span></a> 
-<a name="l76"><span class="ln">76   </span></a>        manager.register(</span><span class="s5">&quot;MountainAuto5421&quot;</span><span class="s3">, </span><span class="s1">MountainAuto5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l77"><span class="ln">77   </span></a>        manager.register(</span><span class="s5">&quot;BeaconParkAuto5421&quot;</span><span class="s3">, </span><span class="s1">BeaconParkAuto5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l76"><span class="ln">76   </span></a>        manager.register(</span><span class="s5">&quot;MountainAuto5421&quot;</span><span class="s2">, </span><span class="s1">MountainAuto5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l77"><span class="ln">77   </span></a>        manager.register(</span><span class="s5">&quot;BeaconParkAuto5421&quot;</span><span class="s2">, </span><span class="s1">BeaconParkAuto5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l78"><span class="ln">78   </span></a> 
-<a name="l79"><span class="ln">79   </span></a>        manager.register(</span><span class="s5">&quot;GyroTest5421&quot;</span><span class="s3">, </span><span class="s1">GyroTest5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l80"><span class="ln">80   </span></a>        manager.register(</span><span class="s5">&quot;GryoSelfCorrection&quot;</span><span class="s3">, </span><span class="s1">GyroSelfCorrect5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l81"><span class="ln">81   </span></a>        manager.register(</span><span class="s5">&quot;ColorSensorTest5421&quot;</span><span class="s3">, </span><span class="s1">ColorSensorTest5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l79"><span class="ln">79   </span></a>        manager.register(</span><span class="s5">&quot;GyroTest5421&quot;</span><span class="s2">, </span><span class="s1">GyroTest5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l80"><span class="ln">80   </span></a>        manager.register(</span><span class="s5">&quot;GryoSelfCorrection&quot;</span><span class="s2">, </span><span class="s1">GyroSelfCorrect5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l81"><span class="ln">81   </span></a>        manager.register(</span><span class="s5">&quot;ColorSensorTest5421&quot;</span><span class="s2">, </span><span class="s1">ColorSensorTest5421.</span><span class="s2">class</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l82"><span class="ln">82   </span></a>        </span><span class="s0">//manager.register(&quot;Testify5421&quot;, TestifyOp5421.class);</span><span class="s1"> 
-<a name="l83"><span class="ln">83   </span></a>        manager.register(</span><span class="s5">&quot;DemoBot5421&quot;</span><span class="s3">, </span><span class="s1">DemoBot.</span><span class="s2">class</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l83"><span class="ln">83   </span></a>        manager.register(</span><span class="s5">&quot;DemoBot5421&quot;</span><span class="s2">, </span><span class="s1">DemoBot.</span><span class="s2">class</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l84"><span class="ln">84   </span></a> 
 <a name="l85"><span class="ln">85   </span></a>        </span><span class="s0">//manager.register(&quot;Gyro&quot;, MRGyroTest.class);</span><span class="s1"> 
 <a name="l86"><span class="ln">86   </span></a> 

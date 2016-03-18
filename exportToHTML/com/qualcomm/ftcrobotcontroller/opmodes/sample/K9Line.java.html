@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
 .ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
-.s0 { color: rgb(128,128,128); font-style: italic; }
-.s1 { }
-.s2 { color: rgb(0,0,128); font-weight: bold; }
-.s3 { color: rgb(204,120,50); }
-.s4 { color: rgb(128,128,128); font-style: italic; }
-.s5 { color: rgb(0,0,255); }
-.s6 { color: rgb(0,128,0); font-weight: bold; }
+.s0 { color: rgb(128,128,128); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(204,120,50); }
+.s3 { color: rgb(98,151,85); font-style: italic; }
+.s4 { color: rgb(119,183,103); font-style: italic; }
+.s5 { color: rgb(104,151,187); }
+.s6 { color: rgb(106,135,89); }
 </style>
 </head>
-<BODY BGCOLOR="#ffffff">
+<BODY BGCOLOR="#2b2b2b">
 <TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
 <TR><TD><CENTER>
 <FONT FACE="Arial, Helvetica" COLOR="#000000">
@@ -52,34 +52,34 @@ K9Line.java</FONT>
 <a name="l29"><span class="ln">29   </span></a>OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 <a name="l30"><span class="ln">30   </span></a>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */</span><span class="s1"> 
 <a name="l31"><span class="ln">31   </span></a> 
-<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s3">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s2">package </span><span class="s1">com.qualcomm.ftcrobotcontroller.opmodes.sample</span><span class="s2">;</span><span class="s1"> 
 <a name="l33"><span class="ln">33   </span></a> 
-<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s3">;</span><span class="s1"> 
-<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s3">;</span><span class="s1"> 
-<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.LightSensor</span><span class="s3">;</span><span class="s1"> 
-<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.Servo</span><span class="s3">;</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.OpMode</span><span class="s2">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s2">;</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.LightSensor</span><span class="s2">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a></span><span class="s2">import </span><span class="s1">com.qualcomm.robotcore.hardware.Servo</span><span class="s2">;</span><span class="s1"> 
 <a name="l38"><span class="ln">38   </span></a> 
-<a name="l39"><span class="ln">39   </span></a></span><span class="s0">/** 
+<a name="l39"><span class="ln">39   </span></a></span><span class="s3">/** 
 <a name="l40"><span class="ln">40   </span></a> * TeleOp5421 Mode 
-<a name="l41"><span class="ln">41   </span></a> * </span><span class="s4">&lt;p&gt;</span><span class="s0"> 
+<a name="l41"><span class="ln">41   </span></a> * </span><span class="s4">&lt;p&gt;</span><span class="s3"> 
 <a name="l42"><span class="ln">42   </span></a> * Enables control of the robot via the gamepad 
 <a name="l43"><span class="ln">43   </span></a> */</span><span class="s1"> 
 <a name="l44"><span class="ln">44   </span></a></span><span class="s2">public class </span><span class="s1">K9Line </span><span class="s2">extends </span><span class="s1">OpMode { 
 <a name="l45"><span class="ln">45   </span></a> 
-<a name="l46"><span class="ln">46   </span></a>    </span><span class="s2">final static double </span><span class="s1">MOTOR_POWER = </span><span class="s5">0.15</span><span class="s3">; </span><span class="s0">// Higher values will cause the robot to move faster</span><span class="s1"> 
-<a name="l47"><span class="ln">47   </span></a>    </span><span class="s2">final static double </span><span class="s1">HOLD_IR_SIGNAL_STRENGTH = </span><span class="s5">0.20</span><span class="s3">; </span><span class="s0">// Higher values will cause the robot to follow closer</span><span class="s1"> 
-<a name="l48"><span class="ln">48   </span></a>    </span><span class="s2">final static double </span><span class="s1">LIGHT_THRESHOLD = </span><span class="s5">0.5</span><span class="s3">;</span><span class="s1"> 
+<a name="l46"><span class="ln">46   </span></a>    </span><span class="s2">final static double </span><span class="s1">MOTOR_POWER = </span><span class="s5">0.15</span><span class="s2">; </span><span class="s0">// Higher values will cause the robot to move faster</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a>    </span><span class="s2">final static double </span><span class="s1">HOLD_IR_SIGNAL_STRENGTH = </span><span class="s5">0.20</span><span class="s2">; </span><span class="s0">// Higher values will cause the robot to follow closer</span><span class="s1"> 
+<a name="l48"><span class="ln">48   </span></a>    </span><span class="s2">final static double </span><span class="s1">LIGHT_THRESHOLD = </span><span class="s5">0.5</span><span class="s2">;</span><span class="s1"> 
 <a name="l49"><span class="ln">49   </span></a> 
-<a name="l50"><span class="ln">50   </span></a>    </span><span class="s2">double </span><span class="s1">armPosition</span><span class="s3">;</span><span class="s1"> 
-<a name="l51"><span class="ln">51   </span></a>    </span><span class="s2">double </span><span class="s1">clawPosition</span><span class="s3">;</span><span class="s1"> 
+<a name="l50"><span class="ln">50   </span></a>    </span><span class="s2">double </span><span class="s1">armPosition</span><span class="s2">;</span><span class="s1"> 
+<a name="l51"><span class="ln">51   </span></a>    </span><span class="s2">double </span><span class="s1">clawPosition</span><span class="s2">;</span><span class="s1"> 
 <a name="l52"><span class="ln">52   </span></a> 
-<a name="l53"><span class="ln">53   </span></a>    DcMotor motorRight</span><span class="s3">;</span><span class="s1"> 
-<a name="l54"><span class="ln">54   </span></a>    DcMotor motorLeft</span><span class="s3">;</span><span class="s1"> 
-<a name="l55"><span class="ln">55   </span></a>    Servo claw</span><span class="s3">;</span><span class="s1"> 
-<a name="l56"><span class="ln">56   </span></a>    Servo arm</span><span class="s3">;</span><span class="s1"> 
-<a name="l57"><span class="ln">57   </span></a>    LightSensor reflectedLight</span><span class="s3">;</span><span class="s1"> 
+<a name="l53"><span class="ln">53   </span></a>    DcMotor motorRight</span><span class="s2">;</span><span class="s1"> 
+<a name="l54"><span class="ln">54   </span></a>    DcMotor motorLeft</span><span class="s2">;</span><span class="s1"> 
+<a name="l55"><span class="ln">55   </span></a>    Servo claw</span><span class="s2">;</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a>    Servo arm</span><span class="s2">;</span><span class="s1"> 
+<a name="l57"><span class="ln">57   </span></a>    LightSensor reflectedLight</span><span class="s2">;</span><span class="s1"> 
 <a name="l58"><span class="ln">58   </span></a> 
-<a name="l59"><span class="ln">59   </span></a>    </span><span class="s0">/** 
+<a name="l59"><span class="ln">59   </span></a>    </span><span class="s3">/** 
 <a name="l60"><span class="ln">60   </span></a>     * Constructor 
 <a name="l61"><span class="ln">61   </span></a>     */</span><span class="s1"> 
 <a name="l62"><span class="ln">62   </span></a>    </span><span class="s2">public </span><span class="s1">K9Line() { 
@@ -110,25 +110,25 @@ K9Line.java</FONT>
 <a name="l87"><span class="ln">87   </span></a>         *    &quot;servo_1&quot; controls the arm joint of the manipulator. 
 <a name="l88"><span class="ln">88   </span></a>         *    &quot;servo_6&quot; controls the claw joint of the manipulator. 
 <a name="l89"><span class="ln">89   </span></a>         */</span><span class="s1"> 
-<a name="l90"><span class="ln">90   </span></a>        motorRight = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_2&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l91"><span class="ln">91   </span></a>        motorLeft = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_1&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l92"><span class="ln">92   </span></a>        motorLeft.setDirection(DcMotor.Direction.REVERSE)</span><span class="s3">;</span><span class="s1"> 
+<a name="l90"><span class="ln">90   </span></a>        motorRight = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_2&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l91"><span class="ln">91   </span></a>        motorLeft = hardwareMap.dcMotor.get(</span><span class="s6">&quot;motor_1&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l92"><span class="ln">92   </span></a>        motorLeft.setDirection(DcMotor.Direction.REVERSE)</span><span class="s2">;</span><span class="s1"> 
 <a name="l93"><span class="ln">93   </span></a> 
-<a name="l94"><span class="ln">94   </span></a>        arm = hardwareMap.servo.get(</span><span class="s6">&quot;servo_1&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l95"><span class="ln">95   </span></a>        claw = hardwareMap.servo.get(</span><span class="s6">&quot;servo_6&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l94"><span class="ln">94   </span></a>        arm = hardwareMap.servo.get(</span><span class="s6">&quot;servo_1&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>        claw = hardwareMap.servo.get(</span><span class="s6">&quot;servo_6&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l96"><span class="ln">96   </span></a> 
 <a name="l97"><span class="ln">97   </span></a>        </span><span class="s0">// set the starting position of the wrist and claw</span><span class="s1"> 
-<a name="l98"><span class="ln">98   </span></a>        armPosition = </span><span class="s5">0.2</span><span class="s3">;</span><span class="s1"> 
-<a name="l99"><span class="ln">99   </span></a>        clawPosition = </span><span class="s5">0.25</span><span class="s3">;</span><span class="s1"> 
+<a name="l98"><span class="ln">98   </span></a>        armPosition = </span><span class="s5">0.2</span><span class="s2">;</span><span class="s1"> 
+<a name="l99"><span class="ln">99   </span></a>        clawPosition = </span><span class="s5">0.25</span><span class="s2">;</span><span class="s1"> 
 <a name="l100"><span class="ln">100  </span></a> 
 <a name="l101"><span class="ln">101  </span></a>        </span><span class="s0">/* 
 <a name="l102"><span class="ln">102  </span></a>         * We also assume that we have a LEGO light sensor 
 <a name="l103"><span class="ln">103  </span></a>         * with a name of &quot;light_sensor&quot; configured for our robot. 
 <a name="l104"><span class="ln">104  </span></a>         */</span><span class="s1"> 
-<a name="l105"><span class="ln">105  </span></a>        reflectedLight = hardwareMap.lightSensor.get(</span><span class="s6">&quot;light_sensor&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l105"><span class="ln">105  </span></a>        reflectedLight = hardwareMap.lightSensor.get(</span><span class="s6">&quot;light_sensor&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l106"><span class="ln">106  </span></a> 
 <a name="l107"><span class="ln">107  </span></a>        </span><span class="s0">// turn on LED of light sensor.</span><span class="s1"> 
-<a name="l108"><span class="ln">108  </span></a>        reflectedLight.enableLed(</span><span class="s2">true</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
+<a name="l108"><span class="ln">108  </span></a>        reflectedLight.enableLed(</span><span class="s2">true</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
 <a name="l109"><span class="ln">109  </span></a>    } 
 <a name="l110"><span class="ln">110  </span></a> 
 <a name="l111"><span class="ln">111  </span></a>    </span><span class="s0">/* 
@@ -138,12 +138,12 @@ K9Line.java</FONT>
 <a name="l115"><span class="ln">115  </span></a>     */</span><span class="s1"> 
 <a name="l116"><span class="ln">116  </span></a>    @Override 
 <a name="l117"><span class="ln">117  </span></a>    </span><span class="s2">public void </span><span class="s1">loop() { 
-<a name="l118"><span class="ln">118  </span></a>        </span><span class="s2">double </span><span class="s1">reflection = </span><span class="s5">0.0</span><span class="s3">;</span><span class="s1"> 
-<a name="l119"><span class="ln">119  </span></a>        </span><span class="s2">double </span><span class="s1">left</span><span class="s3">, </span><span class="s1">right = </span><span class="s5">0.0</span><span class="s3">;</span><span class="s1"> 
+<a name="l118"><span class="ln">118  </span></a>        </span><span class="s2">double </span><span class="s1">reflection = </span><span class="s5">0.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l119"><span class="ln">119  </span></a>        </span><span class="s2">double </span><span class="s1">left</span><span class="s2">, </span><span class="s1">right = </span><span class="s5">0.0</span><span class="s2">;</span><span class="s1"> 
 <a name="l120"><span class="ln">120  </span></a> 
 <a name="l121"><span class="ln">121  </span></a>        </span><span class="s0">// keep manipulator out of the way.</span><span class="s1"> 
-<a name="l122"><span class="ln">122  </span></a>        arm.setPosition(armPosition)</span><span class="s3">;</span><span class="s1"> 
-<a name="l123"><span class="ln">123  </span></a>        claw.setPosition(clawPosition)</span><span class="s3">;</span><span class="s1"> 
+<a name="l122"><span class="ln">122  </span></a>        arm.setPosition(armPosition)</span><span class="s2">;</span><span class="s1"> 
+<a name="l123"><span class="ln">123  </span></a>        claw.setPosition(clawPosition)</span><span class="s2">;</span><span class="s1"> 
 <a name="l124"><span class="ln">124  </span></a> 
 <a name="l125"><span class="ln">125  </span></a>        </span><span class="s0">/* 
 <a name="l126"><span class="ln">126  </span></a>         * As a temporary fix, turn on LED in run() event rather than in start(). 
@@ -154,7 +154,7 @@ K9Line.java</FONT>
 <a name="l131"><span class="ln">131  </span></a>        </span><span class="s0">/* 
 <a name="l132"><span class="ln">132  </span></a>         * read the light sensor. 
 <a name="l133"><span class="ln">133  </span></a>         */</span><span class="s1"> 
-<a name="l134"><span class="ln">134  </span></a>        reflection = reflectedLight.getLightDetected()</span><span class="s3">;</span><span class="s1"> 
+<a name="l134"><span class="ln">134  </span></a>        reflection = reflectedLight.getLightDetected()</span><span class="s2">;</span><span class="s1"> 
 <a name="l135"><span class="ln">135  </span></a> 
 <a name="l136"><span class="ln">136  </span></a>        </span><span class="s0">/* 
 <a name="l137"><span class="ln">137  </span></a>         * compare measured value to threshold. 
@@ -164,22 +164,22 @@ K9Line.java</FONT>
 <a name="l141"><span class="ln">141  </span></a>             * if reflection is less than the threshold value, then assume we are above dark spot. 
 <a name="l142"><span class="ln">142  </span></a>             * turn to the right. 
 <a name="l143"><span class="ln">143  </span></a>             */</span><span class="s1"> 
-<a name="l144"><span class="ln">144  </span></a>            left = MOTOR_POWER</span><span class="s3">;</span><span class="s1"> 
-<a name="l145"><span class="ln">145  </span></a>            right = </span><span class="s5">0.0</span><span class="s3">;</span><span class="s1"> 
+<a name="l144"><span class="ln">144  </span></a>            left = MOTOR_POWER</span><span class="s2">;</span><span class="s1"> 
+<a name="l145"><span class="ln">145  </span></a>            right = </span><span class="s5">0.0</span><span class="s2">;</span><span class="s1"> 
 <a name="l146"><span class="ln">146  </span></a>        } </span><span class="s2">else </span><span class="s1">{ 
 <a name="l147"><span class="ln">147  </span></a>            </span><span class="s0">/* 
 <a name="l148"><span class="ln">148  </span></a>             * assume we are over a light spot. 
 <a name="l149"><span class="ln">149  </span></a>             * turn to the left. 
 <a name="l150"><span class="ln">150  </span></a>             */</span><span class="s1"> 
-<a name="l151"><span class="ln">151  </span></a>            left = </span><span class="s5">0.0</span><span class="s3">;</span><span class="s1"> 
-<a name="l152"><span class="ln">152  </span></a>            right = MOTOR_POWER</span><span class="s3">;</span><span class="s1"> 
+<a name="l151"><span class="ln">151  </span></a>            left = </span><span class="s5">0.0</span><span class="s2">;</span><span class="s1"> 
+<a name="l152"><span class="ln">152  </span></a>            right = MOTOR_POWER</span><span class="s2">;</span><span class="s1"> 
 <a name="l153"><span class="ln">153  </span></a>        } 
 <a name="l154"><span class="ln">154  </span></a> 
 <a name="l155"><span class="ln">155  </span></a>        </span><span class="s0">/* 
 <a name="l156"><span class="ln">156  </span></a>         * set the motor power 
 <a name="l157"><span class="ln">157  </span></a>         */</span><span class="s1"> 
-<a name="l158"><span class="ln">158  </span></a>        motorRight.setPower(left)</span><span class="s3">;</span><span class="s1"> 
-<a name="l159"><span class="ln">159  </span></a>        motorLeft.setPower(right)</span><span class="s3">;</span><span class="s1"> 
+<a name="l158"><span class="ln">158  </span></a>        motorRight.setPower(left)</span><span class="s2">;</span><span class="s1"> 
+<a name="l159"><span class="ln">159  </span></a>        motorLeft.setPower(right)</span><span class="s2">;</span><span class="s1"> 
 <a name="l160"><span class="ln">160  </span></a> 
 <a name="l161"><span class="ln">161  </span></a>        </span><span class="s0">/* 
 <a name="l162"><span class="ln">162  </span></a>         * Send telemetry data back to driver station. Note that if we are using 
@@ -188,10 +188,10 @@ K9Line.java</FONT>
 <a name="l165"><span class="ln">165  </span></a>         * are currently write only. 
 <a name="l166"><span class="ln">166  </span></a>         */</span><span class="s1"> 
 <a name="l167"><span class="ln">167  </span></a> 
-<a name="l168"><span class="ln">168  </span></a>        telemetry.addData(</span><span class="s6">&quot;Text&quot;</span><span class="s3">, </span><span class="s6">&quot;*** Robot Data***&quot;</span><span class="s1">)</span><span class="s3">;</span><span class="s1"> 
-<a name="l169"><span class="ln">169  </span></a>        telemetry.addData(</span><span class="s6">&quot;reflection&quot;</span><span class="s3">, </span><span class="s6">&quot;reflection:  &quot; </span><span class="s1">+ Double.toString(reflection))</span><span class="s3">;</span><span class="s1"> 
-<a name="l170"><span class="ln">170  </span></a>        telemetry.addData(</span><span class="s6">&quot;left tgt pwr&quot;</span><span class="s3">,  </span><span class="s6">&quot;left  pwr: &quot; </span><span class="s1">+ Double.toString(left))</span><span class="s3">;</span><span class="s1"> 
-<a name="l171"><span class="ln">171  </span></a>        telemetry.addData(</span><span class="s6">&quot;right tgt pwr&quot;</span><span class="s3">, </span><span class="s6">&quot;right pwr: &quot; </span><span class="s1">+ Double.toString(right))</span><span class="s3">;</span><span class="s1"> 
+<a name="l168"><span class="ln">168  </span></a>        telemetry.addData(</span><span class="s6">&quot;Text&quot;</span><span class="s2">, </span><span class="s6">&quot;*** Robot Data***&quot;</span><span class="s1">)</span><span class="s2">;</span><span class="s1"> 
+<a name="l169"><span class="ln">169  </span></a>        telemetry.addData(</span><span class="s6">&quot;reflection&quot;</span><span class="s2">, </span><span class="s6">&quot;reflection:  &quot; </span><span class="s1">+ Double.toString(reflection))</span><span class="s2">;</span><span class="s1"> 
+<a name="l170"><span class="ln">170  </span></a>        telemetry.addData(</span><span class="s6">&quot;left tgt pwr&quot;</span><span class="s2">,  </span><span class="s6">&quot;left  pwr: &quot; </span><span class="s1">+ Double.toString(left))</span><span class="s2">;</span><span class="s1"> 
+<a name="l171"><span class="ln">171  </span></a>        telemetry.addData(</span><span class="s6">&quot;right tgt pwr&quot;</span><span class="s2">, </span><span class="s6">&quot;right pwr: &quot; </span><span class="s1">+ Double.toString(right))</span><span class="s2">;</span><span class="s1"> 
 <a name="l172"><span class="ln">172  </span></a>    } 
 <a name="l173"><span class="ln">173  </span></a> 
 <a name="l174"><span class="ln">174  </span></a>    </span><span class="s0">/* 
