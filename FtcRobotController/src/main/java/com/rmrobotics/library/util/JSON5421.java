@@ -86,20 +86,20 @@ public class JSON5421 {
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":0.5\n" +
             "    }\n" +
-/*            "    {\n" +
-            "      \"name\":\"aL\",\n" +
+            "    {\n" +
+            "      \"name\":\"hL\",\n" +
             "      \"minPosition\":0.0,\n" +
             "      \"maxPosition\":0.5,\n" +
             "      \"direction\":\"FORWARD\",\n" +
             "      \"init\":0.0\n" +
             "    },\n" +
             "    {\n" +
-            "      \"name\":\"aR\",\n" +
+            "      \"name\":\"hR\",\n" +
             "      \"minPosition\":0.04,\n" +
             "      \"maxPosition\":1.0,\n" +
             "      \"direction\":\"REVERSE\",\n" +
             "      \"init\":1.0\n" +
-            "    },\n" +*/
+            "    },\n" +
             "  ]\n" +
             "}";
 
